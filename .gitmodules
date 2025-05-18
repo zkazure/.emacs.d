@@ -1,0 +1,18 @@
+[submodule "site-lisp/dash"]
+	path = site-lisp/dash
+	url = https://github.com/magnars/dash.el
+[submodule "site-lisp/ivy"]
+	path = site-lisp/ivy
+	url = https://github.com/abo-abo/swiper
+[submodule "site-lisp/which-key"]
+	path = site-lisp/which-key
+	url = https://github.com/justbur/emacs-which-key
+[submodule "site-lisp/rainbow-delimiters"]
+	path = site-lisp/rainbow-delimiters
+	url = https://github.com/Fanael/rainbow-delimiters
+[submodule "site-lisp/yasnippet"]
+	path = site-lisp/yasnippet
+	url = https://github.com/joaotavora/yasnippet
+[submodule "site-lisp/rime"]
+	path = site-lisp/rime
+	url = https://github.com/DogLooksGood/emacs-rime
