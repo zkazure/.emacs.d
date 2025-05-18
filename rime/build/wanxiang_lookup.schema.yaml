@@ -1,0 +1,15 @@
+__build_info:
+  rime_version: 1.13.1
+  timestamps:
+    default: 1746885319
+    default.custom: 0
+    wanxiang_lookup.custom: 0
+    wanxiang_lookup.schema: 1743348381
+menu:
+  page_size: 6
+schema:
+  name: "万象注释滤镜"
+  schema_id: wanxiang_lookup
+  version: 1.0
+translator:
+  dictionary: wanxiang_lookup

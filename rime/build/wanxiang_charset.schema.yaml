@@ -1,0 +1,15 @@
+__build_info:
+  rime_version: 1.13.1
+  timestamps:
+    default: 1746885319
+    default.custom: 0
+    wanxiang_charset.custom: 0
+    wanxiang_charset.schema: 1743350755
+menu:
+  page_size: 6
+schema:
+  name: "字符集过滤器"
+  schema_id: wanxiang_charset
+  version: 1.0
+translator:
+  dictionary: wanxiang_charset
