@@ -72,6 +72,9 @@
 (require 'yasnippet)
 (yas-global-mode 1)
 
+(add-to-list 'load-path "~/.emacs.d/site-lisp/fingertip/")
+(require 'fingertip)
+
 (add-to-list 'load-path "~/.emacs.d/site-lisp/eaf/")
 (require 'eaf)
 (require 'eaf-git)

@@ -145,6 +145,12 @@
   (yas-global-mode 1)
 #+end_src
 
+*** fingertip
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/fingertip/")
+  (require 'fingertip)
+#+end_src
+
 *** lsp bridge
 #+begin_src emacs-lisp :tangle no
   (add-to-list 'load-path "~/.emacs.d/lisp/lsp-bridge/")
