@@ -19,19 +19,19 @@
 
 (load-theme 'modus-operandi-tinted)
 
-(add-to-list 'load-path "~/.emacs.d/lisp/dash/")
+(add-to-list 'load-path "~/.emacs.d/site-lisp/dash/")
 (require 'dash)
 
-(add-to-list 'load-path "~/.emacs.d/lisp/rime/")
+(add-to-list 'load-path "~/.emacs.d/site-lisp/rime/")
 (require 'rime)
 (setq rime-posframe-style 'vertical)
 (setq default-input-method "rime")
 
-(add-to-list 'load-path "~/.emacs.d/lisp/rainbow-delimiters/")
+(add-to-list 'load-path "~/.emacs.d/site-lisp/rainbow-delimiters/")
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
-(add-to-list 'load-path "~/.emacs.d/lisp/which-key/")
+(add-to-list 'load-path "~/.emacs.d/site-lisp/which-key/")
 (require 'which-key)
 (setq which-key-idle-delay 0.5)
 (which-key-mode)
@@ -41,7 +41,7 @@
  '((emacs-lisp . t)
    (python . t)))
 
-(add-to-list 'load-path "~/.emacs.d/lisp/ivy/")
+(add-to-list 'load-path "~/.emacs.d/site-lisp/ivy/")
 (require 'ivy)
 (require 'swiper)
 (require 'counsel)
@@ -68,7 +68,7 @@
 (keymap-global-set "C-S-o" #'counsel-rhythmbox)
 (keymap-set minibuffer-local-map "C-r" #'counsel-minibuffer-history)
 
-(add-to-list 'load-path "~/.emacs.d/lisp/yasnippet/")
+(add-to-list 'load-path "~/.emacs.d/site-lisp/yasnippet/")
 (require 'yasnippet)
 (yas-global-mode 1)
 
