@@ -74,6 +74,7 @@
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/eaf/")
 (require 'eaf)
+(require 'eaf-git)
 
 ;; agenda
 ;; (setq org-agenda-files '("~/Documents/org/agenda.org"))

@@ -6,6 +6,8 @@
 - [ ] 自动补全
 - [ ] org 缩进
 - [X] 取消自动保存
+- [ ] 修改 eaf-git 快捷键
+- [ ] replace eaf-git with magit
   
   
 
@@ -154,6 +156,7 @@
 #+begin_src emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/site-lisp/eaf/")
   (require 'eaf)
+  (require 'eaf-git)
 #+end_src
 
 ** Check Configuration
