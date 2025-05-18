@@ -119,7 +119,6 @@
                  'python-ts-mode-hook
                  'bash-ts-mode-hook
                  'typescript-ts-mode-hook
-  	       'org-mode-hook
                  ))
     (add-hook hook #'(lambda () (fingertip-mode 1))))
 
