@@ -8,6 +8,7 @@
 - [X] 取消自动保存
 - [ ] 修改 eaf-git 快捷键
 - [ ] replace eaf-git with magit
+- [ ] 在 org 里面启用 lsp-bridge
   
   
 
@@ -239,8 +240,11 @@
 #+end_src
 
 *** lsp bridge
-#+begin_src emacs-lisp :tangle no
-  (add-to-list 'load-path "~/.emacs.d/lisp/lsp-bridge/")
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/markdown-mode/")
+  (require 'markdown-mode)
+  
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/lsp-bridge/")
   (require 'lsp-bridge)
   (global-lsp-bridge-mode)
 #+end_src
@@ -270,6 +274,5 @@
 
 * Test
 
-#+begin_src conf
-
+#+begin_src emacs-lisp
 #+end_src

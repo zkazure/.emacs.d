@@ -162,6 +162,13 @@
 
 (define-key fingertip-mode-map (kbd "C-j") 'fingertip-jump-up)
 
+(add-to-list 'load-path "~/.emacs.d/site-lisp/markdown-mode/")
+(require 'markdown-mode)
+
+(add-to-list 'load-path "~/.emacs.d/site-lisp/lsp-bridge/")
+(require 'lsp-bridge)
+(global-lsp-bridge-mode)
+
 (add-to-list 'load-path "~/.emacs.d/site-lisp/eaf/")
 (require 'eaf)
 (require 'eaf-git)
