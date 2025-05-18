@@ -72,6 +72,9 @@
 (require 'yasnippet)
 (yas-global-mode 1)
 
+(add-to-list 'load-path "~/.emacs.d/site-lisp/eaf/")
+(require 'eaf)
+
 ;; agenda
 ;; (setq org-agenda-files '("~/Documents/org/agenda.org"))
 

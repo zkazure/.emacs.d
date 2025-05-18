@@ -150,6 +150,12 @@
   (global-lsp-bridge-mode)
 #+end_src
 
+** eaf
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/eaf/")
+  (require 'eaf)
+#+end_src
+
 ** Check Configuration
 #+begin_src emacs-lisp
   ;; agenda
