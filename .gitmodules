@@ -16,9 +16,6 @@
 [submodule "site-lisp/rime"]
 	path = site-lisp/rime
 	url = https://github.com/DogLooksGood/emacs-rime
-[submodule "site-lisp/eaf"]
-	path = site-lisp/eaf
-	url = https://github.com/emacs-eaf/emacs-application-framework
 [submodule "site-lisp/fingertip"]
 	path = site-lisp/fingertip
 	url = https://github.com/manateelazycat/fingertip/

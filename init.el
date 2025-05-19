@@ -196,10 +196,6 @@
   (info-initialize)
   (add-to-list 'Info-directory-list "~/.emacs.d/site-lisp/magit/docs/"))
 
-(add-to-list 'load-path "~/.emacs.d/site-lisp/eaf/")
-(require 'eaf)
-(require 'eaf-git)
-
 ;; agenda
 ;; (setq org-agenda-files '("~/Documents/org/agenda.org"))
 
