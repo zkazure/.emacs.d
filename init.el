@@ -41,6 +41,18 @@
  '((emacs-lisp . t)
    (python . t)))
 
+(setq org-startup-indented t)
+
+(setq org-directory "~/Documents/org/")
+(setq org-agenda-files '("~/Documents/org/"))
+(setq org-agenda-start-with-log-mode t)
+(setq org-agenda-skip-scheduled-if-done t)
+(setq org-agenda-skip-deadline-if-done t)
+(setq org-agenda-skip-timestamp-if-done t)
+
+(define-key global-map "\C-ca" 'org-agenda)
+(define-key global-map "\C-cc" 'org-capture)
+
 (add-to-list 'load-path "~/.emacs.d/site-lisp/ivy/")
 (require 'ivy)
 (require 'swiper)
@@ -167,6 +179,22 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp/lsp-bridge/")
 (require 'lsp-bridge)
 (global-lsp-bridge-mode)
+
+(add-to-list 'load-path "~/.emacs.d/site-lisp/compat")
+(add-to-list 'load-path "~/.emacs.d/site-lisp/llama")
+(add-to-list 'load-path "~/.emacs.d/site-lisp/transient/lisp")
+(add-to-list 'load-path "~/.emacs.d/site-lisp/with-editor/lisp")
+(require 'compat)
+(require 'llama)
+(require 'transient)
+(require 'with-editor)
+
+(add-to-list 'load-path "~/.emacs.d/site-lisp/magit/lisp")
+(require 'magit)
+
+(with-eval-after-load 'info
+  (info-initialize)
+  (add-to-list 'Info-directory-list "~/.emacs.d/site-lisp/magit/docs/"))
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/eaf/")
 (require 'eaf)

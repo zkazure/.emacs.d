@@ -28,3 +28,18 @@
 [submodule "site-lisp/markdown-mode"]
 	path = site-lisp/markdown-mode
 	url = https://github.com/jrblevin/markdown-mode
+[submodule "site-lisp/magit"]
+	path = site-lisp/magit
+	url = https://github.com/magit/magit.git
+[submodule "site-lisp/llama"]
+	path = site-lisp/llama
+	url = https://github.com/tarsius/llama
+[submodule "site-lisp/compat"]
+	path = site-lisp/compat
+	url = https://github.com/emacs-compat/compat
+[submodule "site-lisp/transient"]
+	path = site-lisp/transient
+	url = https://github.com/magit/transient
+[submodule "site-lisp/with-editor"]
+	path = site-lisp/with-editor
+	url = https://github.com/magit/with-editor
