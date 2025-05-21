@@ -43,3 +43,6 @@
 [submodule "site-lisp/posframe"]
 	path = site-lisp/posframe
 	url = https://github.com/tumashu/posframe
+[submodule "site-lisp/olivetti"]
+	path = site-lisp/olivetti
+	url = https://github.com/rnkn/olivetti

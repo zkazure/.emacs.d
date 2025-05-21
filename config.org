@@ -130,6 +130,12 @@
   (define-key global-map "\C-cc" 'org-capture)
 #+end_src
 
+*** olivetti
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/olivetti/")
+  (require 'olivetti)
+#+end_src
+
 ** Edit
 *** ivy
 #+begin_src emacs-lisp
