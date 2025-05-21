@@ -2,20 +2,12 @@
 
 * Todo
 - [ ] 记住上次的光标位置
-- [ ] 自动补全
-- [X] org 缩进
-- [X] 取消自动保存
-- [ ] 修改 eaf-git 快捷键
-- [ ] replace eaf-git with magit
 - [ ] 在 org 里面启用 lsp-bridge
 - [ ] 在 Emacs 里面批量修改文件名
-- [ ] rime 浮动输入法
-- [ ] reveal.js
 - [ ] latex
 - [ ] yaml
 - [ ] org editing
 - [ ] change the windows quickly
-- [ ] auto change the line
 - [ ] 正则式替换
 - [ ] set the posframe of emacs
 - [ ] C-d
@@ -29,3 +21,13 @@
 - [ ] save the work space.
 - [ ] auto format of the special code file. 
 - [ ] 为自动换行添加标志。
+
+
+* Done
+- [X] visual line mode
+- [X] reveal.js
+- [X] 自动补全
+- [X] org 缩进
+- [X] 取消自动保存
+- [X] replace eaf-git with magit
+- [X] rime 浮动输入法
