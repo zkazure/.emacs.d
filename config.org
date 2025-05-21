@@ -74,11 +74,14 @@
 #+begin_src emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/site-lisp/dash/")
   (require 'dash)
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/posframe/")
+  (require 'posframe)
 
   (add-to-list 'load-path "~/.emacs.d/site-lisp/rime/")
   (require 'rime)
+  (setq default-input-method "rime"
+  	rime-show-candidate 'posframe)
   (setq rime-posframe-style 'vertical)
-  (setq default-input-method "rime")
 #+end_src
 
 *** rainbow delimiters

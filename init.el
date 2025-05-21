@@ -21,11 +21,14 @@
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/dash/")
 (require 'dash)
+(add-to-list 'load-path "~/.emacs.d/site-lisp/posframe/")
+(require 'posframe)
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/rime/")
 (require 'rime)
+(setq default-input-method "rime"
+	rime-show-candidate 'posframe)
 (setq rime-posframe-style 'vertical)
-(setq default-input-method "rime")
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/rainbow-delimiters/")
 (require 'rainbow-delimiters)
@@ -36,13 +39,15 @@
 (setq which-key-idle-delay 0.5)
 (which-key-mode)
 
+(setq-default truncate-lines t)
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
    (python . t)
    (C . t)))
 
-(setq org-startup-indented t)
+(global-visual-line-mode t)
 
 (setq org-directory "~/Documents/org/")
 (setq org-agenda-files '("~/Documents/org/"))
@@ -91,54 +96,54 @@
 (yas-global-mode 1)
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/fingertip/")
-  (require 'fingertip)
+(require 'fingertip)
 
 
-  (dolist (hook (list
-                 'c-mode-common-hook
-                 'c-mode-hook
-                 'c++-mode-hook
-                 'java-mode-hook
-                 'haskell-mode-hook
-                 'emacs-lisp-mode-hook
-                 'lisp-interaction-mode-hook
-                 'lisp-mode-hook
-                 'maxima-mode-hook
-                 'ielm-mode-hook
-                 'sh-mode-hook
-                 'makefile-gmake-mode-hook
-                 'php-mode-hook
-                 'python-mode-hook
-                 'js-mode-hook
-                 'go-mode-hook
-                 'qml-mode-hook
-                 'jade-mode-hook
-                 'css-mode-hook
-                 'ruby-mode-hook
-                 'coffee-mode-hook
-                 'rust-mode-hook
-                 'rust-ts-mode-hook
-                 'qmake-mode-hook
-                 'lua-mode-hook
-                 'swift-mode-hook
-                 'web-mode-hook
-                 'markdown-mode-hook
-                 'llvm-mode-hook
-                 'conf-toml-mode-hook
-                 'nim-mode-hook
-                 'typescript-mode-hook
-                 'c-ts-mode-hook
-                 'c++-ts-mode-hook
-                 'cmake-ts-mode-hook
-                 'toml-ts-mode-hook
-                 'css-ts-mode-hook
-                 'js-ts-mode-hook
-                 'json-ts-mode-hook
-                 'python-ts-mode-hook
-                 'bash-ts-mode-hook
-                 'typescript-ts-mode-hook
-                 ))
-    (add-hook hook #'(lambda () (fingertip-mode 1))))
+(dolist (hook (list
+               'c-mode-common-hook
+               'c-mode-hook
+               'c++-mode-hook
+               'java-mode-hook
+               'haskell-mode-hook
+               'emacs-lisp-mode-hook
+               'lisp-interaction-mode-hook
+               'lisp-mode-hook
+               'maxima-mode-hook
+               'ielm-mode-hook
+               'sh-mode-hook
+               'makefile-gmake-mode-hook
+               'php-mode-hook
+               'python-mode-hook
+               'js-mode-hook
+               'go-mode-hook
+               'qml-mode-hook
+               'jade-mode-hook
+               'css-mode-hook
+               'ruby-mode-hook
+               'coffee-mode-hook
+               'rust-mode-hook
+               'rust-ts-mode-hook
+               'qmake-mode-hook
+               'lua-mode-hook
+               'swift-mode-hook
+               'web-mode-hook
+               'markdown-mode-hook
+               'llvm-mode-hook
+               'conf-toml-mode-hook
+               'nim-mode-hook
+               'typescript-mode-hook
+               'c-ts-mode-hook
+               'c++-ts-mode-hook
+               'cmake-ts-mode-hook
+               'toml-ts-mode-hook
+               'css-ts-mode-hook
+               'js-ts-mode-hook
+               'json-ts-mode-hook
+               'python-ts-mode-hook
+               'bash-ts-mode-hook
+               'typescript-ts-mode-hook
+               ))
+  (add-hook hook #'(lambda () (fingertip-mode 1))))
 
 (define-key fingertip-mode-map (kbd "(") 'fingertip-open-round)
 (define-key fingertip-mode-map (kbd "[") 'fingertip-open-bracket)
@@ -163,7 +168,7 @@
 (define-key fingertip-mode-map (kbd "RET") 'fingertip-newline)
 
 (define-key fingertip-mode-map (kbd "M-o") 'fingertip-backward-delete)
-(define-key fingertip-mode-map (kbd "C-d") 'fingertip-forward-delete)
+;;  (define-key fingertip-mode-map (kbd "C-d") 'fingertip-forward-delete)
 (define-key fingertip-mode-map (kbd "C-k") 'fingertip-kill)
 
 (define-key fingertip-mode-map (kbd "M-\"") 'fingertip-wrap-double-quote)
@@ -201,9 +206,6 @@
 (with-eval-after-load 'info
   (info-initialize)
   (add-to-list 'Info-directory-list "~/.emacs.d/site-lisp/magit/docs/"))
-
-;; agenda
-;; (setq org-agenda-files '("~/Documents/org/agenda.org"))
 
 ;; (use-package doom-modeline
 ;;   :ensure t
