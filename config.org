@@ -133,7 +133,7 @@
 
 *** edit
 #+begin_src emacs-lisp
-  (setq org-startup-indented t)
+  (global-visual-line-mode t)
 #+end_src
 
 *** agenda

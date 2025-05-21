@@ -39,8 +39,6 @@
 (setq which-key-idle-delay 0.5)
 (which-key-mode)
 
-(setq-default truncate-lines t)
-
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
