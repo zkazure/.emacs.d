@@ -1,36 +1,6 @@
 #+title: Emacs Configuration
 #+startup: overview
 
-* Todo
-- [ ] 记住上次的光标位置
-- [ ] 自动补全
-- [X] org 缩进
-- [X] 取消自动保存
-- [ ] 修改 eaf-git 快捷键
-- [ ] replace eaf-git with magit
-- [ ] 在 org 里面启用 lsp-bridge
-- [ ] 在 Emacs 里面批量修改文件名
-- [ ] rime 浮动输入法
-- [ ] reveal.js
-- [ ] latex
-- [ ] yaml
-- [ ] org editing
-- [ ] change the windows quickly
-- [ ] auto change the line
-- [ ] 正则式替换
-- [ ] set the posframe of emacs
-- [ ] C-d
-- [ ] multiple cursor
-- [ ] diray
-- [ ] emacs everywhere. 
-- [ ] the start frame
-- [ ] enable lsp in the minor mode
-- [ ] complete the yasnippet
-- [ ] enhance eshell or use the vterm, what is the best experience of the shell or term
-- [ ] save the work space.
-- [ ] auto format of the special code file. 
-
-
 * EARLY-INIT
 :PROPERTIES:
 :HEADER-ARGS: :tangle early-init.el
@@ -119,7 +89,6 @@
 
 
 ** Org
-
 *** babel
 #+begin_src emacs-lisp
   (org-babel-do-load-languages
@@ -332,7 +301,3 @@
   (provide 'init)
 #+end_src
 
-* Test
-
-#+begin_src emacs-lisp
-#+end_src
