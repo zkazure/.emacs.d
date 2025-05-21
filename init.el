@@ -39,7 +39,8 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
-   (python . t)))
+   (python . t)
+   (C . t)))
 
 (setq org-startup-indented t)
 
