@@ -191,6 +191,7 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp/lsp-bridge/")
 (require 'lsp-bridge)
 (global-lsp-bridge-mode)
+(setq lsp-bridge-enable-org-babel t)
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/compat")
 (add-to-list 'load-path "~/.emacs.d/site-lisp/llama")
