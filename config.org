@@ -137,6 +137,11 @@
 #+end_src
 
 ** Edit
+*** shell and term
+#+begin_src emacs-lisp
+  (define-key global-map "\C-ce" 'eshell)
+#+end_src
+
 *** ivy
 #+begin_src emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/site-lisp/ivy/")

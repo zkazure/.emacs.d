@@ -54,6 +54,11 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (define-key global-map "\C-cc" 'org-capture)
 
+(add-to-list 'load-path "~/.emacs.d/site-lisp/olivetti/")
+(require 'olivetti)
+
+(define-key global-map "\C-ce" 'eshell)
+
 (add-to-list 'load-path "~/.emacs.d/site-lisp/ivy/")
 (require 'ivy)
 (require 'swiper)
