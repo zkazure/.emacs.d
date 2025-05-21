@@ -12,8 +12,24 @@
 - [ ] 在 Emacs 里面批量修改文件名
 - [ ] rime 浮动输入法
 - [ ] reveal.js
-  
-  
+- [ ] latex
+- [ ] yaml
+- [ ] org editing
+- [ ] change the windows quickly
+- [ ] auto change the line
+- [ ] 正则式替换
+- [ ] set the posframe of emacs
+- [ ] C-d
+- [ ] multiple cursor
+- [ ] diray
+- [ ] emacs everywhere. 
+- [ ] the start frame
+- [ ] enable lsp in the minor mode
+- [ ] complete the yasnippet
+- [ ] enhance eshell or use the vterm, what is the best experience of the shell or term
+- [ ] save the work space.
+- [ ] auto format of the special code file. 
+
 
 * EARLY-INIT
 :PROPERTIES:
@@ -305,9 +321,6 @@
 
 ** Check Configuration
 #+begin_src emacs-lisp
-  ;; agenda
-  ;; (setq org-agenda-files '("~/Documents/org/agenda.org"))
-
   ;; (use-package doom-modeline
   ;;   :ensure t
   ;;   :init (doom-modeline-mode 1)
