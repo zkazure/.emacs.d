@@ -99,7 +99,6 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp/fingertip/")
 (require 'fingertip)
 
-
 (dolist (hook (list
                'c-mode-common-hook
                'c-mode-hook
@@ -143,6 +142,7 @@
                'python-ts-mode-hook
                'bash-ts-mode-hook
                'typescript-ts-mode-hook
+	       'org-mode-hook
                ))
   (add-hook hook #'(lambda () (fingertip-mode 1))))
 
