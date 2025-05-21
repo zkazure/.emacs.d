@@ -46,3 +46,6 @@
 [submodule "site-lisp/olivetti"]
 	path = site-lisp/olivetti
 	url = https://github.com/rnkn/olivetti
+[submodule "site-lisp/org-re-reveal"]
+	path = site-lisp/org-re-reveal
+	url = https://github.com/emacsmirror/org-re-reveal
