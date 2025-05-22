@@ -63,7 +63,9 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp/org-re-reveal/")
 (require 'org-re-reveal)
 
-(define-key global-map "\C-ce" 'eshell)
+(add-to-list 'load-path "~/.emacs.d/site-lisp/aweshell/")
+(require 'aweshell)
+(define-key global-map "\C-ce" 'aweshell-toggle)
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/ivy/")
 (require 'ivy)

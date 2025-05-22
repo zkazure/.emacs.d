@@ -129,11 +129,12 @@
   (require 'org-re-reveal)
 #+end_src
 ** Edit
-*** shell and term
+*** aweshell
 #+begin_src emacs-lisp
-  (define-key global-map "\C-ce" 'eshell)
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/aweshell/")
+  (require 'aweshell)
+  (define-key global-map "\C-ce" 'aweshell-toggle)
 #+end_src
-
 *** ivy
 #+begin_src emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/site-lisp/ivy/")
@@ -292,7 +293,6 @@
     (info-initialize)
     (add-to-list 'Info-directory-list "~/.emacs.d/site-lisp/magit/docs/"))
 #+end_src
-
 ** Check Configuration
 #+begin_src emacs-lisp
   ;; (use-package doom-modeline

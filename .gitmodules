@@ -49,3 +49,6 @@
 [submodule "site-lisp/org-re-reveal"]
 	path = site-lisp/org-re-reveal
 	url = https://github.com/emacsmirror/org-re-reveal
+[submodule "site-lisp/aweshell"]
+	path = site-lisp/aweshell
+	url = https://github.com/manateelazycat/aweshell

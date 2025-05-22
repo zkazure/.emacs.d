@@ -8,7 +8,6 @@
 - [ ] yaml
 - [ ] org editing
 - [ ] change the windows quickly
-- [ ] 正则式替换
 - [ ] set the posframe of emacs
 - [ ] C-d
 - [ ] multiple cursor
@@ -21,6 +20,11 @@
 - [ ] save the work space.
 - [ ] auto format of the special code file. 
 - [ ] 为自动换行添加标志。
+- [ ] draw picture in the emacs
+- [ ] write blog with ox-pulish
+- [ ] set the home page to your index of blog
+- [ ] drag and drop or paste picture in the org mode. 
+
 
 
 * Done
@@ -31,3 +35,5 @@
 - [X] 取消自动保存
 - [X] replace eaf-git with magit
 - [X] rime 浮动输入法
+- [X] 正则式替换 | =C-q C-j= 表示换行
+- [X] enhance the eshell
