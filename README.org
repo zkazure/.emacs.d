@@ -27,6 +27,8 @@
 - [ ] eamcs-rime pre-load.
 - [ ] fingertip enhanced for org and emacs
 - [ ] link in the org expand with the cursor move to it. 
+- [ ] font set up
+- [ ] debug mode
 
 
 

@@ -1,0 +1,11 @@
+;;;; Emacs Bookmark Format Version 1;;;; -*- coding: utf-8-emacs; mode: lisp-data -*-
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("org-refile-last-stored"
+ (filename . "~/Documents/org/agenda.org")
+ (front-context-string . "** DONE 查看转专业的排名")
+ (rear-context-string . "求文档\n- [X] 正则表达式\n")
+ (position . 2206)
+ (last-modified 26671 7292 359530 991000))
+)
