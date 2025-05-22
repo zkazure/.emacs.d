@@ -52,3 +52,6 @@
 [submodule "site-lisp/aweshell"]
 	path = site-lisp/aweshell
 	url = https://github.com/manateelazycat/aweshell
+[submodule "site-lisp/dirvish"]
+	path = site-lisp/dirvish
+	url = https://github.com/alexluigit/dirvish

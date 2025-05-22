@@ -212,6 +212,10 @@
   (info-initialize)
   (add-to-list 'Info-directory-list "~/.emacs.d/site-lisp/magit/docs/"))
 
+(add-to-list 'load-path "~/.emacs.d/site-lisp/dirvish/")
+(require 'dirvish)
+(define-key global-map "\C-xd" 'dirvish)
+
 ;; (use-package doom-modeline
 ;;   :ensure t
 ;;   :init (doom-modeline-mode 1)

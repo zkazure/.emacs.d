@@ -294,6 +294,13 @@
     (info-initialize)
     (add-to-list 'Info-directory-list "~/.emacs.d/site-lisp/magit/docs/"))
 #+end_src
+
+*** dirvish
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/dirvish/")
+  (require 'dirvish)
+  (define-key global-map "\C-xd" 'dirvish)
+#+end_src
 ** Check Configuration
 #+begin_src emacs-lisp
   ;; (use-package doom-modeline
