@@ -102,6 +102,7 @@
 *** edit
 #+begin_src emacs-lisp
   (global-visual-line-mode t)
+  (setq org-hide-leading-stars t)
 #+end_src
 
 *** agenda

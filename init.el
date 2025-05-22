@@ -46,6 +46,7 @@
    (C . t)))
 
 (global-visual-line-mode t)
+(setq org-hide-leading-stars t)
 
 (setq org-directory "~/Documents/org/")
 (setq org-agenda-files '("~/Documents/org/"))
