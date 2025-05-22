@@ -216,6 +216,7 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp/dirvish/")
 (require 'dirvish)
 (define-key global-map "\C-xd" 'dirvish)
+(define-key dired-mode-map (kbd "b") 'dired-up-directory)
 
 ;; (use-package doom-modeline
 ;;   :ensure t
