@@ -62,6 +62,7 @@
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/org-re-reveal/")
 (require 'org-re-reveal)
+(define-key global-map "\C-co" 'olivetti-mode)
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/aweshell/")
 (require 'aweshell)
