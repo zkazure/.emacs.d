@@ -24,6 +24,9 @@
 - [ ] write blog with ox-pulish
 - [ ] set the home page to your index of blog
 - [ ] drag and drop or paste picture in the org mode. 
+- [ ] eamcs-rime pre-load.
+- [ ] fingertip enhanced for org and emacs
+- [ ] link in the org expand with the cursor move to it. 
 
 
 
