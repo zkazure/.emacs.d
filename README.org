@@ -28,7 +28,8 @@
 - [ ] debug mode or dap mode
 - [ ] magit forge
 - [ ] auto save
-
+- [ ] add all the site-lisp path one time
+- [ ] change the keybinding of ace-windows
 
 
 * Done
