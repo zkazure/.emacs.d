@@ -55,3 +55,6 @@
 [submodule "site-lisp/dirvish"]
 	path = site-lisp/dirvish
 	url = https://github.com/alexluigit/dirvish
+[submodule "site-lisp/avy"]
+	path = site-lisp/avy
+	url = https://github.com/abo-abo/avy
