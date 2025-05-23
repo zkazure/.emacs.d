@@ -409,3 +409,39 @@ This require avy
   (provide 'init)
 #+end_src
 
+* Other
+:PROPERTIES:
+:HEADER-ARGS: :tangle no
+:END:
+** Spell
+#+begin_src emacs-lisp
+  ;; 个人词典
+  (setq my/enchant-personal-dic-en (file-truename "~/.config/enchant/en_US.dic"))
+  (unless (file-exists-p my/enchant-personal-dic-en)
+    (setq my/enchant-personal-dic-en nil))
+  (setq ispell-personal-dictionary my/enchant-personal-dic-en)
+
+  ;; 主要用于 company-ispell 的拼写补全字典
+  (setq my/completion-dic-en (file-truename "~/.config/english-words.txt")) ; 主要用于 company-ispell
+  (if (file-exists-p my/completion-dic-en) ; 这里用 file-truename 转换成绝对路径!
+      (setq ispell-alternate-dictionary (file-truename my/completion-dic-en)
+            ispell-complete-word-dict (file-truename my/completion-dic-en)))
+
+  (use-package flyspell
+    :if (or my/is-windows)
+    :hook (LaTeX-mode org-mode))
+
+  (unless (or my/is-windows ; windows 下 jinx 无法编译
+              (not my/is-turn-on-experimental))
+    (use-package jinx
+      :hook (emacs-startup . global-jinx-mode)
+      :bind ([remap ispell-word] . jinx-correct) ; 把拼写检查绑定到 flyspell 的 C-$ 上.
+      :config
+      (setq jinx-languages "en_US-large") ; 允许重音符号, 过去版本中是 en_US-w_accents
+      (add-to-list 'jinx-exclude-regexps '(t "\\cc")) ; 拼写检查忽略中文
+      (add-to-list 'jinx-exclude-faces
+                   '(latex-mode font-lock-constant-face ; 不会对 LaTeX 中 label 进行拼写检查.
+                                font-lock-comment-face))))
+
+#+end_src
+** LaTex
