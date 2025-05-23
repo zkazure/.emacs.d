@@ -29,7 +29,8 @@
 - [ ] auto save
 - [ ] add all the site-lisp path one time
 - [ ] change the keybinding of ace-windows
-- [ ] latex and pdf tool and roam and noter
+- [ ] latex and roam and noter
+- [ ] pdf tool and pdf tool restore
 - [ ] mu4e
 
 * Done
