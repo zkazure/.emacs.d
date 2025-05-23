@@ -26,6 +26,8 @@
 - [ ] fingertip enhanced for org and emacs
 - [ ] link in the org expand with the cursor move to it. 
 - [ ] debug mode or dap mode
+- [ ] magit forge
+- [ ] auto save
 
 
 
