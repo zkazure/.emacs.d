@@ -4,7 +4,6 @@
 - [ ] 记住上次的光标位置
 - [ ] 在 org 里面启用 lsp-bridge
 - [ ] 在 Emacs 里面批量修改文件名
-- [ ] latex
 - [ ] yaml
 - [ ] org editing
 - [ ] change the windows quickly
@@ -30,7 +29,8 @@
 - [ ] auto save
 - [ ] add all the site-lisp path one time
 - [ ] change the keybinding of ace-windows
-
+- [ ] latex and pdf tool and roam and noter
+- [ ] mu4e
 
 * Done
 - [X] visual line mode
