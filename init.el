@@ -184,8 +184,8 @@
 (define-key fingertip-mode-map (kbd "SPC") 'fingertip-space)
 (define-key fingertip-mode-map (kbd "RET") 'fingertip-newline)
 
-(define-key fingertip-mode-map (kbd "M-o") 'fingertip-backward-delete)
-;;  (define-key fingertip-mode-map (kbd "C-d") 'fingertip-forward-delete)
+;; (define-key fingertip-mode-map (kbd "M-o") 'fingertip-backward-delete)
+;; (define-key fingertip-mode-map (kbd "C-d") 'fingertip-forward-delete)
 (define-key fingertip-mode-map (kbd "C-k") 'fingertip-kill)
 
 (define-key fingertip-mode-map (kbd "M-\"") 'fingertip-wrap-double-quote)
@@ -245,7 +245,7 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp/ace-window/")
 (require 'ace-window)
 
-(global-set-key (kbd "C-.") 'ace-window)
+(global-set-key (kbd "M-o") 'ace-window)
 
 ;; (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 (setq aw-scope 'frame)
