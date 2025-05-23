@@ -72,10 +72,23 @@
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/olivetti/")
 (require 'olivetti)
-
-(add-to-list 'load-path "~/.emacs.d/site-lisp/org-re-reveal/")
-(require 'org-re-reveal)
 (define-key global-map "\C-co" 'olivetti-mode)
+
+(add-to-list 'load-path "~/.emacs.d/site-lisp/org-tree-slide/")
+(require 'org-tree-slide)
+
+(define-key org-mode-map (kbd "<f8>") 'org-tree-slide-mode)
+(define-key org-mode-map (kbd "S-<f8>") 'org-tree-slide-skip-done-toggle)
+
+;; (when (require 'org-tree-slide nil t)
+;;   (global-set-key (kbd "<f8>") 'org-tree-slide-mode)
+;;   (global-set-key (kbd "S-<f8>") 'org-tree-slide-skip-done-toggle)
+;;   (org-tree-slide-simple-profile))
+
+(with-eval-after-load "org-tree-slide"
+  (define-key org-tree-slide-mode-map (kbd "<f9>") 'org-tree-slide-move-previous-tree)
+  (define-key org-tree-slide-mode-map (kbd "<f10>") 'org-tree-slide-move-next-tree)
+  )
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/aweshell/")
 (require 'aweshell)
