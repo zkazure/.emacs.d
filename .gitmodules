@@ -61,3 +61,6 @@
 [submodule "site-lisp/colorful-mode"]
 	path = site-lisp/colorful-mode
 	url = https://github.com/DevelopmentCool2449/colorful-mode
+[submodule "site-lisp/ace-window"]
+	path = site-lisp/ace-window
+	url = https://github.com/abo-abo/ace-window
