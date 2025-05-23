@@ -19,6 +19,8 @@
 
 (load-theme 'modus-operandi-tinted)
 
+(global-hl-line-mode 1)
+
 (set-face-attribute 'default nil
   		    :family "JetBrainsMono")
 
