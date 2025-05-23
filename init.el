@@ -19,6 +19,10 @@
 
 (load-theme 'modus-operandi-tinted)
 
+(set-face-attribute 'default nil
+		    :family "JetBrains Mono")
+;; (set-fontset-font t 'chinese-gbk "LXGW WenKai Mono")
+
 (add-to-list 'load-path "~/.emacs.d/site-lisp/dash/")
 (require 'dash)
 (add-to-list 'load-path "~/.emacs.d/site-lisp/posframe/")
@@ -28,6 +32,15 @@
 (require 'rime)
 (setq default-input-method "rime"
 	rime-show-candidate 'posframe)
+
+(setq rime-posframe-style
+      '((border-width . 1)
+	(border-color . "gray")
+	(internal-border-width . 5)
+	(background-color . "#f0f0f0")
+	(foreground-color . "black")
+	(alpha . 0.95)))
+
 (setq rime-posframe-style 'vertical)
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/rainbow-delimiters/")

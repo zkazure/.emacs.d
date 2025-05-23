@@ -27,9 +27,8 @@
 :PROPERTIES:
 :HEADER-ARGS: :tangle init.el
 :END:
-
 ** Basic UI Configuration
-
+*** UI
 #+begin_src emacs-lisp
   (setq inhibit-startup-message t)
 
@@ -52,6 +51,13 @@
   
   (load-theme 'modus-operandi-tinted)
 #+end_src
+*** Font
+
+#+begin_src emacs-lisp
+  (set-face-attribute 'default nil
+  		    :family "JetBrains Mono")
+  ;; (set-fontset-font t 'chinese-gbk "LXGW WenKai Mono")
+#+end_src 
 
 ** Package
 
@@ -66,6 +72,7 @@
   (require 'rime)
   (setq default-input-method "rime"
   	rime-show-candidate 'posframe)
+
   (setq rime-posframe-style 'vertical)
 #+end_src
 
