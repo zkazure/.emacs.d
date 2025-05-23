@@ -277,6 +277,13 @@
 (global-colorful-mode t)
 (add-to-list 'global-colorful-modes 'helpful-mode)
 
+(add-to-list 'load-path "~/.emacs.d/site-lisp/projectile/")
+(require 'projectile)
+
+(projectile-mode +1)
+;; Recommended keymap prefix on Windows/Linux
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
 ;; (use-package doom-modeline
 ;;   :ensure t
 ;;   :init (doom-modeline-mode 1)

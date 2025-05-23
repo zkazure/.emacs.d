@@ -374,8 +374,15 @@ This require avy
   (add-to-list 'global-colorful-modes 'helpful-mode)
 
 #+end_src
+*** projectile
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/projectile/")
+  (require 'projectile)
 
-
+  (projectile-mode +1)
+  ;; Recommended keymap prefix on Windows/Linux
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+#+end_src
 ** Check Configuration
 #+begin_src emacs-lisp
   ;; (use-package doom-modeline
