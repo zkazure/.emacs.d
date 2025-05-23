@@ -242,6 +242,16 @@
 (avy-setup-default)
 (global-set-key (kbd "C-c C-j") 'avy-resume)
 
+(add-to-list 'load-path "~/.emacs.d/site-lisp/colorful-mode/")
+(require 'colorful-mode)
+
+(setq colorful-use-prefix t)
+(setq colorful-only-strings 'only-prog)
+(setq css-fontify-colors nil)
+
+(global-colorful-mode t)
+(add-to-list 'global-colorful-modes 'helpful-mode)
+
 ;; (use-package doom-modeline
 ;;   :ensure t
 ;;   :init (doom-modeline-mode 1)

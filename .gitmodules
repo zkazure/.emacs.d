@@ -58,3 +58,6 @@
 [submodule "site-lisp/avy"]
 	path = site-lisp/avy
 	url = https://github.com/abo-abo/avy
+[submodule "site-lisp/colorful-mode"]
+	path = site-lisp/colorful-mode
+	url = https://github.com/DevelopmentCool2449/colorful-mode

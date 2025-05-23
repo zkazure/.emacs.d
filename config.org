@@ -333,6 +333,21 @@ jump to everywhere quickly
   (global-set-key (kbd "C-c C-j") 'avy-resume)
 #+end_src
 
+*** colorful-mode
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/colorful-mode/")
+  (require 'colorful-mode)
+
+  (setq colorful-use-prefix t)
+  (setq colorful-only-strings 'only-prog)
+  (setq css-fontify-colors nil)
+
+  (global-colorful-mode t)
+  (add-to-list 'global-colorful-modes 'helpful-mode)
+
+#+end_src
+
+
 ** Check Configuration
 #+begin_src emacs-lisp
   ;; (use-package doom-modeline
