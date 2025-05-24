@@ -327,9 +327,6 @@
 ;; Try after every insertion
 (add-hook 'post-self-insert-hook #'my/yas-try-expanding-auto-snippets)
 
-(add-to-list 'load-path "~/.emacs.d/site-lisp/lazytab/")
-(require 'lazytab)
-
 ;; (use-package doom-modeline
 ;;   :ensure t
 ;;   :init (doom-modeline-mode 1)

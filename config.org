@@ -443,11 +443,6 @@ This require avy
   ;; Try after every insertion
   (add-hook 'post-self-insert-hook #'my/yas-try-expanding-auto-snippets)
 #+end_src
-*** lazytab
-#+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/site-lisp/lazytab/")
-  (require 'lazytab)
-#+end_src
 ** Check Configuration
 #+begin_src emacs-lisp
   ;; (use-package doom-modeline
