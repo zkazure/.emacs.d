@@ -51,6 +51,23 @@
 (setq which-key-idle-delay 0.5)
 (which-key-mode)
 
+(setq org-capture-templates nil)
+(add-to-list 'org-capture-templates
+	     '("j" "Journal" entry (file+weektree "~/Documents/org/journal.org")
+	       "* %?"))
+(add-to-list 'org-capture-templates
+             '("i" "Inbox" entry (file "~/Documents/org/inbox.org")
+               "* %U - %^{heading} %^g\n %?\n"))
+(add-to-list 'org-capture-templates
+             '("n" "Notes" entry (file "~/Documents/org/notes.org")
+               "* %^{heading} %t %^g\n  %?\n"))
+(add-to-list 'org-capture-templates
+             '("r" "Book Reading Task" entry
+               (file+olp "~/Documents/org/task.org" "Reading" "Book")
+               "* TODO %^{书名}\n%u\n%a\n" :clock-in t :clock-resume t))
+
+(define-key global-map "\C-cc" 'org-capture)
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
@@ -68,7 +85,6 @@
 (setq org-agenda-skip-timestamp-if-done t)
 
 (define-key global-map "\C-ca" 'org-agenda)
-(define-key global-map "\C-cc" 'org-capture)
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/olivetti/")
 (require 'olivetti)
