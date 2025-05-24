@@ -267,7 +267,7 @@
 
 (setopt aw-dispatch-alist
   '((?d aw-delete-window "Delete Window")
-    (?o aw-delete-other-windows "Delete Other Windows")
+    (?o aw-delete-other-windows "Delete Other Winsdows")
     (?v aw-split-window-vert "Split Vert Window")
     (?h aw-split-window-horz "Split Horz Window")
     (?j aw-switch-buffer-in-window "Select Buffer")
@@ -295,6 +295,40 @@
 (projectile-mode +1)
 ;; Recommended keymap prefix on Windows/Linux
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
+
+
+(add-hook 'org-mode-hook 'org-toggle-pretty-entities)
+
+(add-to-list 'load-path "~/.emacs.d/site-lisp/auctex/")
+(require 'auctex)
+
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master t)
+
+(add-hook 'LaTeX-mode-hook 'prettify-symbols-mode)
+
+(add-hook 'LaTeX-mode-hook
+          (defun preview-larger-previews ()
+            (setq preview-scale-function
+                  (lambda () (* 1.25
+                           (funcall (preview-scale-from-face)))))))
+
+(add-to-list 'load-path "~/.emacs.d/site-lisp/cdlatex/")
+(require 'cdlatex)
+
+(defun my/yas-try-expanding-auto-snippets ()
+  (when (and (boundp 'yas-minor-mode)
+	     yas-minor-mode)
+    (let ((yas-buffer-local-condition ''(require-snippet-condition . auto)))
+      (yas-expand))))
+
+;; Try after every insertion
+(add-hook 'post-self-insert-hook #'my/yas-try-expanding-auto-snippets)
+
+(add-to-list 'load-path "~/.emacs.d/site-lisp/lazytab/")
+(require 'lazytab)
 
 ;; (use-package doom-modeline
 ;;   :ensure t
