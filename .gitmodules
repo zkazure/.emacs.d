@@ -76,6 +76,3 @@
 [submodule "site-lisp/cdlatex"]
 	path = site-lisp/cdlatex
 	url = https://github.com/cdominik/cdlatex
-[submodule "site-lisp/lazytab"]
-	path = site-lisp/lazytab
-	url = https://github.com/karthink/lazytab
