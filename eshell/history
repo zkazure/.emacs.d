@@ -1,2 +1,40 @@
 ls
 ls
+ls
+cd site-lisp/
+ls
+rm org-present/ -r
+git submodule add https://github.com/takaxp/org-tree-slide org-tree-slide
+ls
+git submodule add https://github.com/takaxp/org-tree-slide org-tree-slide
+git submodule add https://github.com/takaxp/org-tree-slide org-tree-slide
+git submodule add https://github.com/takaxp/org-tree-slide org-tree-slide --force
+git submodule add https://github.com/takaxp/org-tree-slide org-tree-slide
+git submodule add https://github.com/takaxp/org-tree-slide org-tree-slide
+l
+ls
+cd site-lisp/
+git rm org-re-reveal/ 
+rm org-re-reveal/ -r
+cd site-lisp/
+git submodule add https://git.savannah.gnu.org/git/auctex.git auctex
+git submodule add https://git.savannah.gnu.org/git/auctex.git auctex
+ls
+cd site-lisp/
+ls
+cd auctex/
+ls
+make
+ls
+cd ..
+ls
+git submodule add https://github.com/cdominik/cdlatex cdlatex
+cd cdlatex/
+make
+cd Downloads/
+ls
+git clone https://github.com/karthink/yasnippets.git
+ls
+cd .emacs.d/site-lisp/
+ls
+git submodule add https://github.com/karthink/lazytab lazytab

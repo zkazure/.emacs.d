@@ -70,3 +70,12 @@
 [submodule "site-lisp/org-tree-slide"]
 	path = site-lisp/org-tree-slide
 	url = https://github.com/takaxp/org-tree-slide
+[submodule "site-lisp/auctex"]
+	path = site-lisp/auctex
+	url = https://git.savannah.gnu.org/git/auctex.git
+[submodule "site-lisp/cdlatex"]
+	path = site-lisp/cdlatex
+	url = https://github.com/cdominik/cdlatex
+[submodule "site-lisp/lazytab"]
+	path = site-lisp/lazytab
+	url = https://github.com/karthink/lazytab
