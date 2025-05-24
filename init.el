@@ -318,6 +318,8 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp/cdlatex/")
 (require 'cdlatex)
 
+(add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
+
 (defun my/yas-try-expanding-auto-snippets ()
   (when (and (boundp 'yas-minor-mode)
 	     yas-minor-mode)
@@ -326,6 +328,11 @@
 
 ;; Try after every insertion
 (add-hook 'post-self-insert-hook #'my/yas-try-expanding-auto-snippets)
+
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+
+(add-hook 'LaTeX-mode-hook 'outline-minor-mode)
+(add-hook 'LaTeX-mode-hook 'outline-hide-body)
 
 ;; (use-package doom-modeline
 ;;   :ensure t

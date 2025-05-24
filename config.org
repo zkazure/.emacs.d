@@ -425,12 +425,13 @@ This require avy
               (setq preview-scale-function
                     (lambda () (* 1.25
                              (funcall (preview-scale-from-face)))))))
-
 #+end_src
 *** cdlatex
 #+begin_src emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/site-lisp/cdlatex/")
   (require 'cdlatex)
+
+  (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
 #+end_src
 *** yasnippet
 #+begin_src emacs-lisp
@@ -443,6 +444,15 @@ This require avy
   ;; Try after every insertion
   (add-hook 'post-self-insert-hook #'my/yas-try-expanding-auto-snippets)
 #+end_src
+*** reftex
+#+begin_src emacs-lisp
+  (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+#+end_src 
+*** outline-mode
+#+begin_src emacs-lisp
+  (add-hook 'LaTeX-mode-hook 'outline-minor-mode)
+  (add-hook 'LaTeX-mode-hook 'outline-hide-body)
+#+end_src 
 ** Check Configuration
 #+begin_src emacs-lisp
   ;; (use-package doom-modeline
