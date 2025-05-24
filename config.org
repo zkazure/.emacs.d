@@ -354,25 +354,24 @@ This require avy
 
   (global-set-key (kbd "M-o") 'ace-window)
 
-  ;; (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  ;; (setq aw-'keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
   (setq aw-scope 'frame)
   (setq aw-background nil)
   (setq aw-dispatch-always t)
 
-  (defvar aw-dispatch-alist
+  (setopt aw-dispatch-alist
     '((?d aw-delete-window "Delete Window")
-      (?o delete-other-windows "Delete Other Windows")
+      (?o aw-delete-other-windows "Delete Other Windows")
       (?v aw-split-window-vert "Split Vert Window")
       (?h aw-split-window-horz "Split Horz Window")
       (?j aw-switch-buffer-in-window "Select Buffer")
       (?s aw-swap-window "Swap Windows")
       (?m aw-move-window "Move Window")
-      (?c aw-copy-window "Copy Window")
+  ;;    (?c aw-copy-window "Copy Window")
   ;;    (?u aw-switch-buffer-other-window "Switch Buffer Other Window")
   ;;    (?n aw-flip-window)
   ;;    (?z aw-split-window-fair "Split Fair Window")
-      (?? aw-show-dispatch-help))
-      "List of actions for `aw-dispatch-default'.")
+      (?? aw-show-dispatch-help)))
 #+end_src
 *** colorful-mode
 #+begin_src emacs-lisp
