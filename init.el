@@ -314,6 +314,7 @@
             (setq preview-scale-function
                   (lambda () (* 1.25
                            (funcall (preview-scale-from-face)))))))
+(setq prettify-symbols-unprettify-at-point t)
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/cdlatex/")
 (require 'cdlatex)
