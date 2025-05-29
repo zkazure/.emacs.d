@@ -35,5 +35,6 @@
 (require 'init-avy)
 (require 'init-magit)
 (require 'init-dirvish)
+(require 'init-projectile)
 
 (provide 'init)

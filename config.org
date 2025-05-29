@@ -67,6 +67,7 @@
   (require 'init-avy)
   (require 'init-magit)
   (require 'init-dirvish)
+  (require 'init-projectile)
 
   (provide 'init)
 #+end_src
@@ -543,6 +544,19 @@ jump to everywhere quickly
 
   (provide 'init-dirvish)
 #+end_src
+** projectile
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-projectile.el
+:END:
+#+begin_src emacs-lisp
+  (require 'projectile)
+
+  (projectile-mode +1)
+  ;; Recommended keymap prefix on Windows/Linux
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
+  (provide 'init-projectile)
+#+end_src
 * Test
 * QUSE
 - [ ] what is the ~(set-fringe-mode 10)~
@@ -553,9 +567,6 @@ jump to everywhere quickly
 :PROPERTIES:
 
 :END:
-
-
-
 ** colorful-mode
 #+begin_src emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/site-lisp/colorful-mode/")
@@ -569,15 +580,7 @@ jump to everywhere quickly
   (add-to-list 'global-colorful-modes 'helpful-mode)
 
 #+end_src
-** projectile
-#+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/site-lisp/projectile/")
-  (require 'projectile)
 
-  (projectile-mode +1)
-  ;; Recommended keymap prefix on Windows/Linux
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-#+end_src
 ** LaTex
 
 *** auctex

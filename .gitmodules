@@ -61,3 +61,6 @@
 [submodule "site-lisp/dirvish"]
 	path = site-lisp/dirvish
 	url = https://github.com/alexluigit/dirvish.git
+[submodule "site-lisp/projectile"]
+	path = site-lisp/projectile
+	url = https://github.com/bbatsov/projectile
