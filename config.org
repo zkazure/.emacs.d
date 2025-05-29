@@ -70,7 +70,7 @@
   (require 'init-projectile)
   (require 'init-latex)
 
-  (require 'init-test.el)
+  (require 'init-test)
 
   (provide 'init)
 #+end_src
@@ -619,4 +619,3 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (provide 'init-latex)
 #+end_src
-

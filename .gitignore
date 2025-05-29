@@ -1,0 +1,8 @@
+auto-save-list/
+eln-cache/
+eshell/
+recentf/
+transient/
+
+*.el
+projectile-bookmarks.eld
