@@ -3,6 +3,7 @@ eln-cache/
 eshell/
 recentf/
 transient/
+test-lisp/
 
 *.el
 projectile-bookmarks.eld
