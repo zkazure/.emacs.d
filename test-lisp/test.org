@@ -141,42 +141,42 @@
 
 - [ ] fell it
 #+begin_src emacs-lisp
-  ;; Set the default font for the Emacs frame.
-  ;; This will be your primary monospace font for English text and code.
-  ;; Adjust the size as needed.
-  (setq initial-frame-alist
-        (append (list (cons 'font "IBM Plex Mono"))
-                initial-frame-alist))
-  (setq default-frame-alist
-        (append (list (cons 'font "IBM Plex Mono"))
-                default-frame-alist))
+    ;; Set the default font for the Emacs frame.
+    ;; This will be your primary monospace font for English text and code.
+    ;; Adjust the size as needed.
+    (setq initial-frame-alist
+          (append (list (cons 'font "JetBrains Mono"))
+                  initial-frame-alist))
+    (setq default-frame-alist
+          (append (list (cons 'font "JetBrains Mono"))
+                  default-frame-alist))
 
-  ;; Optionally, set the font immediately if Emacs is already running with a GUI
-  (when (display-graphic-p)
-    (set-frame-font "IBM Plex Mono" t t))
+    ;; Optionally, set the font immediately if Emacs is already running with a GUI
+    (when (display-graphic-p)
+      (set-frame-font "JetBrains Mono" t t))
 
-  ;; --- CJK Font Fallback using Fontsets ---
-  ;; This is crucial for Chinese character display.
-  ;; Emacs uses fontsets to determine which font to use for specific character ranges.
-  ;; We tell Emacs to use a specific Chinese font for CJK character sets.
+    ;; --- CJK Font Fallback using Fontsets ---
+    ;; This is crucial for Chinese character display.
+    ;; Emacs uses fontsets to determine which font to use for specific character ranges.
+    ;; We tell Emacs to use a specific Chinese font for CJK character sets.
 
-;;   (when (display-graphic-p)
-;;     (dolist (charset '(kana han cjk-misc bopomofo))
-;;       (set-fontset-font
-;;        (frame-parameter nil 'font) ; Apply to the default fontset of the current frame
-;;        charset
-;;        (font-spec :family "WenQuanYi Zen Hei") ; Your chosen Chinese font
-;;        nil 'prepend))) ; 'prepend ensures it takes precedence over general fallbacks
+  ;;   (when (display-graphic-p)
+  ;;     (dolist (charset '(kana han cjk-misc bopomofo))
+  ;;       (set-fontset-font
+  ;;        (frame-parameter nil 'font) ; Apply to the default fontset of the current frame
+  ;;        charset
+  ;;        (font-spec :family "WenQuanYi Zen Hei") ; Your chosen Chinese font
+  ;;        nil 'prepend))) ; 'prepend ensures it takes precedence over general fallbacks
 
-  ;; Optional: Adjust CJK font size if it looks disproportionate
-  ;; Sometimes the CJK font might appear smaller or larger relative to the English font.
-  ;; You might need to experiment with the :size property in font-spec above for 'Noto Sans CJK SC',
-  ;; or use 'face-font-rescale-alist' for finer control.
-  ;; For example, if your English font is 14pt, a Chinese font might look better at 16pt.
-  ;; (set-fontset-font (frame-parameter nil 'font) charset (font-spec :family "Noto Sans CJK SC" :size 16) nil 'prepend)
+    ;; Optional: Adjust CJK font size if it looks disproportionate
+    ;; Sometimes the CJK font might appear smaller or larger relative to the English font.
+    ;; You might need to experiment with the :size property in font-spec above for 'Noto Sans CJK SC',
+    ;; or use 'face-font-rescale-alist' for finer control.
+    ;; For example, if your English font is 14pt, a Chinese font might look better at 16pt.
+    ;; (set-fontset-font (frame-parameter nil 'font) charset (font-spec :family "Noto Sans CJK SC" :size 16) nil 'prepend)
 
 
-  (provide 'init-font)
+    (provide 'init-font)
 #+end_src
 
 ** org test
