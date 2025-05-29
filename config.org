@@ -62,6 +62,7 @@
   (require 'init-aweshell)
   (require 'init-ivy)
   (require 'init-fingertip)
+  (require 'init-yasnippet)
 
   (provide 'init)
 #+end_src
@@ -426,6 +427,18 @@ only the language set here can be babeled.
   (provide 'init-fingertip)
 #+end_src
 
+** yasnippet
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-yasnippet.el
+:END:
+#+begin_src emacs-lisp
+  (require 'yasnippet)
+
+  (yas-global-mode 1)
+
+  (provide 'init-yasnippet)
+#+end_src
+
 * Test
 * QUSE
 - [ ] what is the ~(set-fringe-mode 10)~
@@ -436,15 +449,6 @@ only the language set here can be babeled.
 :PROPERTIES:
 
 :END:
-
-** yasnippet
-#+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/site-lisp/yasnippet/")
-  (require 'yasnippet)
-  (yas-global-mode 1)
-#+end_src
-
-
 ** lsp bridge
 #+begin_src emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/site-lisp/markdown-mode/")

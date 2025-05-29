@@ -30,5 +30,6 @@
 (require 'init-aweshell)
 (require 'init-ivy)
 (require 'init-fingertip)
+(require 'init-yasnippet)
 
 (provide 'init)
