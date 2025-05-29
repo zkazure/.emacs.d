@@ -14,6 +14,8 @@
   (require 'init-dape)
   (require 'init-orderless)
   (require 'init-beacon)
+  (require 'init-font)
+  (require 'init-org-test)
 
   (provide 'init-test)
 #+end_src
@@ -130,8 +132,120 @@
   (setq beacon-color "#fa5252")
   (provide 'init-beacon)
 #+end_src
-* wish list
 
+** font
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-font.el
+:END:
+
+- [ ] fell it
+#+begin_src emacs-lisp
+  ;; --- Global Font Settings ---
+  ;; Ensure Emacs uses UTF-8 for everything
+  (set-language-environment "UTF-8")
+  (set-default-coding-systems 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8)
+
+  ;; Set the default font for the Emacs frame.
+  ;; This will be your primary monospace font for English text and code.
+  ;; Adjust the size as needed.
+  (setq initial-frame-alist
+        (append (list (cons 'font "IBM Plex Mono-14"))
+                initial-frame-alist))
+  (setq default-frame-alist
+        (append (list (cons 'font "IBM Plex Mono-14"))
+                default-frame-alist))
+
+  ;; Optionally, set the font immediately if Emacs is already running with a GUI
+  (when (display-graphic-p)
+    (set-frame-font "IBM Plex Mono-14" t t))
+
+  ;; --- CJK Font Fallback using Fontsets ---
+  ;; This is crucial for Chinese character display.
+  ;; Emacs uses fontsets to determine which font to use for specific character ranges.
+  ;; We tell Emacs to use a specific Chinese font for CJK character sets.
+
+  (when (display-graphic-p)
+    (dolist (charset '(kana han cjk-misc bopomofo))
+      (set-fontset-font
+       (frame-parameter nil 'font) ; Apply to the default fontset of the current frame
+       charset
+       (font-spec :family "WenQuanYi Zen Hei") ; Your chosen Chinese font
+       nil 'prepend))) ; 'prepend ensures it takes precedence over general fallbacks
+
+  ;; Optional: Adjust CJK font size if it looks disproportionate
+  ;; Sometimes the CJK font might appear smaller or larger relative to the English font.
+  ;; You might need to experiment with the :size property in font-spec above for 'Noto Sans CJK SC',
+  ;; or use 'face-font-rescale-alist' for finer control.
+  ;; For example, if your English font is 14pt, a Chinese font might look better at 16pt.
+  ;; (set-fontset-font (frame-parameter nil 'font) charset (font-spec :family "Noto Sans CJK SC" :size 16) nil 'prepend)
+
+
+  (provide 'init-font)
+#+end_src
+
+** org test
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-org-test.el
+:END:
+- [ ] org bullet package
+#+begin_src emacs-lisp
+  ;; --- Org Mode Specific Font Configuration ---
+
+  ;; 1. Use variable-pitch for Org prose (optional but highly recommended for readability)
+  ;; This makes regular text in Org mode use a proportional font, while code blocks,
+  ;; tables, and monospaced text within Org will retain the monospace font.
+  (add-hook 'org-mode-hook (lambda ()
+                             (setq-local org-hide-emphasis-markers t) ; Hides / and * for italics/bold
+                             (variable-pitch-mode 1))) ; Enable variable-pitch-mode
+
+  ;; Specify the proportional font for Org mode prose
+  (set-face-attribute 'variable-pitch nil
+                      :family "IBM Plex Sans" ; A good proportional font
+                      :height 1.0) ; Keep the same height as default font
+
+  ;; Ensure `fixed-pitch` face uses your main coding font.
+  ;; This is what org mode code blocks and tables inherit from.
+  (set-face-attribute 'fixed-pitch nil
+                      :family "IBM Plex Mono"
+                      :height 1.0)
+
+  ;; Configure Org mode headlines to use the proportional font and potentially different sizes
+  (custom-set-faces
+   '(org-level-1 ((t (:inherit variable-pitch :weight bold :height 1.3))))
+   '(org-level-2 ((t (:inherit variable-pitch :weight bold :height 1.2))))
+   '(org-level-3 ((t (:inherit variable-pitch :weight bold :height 1.1))))
+   '(org-level-4 ((t (:inherit variable-pitch :weight bold :height 1.05))))
+   ;; The following levels can inherit from fixed-pitch if you prefer them monospace,
+   ;; or continue with variable-pitch for smaller headings.
+   '(org-level-5 ((t (:inherit variable-pitch :weight semi-bold))))
+   '(org-level-6 ((t (:inherit variable-pitch :weight semi-bold))))
+   '(org-level-7 ((t (:inherit variable-pitch :weight semi-bold))))
+   '(org-level-8 ((t (:inherit variable-pitch :weight semi-bold))))
+   ;; Org code block and example block fonts
+   '(org-block ((t (:inherit fixed-pitch))))
+   '(org-code ((t (:inherit (shadow fixed-pitch)))))
+   '(org-verbatim ((t (:inherit (shadow fixed-pitch)))))
+   '(org-table ((t (:inherit fixed-pitch))))
+   )
+
+  ;; Optional: Org-bullets for fancier bullets
+  ;; Install from MELPA: M-x package-install RET org-bullets RET
+  ;; (require 'org-bullets)
+  ;; (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
+  ;; Ensure proper display of certain Unicode characters that might be used in Org mode
+  ;; (This might be redundant with modern Emacs and good font setups but can help)
+  (set-fontset-font "fontset-default" 'unicode "Symbola" nil 'append) ; For various symbols
+
+  (provide 'init-org-test)
+#+end_src
+
+* wish list
+** lsp for org mode
 ** pdf tool
 ** email
 ** webmode
@@ -148,7 +262,7 @@
 
 #+end_src
 ** save history
-** remember the cursor position
+'** remember the cursor position
 ** org-tree-slide
 #+begin_src emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/site-lisp/org-tree-slide/")
@@ -168,8 +282,3 @@
     )
 #+end_src
 ** magit forge
-** font
-#+begin_src emacs-lisp
-  (set-face-attribute 'default nil
-    		    :family "JetBrainsMono")
-#+end_src
