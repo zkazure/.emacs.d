@@ -1,0 +1,561 @@
+#+title: Emacs Configuration
+#+startup: overview
+
+* EARLY-INIT
+:PROPERTIES:
+:HEADER-ARGS: :tangle early-init.el
+:END:
+
+#+begin_src emacs-lisp
+  (setq gc-cons-threshold most-positive-fixnum)
+  (setq gc-cons-percentage 0.6)
+  (setq package-enable-at-startup nil)
+  (setq package-quickstart nil)
+
+  (setq frame-inhibit-implied-resize t)
+
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+  (setq inhibit-splash-screen t)
+  (setq use-file-dialog nil)
+
+  (provide 'early-init)
+#+end_src
+
+* INIT
+:PROPERTIES:
+:HEADER-ARGS: :tangle init.el
+:END:
+** Basic UI Configuration
+*** UI
+#+begin_src emacs-lisp
+  (setq inhibit-startup-message t)
+
+  (tooltip-mode -1)
+  (set-fringe-mode 10)
+
+  (setq visible-bell t)
+
+  (column-number-mode)
+  (global-display-line-numbers-mode t)
+  ;; turn of the line numebr in the terminal
+  ;; why it is useless
+  (dolist (mode '(org-mode-hook
+  		term-mode-hook
+  		shell-mode-hook
+  		eshell-mode-hook))
+    (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+  (setq make-backup-files nil)
+
+  (load-theme 'modus-operandi-tinted)
+#+end_src
+*** Font
+
+#+begin_src emacs-lisp
+  (set-face-attribute 'default nil
+    		    :family "JetBrainsMono")
+#+end_src
+
+** Package
+
+*** rime
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/dash/")
+  (require 'dash)
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/posframe/")
+  (require 'posframe)
+
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/rime/")
+  (require 'rime)
+
+  (setq rime-posframe-properties
+        (list :background-color "#333333"
+  	    :foreground-color "#dcdcdc"
+  	    :internal-border-width 5))
+
+  (setq default-input-method "rime"
+  	rime-show-candidate 'posframe)
+
+  (setq rime-posframe-style 'vertical)
+#+end_src
+
+*** rainbow delimiters
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/rainbow-delimiters/")
+  (require 'rainbow-delimiters)
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+#+end_src
+
+
+*** jinx
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/jinx/")
+  (require 'jinx)
+
+  (add-hook 'emacs-startup-hook #'global-jinx-mode)
+#+end_src
+
+*** auto-save
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/auto-save/")
+  (require 'auto-save)
+  (auto-save-enable)
+
+  (setq auto-save-silent t)   ; quietly save
+  (setq auto-save-delete-trailing-whitespace t)  ; automatically delete spaces at the end of the line when saving
+
+  ;;; custom predicates if you don't want auto save.
+  ;;; disable auto save mode when current filetype is an gpg file.
+  (setq auto-save-disable-predicates
+        '((lambda ()
+        (string-suffix-p
+        "gpg"
+        (file-name-extension (buffer-name)) t))))
+#+END_SRC
+
+
+*** which key
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/which-key/")
+  (require 'which-key)
+  (setq which-key-idle-delay 0.5)
+  (which-key-mode)
+#+end_src
+
+
+
+
+** Org
+*** ui
+#+BEGIN_SRC emacs-lisp
+  (with-eval-after-load 'org
+    ;; Make verbatim with highlight text background.
+    (add-to-list 'org-emphasis-alist
+                 '("=" (:background "#ffee11")))
+    ;; Make deletion (obsolete) text foreground with dark gray.
+    (add-to-list 'org-emphasis-alist
+                 '("+" (:foreground "dark gray"
+                       :strike-through t)))
+    ;; Make code style around with box.
+    (add-to-list 'org-emphasis-alist
+                 '("~" (:box (:line-width 2
+                               :color "grey75"
+                               :style released-button)))))
+#+END_SRC
+
+*** capture
+#+begin_src emacs-lisp
+  (setq org-yank-image-file-name-function 'org-yank-image-read-filename)
+  (with-eval-after-load 'org
+    (define-key org-mode-map (kbd "C-M-y") 'yank-media)
+    (define-key org-mode-map (kbd "C-M-Y") 'yank-media-types))
+
+
+  (setq org-capture-templates nil)
+  (add-to-list 'org-capture-templates
+  	     '("j" "Journal" entry (file+weektree "~/Documents/org/journal/journal.org")
+  	       "* %?"))
+  (add-to-list 'org-capture-templates
+               '("i" "Inbox" entry (file "~/Documents/org/inbox.org")
+                 "* %?\n"))
+  (add-to-list 'org-capture-templates
+               '("n" "Notes" entry (file "~/Documents/org/notes.org")
+                 "* %^{heading} %t %^g\n  %?\n"))
+  (add-to-list 'org-capture-templates
+  	     '("e" "English Learning" entry
+  	       (file+weektree "~/Documents/org/en-learn.org")
+  	       "* \n\n** 1\n%?"))
+  (add-to-list 'org-capture-templates
+  	     '("s" "self-improve" entry
+  	       (file+datetree "~/Documents/org/self-improve.org")
+  	       "* %?"))
+  (add-to-list 'org-capture-templates
+  	     '("v" "vlog" entry
+  	       (file+weektree "~/Documents/org/record.org")
+  	       "* %?")) ;; C-c C-x C-i to start record C-c C-x C-o to end itt
+  (define-key global-map "\C-cc" 'org-capture)
+
+#+end_src
+*** babel
+#+begin_src emacs-lisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (python . t)
+     (C . t)))
+#+end_src
+*** appear
+#+BEGIN_SRC emacs-lisp
+  (setq org-hide-emphasis-markers t)
+
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/org-appear/")
+  (require 'org-appear)
+  (add-hook 'org-mode-hook 'org-appear-mode)
+#+END_SRC
+*** edit
+#+begin_src emacs-lisp
+  (global-visual-line-mode t)
+  (setq org-hide-leading-stars t)
+  (add-hook 'org-mode-hook 'org-num-mode)
+#+end_src
+
+*** agenda
+#+begin_src emacs-lisp
+  (setq org-agenda-window-setup 'current-window)
+
+  (setq org-directory "~/Documents/org/")
+  (setq org-agenda-files '("~/Documents/org/agenda/"))
+  (setq org-agenda-start-with-log-mode t)
+  (setq org-agenda-skip-scheduled-if-done t)
+  (setq org-agenda-skip-deadline-if-done t)
+  (setq org-agenda-skip-timestamp-if-done t)
+
+  (define-key global-map "\C-ca" 'org-agenda)
+#+end_src
+
+*** olivetti
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/olivetti/")
+  (require 'olivetti)
+  (define-key global-map "\C-co" 'olivetti-mode)
+#+end_src
+
+*** org-tree-slide
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/org-tree-slide/")
+  (require 'org-tree-slide)
+  (with-eval-after-load 'org
+    (define-key org-mode-map (kbd "<f8>") 'org-tree-slide-mode)
+    (define-key org-mode-map (kbd "S-<f8>") 'org-tree-slide-skip-done-toggle))
+
+  ;; (when (require 'org-tree-slide nil t)
+  ;;   (global-set-key (kbd "<f8>") 'org-tree-slide-mode)
+  ;;   (global-set-key (kbd "S-<f8>") 'org-tree-slide-skip-done-toggle)
+  ;;   (org-tree-slide-simple-profile))
+
+  (with-eval-after-load "org-tree-slide"
+    (define-key org-tree-slide-mode-map (kbd "<f9>") 'org-tree-slide-move-previous-tree)
+    (define-key org-tree-slide-mode-map (kbd "<f10>") 'org-tree-slide-move-next-tree)
+    )
+#+end_src
+ Edit
+
+
+
+*** aweshell
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/aweshell/")
+  (require 'aweshell)
+  (define-key global-map "\C-ce" 'aweshell-toggle)
+#+end_src
+*** ivy
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/ivy/")
+  (require 'ivy)
+  (require 'swiper)
+  (require 'counsel)
+  (ivy-mode)
+  (setopt ivy-use-virtual-buffers t)
+  (setopt enable-recursive-minibuffers t)
+  ;; Enable this if you want `swiper' to use it:
+  ;; (setopt search-default-mode #'char-fold-to-regexp)
+  (keymap-global-set "C-s" #'swiper-isearch)
+  (keymap-global-set "C-c C-r" #'ivy-resume)
+  (keymap-global-set "<f6>" #'ivy-resume)
+  (keymap-global-set "M-x" #'counsel-M-x)
+  (keymap-global-set "C-x C-f" #'counsel-find-file)
+  (keymap-global-set "<f1> f" #'counsel-describe-function)
+  (keymap-global-set "<f1> v" #'counsel-describe-variable)
+  (keymap-global-set "<f1> o" #'counsel-describe-symbol)
+  (keymap-global-set "<f1> l" #'counsel-find-library)
+  (keymap-global-set "<f2> i" #'counsel-info-lookup-symbol)
+  (keymap-global-set "<f2> u" #'counsel-unicode-char)
+  (keymap-global-set "C-c g" #'counsel-git)
+  (keymap-global-set "C-c j" #'counsel-git-grep)
+  (keymap-global-set "C-c k" #'counsel-ag)
+  (keymap-global-set "C-x l" #'counsel-locate)
+  (keymap-global-set "C-S-o" #'counsel-rhythmbox)
+  (keymap-set minibuffer-local-map "C-r" #'counsel-minibuffer-history)
+#+end_src
+
+*** yasnippet
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/yasnippet/")
+  (require 'yasnippet)
+  (yas-global-mode 1)
+#+end_src
+
+*** fingertip
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/fingertip/")
+  (require 'fingertip)
+
+  (dolist (hook (list
+                 'c-mode-common-hook
+                 'c-mode-hook
+                 'c++-mode-hook
+                 'java-mode-hook
+                 'haskell-mode-hook
+                 'emacs-lisp-mode-hook
+                 'lisp-interaction-mode-hook
+                 'lisp-mode-hook
+                 'maxima-mode-hook
+                 'ielm-mode-hook
+                 'sh-mode-hook
+                 'makefile-gmake-mode-hook
+                 'php-mode-hook
+                 'python-mode-hook
+                 'js-mode-hook
+                 'go-mode-hook
+                 'qml-mode-hook
+                 'jade-mode-hook
+                 'css-mode-hook
+                 'ruby-mode-hook
+                 'coffee-mode-hook
+                 'rust-mode-hook
+                 'rust-ts-mode-hook
+                 'qmake-mode-hook
+                 'lua-mode-hook
+                 'swift-mode-hook
+                 'web-mode-hook
+                 'markdown-mode-hook
+                 'llvm-mode-hook
+                 'conf-toml-mode-hook
+                 'nim-mode-hook
+                 'typescript-mode-hook
+                 'c-ts-mode-hook
+                 'c++-ts-mode-hook
+                 'cmake-ts-mode-hook
+                 'toml-ts-mode-hook
+                 'css-ts-mode-hook
+                 'js-ts-mode-hook
+                 'json-ts-mode-hook
+                 'python-ts-mode-hook
+                 'bash-ts-mode-hook
+                 'typescript-ts-mode-hook
+                 ))
+    (add-hook hook #'(lambda () (fingertip-mode 1))))
+
+  (define-key fingertip-mode-map (kbd "(") 'fingertip-open-round)
+  (define-key fingertip-mode-map (kbd "[") 'fingertip-open-bracket)
+  (define-key fingertip-mode-map (kbd "{") 'fingertip-open-curly)
+  (define-key fingertip-mode-map (kbd ")") 'fingertip-close-round)
+  (define-key fingertip-mode-map (kbd "]") 'fingertip-close-bracket)
+  (define-key fingertip-mode-map (kbd "}") 'fingertip-close-curly)
+  (define-key fingertip-mode-map (kbd "=") 'fingertip-equal)
+
+  (define-key fingertip-mode-map (kbd "（") 'fingertip-open-chinese-round)
+  (define-key fingertip-mode-map (kbd "「") 'fingertip-open-chinese-bracket)
+  (define-key fingertip-mode-map (kbd "【") 'fingertip-open-chinese-curly)
+  (define-key fingertip-mode-map (kbd "）") 'fingertip-close-chinese-round)
+  (define-key fingertip-mode-map (kbd "」") 'fingertip-close-chinese-bracket)
+  (define-key fingertip-mode-map (kbd "】") 'fingertip-close-chinese-curly)
+
+  (define-key fingertip-mode-map (kbd "%") 'fingertip-match-paren)
+  (define-key fingertip-mode-map (kbd "\"") 'fingertip-double-quote)
+  (define-key fingertip-mode-map (kbd "'") 'fingertip-single-quote)
+
+  (define-key fingertip-mode-map (kbd "SPC") 'fingertip-space)
+  (define-key fingertip-mode-map (kbd "RET") 'fingertip-newline)
+
+  (define-key fingertip-mode-map (kbd "M-o") 'fingertip-backward-delete)
+  ;; (define-key fingertip-mode-map (kbd "C-d") 'fingertip-forward-delete)
+  (define-key fingertip-mode-map (kbd "C-k") 'fingertip-kill)
+
+  (define-key fingertip-mode-map (kbd "M-\"") 'fingertip-wrap-double-quote)
+  (define-key fingertip-mode-map (kbd "M-'") 'fingertip-wrap-single-quote)
+  (define-key fingertip-mode-map (kbd "M-[") 'fingertip-wrap-bracket)
+  (define-key fingertip-mode-map (kbd "M-{") 'fingertip-wrap-curly)
+  (define-key fingertip-mode-map (kbd "M-(") 'fingertip-wrap-round)
+  (define-key fingertip-mode-map (kbd "M-)") 'fingertip-unwrap)
+
+  (define-key fingertip-mode-map (kbd "M-p") 'fingertip-jump-right)
+  (define-key fingertip-mode-map (kbd "M-n") 'fingertip-jump-left)
+  (define-key fingertip-mode-map (kbd "M-:") 'fingertip-jump-out-pair-and-newline)
+
+  (define-key fingertip-mode-map (kbd "C-j") 'fingertip-jump-up)
+#+end_src
+
+*** lsp bridge
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/markdown-mode/")
+  (require 'markdown-mode)
+
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/lsp-bridge/")
+  (require 'lsp-bridge)
+  (global-lsp-bridge-mode)
+
+  (setq lsp-bridge-enable-org-babel t)
+#+end_src
+
+*** magit
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/compat")
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/llama")
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/transient/lisp")
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/with-editor/lisp")
+  (require 'compat)
+  (require 'llama)
+  (require 'transient)
+  (require 'with-editor)
+
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/magit/lisp")
+  (require 'magit)
+
+  (with-eval-after-load 'info
+    (info-initialize)
+    (add-to-list 'Info-directory-list "~/.emacs.d/site-lisp/magit/docs/"))
+#+end_src
+
+*** dirvish
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/dirvish/")
+  (require 'dirvish)
+  (define-key global-map "\C-xd" 'dirvish)
+  (define-key dired-mode-map (kbd "b") 'dired-up-directory)
+#+end_src
+
+*** avy
+jump to everywhere quickly
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/avy/")
+  (require 'avy)
+
+  (global-set-key (kbd "C-:") 'avy-goto-char-2)
+  (global-set-key (kbd "C-'") 'avy-goto-char)
+  (global-set-key (kbd "M-g f") 'avy-goto-line)
+  (global-set-key (kbd "M-g w") 'avy-goto-word-1)
+  (global-set-key (kbd "M-g e") 'avy-goto-word-0)
+
+  (avy-setup-default)
+  (global-set-key (kbd "C-c C-j") 'avy-resume)
+#+end_src
+
+*** colorful-mode
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/colorful-mode/")
+  (require 'colorful-mode)
+
+  (setq colorful-use-prefix t)
+  (setq colorful-only-strings 'only-prog)
+  (setq css-fontify-colors nil)
+
+  (global-colorful-mode t)
+  (add-to-list 'global-colorful-modes 'helpful-mode)
+
+#+end_src
+*** projectile
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/projectile/")
+  (require 'projectile)
+
+  (projectile-mode +1)
+  ;; Recommended keymap prefix on Windows/Linux
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+#+end_src
+** LaTex
+*** general
+#+begin_src emacs-lisp
+
+#+end_src
+*** org
+#+begin_src emacs-lisp
+  (add-hook 'org-mode-hook 'org-toggle-pretty-entities)
+#+end_src
+*** auctex
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/auctex/")
+  (require 'auctex)
+
+  (setq TeX-auto-save t)
+  (setq TeX-parse-self t)
+  (setq-default TeX-master t)
+#+end_src
+*** prettify-symbols-mode
+#+begin_src emacs-lisp
+  (add-hook 'LaTeX-mode-hook 'prettify-symbols-mode)
+
+  (add-hook 'LaTeX-mode-hook
+            (defun preview-larger-previews ()
+              (setq preview-scale-function
+                    (lambda () (* 1.25
+                             (funcall (preview-scale-from-face)))))))
+  (setq prettify-symbols-unprettify-at-point t)
+#+end_src
+*** cdlatex
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/cdlatex/")
+  (require 'cdlatex)
+
+  (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
+#+end_src
+*** yasnippet
+#+begin_src emacs-lisp
+  (defun my/yas-try-expanding-auto-snippets ()
+    (when (and (boundp 'yas-minor-mode)
+  	     yas-minor-mode)
+      (let ((yas-buffer-local-condition ''(require-snippet-condition . auto)))
+        (yas-expand))))
+
+  ;; Try after every insertion
+  (add-hook 'post-self-insert-hook #'my/yas-try-expanding-auto-snippets)
+#+end_src
+*** reftex
+#+begin_src emacs-lisp
+  (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+#+end_src
+*** outline-mode
+#+begin_src emacs-lisp
+  (add-hook 'LaTeX-mode-hook 'outline-minor-mode)
+  (add-hook 'LaTeX-mode-hook 'outline-hide-body)
+#+end_src
+** Check Configuration
+#+begin_src emacs-lisp
+  ;; (use-package doom-modeline
+  ;;   :ensure t
+  ;;   :init (doom-modeline-mode 1)
+  ;;   :custom ((doom-modelien-height 15)))
+#+end_src
+
+** End
+#+begin_src emacs-lisp
+  (provide 'init)
+#+end_src
+
+* Other
+:PROPERTIES:
+:HEADER-ARGS: :tangle no
+:END:
+** Spell
+#+begin_src emacs-lisp
+  ;; 个人词典
+  (setq my/enchant-personal-dic-en (file-truename "~/.config/enchant/en_US.dic"))
+  (unless (file-exists-p my/enchant-personal-dic-en)
+    (setq my/enchant-personal-dic-en nil))
+  (setq ispell-personal-dictionary my/enchant-personal-dic-en)
+
+  ;; 主要用于 company-ispell 的拼写补全字典
+  (setq my/completion-dic-en (file-truename "~/.config/english-words.txt")) ; 主要用于 company-ispell
+  (if (file-exists-p my/completion-dic-en) ; 这里用 file-truename 转换成绝对路径!
+      (setq ispell-alternate-dictionary (file-truename my/completion-dic-en)
+            ispell-complete-word-dict (file-truename my/completion-dic-en)))
+
+  (use-package flyspell
+    :if (or my/is-windows)
+    :hook (LaTeX-mode org-mode))
+
+  (unless (or my/is-windows ; windows 下 jinx 无法编译
+              (not my/is-turn-on-experimental))
+    (use-package jinx
+      :hook (emacs-startup . global-jinx-mode)
+      :bind ([remap ispell-word] . jinx-correct) ; 把拼写检查绑定到 flyspell 的 C-$ 上.
+      :config
+      (setq jinx-languages "en_US-large") ; 允许重音符号, 过去版本中是 en_US-w_accents
+      (add-to-list 'jinx-exclude-regexps '(t "\\cc")) ; 拼写检查忽略中文
+      (add-to-list 'jinx-exclude-faces
+                   '(latex-mode font-lock-constant-face ; 不会对 LaTeX 中 label 进行拼写检查.
+                                font-lock-comment-face))))
+#+end_src
+** LaTex
