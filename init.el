@@ -27,6 +27,7 @@
 (require 'init-rainbow-delimiters)
 (require 'init-auto-save)
 (require 'init-which-key)
+(require 'init-org-appear)
 
 
 (provide 'init)

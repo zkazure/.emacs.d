@@ -16,3 +16,6 @@
 [submodule "site-lisp/emacs-which-key"]
 	path = site-lisp/emacs-which-key
 	url = https://github.com/justbur/emacs-which-key
+[submodule "site-lisp/org-appear"]
+	path = site-lisp/org-appear
+	url = https://github.com/awth13/org-appear

@@ -1,6 +1,6 @@
 #+title: Emacs Configuration
 #+startup: overview
-
+~d~ 
 * Early-Init
 :PROPERTIES:
 :HEADER-ARGS: :tangle early-init.el
@@ -59,6 +59,7 @@
   (require 'init-rainbow-delimiters)
   (require 'init-auto-save)
   (require 'init-which-key)
+  (require 'init-org-appear)
 
 
   (provide 'init)
@@ -268,7 +269,18 @@ only the language set here can be babeled.
 
 
 
+** org appear
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-org-appear.el
+:END:
+#+BEGIN_SRC emacs-lisp
+  (setq org-hide-emphasis-markers t)
 
+  (require 'org-appear)
+  (add-hook 'org-mode-hook 'org-appear-mode)
+
+  (provide 'init-org-appear)
+#+END_SRC
 * Test
 
 
@@ -282,14 +294,7 @@ only the language set here can be babeled.
 
 :END:
 
-** appear
-#+BEGIN_SRC emacs-lisp
-  (setq org-hide-emphasis-markers t)
 
-  (add-to-list 'load-path "~/.emacs.d/site-lisp/org-appear/")
-  (require 'org-appear)
-  (add-hook 'org-mode-hook 'org-appear-mode)
-#+END_SRC
 
 ** olivetti
 #+begin_src emacs-lisp
@@ -317,7 +322,6 @@ only the language set here can be babeled.
     )
 #+end_src
  Edit
-
 
 
 ** aweshell
