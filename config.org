@@ -47,16 +47,42 @@
 
 
   ;; Now we only need many require command
-;;  (require 'init-base)
+  ;;  (require 'init-base)
+  (require 'init-ui)
   (require 'init-theme)
 
   (provide 'init)
 #+end_src
 
 * Lisp
+** init-ui
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-ui.el
+:END:
+#+begin_src emacs-lisp
+  (setq visible-bell t)
 
+  ;; display column number in the modeline
+  (column-number-mode)
+
+  ;; display line numbers and disable in some mode
+  (global-display-line-numbers-mode t)
+
+  ;; turn of the line numebr in the terminal
+  ;; why it is useless
+  ;; (dolist (mode '(org-mode-hook
+  ;;                 term-mode-hook
+  ;;                 shell-mode-hook
+  ;;                 eshell-mode-hook))
+  ;;   (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+  (provide 'init-ui)
+#+end_src
 ** init-theme
-#+begin_src emacs-lisp :tangle lisp/init-theme.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-theme.el
+:END:
+#+begin_src emacs-lisp
   (load-theme 'modus-operandi-tinted)
 
   (provide 'init-theme)
@@ -66,6 +92,7 @@
 
 * QUSE
 - [ ] what is the ~(set-fringe-mode 10)~
+- [ ] custom my personal theme
 
 * INIT
 :PROPERTIES:
