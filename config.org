@@ -94,7 +94,7 @@
 #+end_srcn
 
 * Lisp-outside
-** init-rime
+** emacs-rime
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-rime.el
 :END:
@@ -116,7 +116,15 @@
   (provide 'init-rime)
 #+end_src
 
+** rainbow-delimiters
+#+begin_src emacs-lisp
+  (require 'rainbow-delimiters)
+
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+#+end_src
 * Test
+
+
 
 * QUSE
 - [ ] what is the ~(set-fringe-mode 10)~
@@ -135,35 +143,6 @@
 #+end_src
 
 ** Package
-
-*** rime
-#+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/site-lisp/dash/")
-  (require 'dash)
-  (add-to-list 'load-path "~/.emacs.d/site-lisp/posframe/")
-  (require 'posframe)
-
-  (add-to-list 'load-path "~/.emacs.d/site-lisp/rime/")
-  (require 'rime)
-
-  (setq rime-posframe-properties
-        (list :background-color "#333333"
-  	    :foreground-color "#dcdcdc"
-  	    :internal-border-width 5))
-
-  (setq default-input-method "rime"
-  	rime-show-candidate 'posframe)
-
-  (setq rime-posframe-style 'vertical)
-#+end_src
-
-*** rainbow delimiters
-#+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/site-lisp/rainbow-delimiters/")
-  (require 'rainbow-delimiters)
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-#+end_src
-
 
 *** jinx
 #+begin_src emacs-lisp
