@@ -1,0 +1,72 @@
+#+title: Test Configuration for Emacs
+* QUSE
+- [ ] what is the ~(set-fringe-mode 10)~
+- [ ] custom my personal theme
+- [ ] going to install the rime
+
+* Init Test
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-test.el
+:END:
+
+#+begin_src emacs-lisp
+  (require 'init-emacs-everywhere)
+
+  (provide 'init-test)
+#+end_src
+* TODO webmode
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/colorful-mode/")
+  (require 'colorful-mode)
+
+  (setq colorful-use-prefix t)
+  (setq colorful-only-strings 'only-prog)
+  (setq css-fontify-colors nil)
+
+  (global-colorful-mode t)
+  (add-to-list 'global-colorful-modes 'helpful-mode)
+
+#+end_src
+
+* TODO everywhere
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-emacs-everywhere.el
+:END:
+#+begin_src emacs-lisp
+  (require 'emacs-everywhere)
+  (provide 'init-emacs-everywhere)
+#+end_src
+* TODO jinx
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/jinx/")
+  (require 'jinx)
+
+  (add-hook 'emacs-startup-hook #'global-jinx-mode)
+#+end_src
+* TODO org-tree-slide
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/org-tree-slide/")
+  (require 'org-tree-slide)
+  (with-eval-after-load 'org
+    (define-key org-mode-map (kbd "<f8>") 'org-tree-slide-mode)
+    (define-key org-mode-map (kbd "S-<f8>") 'org-tree-slide-skip-done-toggle))
+
+  ;; (when (require 'org-tree-slide nil t)
+  ;;   (global-set-key (kbd "<f8>") 'org-tree-slide-mode)
+  ;;   (global-set-key (kbd "S-<f8>") 'org-tree-slide-skip-done-toggle)
+  ;;   (org-tree-slide-simple-profile))
+
+  (with-eval-after-load "org-tree-slide"
+    (define-key org-tree-slide-mode-map (kbd "<f9>") 'org-tree-slide-move-previous-tree)
+    (define-key org-tree-slide-mode-map (kbd "<f10>") 'org-tree-slide-move-next-tree)
+    )
+#+end_src
+* TODO magit forge
+* TODO font
+#+begin_src emacs-lisp
+  (set-face-attribute 'default nil
+    		    :family "JetBrainsMono")
+#+end_src
+* TODO pdf tool
+* TODO dap mode
+* TODO email
