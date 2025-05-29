@@ -239,6 +239,8 @@ only the language set here can be babeled.
 
   (setq rime-posframe-style 'vertical)
 
+  (setq rime-user-data-dir "~/.config/rime-moran")
+
   (provide 'init-rime)
 #+end_src
 
