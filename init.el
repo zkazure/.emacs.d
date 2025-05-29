@@ -16,7 +16,12 @@
 
 ;; Now we only need many require command
 ;;  (require 'init-base)
+
+;; inside
 (require 'init-ui)
 (require 'init-theme)
+
+;; outside
+(require 'init-rime)
 
 (provide 'init)

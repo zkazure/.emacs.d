@@ -48,13 +48,18 @@
 
   ;; Now we only need many require command
   ;;  (require 'init-base)
+
+  ;; inside
   (require 'init-ui)
   (require 'init-theme)
+
+  ;; outside
+  (require 'init-rime)
 
   (provide 'init)
 #+end_src
 
-* Lisp
+* Lisp-inside
 ** init-ui
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-ui.el
@@ -86,6 +91,29 @@
   (load-theme 'modus-operandi-tinted)
 
   (provide 'init-theme)
+#+end_srcn
+
+* Lisp-outside
+** init-rime
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-rime.el
+:END:
+#+begin_src emacs-lisp
+  (require 'dash)
+  (require 'posframe)
+  (require 'rime)
+
+  ;; (setq rime-posframe-properties
+  ;;       (list :background-color "#333333"
+  ;;   	  :foreground-color "#dcdcdc"
+  ;;   	  :internal-border-width 5))
+
+  (setq default-input-method "rime"
+        rime-show-candidate 'posframe)
+
+  (setq rime-posframe-style 'vertical)
+
+  (provide 'init-rime)
 #+end_src
 
 * Test
@@ -93,37 +121,14 @@
 * QUSE
 - [ ] what is the ~(set-fringe-mode 10)~
 - [ ] custom my personal theme
+- [ ] going to install the rime
 
 * INIT
 :PROPERTIES:
 
 :END:
 ** Basic UI Configuration
-*** UI
-#+begin_src emacs-lisp
-  (setq inhibit-startup-message t)
-
-  (tooltip-mode -1)
-  (set-fringe-mode 10)
-
-  (setq visible-bell t)
-
-  (column-number-mode)
-  (global-display-line-numbers-mode t)
-  ;; turn of the line numebr in the terminal
-  ;; why it is useless
-  (dolist (mode '(org-mode-hook
-  		term-mode-hook
-  		shell-mode-hook
-  		eshell-mode-hook))
-    (add-hook mode (lambda () (display-line-numbers-mode 0))))
-
-  (setq make-backup-files nil)
-
-;Finsh;  (load-theme 'modus-operandi-tinted)
-#+end_src
 *** Font
-
 #+begin_src emacs-lisp
   (set-face-attribute 'default nil
     		    :family "JetBrainsMono")

@@ -1,0 +1,9 @@
+[submodule "site-lisp/dash.el"]
+	path = site-lisp/dash.el
+	url = https://github.com/magnars/dash.el
+[submodule "site-lisp/posframe"]
+	path = site-lisp/posframe
+	url = https://github.com/tumashu/posframe
+[submodule "site-lisp/emacs-rime"]
+	path = site-lisp/emacs-rime
+	url = https://github.com/DogLooksGood/emacs-rime
