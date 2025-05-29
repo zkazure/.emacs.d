@@ -23,7 +23,7 @@
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-emacs-everywhere.el
 :END:
-- [ ] test
+- [ ] usability test
 
 #+begin_src emacs-lisp
   (require 'emacs-everywhere)
@@ -33,7 +33,7 @@
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-jinx.el
 :END:
-- [ ] ignore chinese
+- [ ] ignore Chinese
 
 #+begin_src emacs-lisp
   (require 'jinx)
@@ -46,6 +46,7 @@
 :HEADER-ARGS: :tangle lisp/init-dape.el
 :END:
 
+- [ ] usability testing
 #+begin_src emacs-lisp
   (require 'dape)
 
@@ -95,11 +96,12 @@
 
   (provide 'init-dape)
 #+end_src
-** ordless
+** orderless
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-orderless.el
 :END:
 
+- [ ] stability testing
 #+begin_src emacs-lisp
   (require 'orderless)
 
