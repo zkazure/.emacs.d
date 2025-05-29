@@ -19,3 +19,6 @@
 [submodule "site-lisp/org-appear"]
 	path = site-lisp/org-appear
 	url = https://github.com/awth13/org-appear
+[submodule "site-lisp/olivetti"]
+	path = site-lisp/olivetti
+	url = https://github.com/rnkn/olivetti

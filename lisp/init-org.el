@@ -68,3 +68,13 @@
  '((emacs-lisp . t)
    (python . t)
    (C . t)))
+
+(setq org-hide-emphasis-markers t)
+
+(require 'org-appear)
+(add-hook 'org-mode-hook 'org-appear-mode)
+
+(require 'olivetti)
+(define-key global-map "\C-co" 'olivetti-mode)
+
+(provide 'init-org)
