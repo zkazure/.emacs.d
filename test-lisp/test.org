@@ -8,13 +8,44 @@
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-test.el
 :END:
-
 #+begin_src emacs-lisp
   (require 'init-emacs-everywhere)
+  (require 'init-jinx)
 
   (provide 'init-test)
 #+end_src
-* TODO webmode
+
+* Under testing
+
+** everywhere
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-emacs-everywhere.el
+:END:
+- [ ] test
+
+#+begin_src emacs-lisp
+  (require 'emacs-everywhere)
+  (provide 'init-emacs-everywhere)
+#+end_src
+** jinx
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-jinx.el
+:END:
+- [ ] ignore chinese
+
+#+begin_src emacs-lisp
+  (require 'jinx)
+  (add-hook 'emacs-startup-hook #'global-jinx-mode)
+
+  (provide 'init-jinx)
+#+end_src
+
+* wish list
+
+** pdf tool
+** dap mode
+** email
+** webmode
 #+begin_src emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/site-lisp/colorful-mode/")
   (require 'colorful-mode)
@@ -27,23 +58,13 @@
   (add-to-list 'global-colorful-modes 'helpful-mode)
 
 #+end_src
+** ordless
+** save history
+** remember the cursor position
 
-* TODO everywhere
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-emacs-everywhere.el
-:END:
-#+begin_src emacs-lisp
-  (require 'emacs-everywhere)
-  (provide 'init-emacs-everywhere)
-#+end_src
-* TODO jinx
-#+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/site-lisp/jinx/")
-  (require 'jinx)
 
-  (add-hook 'emacs-startup-hook #'global-jinx-mode)
-#+end_src
-* TODO org-tree-slide
+
+** org-tree-slide
 #+begin_src emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/site-lisp/org-tree-slide/")
   (require 'org-tree-slide)
@@ -61,12 +82,9 @@
     (define-key org-tree-slide-mode-map (kbd "<f10>") 'org-tree-slide-move-next-tree)
     )
 #+end_src
-* TODO magit forge
-* TODO font
+** magit forge
+** font
 #+begin_src emacs-lisp
   (set-face-attribute 'default nil
     		    :family "JetBrainsMono")
 #+end_src
-* TODO pdf tool
-* TODO dap mode
-* TODO email
