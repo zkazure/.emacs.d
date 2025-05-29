@@ -34,5 +34,6 @@
 (require 'init-lsp-bridge)
 (require 'init-avy)
 (require 'init-magit)
+(require 'init-dirvish)
 
 (provide 'init)

@@ -58,3 +58,6 @@
 [submodule "site-lisp/magit"]
 	path = site-lisp/magit
 	url = https://github.com/magit/magit.git
+[submodule "site-lisp/dirvish"]
+	path = site-lisp/dirvish
+	url = https://github.com/alexluigit/dirvish.git
