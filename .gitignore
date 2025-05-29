@@ -3,6 +3,7 @@ eln-cache/
 eshell/
 transient/
 
+tramp
 *.el
 recentf
 projectile-bookmarks.eld
