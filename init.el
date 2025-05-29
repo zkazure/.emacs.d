@@ -23,5 +23,6 @@
 
 ;; outside
 (require 'init-rime)
+(require 'init-rainbow-delimiters)
 
 (provide 'init)

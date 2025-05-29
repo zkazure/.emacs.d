@@ -55,6 +55,7 @@
 
   ;; outside
   (require 'init-rime)
+  (require 'init-rainbow-delimiters)
 
   (provide 'init)
 #+end_src
@@ -117,13 +118,38 @@
 #+end_src
 
 ** rainbow-delimiters
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-rainbow-delimiters.el
+:END:
 #+begin_src emacs-lisp
   (require 'rainbow-delimiters)
 
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-#+end_src
-* Test
 
+  (provide 'init-rainbow-delimiters)
+#+end_src
+
+** auto-save
+#+BEGIN_SRC emacs-lisp
+  (require 'auto-save)
+
+  (auto-save-enable)
+
+  ;; quietly save
+  (setq auto-save-silent t)
+
+  ; automatically delete spaces at the end of the line when saving
+  (setq auto-save-delete-trailing-whitespace t)
+
+  ;;; custom predicates if you don't want auto save.
+  ;;; disable auto save mode when current filetype is an gpg file.
+  (setq auto-save-disable-predicates
+        '((lambda ()
+        (string-suffix-p
+        "gpg"
+        (file-name-extension (buffer-name)) t))))
+#+END_SRC
+* Test
 
 
 * QUSE
@@ -135,15 +161,14 @@
 :PROPERTIES:
 
 :END:
-** Basic UI Configuration
-*** Font
+
+** Font
 #+begin_src emacs-lisp
   (set-face-attribute 'default nil
     		    :family "JetBrainsMono")
 #+end_src
 
 ** Package
-
 *** jinx
 #+begin_src emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/site-lisp/jinx/")
