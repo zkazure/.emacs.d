@@ -56,6 +56,7 @@
   ;; outside
   (require 'init-rime)
   (require 'init-rainbow-delimiters)
+  (require 'init-auto-save)
 
   (provide 'init)
 #+end_src
@@ -130,6 +131,9 @@
 #+end_src
 
 ** auto-save
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-auto-save.el
+:END:
 #+BEGIN_SRC emacs-lisp
   (require 'auto-save)
 
@@ -148,6 +152,8 @@
         (string-suffix-p
         "gpg"
         (file-name-extension (buffer-name)) t))))
+
+  (provide 'init-auto-save)
 #+END_SRC
 * Test
 

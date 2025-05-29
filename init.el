@@ -24,5 +24,6 @@
 ;; outside
 (require 'init-rime)
 (require 'init-rainbow-delimiters)
+(require 'init-auto-save)
 
 (provide 'init)

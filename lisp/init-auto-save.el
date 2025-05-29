@@ -1,0 +1,19 @@
+(require 'auto-save)
+
+(auto-save-enable)
+
+;; quietly save
+(setq auto-save-silent t)
+
+; automatically delete spaces at the end of the line when saving
+(setq auto-save-delete-trailing-whitespace t)
+
+;;; custom predicates if you don't want auto save.
+;;; disable auto save mode when current filetype is an gpg file.
+(setq auto-save-disable-predicates
+      '((lambda ()
+      (string-suffix-p
+      "gpg"
+      (file-name-extension (buffer-name)) t))))
+
+(provide 'init-auto-save)
