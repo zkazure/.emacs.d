@@ -31,5 +31,6 @@
 (require 'init-ivy)
 (require 'init-fingertip)
 (require 'init-yasnippet)
+(require 'init-lsp-bridge)
 
 (provide 'init)
