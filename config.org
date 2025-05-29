@@ -45,9 +45,27 @@
     (let ((default-directory (expand-file-name dir user-emacs-directory)))
       (normal-top-level-add-subdirs-to-load-path))) ;;how this work
 
+
+  ;; Now we only need many require command
+;;  (require 'init-base)
+  (require 'init-theme)
+
   (provide 'init)
 #+end_src
 
+* Lisp
+
+** init-theme
+#+begin_src emacs-lisp :tangle lisp/init-theme.el
+  (load-theme 'modus-operandi-tinted)
+
+  (provide 'init-theme)
+#+end_src
+
+* Test
+
+* QUSE
+- [ ] what is the ~(set-fringe-mode 10)~
 
 * INIT
 :PROPERTIES:
@@ -75,7 +93,7 @@
 
   (setq make-backup-files nil)
 
-  (load-theme 'modus-operandi-tinted)
+;Finsh;  (load-theme 'modus-operandi-tinted)
 #+end_src
 *** Font
 
