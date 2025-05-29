@@ -13,6 +13,7 @@
   (require 'init-jinx)
   (require 'init-dape)
   (require 'init-orderless)
+  (require 'init-beacon)
 
   (provide 'init-test)
 #+end_src
@@ -113,6 +114,22 @@
 
   (provide 'init-orderless)
 #+end_src
+
+** beacon
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-beacon.el
+:END:
+- [ ] enable to blink after avy
+- [ ] stability testing
+#+begin_src emacs-lisp
+  (require 'beacon)
+
+  (beacon-mode 1)
+  ;; (setq beacon-color "#d13838")
+
+  (setq beacon-color "#fa5252")
+  (provide 'init-beacon)
+#+end_src
 * wish list
 
 ** pdf tool
@@ -130,10 +147,8 @@
   (add-to-list 'global-colorful-modes 'helpful-mode)
 
 #+end_src
-** ordless
 ** save history
 ** remember the cursor position
-** beamer
 ** org-tree-slide
 #+begin_src emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/site-lisp/org-tree-slide/")
