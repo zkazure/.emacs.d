@@ -12,6 +12,7 @@
   (require 'init-emacs-everywhere)
   (require 'init-jinx)
   (require 'init-dape)
+  (require 'init-orderless)
 
   (provide 'init-test)
 #+end_src
@@ -94,10 +95,25 @@
 
   (provide 'init-dape)
 #+end_src
+** ordless
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-orderless.el
+:END:
+
+#+begin_src emacs-lisp
+  (require 'orderless)
+
+  (setq completion-styles '(orderless basic)
+        completion-category-overrides '((file (styles basic partial-completion))))
+
+  (setq ivy-re-builders-alist '((t . orderless-ivy-re-builder)))
+  (add-to-list 'ivy-highlight-functions-alist '(orderless-ivy-re-builder . orderless-ivy-highlight))
+
+  (provide 'init-orderless)
+#+end_src
 * wish list
 
 ** pdf tool
-** dap mode
 ** email
 ** webmode
 #+begin_src emacs-lisp
@@ -115,9 +131,7 @@
 ** ordless
 ** save history
 ** remember the cursor position
-
-
-
+** beamer
 ** org-tree-slide
 #+begin_src emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/site-lisp/org-tree-slide/")
