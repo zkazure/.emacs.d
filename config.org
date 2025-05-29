@@ -64,6 +64,7 @@
   (require 'init-fingertip)
   (require 'init-yasnippet)
   (require 'init-lsp-bridge)
+  (require 'init-avy)
 
   (provide 'init)
 #+end_src
@@ -489,12 +490,14 @@ only the language set here can be babeled.
   (provide 'init-lsp-bridge)
 #+end_src
 ** avy
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-avy.el
+:END:
 jump to everywhere quickly
 #+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/site-lisp/avy/")
   (require 'avy)
 
-  (global-set-key (kbd "C-:") 'avy-goto-char-2)
+  (global-set-key (kbd "C-;") 'avy-goto-char-2)
   (global-set-key (kbd "C-'") 'avy-goto-char)
   (global-set-key (kbd "M-g f") 'avy-goto-line)
   (global-set-key (kbd "M-g w") 'avy-goto-word-1)

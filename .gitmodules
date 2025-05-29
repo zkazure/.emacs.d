@@ -40,3 +40,6 @@
 [submodule "site-lisp/lsp-bridge"]
 	path = site-lisp/lsp-bridge
 	url = https://github.com/manateelazycat/lsp-bridge
+[submodule "site-lisp/avy"]
+	path = site-lisp/avy
+	url = https://github.com/abo-abo/avy.git
