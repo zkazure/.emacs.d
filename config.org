@@ -61,6 +61,7 @@
   (require 'init-which-key)
   (require 'init-aweshell)
   (require 'init-ivy)
+  (require 'init-fingertip)
 
   (provide 'init)
 #+end_src
@@ -328,57 +329,11 @@ only the language set here can be babeled.
   (provide 'init-ivy)
 #+end_src
 
-* Test
-* QUSE
-- [ ] what is the ~(set-fringe-mode 10)~
-- [ ] custom my personal theme
-- [ ] going to install the rime
-
-* INIT
-:PROPERTIES:
-
-:END:
-
-** ivy
-#+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/site-lisp/ivy/")
-  (require 'ivy)
-  (require 'swiper)
-  (require 'counsel)
-  (ivy-mode)
-  (setopt ivy-use-virtual-buffers t)
-  (setopt enable-recursive-minibuffers t)
-  ;; Enable this if you want `swiper' to use it:
-  ;; (setopt search-default-mode #'char-fold-to-regexp)
-  (keymap-global-set "C-s" #'swiper-isearch)
-  (keymap-global-set "C-c C-r" #'ivy-resume)
-  (keymap-global-set "<f6>" #'ivy-resume)
-  (keymap-global-set "M-x" #'counsel-M-x)
-  (keymap-global-set "C-x C-f" #'counsel-find-file)
-  (keymap-global-set "<f1> f" #'counsel-describe-function)
-  (keymap-global-set "<f1> v" #'counsel-describe-variable)
-  (keymap-global-set "<f1> o" #'counsel-describe-symbol)
-  (keymap-global-set "<f1> l" #'counsel-find-library)
-  (keymap-global-set "<f2> i" #'counsel-info-lookup-symbol)
-  (keymap-global-set "<f2> u" #'counsel-unicode-char)
-  (keymap-global-set "C-c g" #'counsel-git)
-  (keymap-global-set "C-c j" #'counsel-git-grep)
-  (keymap-global-set "C-c k" #'counsel-ag)
-  (keymap-global-set "C-x l" #'counsel-locate)
-  (keymap-global-set "C-S-o" #'counsel-rhythmbox)
-  (keymap-set minibuffer-local-map "C-r" #'counsel-minibuffer-history)
-#+end_src
-
-** yasnippet
-#+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/site-lisp/yasnippet/")
-  (require 'yasnippet)
-  (yas-global-mode 1)
-#+end_src
-
 ** fingertip
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-fingertip.el
+:END:
 #+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/site-lisp/fingertip/")
   (require 'fingertip)
 
   (dolist (hook (list
@@ -424,6 +379,7 @@ only the language set here can be babeled.
                  'python-ts-mode-hook
                  'bash-ts-mode-hook
                  'typescript-ts-mode-hook
+
                  ))
     (add-hook hook #'(lambda () (fingertip-mode 1))))
 
@@ -465,7 +421,29 @@ only the language set here can be babeled.
   (define-key fingertip-mode-map (kbd "M-:") 'fingertip-jump-out-pair-and-newline)
 
   (define-key fingertip-mode-map (kbd "C-j") 'fingertip-jump-up)
+
+
+  (provide 'init-fingertip)
 #+end_src
+
+* Test
+* QUSE
+- [ ] what is the ~(set-fringe-mode 10)~
+- [ ] custom my personal theme
+- [ ] going to install the rime
+
+* INIT
+:PROPERTIES:
+
+:END:
+
+** yasnippet
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/yasnippet/")
+  (require 'yasnippet)
+  (yas-global-mode 1)
+#+end_src
+
 
 ** lsp bridge
 #+begin_src emacs-lisp

@@ -29,5 +29,6 @@
 (require 'init-which-key)
 (require 'init-aweshell)
 (require 'init-ivy)
+(require 'init-fingertip)
 
 (provide 'init)
