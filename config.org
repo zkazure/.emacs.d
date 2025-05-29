@@ -68,6 +68,7 @@
   (require 'init-magit)
   (require 'init-dirvish)
   (require 'init-projectile)
+  (require 'init-latex)
 
   (provide 'init)
 #+end_src
@@ -557,6 +558,64 @@ jump to everywhere quickly
 
   (provide 'init-projectile)
 #+end_src
+** LaTex
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-latex.el
+:END:
+*** auctex
+#+begin_src emacs-lisp
+  (require 'auctex)
+
+  (setq TeX-auto-save t)
+  (setq TeX-parse-self t)
+  (setq-default TeX-master t)
+#+end_src
+*** prettify-symbols-mode
+#+begin_src emacs-lisp
+  (add-hook 'LaTeX-mode-hook 'prettify-symbols-mode)
+  (add-hook 'latex-mode-hook 'prettify-symbols-mode)
+
+  (add-hook 'LaTeX-mode-hook
+            (defun preview-larger-previews ()
+              (setq preview-scale-function
+                    (lambda () (* 1.25
+                             (funcall (preview-scale-from-face)))))))
+  (add-hook 'latex-mode-hook
+            (defun preview-larger-previews ()
+              (setq preview-scale-function
+                    (lambda () (* 1.25
+                             (funcall (preview-scale-from-face)))))))
+
+  (setq prettify-symbols-unprettify-at-point t)
+#+end_src
+*** cdlatex
+
+#+begin_src emacs-lisp
+  (require 'cdlatex)
+
+  (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
+  (add-hook 'latex-mode-hook 'turn-on-cdlatex)
+#+end_src
+*** yasnippet
+#+begin_src emacs-lisp
+  (defun my/yas-try-expanding-auto-snippets ()
+    (when (and (boundp 'yas-minor-mode)
+  	     yas-minor-mode)
+      (let ((yas-buffer-local-condition ''(require-snippet-condition . auto)))
+        (yas-expand))))
+
+  ;; Try after every insertion
+  (add-hook 'post-self-insert-hook #'my/yas-try-expanding-auto-snippets)
+#+end_src
+*** reftex
+#+begin_src emacs-lisp
+  (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+  (add-hook 'latex-mode-hook 'turn-on-reftex)
+#+end_src
+*** END
+#+begin_src emacs-lisp
+  (provide 'init-latex)
+#+end_src
 * Test
 * QUSE
 - [ ] what is the ~(set-fringe-mode 10)~
@@ -581,50 +640,6 @@ jump to everywhere quickly
 
 #+end_src
 
-** LaTex
-
-*** auctex
-#+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/site-lisp/auctex/")
-  (require 'auctex)
-
-  (setq TeX-auto-save t)
-  (setq TeX-parse-self t)
-  (setq-default TeX-master t)
-#+end_src
-*** prettify-symbols-mode
-#+begin_src emacs-lisp
-  (add-hook 'LaTeX-mode-hook 'prettify-symbols-mode)
-
-  (add-hook 'LaTeX-mode-hook
-            (defun preview-larger-previews ()
-              (setq preview-scale-function
-                    (lambda () (* 1.25
-                             (funcall (preview-scale-from-face)))))))
-  (setq prettify-symbols-unprettify-at-point t)
-#+end_src
-*** cdlatex
-#+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/site-lisp/cdlatex/")
-  (require 'cdlatex)
-
-  (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
-#+end_src
-*** yasnippet
-#+begin_src emacs-lisp
-  (defun my/yas-try-expanding-auto-snippets ()
-    (when (and (boundp 'yas-minor-mode)
-  	     yas-minor-mode)
-      (let ((yas-buffer-local-condition ''(require-snippet-condition . auto)))
-        (yas-expand))))
-
-  ;; Try after every insertion
-  (add-hook 'post-self-insert-hook #'my/yas-try-expanding-auto-snippets)
-#+end_src
-*** reftex
-#+begin_src emacs-lisp
-  (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-#+end_src
 
 ** Font
 #+begin_src emacs-lisp
@@ -632,15 +647,13 @@ jump to everywhere quickly
     		    :family "JetBrainsMono")
 #+end_src
 
-** Package
-*** jinx
+** jinx
 #+begin_src emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/site-lisp/jinx/")
   (require 'jinx)
 
   (add-hook 'emacs-startup-hook #'global-jinx-mode)
 #+end_src
-
 
 ** org-tree-slide
 #+begin_src emacs-lisp

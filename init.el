@@ -36,5 +36,6 @@
 (require 'init-magit)
 (require 'init-dirvish)
 (require 'init-projectile)
+(require 'init-latex)
 
 (provide 'init)

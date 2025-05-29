@@ -64,3 +64,9 @@
 [submodule "site-lisp/projectile"]
 	path = site-lisp/projectile
 	url = https://github.com/bbatsov/projectile
+[submodule "site-lisp/auctex"]
+	path = site-lisp/auctex
+	url = https://git.savannah.gnu.org/git/auctex.git
+[submodule "site-lisp/cdlatex"]
+	path = site-lisp/cdlatex
+	url = https://github.com/cdominik/cdlatex
