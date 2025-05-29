@@ -1,9 +1,9 @@
 auto-save-list/
 eln-cache/
 eshell/
-recentf/
 transient/
 test-lisp/
 
 *.el
+recentf
 projectile-bookmarks.eld

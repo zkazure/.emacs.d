@@ -104,11 +104,12 @@
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-theme.el
 :END:
+
 #+begin_src emacs-lisp
   (load-theme 'modus-operandi-tinted)
 
   (provide 'init-theme)
-#+end_srcn
+#+end_src
 
 ** org
 :PROPERTIES:
@@ -234,6 +235,7 @@ only the language set here can be babeled.
   ;;   	  :foreground-color "#dcdcdc"
   ;;   	  :internal-border-width 5))
 
+  (setq rime-user-data-dir "~/.config/rime-moran")
   (setq default-input-method "rime"
         rime-show-candidate 'posframe)
 
