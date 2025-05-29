@@ -33,5 +33,6 @@
 (require 'init-yasnippet)
 (require 'init-lsp-bridge)
 (require 'init-avy)
+(require 'init-magit)
 
 (provide 'init)
