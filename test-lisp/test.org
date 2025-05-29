@@ -16,6 +16,7 @@
   (require 'init-beacon)
   (require 'init-font)
   (require 'init-org-test)
+  (require 'init-dashboard)
 
   (provide 'init-test)
 #+end_src
@@ -235,8 +236,21 @@
   (provide 'init-org-test)
 #+end_src
 
-** dash board
+** dashboard
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-dashboard.el
+:END:
 
+#+begin_src emacs-lisp
+  (require 'dashboard)
+
+  (dashboard-setup-startup-hook)
+  (setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
+
+  (setq dashboard-startup-banner "logo")
+
+  (provide 'init-dashboard)
+#+end_src
 
 * wish list
 ** lsp for org mode
