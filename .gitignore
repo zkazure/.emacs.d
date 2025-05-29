@@ -2,7 +2,6 @@ auto-save-list/
 eln-cache/
 eshell/
 transient/
-test-lisp/
 
 *.el
 recentf
