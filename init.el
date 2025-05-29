@@ -27,5 +27,7 @@
 (require 'init-rainbow-delimiters)
 (require 'init-auto-save)
 (require 'init-which-key)
+(require 'init-aweshell)
+(require 'init-ivy)
 
 (provide 'init)

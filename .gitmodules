@@ -22,3 +22,9 @@
 [submodule "site-lisp/olivetti"]
 	path = site-lisp/olivetti
 	url = https://github.com/rnkn/olivetti
+[submodule "site-lisp/aweshell"]
+	path = site-lisp/aweshell
+	url = https://github.com/manateelazycat/aweshell
+[submodule "site-lisp/swiper"]
+	path = site-lisp/swiper
+	url = https://github.com/abo-abo/swiper

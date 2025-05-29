@@ -1,5 +1,5 @@
-(require 'dash)
-(require 'posframe)
+;; (require 'dash)
+;; (require 'posframe)
 (require 'rime)
 
 ;; (setq rime-posframe-properties
