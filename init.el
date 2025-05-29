@@ -20,6 +20,7 @@
 ;; inside
 (require 'init-ui)
 (require 'init-theme)
+(require 'init-org)
 
 ;; outside
 (require 'init-rime)
