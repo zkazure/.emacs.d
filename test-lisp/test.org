@@ -140,41 +140,32 @@
 
 - [ ] fell it
 #+begin_src emacs-lisp
-  ;; --- Global Font Settings ---
-  ;; Ensure Emacs uses UTF-8 for everything
-  (set-language-environment "UTF-8")
-  (set-default-coding-systems 'utf-8)
-  (set-terminal-coding-system 'utf-8)
-  (set-keyboard-coding-system 'utf-8)
-  (set-selection-coding-system 'utf-8)
-  (prefer-coding-system 'utf-8)
-
   ;; Set the default font for the Emacs frame.
   ;; This will be your primary monospace font for English text and code.
   ;; Adjust the size as needed.
   (setq initial-frame-alist
-        (append (list (cons 'font "IBM Plex Mono-14"))
+        (append (list (cons 'font "IBM Plex Mono"))
                 initial-frame-alist))
   (setq default-frame-alist
-        (append (list (cons 'font "IBM Plex Mono-14"))
+        (append (list (cons 'font "IBM Plex Mono"))
                 default-frame-alist))
 
   ;; Optionally, set the font immediately if Emacs is already running with a GUI
   (when (display-graphic-p)
-    (set-frame-font "IBM Plex Mono-14" t t))
+    (set-frame-font "IBM Plex Mono" t t))
 
   ;; --- CJK Font Fallback using Fontsets ---
   ;; This is crucial for Chinese character display.
   ;; Emacs uses fontsets to determine which font to use for specific character ranges.
   ;; We tell Emacs to use a specific Chinese font for CJK character sets.
 
-  (when (display-graphic-p)
-    (dolist (charset '(kana han cjk-misc bopomofo))
-      (set-fontset-font
-       (frame-parameter nil 'font) ; Apply to the default fontset of the current frame
-       charset
-       (font-spec :family "WenQuanYi Zen Hei") ; Your chosen Chinese font
-       nil 'prepend))) ; 'prepend ensures it takes precedence over general fallbacks
+;;   (when (display-graphic-p)
+;;     (dolist (charset '(kana han cjk-misc bopomofo))
+;;       (set-fontset-font
+;;        (frame-parameter nil 'font) ; Apply to the default fontset of the current frame
+;;        charset
+;;        (font-spec :family "WenQuanYi Zen Hei") ; Your chosen Chinese font
+;;        nil 'prepend))) ; 'prepend ensures it takes precedence over general fallbacks
 
   ;; Optional: Adjust CJK font size if it looks disproportionate
   ;; Sometimes the CJK font might appear smaller or larger relative to the English font.
@@ -243,6 +234,9 @@
 
   (provide 'init-org-test)
 #+end_src
+
+** dash board
+
 
 * wish list
 ** lsp for org mode
