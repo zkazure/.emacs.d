@@ -57,6 +57,8 @@
   (require 'init-rime)
   (require 'init-rainbow-delimiters)
   (require 'init-auto-save)
+  (require 'init-which-key)
+
 
   (provide 'init)
 #+end_src
@@ -96,7 +98,7 @@
 #+end_srcn
 
 * Lisp-outside
-** emacs-rime
+** emacs rime
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-rime.el
 :END:
@@ -118,7 +120,7 @@
   (provide 'init-rime)
 #+end_src
 
-** rainbow-delimiters
+** rainbow delimiters
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-rainbow-delimiters.el
 :END:
@@ -130,7 +132,7 @@
   (provide 'init-rainbow-delimiters)
 #+end_src
 
-** auto-save
+** auto save
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-auto-save.el
 :END:
@@ -155,6 +157,23 @@
 
   (provide 'init-auto-save)
 #+END_SRC
+
+** which key
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-which-key.el
+:END:
+#+begin_src emacs-lisp
+  (require 'which-key)
+
+  (setq which-key-idle-delay 0.5)
+  (which-key-mode)
+
+  (provide 'init-which-key)
+#+end_src
+
+
+
+
 * Test
 
 
@@ -182,35 +201,6 @@
 
   (add-hook 'emacs-startup-hook #'global-jinx-mode)
 #+end_src
-
-*** auto-save
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/site-lisp/auto-save/")
-  (require 'auto-save)
-  (auto-save-enable)
-
-  (setq auto-save-silent t)   ; quietly save
-  (setq auto-save-delete-trailing-whitespace t)  ; automatically delete spaces at the end of the line when saving
-
-  ;;; custom predicates if you don't want auto save.
-  ;;; disable auto save mode when current filetype is an gpg file.
-  (setq auto-save-disable-predicates
-        '((lambda ()
-        (string-suffix-p
-        "gpg"
-        (file-name-extension (buffer-name)) t))))
-#+END_SRC
-
-
-*** which key
-#+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/site-lisp/which-key/")
-  (require 'which-key)
-  (setq which-key-idle-delay 0.5)
-  (which-key-mode)
-#+end_src
-
-
 
 
 ** Org

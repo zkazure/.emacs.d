@@ -25,5 +25,7 @@
 (require 'init-rime)
 (require 'init-rainbow-delimiters)
 (require 'init-auto-save)
+(require 'init-which-key)
+
 
 (provide 'init)
