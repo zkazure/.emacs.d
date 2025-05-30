@@ -1,9 +1,4 @@
 #+title: Test Configuration for Emacs
-* QUSE
-- [ ] what is the ~(set-fringe-mode 10)~
-- [ ] custom my personal theme
-- [ ] going to install the rime
-
 * Init Test
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-test.el
@@ -29,6 +24,7 @@
 :HEADER-ARGS: :tangle lisp/init-emacs-everywhere.el
 :END:
 - [ ] usability test
+- [ ] how to remove the file store in the ~/tmp~
 
 #+begin_src emacs-lisp
   (require 'emacs-everywhere)
@@ -39,7 +35,7 @@
 :HEADER-ARGS: :tangle lisp/init-jinx.el
 :END:
 - [ ] ignore Chinese
-
+- [ ] ignore the code in the emphasis.
 #+begin_src emacs-lisp
   (require 'jinx)
   (add-hook 'emacs-startup-hook #'global-jinx-mode)
@@ -234,11 +230,12 @@
 :HEADER-ARGS: :tangle lisp/init-dashboard.el
 :END:
 
+- [ ] how to disable with emacs everywhere.
 #+begin_src emacs-lisp
   (require 'dashboard)
 
   (dashboard-setup-startup-hook)
-  (setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
+  ;; (setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
 
   (setq dashboard-startup-banner "logo")
 
@@ -250,6 +247,7 @@
 ** pdf tool
 ** email
 ** webmode
+- [ ] learning with purcell
 #+begin_src emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/site-lisp/colorful-mode/")
   (require 'colorful-mode)
@@ -263,7 +261,7 @@
 
 #+end_src
 ** save history
-'** remember the cursor position
+** remember the cursor position
 ** org-tree-slide
 #+begin_src emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/site-lisp/org-tree-slide/")
@@ -283,3 +281,5 @@
     )
 #+end_src
 ** magit forge
+** Add the plantuml
+good good good
