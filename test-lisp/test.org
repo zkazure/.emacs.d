@@ -14,7 +14,7 @@
   (require 'init-org-test)
   (require 'init-dashboard)
   (require 'init-visual-regexp)
-  
+
   (provide 'init-test)
 #+end_src
 
@@ -31,6 +31,7 @@
   (require 'emacs-everywhere)
   (provide 'init-emacs-everywhere)
 #+end_src
+
 ** jinx
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-jinx.el
@@ -186,7 +187,7 @@
 
   ;; Specify the proportional font for Org mode prose
   (set-face-attribute 'variable-pitch nil
-                      :family "CMU Typewriter Text-bold" ; A good proportional font
+                      :family "Maple Mono NF" ; A good proportional font
                       :height 1.0) ; Keep the same height as default font
 
   ;; Ensure `fixed-pitch` face uses your main coding font.
