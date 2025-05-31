@@ -175,6 +175,8 @@
 :HEADER-ARGS: :tangle lisp/init-org-test.el
 :END:
 - [ ] org bullet package
+- [ ] fix the emphasize of unable to use the bold in the title. Is it
+  necessary?
 #+begin_src emacs-lisp
   ;; --- Org Mode Specific Font Configuration ---
 
@@ -297,3 +299,4 @@
 ** magit forge
 ** Add the plantuml
 good good good
+** make the ~M-q~ jump over the emaphize

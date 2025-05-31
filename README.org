@@ -8,8 +8,8 @@ master branch. Hope there is one day, I could settle down.
 
 * Get Started
 My configuration is constructed with org babel, so you couldn't not
-find any ~.el~ file. You have to open the ~config.org~ file and press ~C-c
-C-v t~, which is a shortcut of ~org-babel-tangle~ command in the Emacs.
+find any ~.el~ file. You have to open the ~config.org~ file and press
+~C-c C-v t~, which is a shortcut of ~org-babel-tangle~ command in the Emacs.
 
 * Structure
 My configuration mainly divided into 3 folders.
@@ -18,5 +18,5 @@ My configuration mainly divided into 3 folders.
 - ~site-lisp~: This folder contains the outside packages I added to
   Emacs which is configured by ~git submodule~.
 - ~test-lisp~: This is the folder I test some new feature of Emacs. Or
-  it can be the custom folder. Here I manage the package with ~git
-  clone~.
+  it can be the custom folder. Here I manage the package with
+  ~git clone~.
