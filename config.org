@@ -181,6 +181,10 @@ set the org capture template
   	     '("v" "vlog" entry
   	       (file+weektree "~/Documents/org/record.org")
   	       "* %?")) ;; C-c C-x C-i to start record C-c C-x C-o to end itt
+  (add-to-list 'org-capture-templates
+  	     '("b" "Blog" entry
+  	       (file+datetree "~/Documents/org/blog/blog.org")
+  	       "* %?"))
 #+end_src
 
 #+begin_src emacs-lisp
