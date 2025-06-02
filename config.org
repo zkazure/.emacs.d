@@ -185,6 +185,10 @@ set the org capture template
   	     '("b" "Blog" entry
   	       (file+datetree "~/Documents/org/blog/blog.org")
   	       "* %?"))
+  (add-to-list 'org-capture-templates
+  	     '("i" "Ideas" entry
+  	       (file "~/Documents/org/ideas.org")
+  	       "* %?"))
 #+end_src
 
 #+begin_src emacs-lisp
