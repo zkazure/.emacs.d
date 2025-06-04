@@ -1,4 +1,5 @@
 #+title: Test Configuration for Emacs
+#+startup: overview
 * Init Test
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-test.el
@@ -15,6 +16,7 @@
   ;; (require 'init-dashboard)
   (require 'init-visual-regexp)
   (require 'init-markdown-mode)
+  (require 'init-pdf-tools)
   (require 'init-plantuml-mode)
 
   (provide 'init-test)
@@ -282,6 +284,67 @@
     (define-key global-map (kbd "C-c q") 'vr/query-replace)
     (provide 'init-visual-regexp)
 #+end_src
+** pdf tools
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-pdf-tools.el
+:END:
+- [ ] test
+*** How to install it
+1. get pdf-tools, ~/path/to/pdf-tools/server/autobuild~
+2. get tablist
+3. tweak tablist.el 
+   #+begin_src emacs-lisp
+     (define-minor-mode tablist-minor-mode
+       ""
+       :init-value nil
+       :lighter nil
+       :keymap nil
+       :interactive nil
+
+       (unless (derived-mode-p 'tabulated-list-mode)
+         (error "Buffer is not in Tabulated List Mode"))
+       (tablist-init (not tablist-minor-mode)))
+
+     ;; ...............
+
+     (define-minor-mode tablist-edit-column-minor-mode
+       ""
+       :init-value nil
+       :lighter nil
+       :keymap nil
+       :interactive nil
+
+       (unless (or tablist-minor-mode
+                   (derived-mode-p 'tablist-mode))
+         (error "Not in a tablist buffer"))
+       (cond
+        (tablist-edit-column-minor-mode
+         (add-to-list 'mode-line-misc-info
+                      '(tablist-edit-column-minor-mode "[edit]"))
+         (add-hook 'post-command-hook 'tablist-edit-column-constrain-point nil t)
+         (read-only-mode -1))
+        (t
+         (remove-hook 'post-command-hook 'tablist-edit-column-constrain-point t)
+         (read-only-mode 1))))
+   #+end_src
+
+#+begin_src emacs-lisp
+  (require 'pdf-tools)
+
+  (require 'pdf-occur)
+  (require 'pdf-history)
+  (require 'pdf-links)
+  (require 'pdf-outline)
+  (require 'pdf-annot)
+  (require 'pdf-sync)
+
+  (pdf-tools-install)
+
+  (dolist (mode '(pdf-view-mode-hook))
+    (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+  (provide 'init-pdf-tools)
+#+end_src
 ** plantuml mode
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-plantuml-mode.el
@@ -304,6 +367,7 @@
 
   (provide 'init-plantuml-mode)
 #+end_src
+
 * wish list
 ** lsp for org mode
 ** email Gnus
