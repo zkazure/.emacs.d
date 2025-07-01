@@ -321,6 +321,7 @@
   (require 'init-orderless)
   (require 'init-font)
   (require 'init-visual-regexp)
+  (require 'init-plantuml-mode)
 #+end_src
 
 ** END
@@ -901,4 +902,26 @@ jump to everywhere quickly
     (define-key global-map (kbd "C-c r") 'vr/replace)
     (define-key global-map (kbd "C-c q") 'vr/query-replace)
     (provide 'init-visual-regexp)
+#+end_src
+** plantuml mode
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-plantuml-mode.el
+:END:
+
+#+begin_src emacs-lisp
+  (require 'plantuml-mode)
+
+  (setq plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
+  ;; Enable plantuml-mode for PlantUML files
+  (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+
+  (add-to-list
+    'org-src-lang-modes '("plantuml" . plantuml))
+
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((plantuml . t)))
+  (setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
+
+  (provide 'init-plantuml-mode)
 #+end_src

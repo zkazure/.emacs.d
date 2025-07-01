@@ -67,6 +67,9 @@
 [submodule "org-appear"]
 	path = lib/org-appear
 	url = https://github.com/awth13/org-appear
+[submodule "plantuml-mode"]
+	path = lib/plantuml-mode
+	url = https://github.com/skuro/plantuml-mode
 [submodule "posframe"]
 	path = lib/posframe
 	url = https://github.com/tumashu/posframe
