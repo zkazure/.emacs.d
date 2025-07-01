@@ -46,6 +46,9 @@
 [submodule "posframe"]
 	path = lib/posframe
 	url = https://github.com/tumashu/posframe
+[submodule "rainbow-delimiters"]
+	path = lib/rainbow-delimiters
+	url = https://github.com/Fanael/rainbow-delimiters
 [submodule "rime"]
 	path = lib/rime
 	url = https://github.com/DogLooksGood/emacs-rime

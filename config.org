@@ -299,7 +299,7 @@
 
   ;; outside
   (require 'init-rime)
-  ; (require 'init-rainbow-delimiters)
+  (require 'init-rainbow-delimiters)
   ; (require 'init-auto-save)
   ; (require 'init-which-key)
   ; (require 'init-aweshell)
@@ -501,6 +501,18 @@ only the language set here can be babeled.
   (setq rime-posframe-style 'vertical)
 
   (provide 'init-rime)
+#+end_src
+
+** rainbow delimiters
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-rainbow-delimiters.el
+:END:
+#+begin_src emacs-lisp
+  (require 'rainbow-delimiters)
+
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+
+  (provide 'init-rainbow-delimiters)
 #+end_src
 
 ** ivy
