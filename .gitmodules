@@ -91,6 +91,9 @@
 [submodule "rime"]
 	path = lib/rime
 	url = https://github.com/DogLooksGood/emacs-rime
+[submodule "super-save"]
+	path = lib/super-save
+	url = https://github.com/bbatsov/super-save
 [submodule "tablist"]
 	path = lib/tablist
 	url = https://github.com/emacsorphanage/tablist
