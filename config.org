@@ -294,7 +294,7 @@
 
   ;; inside
   (require 'init-ui)
-  ; (require 'init-theme)
+  (require 'init-theme)
   ; (require 'init-org)
 
   ;; outside
@@ -350,4 +350,15 @@
   ;;   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
   (provide 'init-ui)
+#+end_src
+
+** theme
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-theme.el
+:END:
+
+#+begin_src emacs-lisp
+  (load-theme 'modus-operandi-tinted)
+
+  (provide 'init-theme)
 #+end_src
