@@ -316,6 +316,7 @@
   ; (require 'init-test)
 
   (require 'init-emacs-everywhere)
+  (require 'init-jinx)
 
 #+end_src
 
@@ -738,4 +739,19 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (require 'emacs-everywhere)
   (provide 'init-emacs-everywhere)
+#+end_src
+
+** jinx
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-jinx.el
+:END:
+- [X] ignore Chinese
+- [ ] ignore the code in the emphasis.
+#+begin_src emacs-lisp
+  (require 'jinx)
+
+  (add-hook 'emacs-startup-hook #'global-jinx-mode)
+  (add-to-list 'jinx-exclude-regexps '(t "\\cc")) ; 拼写检查忽略中文
+
+  (provide 'init-jinx)
 #+end_src

@@ -46,6 +46,9 @@
 [submodule "ivy"]
 	path = lib/ivy
 	url = https://github.com/abo-abo/swiper
+[submodule "jinx"]
+	path = lib/jinx
+	url = https://github.com/minad/jinx
 [submodule "llama"]
 	path = lib/llama
 	url = https://github.com/tarsius/llama.git
