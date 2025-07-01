@@ -85,6 +85,9 @@
 [submodule "treepy"]
 	path = lib/treepy
 	url = https://github.com/volrath/treepy.el.git
+[submodule "visual-regexp"]
+	path = lib/visual-regexp
+	url = https://github.com/benma/visual-regexp.el
 [submodule "with-editor"]
 	path = lib/with-editor
 	url = https://github.com/magit/with-editor.git
