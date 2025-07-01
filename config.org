@@ -324,6 +324,7 @@
   (require 'init-plantuml-mode)
   (require 'init-org-roam)
   (require 'init-pdf-tools)
+  (require 'init-org-noter)
 #+end_src
 
 ** END
@@ -965,6 +966,7 @@ jump to everywhere quickly
 #+end_src
 
 ** pdf-tools
+
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-pdf-tools.el
 :END:
@@ -1012,6 +1014,18 @@ jump to everywhere quickly
   (define-key pdf-history-minor-mode-map "b" 'pdf-history-backward)
 
   (provide 'init-pdf-tools)
+#+end_src
+** org noter
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-org-noter.el
+:END:
+
+#+begin_src emacs-lisp
+  (require 'org-noter)
+
+  (define-key global-map (kbd "C-c n n") 'org-noter)
+
+  (provide 'init-org-noter)
 #+end_src
 
 

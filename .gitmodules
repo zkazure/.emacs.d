@@ -67,6 +67,9 @@
 [submodule "org-appear"]
 	path = lib/org-appear
 	url = https://github.com/awth13/org-appear
+[submodule "org-noter"]
+	path = lib/org-noter
+	url = https://github.com/org-noter/org-noter
 [submodule "org-roam"]
 	path = lib/org-roam
 	url = https://github.com/org-roam/org-roam
