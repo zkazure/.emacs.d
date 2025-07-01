@@ -311,7 +311,7 @@
   ; (require 'init-magit)
   (require 'init-dirvish)
   (require 'init-projectile)
-  ; (require 'init-latex)
+  (require 'init-latex)
   ; 
   ; (require 'init-test)
 
@@ -673,4 +673,55 @@ jump to everywhere quickly
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
   (provide 'init-projectile)
+#+end_src
+
+** LaTex
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-latex.el
+:END:
+*** auctex
+#+begin_src emacs-lisp
+  (require 'auctex)
+
+  (setq TeX-auto-save t)
+  (setq TeX-parse-self t)
+  (setq-default TeX-master t)
+#+end_src
+*** prettify-symbols-mode
+#+begin_src emacs-lisp
+  (add-hook 'latex-mode-hook 'prettify-symbols-mode)
+
+  (add-hook 'latex-mode-hook
+            (defun preview-larger-previews ()
+              (setq preview-scale-function
+                    (lambda () (* 1.25
+                             (funcall (preview-scale-from-face)))))))
+
+  (setq prettify-symbols-unprettify-at-point t)
+#+end_src
+*** cdlatex
+
+#+begin_src emacs-lisp
+  (require 'cdlatex)
+
+  (add-hook 'latex-mode-hook 'turn-on-cdlatex)
+#+end_src
+*** yasnippet
+#+begin_src emacs-lisp
+  (defun my/yas-try-expanding-auto-snippets ()
+    (when (and (boundp 'yas-minor-mode)
+  	     yas-minor-mode)
+      (let ((yas-buffer-local-condition ''(require-snippet-condition . auto)))
+        (yas-expand))))
+
+  ;; Try after every insertion
+  (add-hook 'post-self-insert-hook #'my/yas-try-expanding-auto-snippets)
+#+end_src
+*** reftex
+#+begin_src emacs-lisp
+  (add-hook 'latex-mode-hook 'turn-on-reftex)
+#+end_src
+*** END
+#+begin_src emacs-lisp
+  (provide 'init-latex)
 #+end_src
