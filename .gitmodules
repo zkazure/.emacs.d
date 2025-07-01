@@ -34,6 +34,12 @@
 [submodule "magit"]
 	path = lib/magit
 	url = https://github.com/magit/magit.git
+[submodule "olivetti"]
+	path = lib/olivetti
+	url = https://github.com/rnkn/olivetti
+[submodule "org-appear"]
+	path = lib/org-appear
+	url = https://github.com/awth13/org-appear
 [submodule "transient"]
 	path = lib/transient
 	url = https://github.com/magit/transient.git
