@@ -37,6 +37,9 @@
 [submodule "magit"]
 	path = lib/magit
 	url = https://github.com/magit/magit.git
+[submodule "markdown-mode"]
+	path = lib/markdown-mode
+	url = https://github.com/jrblevin/markdown-mode
 [submodule "olivetti"]
 	path = lib/olivetti
 	url = https://github.com/rnkn/olivetti
