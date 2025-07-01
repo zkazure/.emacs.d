@@ -31,6 +31,9 @@
 [submodule "dirvish"]
 	path = lib/dirvish
 	url = https://github.com/alexluigit/dirvish
+[submodule "emacs-everywhere"]
+	path = lib/emacs-everywhere
+	url = https://github.com/tecosaur/emacs-everywhere
 [submodule "emacsql"]
 	path = lib/emacsql
 	url = https://github.com/magit/emacsql.git
