@@ -327,6 +327,7 @@
   (require 'init-org-noter)
   (require 'init-super-save)
   (require 'init-indent)
+  (require 'init-electric-pair-mode)
 #+end_src
 
 ** END
@@ -1101,7 +1102,16 @@ jump to everywhere quickly
 
   (provide 'init-indent)
 #+end_src 
+** electric-pair-mode
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-electric-pair-mode.el
+:END:
+#+begin_src emacs-lisp
+  (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
+  (electric-pair-mode 1)
 
+  (provide 'init-electric-pair-mode)
+#+end_src
 * wish list
 ** lsp for org mode
 ** email Gnus
