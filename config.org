@@ -309,8 +309,8 @@
   (require 'init-lsp-bridge)
   (require 'init-avy)
   ; (require 'init-magit)
-  ; (require 'init-dirvish)
-  ; (require 'init-projectile)
+  (require 'init-dirvish)
+  (require 'init-projectile)
   ; (require 'init-latex)
   ; 
   ; (require 'init-test)
@@ -648,4 +648,15 @@ jump to everywhere quickly
   (global-set-key (kbd "C-c C-j") 'avy-resume)
 
   (provide 'init-avy)
+#+end_src
+** dirvish
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-dirvish.el
+:END:
+#+begin_src emacs-lisp
+  (require 'dirvish)
+  (define-key global-map "\C-xd" 'dirvish)
+  (define-key dired-mode-map (kbd "b") 'dired-up-directory)
+
+  (provide 'init-dirvish)
 #+end_src
