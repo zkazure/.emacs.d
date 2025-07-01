@@ -279,9 +279,10 @@
   (setq read-process-output-max (* 4 1024 1024))
   (setq process-adaptive-read-buffering nil)
 
+  (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
   ;; add you personal config
-  (dolist (dir '("lisp" "test"))
-    (push (expand-file-name dir user-emacs-directory) load-path))
+  ;; (dolist (dir '("lisp"))
+  ;;   (push (expand-file-name dir user-emacs-directory) load-path))
   ;; add the subdirectory
   ;; (dolist (dir '("site-lisp" "test-lisp"))
   ;;   (let ((default-directory (expand-file-name dir user-emacs-directory)))
