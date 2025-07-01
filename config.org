@@ -318,6 +318,7 @@
   (require 'init-emacs-everywhere)
   (require 'init-markdown-mode)
   (require 'init-jinx)
+  (require 'init-orderless)
 
 #+end_src
 
@@ -833,4 +834,21 @@ jump to everywhere quickly
   ;;   (repeat-mode))
 
   (provide 'init-dape)
+#+end_src
+** orderless
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-orderless.el
+:END:
+
+- [ ] stability testing
+#+begin_src emacs-lisp
+  (require 'orderless)
+
+  (setq completion-styles '(orderless basic)
+        completion-category-overrides '((file (styles basic partial-completion))))
+
+  (setq ivy-re-builders-alist '((t . orderless-ivy-re-builder)))
+  (add-to-list 'ivy-highlight-functions-alist '(orderless-ivy-re-builder . orderless-ivy-highlight))
+
+  (provide 'init-orderless)
 #+end_src
