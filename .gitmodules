@@ -70,6 +70,9 @@
 [submodule "org-roam"]
 	path = lib/org-roam
 	url = https://github.com/org-roam/org-roam
+[submodule "pdf-tools"]
+	path = lib/pdf-tools
+	url = https://github.com/vedang/pdf-tools
 [submodule "plantuml-mode"]
 	path = lib/plantuml-mode
 	url = https://github.com/skuro/plantuml-mode
@@ -85,6 +88,9 @@
 [submodule "rime"]
 	path = lib/rime
 	url = https://github.com/DogLooksGood/emacs-rime
+[submodule "tablist"]
+	path = lib/tablist
+	url = https://github.com/emacsorphanage/tablist
 [submodule "transient"]
 	path = lib/transient
 	url = https://github.com/magit/transient.git

@@ -323,6 +323,7 @@
   (require 'init-visual-regexp)
   (require 'init-plantuml-mode)
   (require 'init-org-roam)
+  (require 'init-pdf-tools)
 #+end_src
 
 ** END
@@ -936,7 +937,6 @@ jump to everywhere quickly
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-org-roam.el
 :END:
-
 #+begin_src emacs-lisp
   (require 'org-roam)
 
@@ -963,3 +963,100 @@ jump to everywhere quickly
 
   (provide 'init-org-roam)
 #+end_src
+
+** pdf-tools
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-pdf-tools.el
+:END:
+#+begin_src emacs-lisp
+  (require 'pdf-tools)
+
+  (require 'pdf-occur)
+  (require 'pdf-history)
+  (require 'pdf-links)
+  (require 'pdf-outline)
+  (require 'pdf-annot)
+  (require 'pdf-sync)
+
+  (pdf-tools-install)
+
+  (dolist (mode '(pdf-view-mode-hook))
+    (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+  (add-hook 'pdf-view-mode-hook 'pdf-view-fit-width-to-window) ;; 自动放大到页宽
+
+  (setq TeX-PDF-mode t)
+  (setq TeX-source-correlate-mode t) ;; 编译后开启正反向搜索
+  (setq TeX-source-correlate-method 'synctex) ;; 正反向搜索的执行方式
+  (setq TeX-source-correlate-start-server t) ;; 不再询问是否开启服务器以执行反向搜索
+
+  (setq TeX-view-program-selection '((output-pdf "PDF Tools"))) ;; 用pdf-tools 打开 pdf
+  (add-hook 'TeX-after-compilation-finished-functions
+            #'TeX-revert-document-buffer) ;; 在完成编译后刷新 pdf 文件
+
+  (define-key pdf-view-mode-map
+              "d" 'pdf-view-next-page-command) ;; 向后翻页
+  (define-key pdf-view-mode-map
+              "a" 'pdf-view-previous-page-command) ;; 向前翻页
+  (define-key pdf-view-mode-map
+              "s" 'pdf-view-scroll-up-or-next-page) ;; 向下滑动
+  (define-key pdf-view-mode-map
+              "w" 'pdf-view-scroll-down-or-previous-page) ;; 向上滑动
+
+
+  (define-key pdf-annot-minor-mode-map (kbd "C-a a") 'pdf-annot-add-highlight-markup-annotation) ;; 高亮
+  (define-key pdf-annot-minor-mode-map (kbd "C-a s") 'pdf-annot-add-squiggly-markup-annotation) ;; 波浪线
+  (define-key pdf-annot-minor-mode-map (kbd "C-a u") 'pdf-annot-add-underline-markup-annotation) ;; 下划线
+  (define-key pdf-annot-minor-mode-map (kbd "C-a d") 'pdf-annot-delete) ;; 删除
+
+  (define-key pdf-history-minor-mode-map "b" 'pdf-history-backward)
+
+  (provide 'init-pdf-tools)
+#+end_src
+
+
+* wish list
+** lsp for org mode
+** email Gnus
+[[https://github.com/redguardtoo/mastering-emacs-in-one-year-guide/blob/master/gnus-guide-en.org#why-use-gnus-optional][redguardtoo's gnus configuration]]
+** ox-publish
+system-craft
+** neotree
+** webmode
+- [ ] learning with purcell
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/colorful-mode/")
+  (require 'colorful-mode)
+
+  (setq colorful-use-prefix t)
+  (setq colorful-only-strings 'only-prog)
+  (setq css-fontify-colors nil)
+
+  (global-colorful-mode t)
+  (add-to-list 'global-colorful-modes 'helpful-mode)
+
+#+end_src
+** org-tree-slide
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/org-tree-slide/")
+  (require 'org-tree-slide)
+  (with-eval-after-load 'org
+    (define-key org-mode-map (kbd "<f8>") 'org-tree-slide-mode)
+    (define-key org-mode-map (kbd "S-<f8>") 'org-tree-slide-skip-done-toggle))
+
+  ;; (when (require 'org-tree-slide nil t)
+  ;;   (global-set-key (kbd "<f8>") 'org-tree-slide-mode)
+  ;;   (global-set-key (kbd "S-<f8>") 'org-tree-slide-skip-done-toggle)
+  ;;   (org-tree-slide-simple-profile))
+
+  (with-eval-after-load "org-tree-slide"
+    (define-key org-tree-slide-mode-map (kbd "<f9>") 'org-tree-slide-move-previous-tree)
+    (define-key org-tree-slide-mode-map (kbd "<f10>") 'org-tree-slide-move-next-tree)
+    )
+#+end_src
+** magit forge
+** org mode
+[[http://doc.norang.ca/org-mode.html][Org Mode - Organize Your Life In Plain Text!]]
+** eee.el
+** leetcode
+** plantuml complete
