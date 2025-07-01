@@ -298,7 +298,7 @@
   (require 'init-org)
 
   ;; outside
-  ; (require 'init-rime)
+  (require 'init-rime)
   ; (require 'init-rainbow-delimiters)
   ; (require 'init-auto-save)
   ; (require 'init-which-key)
@@ -480,4 +480,25 @@ only the language set here can be babeled.
 
 #+begin_src emacs-lisp
   (provide 'init-org)
+#+end_src
+
+** emacs rime
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-rime.el
+:END:
+#+begin_src emacs-lisp
+  (require 'rime)
+
+  ;; (setq rime-posframe-properties
+  ;;       (list :background-color "#333333"
+  ;;   	  :foreground-color "#dcdcdc"
+  ;;   	  :internal-border-width 5))
+
+  (setq rime-user-data-dir "~/.config/rime-moran")
+  (setq default-input-method "rime"
+        rime-show-candidate 'posframe)
+
+  (setq rime-posframe-style 'vertical)
+
+  (provide 'init-rime)
 #+end_src

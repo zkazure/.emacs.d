@@ -40,6 +40,12 @@
 [submodule "org-appear"]
 	path = lib/org-appear
 	url = https://github.com/awth13/org-appear
+[submodule "posframe"]
+	path = lib/posframe
+	url = https://github.com/tumashu/posframe
+[submodule "rime"]
+	path = lib/rime
+	url = https://github.com/DogLooksGood/emacs-rime
 [submodule "transient"]
 	path = lib/transient
 	url = https://github.com/magit/transient.git
