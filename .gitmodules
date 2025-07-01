@@ -28,6 +28,9 @@
 [submodule "git-modes"]
 	path = lib/git-modes
 	url = https://github.com/magit/git-modes.git
+[submodule "ivy"]
+	path = lib/ivy
+	url = https://github.com/abo-abo/swiper
 [submodule "llama"]
 	path = lib/llama
 	url = https://github.com/tarsius/llama.git
