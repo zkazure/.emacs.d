@@ -660,3 +660,17 @@ jump to everywhere quickly
 
   (provide 'init-dirvish)
 #+end_src
+
+** projectile
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-projectile.el
+:END:
+#+begin_src emacs-lisp
+  (require 'projectile)
+
+  (projectile-mode +1)
+  ;; Recommended keymap prefix on Windows/Linux
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
+  (provide 'init-projectile)
+#+end_src
