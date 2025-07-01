@@ -301,7 +301,7 @@
   (require 'init-rime)
   (require 'init-rainbow-delimiters)
   ; (require 'init-auto-save)
-  ; (require 'init-which-key)
+  (require 'init-which-key)
   ; (require 'init-aweshell)
   (require 'init-ivy)
   ; (require 'init-fingertip)
@@ -515,6 +515,22 @@ only the language set here can be babeled.
   (provide 'init-rainbow-delimiters)
 #+end_src
 
+** TODO auto-save
+
+** which key
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-which-key.el
+:END:
+#+begin_src emacs-lisp
+  (require 'which-key)
+  
+  (which-key-mode)
+  (setq which-key-idle-delay 0.5)
+
+  (provide 'init-which-key)
+#+end_src
+
+
 ** ivy
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-ivy.el
@@ -549,3 +565,5 @@ only the language set here can be babeled.
 
   (provide 'init-ivy)
 #+end_src
+
+
