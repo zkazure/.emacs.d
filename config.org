@@ -305,7 +305,7 @@
   ; (require 'init-aweshell)
   (require 'init-ivy)
   ; (require 'init-fingertip)
-  ; (require 'init-yasnippet)
+  (require 'init-yasnippet)
   ; (require 'init-lsp-bridge)
   ; (require 'init-avy)
   ; (require 'init-magit)
@@ -567,3 +567,14 @@ only the language set here can be babeled.
 #+end_src
 
 
+** yasnippet
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-yasnippet.el
+:END:
+#+begin_src emacs-lisp
+  (require 'yasnippet)
+
+  (yas-global-mode 1)
+
+  (provide 'init-yasnippet)
+#+end_src
