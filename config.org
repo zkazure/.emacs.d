@@ -307,7 +307,7 @@
   ; (require 'init-fingertip)
   (require 'init-yasnippet)
   (require 'init-lsp-bridge)
-  ; (require 'init-avy)
+  (require 'init-avy)
   ; (require 'init-magit)
   ; (require 'init-dirvish)
   ; (require 'init-projectile)
@@ -628,4 +628,24 @@ only the language set here can be babeled.
                       (return "deno")))))))))
 
   (provide 'init-lsp-bridge)
+#+end_src
+
+** avy
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-avy.el
+:END:
+jump to everywhere quickly
+#+begin_src emacs-lisp
+  (require 'avy)
+
+  (global-set-key (kbd "C-;") 'avy-goto-char-2)
+  (global-set-key (kbd "C-.") 'avy-goto-char)
+  (global-set-key (kbd "M-g f") 'avy-goto-line)
+  (global-set-key (kbd "M-g w") 'avy-goto-word-1)
+  (global-set-key (kbd "M-g e") 'avy-goto-word-0)
+
+  (avy-setup-default)
+  (global-set-key (kbd "C-c C-j") 'avy-resume)
+
+  (provide 'init-avy)
 #+end_src
