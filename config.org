@@ -316,6 +316,7 @@
   ; (require 'init-test)
 
   (require 'init-emacs-everywhere)
+  (require 'init-markdown-mode)
   (require 'init-jinx)
 
 #+end_src
@@ -739,6 +740,27 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (require 'emacs-everywhere)
   (provide 'init-emacs-everywhere)
+#+end_src
+
+** markdowm mode
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-markdown-mode.el
+:END:
+
+#+begin_src emacs-lisp
+  (autoload 'markdown-mode "markdown-mode"
+     "Major mode for editing Markdown files" t)
+  (add-to-list 'auto-mode-alist
+               '("\\.\\(?:md\\|markdown\\|mkd\\|mdown\\|mkdn\\|mdwn\\)\\'" . markdown-mode))
+
+  (autoload 'gfm-mode "markdown-mode"
+     "Major mode for editing GitHub Flavored Markdown files" t)
+  (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+
+  (with-eval-after-load 'markdown-mode
+    (define-key markdown-mode-map (kbd "C-c C-e") #'markdown-do))
+
+  (provide 'init-markdown-mode)
 #+end_src
 
 ** jinx
