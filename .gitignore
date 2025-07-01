@@ -4,3 +4,17 @@
 /eln-cache
 /elpa
 /var
+
+auto-save-list/
+eln-cache/
+eshell/
+transient/
+lisp/
+elpa/
+/test-lisp/lisp/
+
+org-roam.db
+tramp
+recentf
+projectile-bookmarks.eld
+/*.el
