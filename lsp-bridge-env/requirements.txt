@@ -1,0 +1,10 @@
+epc
+orjson
+sexpdata
+six
+setuptools
+paramiko
+rapidfuzz
+watchdog
+packaging
+basedpyright
