@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: properties
+# key: properties
+# --
+:PROPERTIES:
+:HEADER-ARGS: :tangle ${1}
+:END:
+
+${0}y

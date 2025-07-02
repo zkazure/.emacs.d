@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: ignoreHeader
+# key: ignoreHeader
+# --
+
+:prologue "" :epilogue ""

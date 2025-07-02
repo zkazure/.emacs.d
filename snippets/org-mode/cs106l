@@ -1,0 +1,8 @@
+# key: noteCS106l
+# name: cs106l
+# --
+#+title: Lecture ${1}
+#+author: Kazure Zheng
+#+PROPERTY: header-args:cpp :prologue "#include <iostream>\n#include <string>\n#include \"/home/kazure/Documents/cs_learning/cs106l/STL/simpio.h\"\n\nusing namespace std;\n\nint main() {\n" :epilogue "\nreturn 0;\n}"
+
+${0}
