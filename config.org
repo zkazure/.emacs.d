@@ -997,6 +997,18 @@ jump to everywhere quickly
 
   (provide 'init-super-save)
 #+end_src
+** csv-mode
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-csv-mode.el
+:END:
+
+#+begin_src emacs-lisp
+  (require 'csv-mode)
+
+  (add-hook 'csv-mode-hook 'csv-guess-set-separator)
+  
+  (provide 'init-csv-mode)
+#+end_src
 * clone
 ** lsp bridge
 :PROPERTIES:
@@ -1125,21 +1137,11 @@ jump to everywhere quickly
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-test.el
 :END:
-** babel
+** csv-mode
 
 
 #+begin_src emacs-lisp :tangle no
-  (with-eval-after-load 'org
-    (org-babel-do-load-languages
-     'org-babel-load-languages
-     (seq-filter
-      (lambda (pair)
-        (locate-library (concat "ob-" (symbol-name (car pair)))))
-      '((emacs-lisp . t)
-        (plantuml . t)
-        (python . t)
-        (shell . t)
-        (C . t)))))
+  (require 'csv-mode)
 
 
 

@@ -22,6 +22,9 @@
 [submodule "compat"]
 	path = lib/compat
 	url = https://github.com/emacs-compat/compat.git
+[submodule "csv-mode"]
+	path = lib/csv-mode
+	url = git@github.com:emacsmirror/csv-mode.git
 [submodule "dash"]
 	path = lib/dash
 	url = https://github.com/magnars/dash.el.git
