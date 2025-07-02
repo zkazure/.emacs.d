@@ -329,6 +329,9 @@
   (require 'init-indent)
   (require 'init-electric-pair-mode)
 
+  (require 'init-csv-mode)
+  (require 'init-org-download)
+
   (require 'init-test)
 #+end_src
 
@@ -999,6 +1002,25 @@ jump to everywhere quickly
   
   (provide 'init-csv-mode)
 #+end_src
+
+** org-download
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-org-download.el
+:END:
+
+#+begin_src emacs-lisp
+  (add-hook 'org-mode-hook 'org-download-enable)
+  ;; (add-hook 'dired-mode-hook 'org-download-enable)
+  (setq-default org-download-method 'directory)
+  (setq-default org-download-image-dir "./img")
+  (setq-default org-download-heading-lvl 'nil)
+
+  (with-eval-after-load 'org
+    (define-key org-mode-map (kbd "C-M-y") 'org-download-clipboard))
+
+  (provide 'init-org-download)
+#+end_src
+
 * clone
 ** lsp bridge
 :PROPERTIES:
@@ -1127,13 +1149,18 @@ jump to everywhere quickly
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-test.el
 :END:
-** csv-mode
+** org-download
 
 
 #+begin_src emacs-lisp :tangle no
-  (require 'csv-mode)
+  (add-hook 'org-mode-hook 'org-download-enable)
+  ;; (add-hook 'dired-mode-hook 'org-download-enable)
+  (setq-default org-download-method 'directory)
+  (setq-default org-download-image-dir "./img")
+  (setq-default org-download-heading-lvl 'nil)
 
-
+  (with-eval-after-load 'org
+    (define-key org-mode-map (kbd "C-M-y") 'org-download-clipboard))
 
   (provide 'init-test)
 #+end_src
