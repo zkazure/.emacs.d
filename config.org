@@ -1111,6 +1111,33 @@ jump to everywhere quickly
 
   (provide 'init-electric-pair-mode)
 #+end_src
+
+* test
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-test.el
+:END:
+** babel
+
+
+#+begin_src emacs-lisp :tangle no
+  (with-eval-after-load 'org
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     (seq-filter
+      (lambda (pair)
+        (locate-library (concat "ob-" (symbol-name (car pair)))))
+      '((emacs-lisp . t)
+        (plantuml . t)
+        (python . t)
+        (shell . t)
+        (C . t)))))
+
+
+
+  (provide 'init-test)
+#+end_src
+
+
 * wish list
 ** lsp for org mode
 ** email Gnus
