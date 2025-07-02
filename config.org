@@ -470,10 +470,19 @@ here is some basic config helping for editing.
 *** babel
 only the language set here can be babeled.
 #+begin_src emacs-lisp
-  (setq org-babel-load-languages
-   '((emacs-lisp . t)
-     (python . t)
-     (C . t)))
+  (with-eval-after-load 'org
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     (seq-filter
+      (lambda (pair)
+        (locate-library (concat "ob-" (symbol-name (car pair)))))
+      '((emacs-lisp . t)
+        (plantuml . t)
+        (python . t)
+        (shell . t)
+        (C . t)))))
+
+  (setq org-confirm-babel-evaluate nil)
 #+end_src
 *** appear
 #+begin_src emacs-lisp
