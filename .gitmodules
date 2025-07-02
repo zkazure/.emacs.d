@@ -118,6 +118,9 @@
 [submodule "visual-regexp"]
 	path = lib/visual-regexp
 	url = https://github.com/benma/visual-regexp.el
+[submodule "web-mode"]
+	path = lib/web-mode
+	url = https://github.com/fxbois/web-mode
 [submodule "with-editor"]
 	path = lib/with-editor
 	url = https://github.com/magit/with-editor.git

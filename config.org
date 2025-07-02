@@ -332,6 +332,7 @@
   (require 'init-csv-mode)
   (require 'init-org-download)
   (require 'init-emmet-mode)
+  (require 'init-web-mode)
 
   (require 'init-test)
 #+end_src
@@ -1054,6 +1055,29 @@ jump to everywhere quickly
 
   (provide 'init-emmet-mode)
 #+end_src
+
+** web-mode
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-web-mode.el
+:END:
+
+#+begin_src emacs-lisp
+  (require 'web-mode)
+
+  (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.css?\\'" . web-mode))
+  
+  (provide 'init-web-mode)
+#+end_src
+
 
 * clone
 ** lsp bridge
