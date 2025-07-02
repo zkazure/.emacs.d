@@ -43,6 +43,9 @@
 [submodule "emacsql"]
 	path = lib/emacsql
 	url = https://github.com/magit/emacsql.git
+[submodule "emmet-mode"]
+	path = lib/emmet-mode
+	url = https://github.com/smihica/emmet-mode
 [submodule "epkg"]
 	path = lib/epkg
 	url = https://github.com/emacscollective/epkg.git

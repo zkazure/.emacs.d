@@ -331,6 +331,7 @@
 
   (require 'init-csv-mode)
   (require 'init-org-download)
+  (require 'init-emmet-mode)
 
   (require 'init-test)
 #+end_src
@@ -1026,6 +1027,32 @@ jump to everywhere quickly
     (define-key org-mode-map (kbd "C-M-y") 'org-download-clipboard))
 
   (provide 'init-org-download)
+#+end_src
+
+
+** emmet-mode
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-emmet-mode.el
+:END:
+
+#+begin_src emacs-lisp
+  (require 'emmet-mode)
+
+  (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+  (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+  (add-to-list 'emmet-jsx-major-modes 'your-jsx-major-mode)
+
+  (setq emmet-self-closing-tag-style " /") ;; default "/"
+  ;; only " /", "/" and "" are valid.
+  ;; eg. <meta />, <meta/>, <meta>
+
+  (setq emmet-move-cursor-after-expanding nil) ;; default t
+  (setq emmet-move-cursor-between-quotes nil) ;; default nil
+
+  ;; (add-hook 'emmet-mode-hook (lambda () (setq emmet-indentation 2))) ;; indent 2 spaces.
+  ;; (add-hook 'emmet-mode-hook (lambda () (setq emmet-indent-after-insert nil)))
+
+  (provide 'init-emmet-mode)
 #+end_src
 
 * clone
