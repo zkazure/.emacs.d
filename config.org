@@ -457,16 +457,6 @@ set the org capture template
   	       "* %?"))
 #+end_src
 
-*** edit
-here is some basic config helping for editing.
-#+begin_src emacs-lisp
-  (setq org-yank-image-file-name-function 'org-yank-image-read-filename)
-  (with-eval-after-load 'org
-    (define-key org-mode-map (kbd "C-M-y") 'yank-media)
-    (define-key org-mode-map (kbd "C-M-Y") 'yank-media-types))
-
-#+end_src
-
 *** babel
 only the language set here can be babeled.
 #+begin_src emacs-lisp
