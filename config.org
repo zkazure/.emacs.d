@@ -975,6 +975,13 @@ jump to everywhere quickly
   (require 'org-noter)
 
   (define-key global-map (kbd "C-c n n") 'org-noter)
+  (define-key org-noter-doc-mode-map (kbd "e") 'org-noter-insert-note) ;; 加入左手键位
+  (define-key org-noter-doc-mode-map (kbd "M-e") 'org-noter-insert-precise-note) ;; 加入左手键位
+
+  (setq org-noter-auto-save-last-location t)
+  (setq org-noter-highlight-selected-text t)
+  (setq org-noter-max-short-selected-text-length 20)
+
 
   (provide 'init-org-noter)
 #+end_src
