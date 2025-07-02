@@ -328,6 +328,8 @@
   (require 'init-super-save)
   (require 'init-indent)
   (require 'init-electric-pair-mode)
+
+  (require 'init-test)
 #+end_src
 
 ** END
@@ -353,6 +355,7 @@
 
   ;; display line numbers and disable in some mode
   (global-display-line-numbers-mode t)
+  (global-visual-line-mode t)  
 
   ;; turn of the line numebr in the terminal
   ;; why it is useless
@@ -382,7 +385,6 @@
 :END:
 *** ui
 #+BEGIN_SRC emacs-lisp
-  (global-visual-line-mode t)
   (setq org-hide-leading-stars t)
   (add-hook 'org-mode-hook 'org-num-mode)
 
@@ -455,9 +457,6 @@ set the org capture template
   	       "* %?"))
 #+end_src
 
-#+begin_src emacs-lisp
-  (provide 'init-org)
-#+end_src
 *** edit
 here is some basic config helping for editing.
 #+begin_src emacs-lisp
@@ -916,10 +915,10 @@ jump to everywhere quickly
 #+end_src
 
 ** pdf-tools
-
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-pdf-tools.el
 :END:
+
 #+begin_src emacs-lisp
   (require 'pdf-tools)
 
@@ -1154,7 +1153,6 @@ system-craft
 ** magit forge
 ** org mode
 [[http://doc.norang.ca/org-mode.html][Org Mode - Organize Your Life In Plain Text!]]
-** eee.el
 ** leetcode
 ** plantuml complete
 ** holo-layer
