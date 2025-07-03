@@ -1052,13 +1052,14 @@ jump to everywhere quickly
 
   (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
   (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+  (add-hook 'html-mode-hook  'emmet-mode) ;; enable html
   (add-to-list 'emmet-jsx-major-modes 'your-jsx-major-mode)
 
   (setq emmet-self-closing-tag-style " /") ;; default "/"
   ;; only " /", "/" and "" are valid.
   ;; eg. <meta />, <meta/>, <meta>
 
-  (setq emmet-move-cursor-after-expanding nil) ;; default t
+  (setq emmet-move-cursor-after-expanding t) ;; default t
   (setq emmet-move-cursor-between-quotes nil) ;; default nil
 
   ;; (add-hook 'emmet-mode-hook (lambda () (setq emmet-indentation 2))) ;; indent 2 spaces.
