@@ -478,6 +478,10 @@ only the language set here can be babeled.
         (C . t)))))
 
   (setq org-confirm-babel-evaluate nil)
+
+  ;; for python
+
+  (setq org-babel-python-command "python3")
 #+end_src
 *** appear
 #+begin_src emacs-lisp
