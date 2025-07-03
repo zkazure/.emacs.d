@@ -88,6 +88,9 @@
 [submodule "pdf-tools"]
 	path = lib/pdf-tools
 	url = https://github.com/vedang/pdf-tools
+[submodule "pdf-view-restore"]
+	path = lib/pdf-view-restore
+	url = https://github.com/007kevin/pdf-view-restore
 [submodule "plantuml-mode"]
 	path = lib/plantuml-mode
 	url = https://github.com/skuro/plantuml-mode

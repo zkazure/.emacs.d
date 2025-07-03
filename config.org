@@ -968,6 +968,17 @@ jump to everywhere quickly
 
   (provide 'init-pdf-tools)
 #+end_src
+** pdf-view-restore
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-pdf-view-restore.el
+:END:
+
+#+begin_src emacs-lisp
+  (require 'pdf-view-restore)
+
+  (add-hook 'pdf-view-mode-hook 'pdf-view-restore-mode)
+#+end_src
+
 ** org noter
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-org-noter.el
