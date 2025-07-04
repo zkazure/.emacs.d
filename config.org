@@ -477,11 +477,14 @@ only the language set here can be babeled.
         (shell . t)
         (C . t)))))
 
+  (with-eval-after-load 'org
+    (add-to-list 'org-babel-default-header-args:python . '(:results output)))
+
   (setq org-confirm-babel-evaluate nil)
 
   ;; for python
-
   (setq org-babel-python-command "python3")
+
 #+end_src
 *** appear
 #+begin_src emacs-lisp
