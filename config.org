@@ -710,6 +710,9 @@ jump to everywhere quickly
 
 #+begin_src emacs-lisp
   (require 'emacs-everywhere)
+
+  (add-hook 'emacs-everywhere-mode-hook 'toggle-input-method)
+  
   (provide 'init-emacs-everywhere)
 #+end_src
 
@@ -1014,6 +1017,8 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (require 'super-save)
 
+  (setq super-save-auto-save-when-idle t)
+  (setq auto-save-default nil)
   (super-save-mode +1)
 
   (provide 'init-super-save)
@@ -1107,6 +1112,7 @@ jump to everywhere quickly
 
   (setq vterm-shell "bash")
   (setq vterm-always-compile-mode t)
+  (setq vterm-always-do-resize t)
 
   (define-key vterm-mode-map (kbd "C-q") #'vterm-send-next-key)
 
@@ -1170,6 +1176,7 @@ jump to everywhere quickly
 #+end_src
 
 * munual clone
+
 ** indent
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-indent.el
