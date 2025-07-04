@@ -478,7 +478,8 @@ only the language set here can be babeled.
         (C . t)))))
 
   (with-eval-after-load 'org
-    (add-to-list 'org-babel-default-header-args:python . '(:results output)))
+    (add-to-list 'org-babel-default-header-args:python
+                 '(:results . "output")))
 
   (setq org-confirm-babel-evaluate nil)
 
