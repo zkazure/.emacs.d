@@ -1261,9 +1261,17 @@ jump to everywhere quickly
       (message "open %s in Thunar" dir)))
 
   (define-key global-map (kbd "C-c f") 'my-open-current-dir-in-thunar)
+#+end_src
 
-    
+** pixel scrool
 
+#+begin_src emacs-lisp
+  (pixel-scroll-mode 1)
+#+end_src
+
+** END
+
+#+begin_src emacs-lisp
   (provide 'init-personal)
 #+end_src
 
