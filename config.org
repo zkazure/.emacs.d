@@ -334,6 +334,8 @@
   (require 'init-emmet-mode)
   (require 'init-web-mode)
   (require 'init-vterm)
+
+  (require 'init-personal)
   (require 'init-test)
 #+end_src
 
@@ -1238,22 +1240,40 @@ jump to everywhere quickly
   (provide 'init-electric-pair-mode)
 #+end_src
 
+* Personal
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-personal.el
+:END:
+
+#+begin_src emacs-lisp 
+  (defun my-open-current-dir-in-thunar()
+    (interactive)
+    (let ((dir (expand-file-name default-directory)))
+      (start-process "thunar" nil "thunar" dir)
+      (message "open %s in Thunar" dir)))
+
+  (define-key global-map (kbd "C-c f") 'my-open-current-dir-in-thunar)
+
+    
+
+  (provide 'init-personal)
+#+end_src
+
 * test
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-test.el
 :END:
-** org-download
 
+#+begin_src emacs-lisp 
+  (defun my-open-current-dir-in-thunar()
+    (interactive)
+    (let ((dir (expand-file-name default-directory)))
+      (start-process "thunar" nil "thunar" dir)
+      (message "open %s in Thunar" dir)))
 
-#+begin_src emacs-lisp :tangle no
-  (add-hook 'org-mode-hook 'org-download-enable)
-  ;; (add-hook 'dired-mode-hook 'org-download-enable)
-  (setq-default org-download-method 'directory)
-  (setq-default org-download-image-dir "./img")
-  (setq-default org-download-heading-lvl 'nil)
+  (define-key global-map (kbd "C-c f") 'my-open-current-dir-in-thunar)
 
-  (with-eval-after-load 'org
-    (define-key org-mode-map (kbd "C-M-y") 'org-download-clipboard))
+    
 
   (provide 'init-test)
 #+end_src
