@@ -1104,6 +1104,7 @@ jump to everywhere quickly
   (require 'vterm)
 
   (setq vterm-shell "bash")
+  (setq vterm-always-compile-mode t)
 
   (define-key vterm-mode-map (kbd "C-q") #'vterm-send-next-key)
 
