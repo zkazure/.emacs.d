@@ -1252,6 +1252,7 @@ jump to everywhere quickly
 :HEADER-ARGS: :tangle lisp/init-personal.el
 :END:
 
+** open file in thunar
 #+begin_src emacs-lisp 
   (defun my-open-current-dir-in-thunar()
     (interactive)
@@ -1272,15 +1273,6 @@ jump to everywhere quickly
 :END:
 
 #+begin_src emacs-lisp 
-  (defun my-open-current-dir-in-thunar()
-    (interactive)
-    (let ((dir (expand-file-name default-directory)))
-      (start-process "thunar" nil "thunar" dir)
-      (message "open %s in Thunar" dir)))
-
-  (define-key global-map (kbd "C-c f") 'my-open-current-dir-in-thunar)
-
-    
 
   (provide 'init-test)
 #+end_src
