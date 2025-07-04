@@ -333,7 +333,7 @@
   (require 'init-org-download)
   (require 'init-emmet-mode)
   (require 'init-web-mode)
-
+  (require 'init-vterm)
   (require 'init-test)
 #+end_src
 
@@ -542,8 +542,6 @@ only the language set here can be babeled.
 
   (provide 'init-rainbow-delimiters)
 #+end_src
-
-** TODO auto-save
 
 ** which key
 :PROPERTIES:
@@ -1097,7 +1095,23 @@ jump to everywhere quickly
   
   (provide 'init-web-mode)
 #+end_src
+** vterm
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-vterm.el
+:END:
 
+#+begin_src emacs-lisp
+  (require 'vterm)
+
+  (setq vterm-shell "bash")
+
+  (define-key vterm-mode-map (kbd "C-q") #'vterm-send-next-key)
+
+  (define-key global-map (kbd "C-c t") 'vterm-other-window)
+  (define-key global-map (kbd "C-c T") 'vterm)
+
+  (provide 'init-vterm)
+#+end_src
 
 * clone
 ** lsp bridge
