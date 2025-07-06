@@ -1019,6 +1019,7 @@ jump to everywhere quickly
 
   (setq super-save-auto-save-when-idle t)
   (setq auto-save-default nil)
+  (setq super-save-silent t)
   (super-save-mode +1)
 
   (provide 'init-super-save)
