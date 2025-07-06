@@ -1050,7 +1050,8 @@ jump to everywhere quickly
   (setq-default org-download-heading-lvl 'nil)
 
   (with-eval-after-load 'org
-    (define-key org-mode-map (kbd "C-M-y") 'org-download-clipboard))
+    (define-key org-mode-map (kbd "C-c d c") 'org-download-clipboard)
+    (define-key org-mode-map (kbd "C-c d i") 'org-download-image))
 
   (provide 'init-org-download)
 #+end_src
