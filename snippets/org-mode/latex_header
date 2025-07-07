@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: latex_header
+# key: latex
+# --
+
+#+LaTeX_COMPILER: xelatex
+#+LaTeX_HEADER: \usepackage{fontspec}
+#+LaTeX_HEADER: \setmainfont{Noto Serif} % 使用您查到的确切字体名称
+#+LaTeX_HEADER: \usepackage{xeCJK}
