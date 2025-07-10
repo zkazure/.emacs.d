@@ -490,6 +490,18 @@ only the language set here can be babeled.
   (setq org-babel-python-command "python3")
 
 #+end_src
+
+*** latex
+#+begin_src emacs-lisp 
+  (with-eval-after-load 'org
+    ;; Org 模式加载后，将这些 LaTeX 包添加到 org-latex-packages-alist
+    (add-to-list 'org-latex-packages-alist '("" "amsmath" t))
+    (add-to-list 'org-latex-packages-alist '("" "amssymb" t))
+    (add-to-list 'org-latex-packages-alist '("" "mathtools" t))
+    (add-to-list 'org-latex-packages-alist '("" "mathrsfs" t)))
+#+end_src
+
+
 *** appear
 #+begin_src emacs-lisp
   (setq org-hide-emphasis-markers t)
