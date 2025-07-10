@@ -1,5 +1,6 @@
 ;;; init.el --- user-init-file                    -*- lexical-binding: t -*-
 ;;; Early birds
+
 (progn ;     startup
   (defvar before-user-init-time (current-time)
     "Value of `current-time' when Emacs begins loading `user-init-file'.")
@@ -193,6 +194,75 @@
                                 user-emacs-directory)))
     (when (file-exists-p file)
       (load file))))
+
+;; garbage collection
+(setq gc-cons-threshold (* 128 1024 1024))
+
+;; ??? Process performance tuning
+(setq read-process-output-max (* 4 1024 1024))
+(setq process-adaptive-read-buffering nil)
+
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+;; add you personal config
+;; (dolist (dir '("lisp"))
+;;   (push (expand-file-name dir user-emacs-directory) load-path))
+;; add the subdirectory
+;; (dolist (dir '("site-lisp" "test-lisp"))
+;;   (let ((default-directory (expand-file-name dir user-emacs-directory)))
+;;     (normal-top-level-add-subdirs-to-load-path))) ;;how this work
+
+
+;; Now we only need many require command
+;;  (require 'init-base)
+
+;; inside
+(require 'init-ui)
+(require 'init-theme)
+(require 'init-org)
+
+;; outside
+(require 'init-rime)
+(require 'init-rainbow-delimiters)
+; (require 'init-auto-save)
+(require 'init-which-key)
+; (require 'init-aweshell)
+(require 'init-ivy)
+; (require 'init-fingertip)
+(require 'init-yasnippet)
+(require 'init-lsp-bridge)
+(require 'init-avy)
+; (require 'init-magit)
+(require 'init-dirvish)
+(require 'init-projectile)
+(require 'init-latex)
+; 
+; (require 'init-test)
+
+(require 'init-emacs-everywhere)
+(require 'init-markdown-mode)
+(require 'init-jinx)
+(require 'init-orderless)
+(require 'init-font)
+(require 'init-visual-regexp)
+(require 'init-plantuml-mode)
+(require 'init-org-roam)
+(require 'init-pdf-tools)
+(require 'init-org-noter)
+(require 'init-super-save)
+(require 'init-indent)
+(require 'init-electric-pair-mode)
+
+(require 'init-csv-mode)
+(require 'init-org-download)
+(require 'init-emmet-mode)
+(require 'init-web-mode)
+(require 'init-vterm)
+(require 'init-org-roam-ui)
+
+(require 'init-personal)
+(require 'init-test)
+
+(provide 'init)
 
 ;; Local Variables:
 ;; indent-tabs-mode: nil
