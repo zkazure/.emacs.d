@@ -684,6 +684,7 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (add-hook 'latex-mode-hook 'prettify-symbols-mode)
 
+  ;; use C-c C-p C-p to preview
   (add-hook 'latex-mode-hook
             (defun preview-larger-previews ()
               (setq preview-scale-function
@@ -708,6 +709,9 @@ jump to everywhere quickly
   (add-hook 'latex-mode-hook 'turn-on-cdlatex)
 #+end_src
 *** yasnippet
+
+[[https://karthinks.com/software/latex-input-for-impatient-scholars/][Crazy auto cdlatex]]
+
 #+begin_src emacs-lisp
   (defun my/yas-try-expanding-auto-snippets ()
     (when (and (boundp 'yas-minor-mode)
