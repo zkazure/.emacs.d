@@ -1076,7 +1076,7 @@ jump to everywhere quickly
   (require 'org-roam-overlay)
   (require 'org-roam-protocol)
 
-  (setq org-roam-directory (file-truename "~/Documents/org/roam/"))
+  (setq org-roam-directory (file-truename "~/Documents/roam/"))
 
   (define-key global-map (kbd "C-c n l") 'org-roam-buffer-toggle)
   (define-key global-map (kbd "C-c n f") 'org-roam-node-find)
@@ -1109,10 +1109,10 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   ;; 第一步: 告诉 Emacs 从哪里读取 Zotero 的信息
   (setq zot_bib
-        '("~/Documents/org/roam/biblio.bib")
+        '("~/Documents/roam/biblio.bib")
                                           ; Zotero 用 Better BibTeX 导出的 .bib 文件. 可以是多个文件
         zot_pdf "~/Documents/zotero/" ; Zotero 的 ZotFile 同步文件夹
-        org_refs "~/Documents/org/roam/reference/" ) ; 自定义的 org-roam 文献笔记目录. 我的 org-roam 根目录是 ~/repos/notes
+        org_refs "~/Documents/roam/reference/" ) ; 自定义的 org-roam 文献笔记目录. 我的 org-roam 根目录是 ~/repos/notes
 
   ;; ;; 第二步: 让 helm-bibtex/ivy-bibtex 读取 Zotero 的信息
   ;; (use-package helm-bibtex ; 这里也可以用 ivy-bibtex 替换 helm-bibtex
