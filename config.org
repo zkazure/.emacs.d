@@ -952,13 +952,44 @@ jump to everywhere quickly
 :HEADER-ARGS: :tangle lisp/init-orderless.el
 :END:
 
-- [ ] stability testing
 #+begin_src emacs-lisp
   (require 'orderless)
 
   (setq completion-styles '(orderless basic)
         completion-category-overrides '((file (styles basic partial-completion))))
 
+  ;; fuzzy match after ~
+  (defun flex-if-twiddle (pattern _index _total)
+    (when (string-suffix-p "~" pattern)
+      `(orderless-flex . ,(substring pattern 0 -1))))
+
+  ;; (defun first-initialism (pattern index _total)
+  ;;   (if (= index 0) 'orderless-initialism))
+
+  ;; ! exclude match
+  (defun not-if-bang (pattern _index _total)
+    (cond
+     ((equal "!" pattern)
+      #'ignore)
+     ((string-prefix-p "!" pattern)
+      `(orderless-not . ,(substring pattern 1)))))
+
+  (setq orderless-matching-styles '(orderless-regexp)
+        orderless-style-dispatchers '(; first-initialism
+                                      flex-if-twiddle
+                                      not-if-bang))
+
+
+  (orderless-define-completion-style orderless+initialism
+    (orderless-matching-styles '(orderless-initialism
+                                 orderless-literal
+                                 orderless-regexp)))
+  (setq completion-category-overrides
+        '((command (styles orderless+initialism))
+          (symbol (styles orderless+initialism))
+          (variable (styles orderless+initialism))))
+
+  ;; integrate with ivy
   (setq ivy-re-builders-alist '((t . orderless-ivy-re-builder)))
   (add-to-list 'ivy-highlight-functions-alist '(orderless-ivy-re-builder . orderless-ivy-highlight))
 
