@@ -942,7 +942,7 @@ jump to everywhere quickly
   (add-to-list 'org-roam-capture-templates
                `("c" "Coding" plain
                  ,my-org-roam-template-coding
-                 :target (file "coding/${slug}.org")))
+                 :target (file "coding/%<%Y%m%d%H%M%S>-${slug}.org")))
 
 
 
