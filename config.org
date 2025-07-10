@@ -902,6 +902,8 @@ jump to everywhere quickly
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-org-roam.el
 :END:
+
+*** basic
 #+begin_src emacs-lisp
   (require 'org-roam)
 
@@ -926,8 +928,75 @@ jump to everywhere quickly
 
   (org-roam-db-autosync-mode 1)
 
+
+*** template
+
+#+begin_src emacs-lisp
+  (setq my-org-roam-template-coding
+        (concat "#+title: ${title}\n"
+                "#+FILETAGS: :%?:\n\n"))
+
+  (add-to-list 'org-roam-capture-templates
+               `("c" "Coding" plain
+                 ,my-org-roam-template-coding
+                 :target (file "coding/${slug}.org")))
+
+
+
+  ;; (add-to-list 'org-roam-capture-templates
+  ;;              `("c" "Coding"
+  ;;                (("cp" "Python"
+  ;;                  (file "coding/${slug}.org")
+  ;;                  (concat "#+TITLE: ${title}\n"
+  ;;                          "#+FILETAGS: :python:\n\n"
+  ;;                          "%?")) ; 光标位置
+                  
+  ;;                 ("cj" "JavaScript"
+  ;;                  (file "coding/javascript/${slug}.org")
+  ;;                  ;; 模板内容直接写在这里
+  ;;                  (concat "* JavaScript Note: ${title}\n" ; 添加顶级标题
+  ;;                          "#+ROAM_TAGS: javascript coding\n\n"
+  ;;                          "%?"))
+  ;;                 )))
+#+end_src
+
+
+#+begin_src emacs-lisp  :tangle no
+  (setq my/ref-template
+        (concat "#+FILETAGS: reading research \n"
+                "- tags :: %^{keywords} \n"
+                "* %^{title}\n"
+                ":PROPERTIES:\n"
+                ":Custom_ID: %^{citekey}\n"
+                ":URL: %^{url}\n"
+                ":AUTHOR: %^{author-or-editor}\n"
+                ":NOTER_DOCUMENT: ~/Documents/zotero/%^{citekey}.pdf\n"
+                ":NOTER_PAGE:\n"
+                ":END:"))
+  (setq my-org-roam-project-template
+        (concat "* Project: ${title}\n"
+                ":PROPERTIES:\n"
+                ":ID: %<%Y%m%d%H%M%S>\n"
+                ":ROAM_TAGS: project\n" ; 示例：项目模板自动添加'project'标签
+                ":END:\n\n"
+                "#+FILETAGS: :project:\n\n"
+                "%?"))
+  (add-to-list 'org-roam-capture-templates
+               `("r" "Zotero 文献模板" plain ; 文献笔记模板
+                 ,my/ref-template
+                 :target
+                 (file+head "ref/${citekey}.org" "#+title: ${title}\n"))
+               `("p" "project test" plain
+                 ,my-org-roam-project-template
+                 :target
+                 (file+head "test/${title}.org" "#+title: ${title}\n")))
+#+end_src
+
+*** END
+#+begin_src emacs-lisp
   (provide 'init-org-roam)
 #+end_src
+
 
 ** pdf-tools
 :PROPERTIES:
