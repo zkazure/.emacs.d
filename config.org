@@ -501,9 +501,9 @@ only the language set here can be babeled.
     (add-to-list 'org-latex-packages-alist '("" "mathrsfs" t)))
 
   ;; C-c C-x C-l
-  (add-hook 'org-mode-hook 'org-pretty-entities)
+  ;; (add-hook 'org-mode-hook 'org-pretty-entities)
 
-  
+
 #+end_src
 
 
