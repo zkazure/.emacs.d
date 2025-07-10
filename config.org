@@ -1142,60 +1142,39 @@ jump to everywhere quickly
 *** template
 
 #+begin_src emacs-lisp
-  (setq my-org-roam-template-coding
-        (concat "#+TITLE: ${title}\n"
-                "#+FILETAGS: :draft:%?:\n\n"))
+  (setq org-roam-capture-templates
+        '(
+          ("g" "Game" plain "%?"
+           :if-new (file+head "game/%<%Y%m%d%H%M%S>-${slug}.org"
+                              "#+title: ${title}\n#+filetags: :%?:\n")`
+  	     :immediate-finish t
+  	     :unnarrowed t)
+          ("m" "Main" plain  "%?"
+           :if-new (file+head "main/${slug}.org"
+                              "#+title: ${title}\n#+filetags: :%?:\n")
+           :immediate-finish t
+           :unnarrowed t)
+          ("r" "Reference" plain "%?"
+           :if-new
+           (file+head "reference/${title}.org" "#+title: ${title}\n#+filetags: :%?:\n")
+           :immediate-finish t
+           :unnarrowed t)
+          ("a" "Article" plain "%?"
+           :if-new
+           (file+head "article/${title}.org" "#+title: ${title}\n#+filetags: :article:\n")
+           :immediate-finish t
+           :unnarrowed t)
+          ("c" "Coding" plain "%?"
+           :if-new
+           (file+head "coding/${title}.org" "#+title: ${title}\n#+filetags: :%?:\n")
+           :immediate-finish t
+           :unnarrowed t)
+          ("i" "Idea" plain "%?"
+           :if-new
+           (file+head "idea/${title}.org" "#+title: ${title}\n#+filetags: :%?:\n")
+           :immediate-finish t
+           :unnarrowed t)))
 
-  (setq my-org-roam-template-idea
-        (concat "#+TITLE: ${title}\n"
-                "#+FILETAGS: :draft:%?:"))
-
-  (setq my-org-roam-template-article
-        (concat "#+TITLE: ${title}\n"
-                "#+FILETAGS: :draft:article:%?:"))
-
-  (setq my-org-roam-template-reference
-        (concat "#+TITLE: ${title}\n"
-                "#+FILETAGS: :draft:article:%?:"))
-
-  (setq my-org-roam-template-main
-        (concat "#+TITLE: ${title}\n"
-                "#+FILETAGS: :draft:article:%?:"))
-
-  (add-to-list 'org-roam-capture-templates
-               '("c" "Coding" plain
-  	       (file+head "coding/%<%Y%m%d%H%M%S>-${slug}.org"
-  			  my-org-roam-template-coding)
-  	       :immediate-finish t
-  	       :unnarrowed t))
-
-  (add-to-list 'org-roam-capture-templates
-               '("i" "Ideas" plain
-  	       (file+head "idea/%<%Y%m%d%H%M%S>-${slug}.org"
-  			  my-org-roam-template-idea)
-  	       :immediate-finish t
-  	       :unnarrowed t))
-
-  (add-to-list 'org-roam-capture-templates
-               '("a" "Article" plain
-  	       (file+head "article/%<%Y%m%d%H%M%S>-${slug}.org"
-  			  my-org-roam-template-article)
-  	       :immediate-finish t
-  	       :unnarrowed t))
-
-  (add-to-list 'org-roam-capture-templates
-               '("r" "Reference" plain
-  	       (file+head "reference/%<%Y%m%d%H%M%S>-${slug}.org"
-  			  my-org-roam-template-reference)
-  	       :immediate-finish t
-  	       :unnarrowed t))
-
-  (add-to-list 'org-roam-capture-templates
-               '("m" "Main" plain
-  	       (file+head "main/%<%Y%m%d%H%M%S>-${slug}.org"
-  			  my-org-roam-template-main)
-  	       :immediate-finish t
-  	       :unnarrowed t))
 #+end_src
 
 
