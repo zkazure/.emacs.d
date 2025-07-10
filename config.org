@@ -665,7 +665,6 @@ jump to everywhere quickly
 *** prettify-symbols-mode
 #+begin_src emacs-lisp
   (add-hook 'latex-mode-hook 'prettify-symbols-mode)
-  (add-hook 'latex-mode-hook 'TeX-fold-mode)
 
   (add-hook 'latex-mode-hook
             (defun preview-larger-previews ()
@@ -675,6 +674,14 @@ jump to everywhere quickly
 
   (setq prettify-symbols-unprettify-at-point t)
 #+end_src
+*** Tex-fold-mode
+#+begin_src emacs-lisp
+  (setq TeX-fold-section t)
+  (setq TeX-fold-comment t)
+  
+  (add-hook 'latex-mode-hook 'TeX-fold-mode)
+#+end_src
+
 *** cdlatex
 
 #+begin_src emacs-lisp
