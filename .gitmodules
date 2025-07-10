@@ -85,6 +85,9 @@
 [submodule "org-roam"]
 	path = lib/org-roam
 	url = https://github.com/org-roam/org-roam
+[submodule "org-roam-ui"]
+	path = lib/org-roam-ui
+	url = https://github.com/org-roam/org-roam-ui
 [submodule "pdf-tools"]
 	path = lib/pdf-tools
 	url = https://github.com/vedang/pdf-tools
@@ -106,6 +109,9 @@
 [submodule "rime"]
 	path = lib/rime
 	url = https://github.com/DogLooksGood/emacs-rime
+[submodule "simple-httpd"]
+	path = lib/simple-httpd
+	url = https://github.com/skeeto/emacs-web-server
 [submodule "super-save"]
 	path = lib/super-save
 	url = https://github.com/bbatsov/super-save
@@ -127,6 +133,9 @@
 [submodule "web-mode"]
 	path = lib/web-mode
 	url = https://github.com/fxbois/web-mode
+[submodule "websocket"]
+	path = lib/websocket
+	url = https://github.com/ahyatt/emacs-websocket
 [submodule "with-editor"]
 	path = lib/with-editor
 	url = https://github.com/magit/with-editor.git
