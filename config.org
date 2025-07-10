@@ -499,6 +499,11 @@ only the language set here can be babeled.
     (add-to-list 'org-latex-packages-alist '("" "amssymb" t))
     (add-to-list 'org-latex-packages-alist '("" "mathtools" t))
     (add-to-list 'org-latex-packages-alist '("" "mathrsfs" t)))
+
+  ;; C-c C-x C-l
+  (add-hook 'org-mode-hook 'org-pretty-entities)
+
+  
 #+end_src
 
 
