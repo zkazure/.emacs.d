@@ -717,6 +717,13 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (add-hook 'latex-mode-hook 'turn-on-reftex)
 #+end_src
+*** pdf-tools
+#+begin_src emacs-lisp
+  (setq TeX-view-program-selection '((output-pdf "PDF Tools"))) ;; 用pdf-tools 打开 pdf
+  (add-hook 'TeX-after-compilation-finished-functions
+            #'TeX-revert-document-buffer) ;; 在完成编译后刷新 pdf 文件
+#+end_src
+
 *** END
 #+begin_src emacs-lisp
   (provide 'init-latex)
