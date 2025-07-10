@@ -442,29 +442,6 @@ set the org capture template
   (add-to-list 'org-capture-templates
                '("i" "Inbox" entry (file "~/Documents/org/inbox.org")
                  "* %?\n"))
-  (add-to-list 'org-capture-templates
-               '("n" "Notes" entry (file "~/Documents/org/notes.org")
-                 "* %^{heading} %t %^g\n  %?\n"))
-  (add-to-list 'org-capture-templates
-  	     '("e" "English Learning" entry
-  	       (file+weektree "~/Documents/org/en-learn.org")
-  	       "* \n\n** 1\n%?"))
-  (add-to-list 'org-capture-templates
-  	     '("s" "self-improve" entry
-  	       (file+datetree "~/Documents/org/self-improve.org")
-  	       "* %?"))
-  (add-to-list 'org-capture-templates
-  	     '("v" "vlog" entry
-  	       (file+weektree "~/Documents/org/record.org")
-  	       "* %?")) ;; C-c C-x C-i to start record C-c C-x C-o to end itt
-  (add-to-list 'org-capture-templates
-  	     '("b" "Blog" entry
-  	       (file+datetree "~/Documents/org/blog/blog.org")
-  	       "* %?"))
-  (add-to-list 'org-capture-templates
-  	     '("i" "Ideas" entry
-  	       (file "~/Documents/org/ideas.org")
-  	       "* %?"))
 #+end_src
 
 *** babel
