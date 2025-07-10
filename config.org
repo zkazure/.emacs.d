@@ -924,7 +924,7 @@ jump to everywhere quickly
   (define-key global-map (kbd "C-c n d") 'org-roam-dailies-map)
   ;; (define-key global-map (kbd "C-c n j") 'org-roam-dailies-capture-today)
 
-  ;; tags:n is the length of tags
+  ;; tags:n is the length of tagsn
   (setq org-roam-node-display-template
         (concat "${title:*} " (propertize "${tags:20}" 'face 'org-tag)))
 
