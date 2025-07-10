@@ -1131,14 +1131,20 @@ jump to everywhere quickly
 
 #+begin_src emacs-lisp
   (setq my-org-roam-template-coding
-        (concat "#+title: ${title}\n"
-                "#+FILETAGS: :%?:\n\n"))
+        (concat "#+TITLE: ${title}\n"
+                "#+FILETAGS: :draft:%?:\n\n"))
+
+  (setq my-org-roam-template-ideas
+        (concat "#+TITLE: ${title}\n"
+                "#+FILETAGS: :draft:%?:"))
 
   (add-to-list 'org-roam-capture-templates
                `("c" "Coding" plain
                  ,my-org-roam-template-coding
-                 :target (file "coding/%<%Y%m%d%H%M%S>-${slug}.org")))
-
+                 :target (file "coding/%<%Y%m%d%H%M%S>-${slug}.org"))
+               `("i" "Ideas" plain
+                 ,my-org-roam-template-ideas
+                 :target (file "ideas/%<%Y%m%d%H%M%S>-${slug}.org")))
 
 
   ;; (add-to-list 'org-roam-capture-templates
