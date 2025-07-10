@@ -1143,12 +1143,12 @@ jump to everywhere quickly
            :unnarrowed t)
           ("c" "Coding" plain "%?"
            :if-new
-           (file+head "coding/${title}.org" "#+title: ${title}\n#+filetags: :%?:\n")
+           (file+head "coding/${title}.org" "#+title: ${title}\n#+filetags: :draft:\n")
            :immediate-finish t
            :unnarrowed t)
           ("i" "Idea" plain "%?"
            :if-new
-           (file+head "idea/${title}.org" "#+title: ${title}\n#+filetags: :%?:\n")
+           (file+head "idea/${title}.org" "#+title: ${title}\n#+filetags: :draft:\n")
            :immediate-finish t
            :unnarrowed t)))
 
