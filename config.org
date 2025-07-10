@@ -633,8 +633,8 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (require 'avy)
 
-  (global-set-key (kbd "C-;") 'avy-goto-char-2)
-  (global-set-key (kbd "C-.") 'avy-goto-char)
+  (global-set-key (kbd "C-.") 'avy-goto-char-2)
+  (global-set-key (kbd "C-;") 'avy-goto-char)
   (global-set-key (kbd "M-g f") 'avy-goto-line)
   (global-set-key (kbd "M-g w") 'avy-goto-word-1)
   (global-set-key (kbd "M-g e") 'avy-goto-word-0)
@@ -642,6 +642,7 @@ jump to everywhere quickly
   (avy-setup-default)
   (global-set-key (kbd "C-c C-j") 'avy-resume)
 
+  (setq avy-all-windows nil)
   (provide 'init-avy)
 #+end_src
 ** dirvish
