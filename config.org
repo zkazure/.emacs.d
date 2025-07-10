@@ -1123,17 +1123,17 @@ jump to everywhere quickly
         '(
           ("g" "Game" plain "%?"
            :if-new (file+head "game/%<%Y%m%d%H%M%S>-${slug}.org"
-                              "#+title: ${title}\n#+filetags: :%?:\n")`
+                              "#+title: ${title}\n#+filetags: :draft:\n")`
   	     :immediate-finish t
   	     :unnarrowed t)
           ("m" "Main" plain  "%?"
            :if-new (file+head "main/${slug}.org"
-                              "#+title: ${title}\n#+filetags: :%?:\n")
+                              "#+title: ${title}\n#+filetags: :draft:\n")
            :immediate-finish t
            :unnarrowed t)
           ("r" "Reference" plain "%?"
            :if-new
-           (file+head "reference/${title}.org" "#+title: ${title}\n#+filetags: :%?:\n")
+           (file+head "reference/${title}.org" "#+title: ${title}\n#+filetags: :draft:\n")
            :immediate-finish t
            :unnarrowed t)
           ("a" "Article" plain "%?"
