@@ -4,6 +4,10 @@
 /eln-cache
 /elpa
 /var
+/bookmarks
+/history
+/places
+/.org-id-locations
 
 auto-save-list/
 eln-cache/
@@ -11,7 +15,7 @@ eshell/
 transient/
 lisp/
 elpa/
-/test-lisp/lisp/
+lib/lsp-bridge/
 
 org-roam.db
 tramp
