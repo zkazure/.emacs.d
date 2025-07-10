@@ -1146,34 +1146,56 @@ jump to everywhere quickly
         (concat "#+TITLE: ${title}\n"
                 "#+FILETAGS: :draft:%?:\n\n"))
 
-  (setq my-org-roam-template-ideas
+  (setq my-org-roam-template-idea
         (concat "#+TITLE: ${title}\n"
                 "#+FILETAGS: :draft:%?:"))
 
+  (setq my-org-roam-template-article
+        (concat "#+TITLE: ${title}\n"
+                "#+FILETAGS: :draft:article:%?:"))
+
+  (setq my-org-roam-template-reference
+        (concat "#+TITLE: ${title}\n"
+                "#+FILETAGS: :draft:article:%?:"))
+
+  (setq my-org-roam-template-main
+        (concat "#+TITLE: ${title}\n"
+                "#+FILETAGS: :draft:article:%?:"))
+
   (add-to-list 'org-roam-capture-templates
-               `("c" "Coding" plain
-                 ,my-org-roam-template-coding
-                 :target (file "coding/%<%Y%m%d%H%M%S>-${slug}.org"))
-               `("i" "Ideas" plain
-                 ,my-org-roam-template-ideas
-                 :target (file "ideas/%<%Y%m%d%H%M%S>-${slug}.org")))
+               '("c" "Coding" plain
+  	       (file+head "coding/%<%Y%m%d%H%M%S>-${slug}.org"
+  			  my-org-roam-template-coding)
+  	       :immediate-finish t
+  	       :unnarrowed t))
 
+  (add-to-list 'org-roam-capture-templates
+               '("i" "Ideas" plain
+  	       (file+head "idea/%<%Y%m%d%H%M%S>-${slug}.org"
+  			  my-org-roam-template-idea)
+  	       :immediate-finish t
+  	       :unnarrowed t))
 
-  ;; (add-to-list 'org-roam-capture-templates
-  ;;              `("c" "Coding"
-  ;;                (("cp" "Python"
-  ;;                  (file "coding/${slug}.org")
-  ;;                  (concat "#+TITLE: ${title}\n"
-  ;;                          "#+FILETAGS: :python:\n\n"
-  ;;                          "%?")) ; 光标位置
-                  
-  ;;                 ("cj" "JavaScript"
-  ;;                  (file "coding/javascript/${slug}.org")
-  ;;                  ;; 模板内容直接写在这里
-  ;;                  (concat "* JavaScript Note: ${title}\n" ; 添加顶级标题
-  ;;                          "#+ROAM_TAGS: javascript coding\n\n"
-  ;;                          "%?"))
-  ;;                 )))
+  (add-to-list 'org-roam-capture-templates
+               '("a" "Article" plain
+  	       (file+head "article/%<%Y%m%d%H%M%S>-${slug}.org"
+  			  my-org-roam-template-article)
+  	       :immediate-finish t
+  	       :unnarrowed t))
+
+  (add-to-list 'org-roam-capture-templates
+               '("r" "Reference" plain
+  	       (file+head "reference/%<%Y%m%d%H%M%S>-${slug}.org"
+  			  my-org-roam-template-reference)
+  	       :immediate-finish t
+  	       :unnarrowed t))
+
+  (add-to-list 'org-roam-capture-templates
+               '("m" "Main" plain
+  	       (file+head "main/%<%Y%m%d%H%M%S>-${slug}.org"
+  			  my-org-roam-template-main)
+  	       :immediate-finish t
+  	       :unnarrowed t))
 #+end_src
 
 
