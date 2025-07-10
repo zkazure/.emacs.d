@@ -337,6 +337,7 @@
 
   (require 'init-personal)
   (require 'init-test)
+
 #+end_src
 
 ** END
@@ -1256,20 +1257,6 @@ jump to everywhere quickly
   (define-key global-map (kbd "C-c T") 'vterm)
 
   (provide 'init-vterm)
-#+end_src
-** xenops
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-xenops.el
-:END:
-
-#+begin_src emacs-lisp
-  (require 'xenops)
-
-  (add-hook LaTeX-mode-hook #'xenops-mode)
-  (setq xenops-math-image-scale-factor 1.7
-        xenops-reveal-on-entry t)
-
-  (provide 'init-xenops)
 #+end_src
 
 * clone
