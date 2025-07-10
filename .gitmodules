@@ -52,6 +52,9 @@
 [submodule "epkg"]
 	path = lib/epkg
 	url = https://github.com/emacscollective/epkg.git
+[submodule "f"]
+	path = lib/f
+	url = https://github.com/rejeep/f.el
 [submodule "git-modes"]
 	path = lib/git-modes
 	url = https://github.com/magit/git-modes.git
@@ -109,6 +112,9 @@
 [submodule "rime"]
 	path = lib/rime
 	url = https://github.com/DogLooksGood/emacs-rime
+[submodule "s"]
+	path = lib/s
+	url = https://github.com/magnars/s.el
 [submodule "super-save"]
 	path = lib/super-save
 	url = https://github.com/bbatsov/super-save
@@ -133,6 +139,9 @@
 [submodule "with-editor"]
 	path = lib/with-editor
 	url = https://github.com/magit/with-editor.git
+[submodule "xenops"]
+	path = lib/xenops
+	url = https://github.com/dandavison/xenops
 [submodule "yasnippet"]
 	path = lib/yasnippet
 	url = https://github.com/joaotavora/yasnippet
