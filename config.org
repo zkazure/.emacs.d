@@ -1468,6 +1468,7 @@ jump to everywhere quickly
   (require 'treesit-fold)
 
   (global-treesit-fold-mode 1)
+  (global-treesit-fold-indicators-mode 1)
   (setq treesit-fold-line-count-show t)  ; Show line count in folded regions
   ;; (setq treesit-fold-line-count-format " <%d lines> ")
 
