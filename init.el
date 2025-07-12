@@ -258,6 +258,9 @@
 (require 'init-web-mode)
 (require 'init-vterm)
 (require 'init-org-roam-ui)
+(require 'init-ace-window)
+(require 'init-tree-sitter)
+(require 'init-treesit-fold)
 
 (require 'init-personal)
 (require 'init-test)

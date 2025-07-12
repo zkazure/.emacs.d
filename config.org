@@ -337,6 +337,7 @@
   (require 'init-org-roam-ui)
   (require 'init-ace-window)
   (require 'init-tree-sitter)
+  (require 'init-treesit-fold)
 
   (require 'init-personal)
   (require 'init-test)
@@ -1457,6 +1458,27 @@ jump to everywhere quickly
      (python-mode . python-ts-mode)))
 
   (provide 'init-tree-sitter)
+#+end_src
+** treesit-fold
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-treesit-fold.el
+:END:
+
+#+begin_src emacs-lisp
+  (require 'treesit-fold)
+
+  (global-treesit-fold-mode 1)
+  (setq treesit-fold-line-count-show t)  ; Show line count in folded regions
+  ;; (setq treesit-fold-line-count-format " <%d lines> ")
+
+  (setq treesit-fold-summary-show t)
+  (setq treesit-fold-summary-max-length 60)
+  (setq treesit-fold-summary-exceeded-string "...")
+  (setq treesit-fold-summary-format " <S> %s ")
+
+  (setq treesit-fold-line-comment-mode t)
+        
+  (provide 'init-treesit-fold)
 #+end_src
 * clone
 ** lsp bridge
