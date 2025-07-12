@@ -470,22 +470,6 @@ only the language set here can be babeled.
 
 #+end_src
 
-*** latex
-#+begin_src emacs-lisp 
-  (with-eval-after-load 'org
-    ;; Org 模式加载后，将这些 LaTeX 包添加到 org-latex-packages-alist
-    (add-to-list 'org-latex-packages-alist '("" "amsmath" t))
-    (add-to-list 'org-latex-packages-alist '("" "amssymb" t))
-    (add-to-list 'org-latex-packages-alist '("" "mathtools" t))
-    (add-to-list 'org-latex-packages-alist '("" "mathrsfs" t)))
-
-  ;; C-c C-x C-l
-  ;; (add-hook 'org-mode-hook 'org-pretty-entities)
-
-
-#+end_src
-
-
 *** appear
 #+begin_src emacs-lisp
   (setq org-hide-emphasis-markers t)
@@ -892,62 +876,6 @@ jump to everywhere quickly
   (provide 'init-jinx)
 #+end_src
 
-** TODO dape
-** dape
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-dape.el
-:END:
-
-- [ ] usability testing
-#+begin_src emacs-lisp :tangle no
-  (require 'dape)
-
-
-  ;; By default dape shares the same keybinding prefix as `gud'
-  ;; If you do not want to use any prefix, set it to nil.
-  ;; (setq dape-key-prefix "\C-x\C-a")
-
-
-
-  ;;  :hook
-  ;; Save breakpoints on quit
-  ;; (add-hook kill-emacs-hook dape-breakpoint-save)
-
-  ;; Load breakpoints on startup
-  ;; (add-hook after-init-hook dape-breakpoint-load)
-
-
-
-  ;; Turn on global bindings for setting breakpoints with mouse
-  ;; (dape-breakpoint-global-mode)
-
-  ;; Info buffers like gud (gdb-mi)
-  ;; (setq dape-buffer-window-arrangement 'gud)
-  ;; (setq dape-info-hide-mode-line nil)
-
-  ;; Pulse source line (performance hit)
-  ;; (add-hook 'dape-display-source-hook 'pulse-momentary-highlight-one-line)
-
-  ;; Showing inlay hints
-  ;; (setq dape-inlay-hints t)
-
-  ;; Save buffers on startup, useful for interpreted languages
-  ;; (add-hook 'dape-start-hook (lambda () (save-some-buffers t t)))
-
-  ;; Kill compile buffer on build success
-  (add-hook 'dape-compile-hook 'kill-buffer)
-
-  ;; Projectile users
-  ;; (setq dape-cwd-function 'projectile-project-root)
-
-
-  ;; Enable repeat mode for more ergonomic `dape' use
-  ;; (use-package repeat
-  ;;   :config
-  ;;   (repeat-mode))
-
-  (provide 'init-dape)
-#+end_src
 ** orderless
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-orderless.el
@@ -1493,6 +1421,7 @@ jump to everywhere quickly
   (provide 'init-ace-window)
 #+end_src
 
+
 * clone
 ** lsp bridge
 :PROPERTIES:
@@ -1656,7 +1585,61 @@ jump to everywhere quickly
   (provide 'init-test)
 #+end_src
 
+** TODO dape
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-dape.el
+:END:
 
+- [ ] usability testing
+#+begin_src emacs-lisp :tangle no
+  (require 'dape)
+
+
+  ;; By default dape shares the same keybinding prefix as `gud'
+  ;; If you do not want to use any prefix, set it to nil.
+  ;; (setq dape-key-prefix "\C-x\C-a")
+
+
+
+  ;;  :hook
+  ;; Save breakpoints on quit
+  ;; (add-hook kill-emacs-hook dape-breakpoint-save)
+
+  ;; Load breakpoints on startup
+  ;; (add-hook after-init-hook dape-breakpoint-load)
+
+
+
+  ;; Turn on global bindings for setting breakpoints with mouse
+  ;; (dape-breakpoint-global-mode)
+
+  ;; Info buffers like gud (gdb-mi)
+  ;; (setq dape-buffer-window-arrangement 'gud)
+  ;; (setq dape-info-hide-mode-line nil)
+
+  ;; Pulse source line (performance hit)
+  ;; (add-hook 'dape-display-source-hook 'pulse-momentary-highlight-one-line)
+
+  ;; Showing inlay hints
+  ;; (setq dape-inlay-hints t)
+
+  ;; Save buffers on startup, useful for interpreted languages
+  ;; (add-hook 'dape-start-hook (lambda () (save-some-buffers t t)))
+
+  ;; Kill compile buffer on build success
+  (add-hook 'dape-compile-hook 'kill-buffer)
+
+  ;; Projectile users
+  ;; (setq dape-cwd-function 'projectile-project-root)
+
+
+  ;; Enable repeat mode for more ergonomic `dape' use
+  ;; (use-package repeat
+  ;;   :config
+  ;;   (repeat-mode))
+
+  (provide 'init-dape)
+#+end_src
 * wish list
 ** lsp for org mode
 ** email Gnus
