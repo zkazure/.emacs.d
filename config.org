@@ -1428,7 +1428,7 @@ jump to everywhere quickly
 :END:
 
 #+begin_src emacs-lisp
-  ;; (require 'tree-sitter)
+  (require 'treesit)
 
   (setq treesit-language-source-alist
      '((bash "https://github.com/tree-sitter/tree-sitter-bash")
