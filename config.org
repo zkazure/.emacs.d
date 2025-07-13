@@ -1515,6 +1515,12 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (require 'treesit-fold)
 
+  (define-key global-map (kbd "C-c k j") 'treesit-fold-close)
+  (define-key global-map (kbd "C-c k J") 'treesit-fold-close-all)
+  (define-key global-map (kbd "C-c k l") 'treesit-fold-open)
+  (define-key global-map (kbd "C-c k ;") 'treesit-fold-open-recursively)
+  (define-key global-map (kbd "C-c k L") 'treesit-fold-open-all)
+
   (global-treesit-fold-mode 1)
   (global-treesit-fold-indicators-mode 1)
   (setq treesit-fold-line-count-show t)  ; Show line count in folded regions
