@@ -1562,7 +1562,7 @@ jump to everywhere quickly
   (provide 'init-ace-window)
 #+end_src
 
-** TODO treesit
+** treesit
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-treesit.el
 :END:
