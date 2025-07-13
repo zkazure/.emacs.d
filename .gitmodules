@@ -22,12 +22,21 @@
 [submodule "cdlatex"]
 	path = lib/cdlatex
 	url = https://github.com/cdominik/cdlatex
+[submodule "citar"]
+	path = lib/citar
+	url = https://github.com/emacs-citar/citar
+[submodule "citeproc"]
+	path = lib/citeproc
+	url = https://github.com/andras-simonyi/citeproc-el
 [submodule "closql"]
 	path = lib/closql
 	url = https://github.com/magit/closql.git
 [submodule "compat"]
 	path = lib/compat
 	url = https://github.com/emacs-compat/compat.git
+[submodule "consult"]
+	path = lib/consult
+	url = https://github.com/minad/consult
 [submodule "csv-mode"]
 	path = lib/csv-mode
 	url = git@github.com:emacsmirror/csv-mode.git
@@ -46,12 +55,18 @@
 [submodule "emacsql"]
 	path = lib/emacsql
 	url = https://github.com/magit/emacsql.git
+[submodule "embark"]
+	path = lib/embark
+	url = https://github.com/oantolin/embark
 [submodule "emmet-mode"]
 	path = lib/emmet-mode
 	url = https://github.com/smihica/emmet-mode
 [submodule "epkg"]
 	path = lib/epkg
 	url = https://github.com/emacscollective/epkg.git
+[submodule "f"]
+	path = lib/f
+	url = https://github.com/rejeep/f.el
 [submodule "git-modes"]
 	path = lib/git-modes
 	url = https://github.com/magit/git-modes.git
@@ -91,6 +106,9 @@
 [submodule "org-roam-ui"]
 	path = lib/org-roam-ui
 	url = https://github.com/org-roam/org-roam-ui
+[submodule "parsebib"]
+	path = lib/parsebib
+	url = https://github.com/joostkremers/parsebib
 [submodule "pdf-tools"]
 	path = lib/pdf-tools
 	url = https://github.com/vedang/pdf-tools
@@ -106,15 +124,24 @@
 [submodule "projectile"]
 	path = lib/projectile
 	url = https://github.com/bbatsov/projectile
+[submodule "queue"]
+	path = lib/queue
+	url = git@github.com:emacsmirror/queue.git
 [submodule "rainbow-delimiters"]
 	path = lib/rainbow-delimiters
 	url = https://github.com/Fanael/rainbow-delimiters
 [submodule "rime"]
 	path = lib/rime
 	url = https://github.com/DogLooksGood/emacs-rime
+[submodule "s"]
+	path = lib/s
+	url = https://github.com/magnars/s.el
 [submodule "simple-httpd"]
 	path = lib/simple-httpd
 	url = https://github.com/skeeto/emacs-web-server
+[submodule "string-inflection"]
+	path = lib/string-inflection
+	url = https://github.com/akicho8/string-inflection
 [submodule "super-save"]
 	path = lib/super-save
 	url = https://github.com/bbatsov/super-save
