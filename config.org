@@ -1773,7 +1773,7 @@ jump to everywhere quickly
   (setq ivy-posframe-width 80)
 
   (setq ivy-posframe-parameters
-        '((left-fringe . 8)
+        '((left-fringe . 20)
           (right-fringe . 8)))
 
   (ivy-posframe-mode 1)
