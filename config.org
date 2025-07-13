@@ -570,7 +570,7 @@ only the language set here can be babeled.
   (keymap-global-set "<f2> u" #'counsel-unicode-char)
   (keymap-global-set "C-c g" #'counsel-git)
   (keymap-global-set "C-c j" #'counsel-git-grep)
-  (keymap-global-set "C-c k" #'counsel-ag)
+  (keymap-global-set "C-c v" #'counsel-ag)
   (keymap-global-set "C-x l" #'counsel-locate)
   (keymap-global-set "C-S-o" #'counsel-rhythmbox)
   (keymap-set minibuffer-local-map "C-r" #'counsel-minibuffer-history)
