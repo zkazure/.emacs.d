@@ -2001,12 +2001,7 @@ jump to everywhere quickly
   (provide 'init-dape)
 #+end_src
 * wish list
-** lsp for org mode
-** TODO in org roam use draft into todo
-** TODO email Gnus
-[[https://github.com/redguardtoo/mastering-emacs-in-one-year-guide/blob/master/gnus-guide-en.org#why-use-gnus-optional][redguardtoo's gnus configuration]]
 ** TODO ox-publish
-system-craft
 ** neotree
 ** org-tree-slide
 #+begin_src emacs-lisp
