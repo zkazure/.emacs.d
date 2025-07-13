@@ -338,6 +338,7 @@
   (require 'init-ace-window)
   (require 'init-treesit)
   (require 'init-treesit-fold)
+  (require 'init-yaml-mode)
 
   (require 'init-personal)
   (require 'init-test)
@@ -1528,6 +1529,22 @@ jump to everywhere quickly
   (setq treesit-fold-line-comment-mode t)
         
   (provide 'init-treesit-fold)
+#+end_src
+
+** yaml-mode
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-yaml-mode.el
+:END:
+
+#+begin_src emacs-lisp
+  (require 'yaml-mode)
+
+  (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+  (add-hook 'yaml-mode-hook
+            '(lambda ()
+               (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+
+  (provide 'init-yaml-mode)
 #+end_src
 * clone
 ** lsp bridge
