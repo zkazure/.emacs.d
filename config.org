@@ -339,6 +339,7 @@
   (require 'init-treesit)
   (require 'init-treesit-fold)
   (require 'init-yaml-mode)
+  (require 'init-citar)
 
   (require 'init-personal)
   (require 'init-test)
@@ -1128,37 +1129,9 @@ jump to everywhere quickly
            :unnarrowed t)
           ))
 
-#+end_src
-
-
-#+begin_src emacs-lisp  :tangle no
-  (setq my/ref-template
-        (concat "#+FILETAGS: reading research \n"
-                "- tags :: %^{keywords} \n"
-                "* %^{title}\n"
-                ":PROPERTIES:\n"
-                ":Custom_ID: %^{citekey}\n"
-                ":URL: %^{url}\n"
-                ":AUTHOR: %^{author-or-editor}\n"
-                ":NOTER_DOCUMENT: ~/Documents/zotero/%^{citekey}.pdf\n"
-                ":NOTER_PAGE:\n"
-                ":END:"))
-
-  ;; (setq my-org-roam-project-template
-  ;;       (concat "* Project: ${title}\n"
-  ;;               ":PROPERTIES:\n"
-  ;;               ":ID: %<%Y%m%d%H%M%S>\n"
-  ;;               ":ROAM_TAGS: project\n" ; 示例：项目模板自动添加'project'标签
-  ;;               ":END:\n\n"
-  ;;               "#+FILETAGS: :project:\n\n"
-  ;;               "%?"))
-  (add-to-list 'org-roam-capture-templates
-               `("r" "Zotero 文献模板" plain ; 文献笔记模板
-                 ,my/ref-template
-                 :target
-                 (file+head "reading/${citekey}.org" "#+title: ${title}\n")))
 
 #+end_src
+
 
 *** agenda
 
@@ -1709,6 +1682,59 @@ jump to everywhere quickly
 
   (provide 'init-yaml-mode)
 #+end_src
+
+
+** citar
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-citar.el
+:END:
+
+*** basic
+#+begin_src emacs-lisp
+  (require 'citar)
+
+  (setq org-cite-global-bibliography '("~/Documents/roam/biblio.bib"))
+  (setq org-cite-insert-processor 'citar
+        org-cite-follow-processor 'citar
+        org-cite-activate-processor 'citar)
+  (setq citar-bibliography org-cite-global-bibliography)
+#+end_src
+*** org roam
+#+begin_src emacs-lisp
+  (defun jethro/org-roam-node-from-cite (keys-entries)
+    (interactive (list (citar-select-ref :multiple nil :rebuild-cache t)))
+    (let ((title (citar--format-entry-no-widths (cdr keys-entries)
+                                                "${author editor} :: ${title}")))
+      (org-roam-capture- :templates
+                         '(("r" "reference" plain "%?" :if-new
+                            (file+head "reference/${citekey}.org"
+                                       ":PROPERTIES:\n:ROAM_REFS: [cite:@${citekey}]\n:END:\n#+title: ${title}\n")
+                            :immediate-finish t
+                            :unnarrowed t))
+                         :info (list :citekey (car keys-entries))
+                         :node (org-roam-node-create :title title)
+                         :props '(:finalize find-file))))
+#+end_src
+
+*** template
+#+begin_src emacs-lisp 
+
+  (setq citar-templates
+        '((main . "${author editor:30%sn}     ${date year issued:4}     ${title:48}")
+          (suffix . "          ${=key= id:15}    ${=type=:12}    ${tags keywords:*}")
+          (preview . "${author editor:%etal} (${year issued date}) ${title}, ${journal journaltitle publisher container-title collection-title}.\n")
+          (note . "Notes on ${author editor:%etal}, ${title}")))
+
+
+#+end_src
+
+
+*** END
+#+begin_src emacs-lisp
+  (provide 'init-citar)
+#+end_src
+
+
 * clone
 ** lsp bridge
 :PROPERTIES:
