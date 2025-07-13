@@ -1771,25 +1771,12 @@ jump to everywhere quickly
 #+end_src
 * wish list
 ** lsp for org mode
-** email Gnus
+** TODO in org roam use draft into todo
+** TODO email Gnus
 [[https://github.com/redguardtoo/mastering-emacs-in-one-year-guide/blob/master/gnus-guide-en.org#why-use-gnus-optional][redguardtoo's gnus configuration]]
-** ox-publish
+** TODO ox-publish
 system-craft
 ** neotree
-** webmode
-- [ ] learning with purcell
-#+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/site-lisp/colorful-mode/")
-  (require 'colorful-mode)
-
-  (setq colorful-use-prefix t)
-  (setq colorful-only-strings 'only-prog)
-  (setq css-fontify-colors nil)
-
-  (global-colorful-mode t)
-  (add-to-list 'global-colorful-modes 'helpful-mode)
-
-#+end_src
 ** org-tree-slide
 #+begin_src emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/site-lisp/org-tree-slide/")
@@ -1809,8 +1796,5 @@ system-craft
     )
 #+end_src
 ** magit forge
-** org mode
-[[http://doc.norang.ca/org-mode.html][Org Mode - Organize Your Life In Plain Text!]]
 ** leetcode
 ** plantuml complete
-** holo-layer
