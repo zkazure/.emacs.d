@@ -73,6 +73,9 @@
 [submodule "ivy"]
 	path = lib/ivy
 	url = https://github.com/abo-abo/swiper
+[submodule "ivy-posframe"]
+	path = lib/ivy-posframe
+	url = https://github.com/tumashu/ivy-posframe
 [submodule "jinx"]
 	path = lib/jinx
 	url = https://github.com/minad/jinx

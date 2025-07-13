@@ -340,6 +340,7 @@
   (require 'init-treesit-fold)
   (require 'init-yaml-mode)
   (require 'init-citar)
+  (require 'init-ivy-posframe)
 
   (require 'init-personal)
   (require 'init-test)
@@ -1738,6 +1739,46 @@ jump to everywhere quickly
 *** END
 #+begin_src emacs-lisp
   (provide 'init-citar)
+#+end_src
+
+** ivy-posframe
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-ivy-posframe.el
+:END:
+
+#+begin_src emacs-lisp
+  (require 'ivy-posframe)
+  ;; display at `ivy-posframe-style'
+  ;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display)))
+  ;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
+  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-bottom-left)))
+  ;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-bottom-left)))
+  ;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-bottom-left)))
+  ;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center)))
+
+
+  ;; (setq ivy-posframe-display-functions-alist
+  ;;       '((swiper          . ivy-display-function-fallback)
+  ;;         (complete-symbol . ivy-posframe-display-at-point)
+  ;;         (counsel-M-x     . ivy-posframe-display-at-window-bottom-left)
+  ;;         (t               . ivy-posframe-display)))
+  ;; (ivy-posframe-mode 1)
+
+
+  (setq ivy-posframe-height-alist '(
+                                    (t . 12)
+                                    ;; (swiper . 30)
+                                    ))
+
+  (setq ivy-posframe-width 80)
+
+  (setq ivy-posframe-parameters
+        '((left-fringe . 8)
+          (right-fringe . 8)))
+
+  (ivy-posframe-mode 1)
+
+  (provide 'init-ivy-posframe)
 #+end_src
 
 
