@@ -2001,7 +2001,7 @@ jump to everywhere quickly
   (provide 'init-dape)
 #+end_src
 * wish list
-** TODO ox-publish
+** TODO ox-hugo
 ** neotree
 ** org-tree-slide
 #+begin_src emacs-lisp
