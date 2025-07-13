@@ -379,6 +379,8 @@
   ;;                 eshell-mode-hook))
   ;;   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
+  (setq next-screen-context-lines 15)
+
   (provide 'init-ui)
 #+end_src
 
