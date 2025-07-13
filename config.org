@@ -1489,9 +1489,6 @@ jump to everywhere quickly
           ;; (markdown-mode . markdown-ts-mode)
           ))
 
-
-
-
   (add-hook 'web-mode-hook #'(lambda ()
                                (let ((file-name (buffer-file-name)))
                                  (when file-name
@@ -1501,6 +1498,8 @@ jump to everywhere quickly
                                       ("html" 'html)
                                       ("php" 'php))))
                                  )))
+
+  (setq treesit-font-lock-level 4)
 
   (provide 'init-treesit)
 #+end_src
