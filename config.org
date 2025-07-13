@@ -508,10 +508,10 @@ only the language set here can be babeled.
   ;;   	  :foreground-color "#dcdcdc"
   ;;   	  :internal-border-width 5))
 
-  (setq rime-user-data-dir "~/Public/yuhao_light/")
-  (setq default-input-method "rime")
-  ;; (setq default-input-method "rime"
-  ;;       rime-show-candidate 'posframe)
+  (setq rime-user-data-dir "~/.config/rime-moran")
+  ;; (setq default-input-method "rime")
+  (setq default-input-method "rime"
+        rime-show-candidate 'posframe)
 
   ;; (setq rime-posframe-style 'vertical)
 
