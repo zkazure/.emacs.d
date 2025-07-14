@@ -109,6 +109,9 @@
 [submodule "org-roam-ui"]
 	path = lib/org-roam-ui
 	url = https://github.com/org-roam/org-roam-ui
+[submodule "ox-hugo"]
+	path = lib/ox-hugo
+	url = https://github.com/kaushalmodi/ox-hugo
 [submodule "parsebib"]
 	path = lib/parsebib
 	url = https://github.com/joostkremers/parsebib
@@ -151,6 +154,9 @@
 [submodule "tablist"]
 	path = lib/tablist
 	url = https://github.com/emacsorphanage/tablist
+[submodule "tomelr"]
+	path = lib/tomelr
+	url = https://github.com/kaushalmodi/tomelr
 [submodule "transient"]
 	path = lib/transient
 	url = https://github.com/magit/transient.git
