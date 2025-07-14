@@ -446,16 +446,25 @@
 *** capture
 set the org capture template
 #+begin_src emacs-lisp
-  (define-key global-map "\C-cc" 'org-capture)
+  (define-key global-map (kbd "C-c n c") 'org-capture)
 
   (setq org-capture-templates nil)
 
   (add-to-list 'org-capture-templates
-  	     '("j" "Journal" entry (file+weektree "~/Documents/org/journal/journal.org")
-  	       "* %?"))
+               '("i" "Inbox" entry (file "~/Documents/roam/inbox.org")
+                 "* %^{title} \n %?\n"))
+
+  ;; (add-to-list 'org-capture-templates '("b" "Blog"))
+
+  ;; (add-to-list 'org-capture-templates
+  ;;              '("bi" "Inbox" entry
+  ;;                (file+headline "~/Documents/roam/blog/inbox.org")
+  ;;                "* TODO %^{任务名}\n%u\n%a\n"))
+
   (add-to-list 'org-capture-templates
-               '("i" "Inbox" entry (file "~/Documents/org/inbox.org")
-                 "* %?\n"))
+               '("d" "Diary" entry
+                  (file+olp+datetree "~/Documents/roam/blog/diary.org")
+                  "* %^{title}\n:PROPERTIES:\n:EXPORT_FILE_NAME: %d_%^{title}\n:END:\n"))
 #+end_src
 
 *** babel
@@ -1034,7 +1043,7 @@ jump to everywhere quickly
   (define-key global-map (kbd "C-c n f") 'org-roam-node-find)
   (define-key global-map (kbd "C-c n g") 'org-roam-graph)
   (define-key global-map (kbd "C-c n i") 'org-roam-node-insert)
-  (define-key global-map (kbd "C-c n c") 'org-roam-capture)
+  ;; (define-key global-map (kbd "C-c n c") 'org-roam-capture)
   (define-key global-map (kbd "C-c n d") 'org-roam-dailies-map)
   (define-key global-map (kbd "C-c n h") 'org-id-get-create)
   ;; (define-key global-map (kbd "C-c n j") 'org-roam-dailies-capture-today)
