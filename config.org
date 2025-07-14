@@ -1806,9 +1806,62 @@ jump to everywhere quickly
   (with-eval-after-load 'ox
     (require 'ox-hugo))
 
-  ;; (define-key global-map (kbd "C-c b p") push)
-  ;; (define-key global-map (kbd "C-c b l") local-view)
-  ;; (defun auto-hugo after save)
+
+
+  (defun my-hugo-push ()
+    (interactive) ; 这使得函数可以通过 M-x 调用
+      (message "正在运行 Hugo 构建命令...")
+      (async-shell-command "cd ~/Documents/blog &&  hugo --minify" "*Hugo Build Output*") ;命令，输出缓冲区
+      (message "正在运行 Git 部署命令...")
+      (async-shell-command "cd ~/Documents/blog/public && git add . && git commit -m 'Update with Emacs: $(date +"%Y-%m-%d %H:%M")' && git push" "*Hugo Deploy Output*")
+
+      ;; 恢复原来的默认目录（可选，但推荐良好习惯）
+      (setq default-directory current-dir)
+
+      (message "Hugo 命令序列已触发。")
+      ;; 你也可以打开一个shell缓冲区来查看输出
+      ;; (display-buffer (get-buffer "*Hugo Build Output*"))
+      ;; (display-buffer (get-buffer "*Hugo Deploy Output*"))
+      )
+
+  (defun my-hugo-preview ()
+    (interactive)
+    ;; 这是一个非常重要的步骤，避免重复启动服务器导致端口冲突
+    (message "正在检查并停止可能正在运行的 Hugo server 进程...")
+    (let ((process-name "hugo-server-process"))
+      (when (get-process process-name)
+        (message "发现正在运行的 Hugo server 进程，正在停止...")
+        (delete-process process-name)
+        (sit-for 0.5)
+        (message "Hugo server 进程已停止。")))
+
+    (message "正在启动 Hugo 本地预览服务器 (hugo server -D)...")
+    (async-shell-command "cd ~/Documents/blog && hugo server -D" "*Hugo Deploy Output*")
+
+    (message "等待 Hugo 服务器启动...")
+    (sit-for 0.5)
+    
+    (browse-url "http://localhost:1313/")
+    (message "Hugo 本地预览已启动并在浏览器中打开。")) ;; <-- Added closing parenthesis
+
+
+  ;; (defun my-hugo-stop ()
+  ;;   (interactive)
+  ;;   ;; 这是一个非常重要的步骤，避免重复启动服务器导致端口冲突
+  ;;   (message "正在检查并停止可能正在运行的 Hugo server 进程...")
+  ;;   (let ((process-name "hugo-server-process"))
+  ;;     (when (get-process process-name)
+  ;;       (message "发现正在运行的 Hugo server 进程，正在停止...")
+  ;;       (delete-process process-name)
+  ;;       (sit-for 0.5)
+  ;;       (message "Hugo server 进程已停止。"))
+  ;;     (unless (get-process process-name)
+  ;;             (message "did not find hugo server process running"))))
+  ;; (define-key global-map (kbd "C-c b s") 'my-hugo-stop)  
+
+  (define-key global-map (kbd "C-c b l") 'my-hugo-preview)
+  (define-key global-map (kbd "C-c b p") 'my-hugo-push)
+
 
   (provide 'init-ox-hugo)
 #+end_src
