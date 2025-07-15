@@ -529,7 +529,7 @@ only the language set here can be babeled.
   ;;   	  :foreground-color "#dcdcdc"
   ;;   	  :internal-border-width 5))
 
-  (setq rime-user-data-dir "~/.config/rime-moran")
+  (setq rime-user-data-dir "~/.config/rime_pro")
   ;; (setq default-input-method "rime")
   (setq default-input-method "rime"
         rime-show-candidate 'posframe)
@@ -1798,7 +1798,7 @@ jump to everywhere quickly
   (provide 'init-ivy-posframe)
 #+end_src
 
-** TODO ox-hugo
+** ox-hugo
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-ox-hugo.el
 :END:
