@@ -1356,7 +1356,7 @@ jump to everywhere quickly
 
   (setq org-noter-auto-save-last-location t)
   (setq org-noter-highlight-selected-text t)
-  (setq org-noter-max-short-selected-text-length 20)
+  (setq org-noter-max-short-selected-text-length 80)
 
 
   (provide 'init-org-noter)
