@@ -481,7 +481,9 @@ only the language set here can be babeled.
         (plantuml . t)
         (python . t)
         (shell . t)
-        (C . t)))))
+        (C . t)
+        (javascript . t)
+        ))))
 
   (with-eval-after-load 'org
     (add-to-list 'org-babel-default-header-args:python
@@ -1974,6 +1976,7 @@ jump to everywhere quickly
                  'scss-mode-hook
                  'coffee-mode-hook
                  'rust-mode-hook
+                 'java-mode-hook
                  ))
     (add-hook hook #'(lambda ()
                        (setq indent-tabs-mode nil)
