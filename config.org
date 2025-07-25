@@ -1976,8 +1976,6 @@ jump to everywhere quickly
                  'scss-mode-hook
                  'coffee-mode-hook
                  'rust-mode-hook
-                 'js-mode-hook
-                 'js2-mode-hook
                  ))
     (add-hook hook #'(lambda ()
                        (setq indent-tabs-mode nil)
