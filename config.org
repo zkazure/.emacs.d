@@ -532,8 +532,7 @@ only the language set here can be babeled.
   (defun my/insert-inline-OCDL ()
     (interactive)
     (insert "\\( ") ;; 把 "\\(" 和 "\\)" 替换成 "$" 就能实现输入成对 "$" 的功能.
-    (save-excursi
-on (insert " \\)" )))
+    (save-excursion (insert " \\)" )))
 
   (defun my/insert-square-bra-OCDL ()
     (interactive)
