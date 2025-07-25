@@ -531,13 +531,14 @@ only the language set here can be babeled.
   ;; org-cdlatex-mode 中使用 cdlatex 的自动匹配括号, 并把 $...$ 换成 \( ... \)
   (defun my/insert-inline-OCDL ()
     (interactive)
-    (insert "\\(") ;; 把 "\\(" 和 "\\)" 替换成 "$" 就能实现输入成对 "$" 的功能.
-    (save-excursion (insert "\\)" )))
+    (insert "\\( ") ;; 把 "\\(" 和 "\\)" 替换成 "$" 就能实现输入成对 "$" 的功能.
+    (save-excursi
+on (insert " \\)" )))
 
   (defun my/insert-square-bra-OCDL ()
     (interactive)
-    (insert "\\[")
-    (save-excursion (insert "\\]" )))
+    (insert "\\[ ")
+    (save-excursion (insert " \\]" )))
 
 
   (define-key org-cdlatex-mode-map (kbd "C-M-9") 'my/insert-inline-OCDL)
