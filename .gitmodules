@@ -103,6 +103,9 @@
 [submodule "org-download"]
 	path = lib/org-download
 	url = https://github.com/abo-abo/org-download
+[submodule "org-fragtog"]
+	path = lib/org-fragtog
+	url = https://github.com/io12/org-fragtog
 [submodule "org-noter"]
 	path = lib/org-noter
 	url = https://github.com/org-noter/org-noter
