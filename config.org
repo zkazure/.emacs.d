@@ -513,6 +513,45 @@ only the language set here can be babeled.
   (require 'olivetti)
   (define-key global-map "\C-co" 'olivetti-mode)
 #+end_src
+*** latex
+
+**** highlight
+#+begin_src emacs-lisp
+  (setq org-highlight-latex-and-related '(native latex entities)) ;; LaTeX 语法高亮设置
+  (setq org-pretty-entities t) ;; LaTeX 代码的 prettify
+  (setq org-pretty-entities-include-sub-superscripts nil) ;; 不隐藏 LaTeX 的上下标更容易编辑
+#+end_src
+
+**** hotkey
+
+#+begin_src emacs-lisp
+  (add-hook 'org-mode-hook 'org-cdlatex-mode)
+
+  ;; org-cdlatex-mode 中使用 cdlatex 的自动匹配括号, 并把 $...$ 换成 \( ... \)
+  (defun my/insert-inline-OCDL ()
+    (interactive)
+    (insert "\\(") ;; 把 "\\(" 和 "\\)" 替换成 "$" 就能实现输入成对 "$" 的功能.
+    (save-excursion (insert "\\)" )))
+
+  (defun my/insert-square-bra-OCDL ()
+    (interactive)
+    (insert "\\[")
+    (save-excursion (insert "\\]" )))
+
+
+  (define-key org-cdlatex-mode-map (kbd "C-M-9") 'my/insert-inline-OCDL)
+  (define-key org-cdlatex-mode-map (kbd "C-M-[") 'my/insert-square-bra-OCDL)
+#+end_src
+
+**** preview
+#+begin_src emacs-lisp
+  ;; preview with C-c C-x C-l
+
+  (setq my/latex-preview-scale 1.8) ;; 一般来说这里的 scale 约等于 set-face-attribute 中的 :height /100
+  (setq org-format-latex-options
+        `(:foreground default :background default :scale ,my/latex-preview-scale :html-foreground "Black" :html-background "Transparent" :html-scale ,my/latex-preview-scale :matchers ("begin" "$1" "$" "$$" "\\(" "\\["))) ;; 增大公式预览的图片大小
+#+end_src
+
 *** END
 
 #+begin_src emacs-lisp
