@@ -73,6 +73,9 @@
 [submodule "ht"]
 	path = lib/ht
 	url = https://github.com/Wilfred/ht.el
+[submodule "hydra"]
+	path = lib/hydra
+	url = https://github.com/abo-abo/hydra
 [submodule "ivy"]
 	path = lib/ivy
 	url = https://github.com/abo-abo/swiper
@@ -88,6 +91,9 @@
 [submodule "magit"]
 	path = lib/magit
 	url = https://github.com/magit/magit.git
+[submodule "major-mode-hydra"]
+	path = lib/major-mode-hydra
+	url = https://github.com/jerrypnz/major-mode-hydra.el
 [submodule "markdown-mode"]
 	path = lib/markdown-mode
 	url = https://github.com/jrblevin/markdown-mode

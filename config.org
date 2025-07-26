@@ -344,6 +344,7 @@
   (require 'init-ox-hugo)
   (require 'init-quickrun)
   (require 'init-org-fragtog)
+  (require 'init-hydra)
 
   (require 'init-personal)
   (require 'init-test)
@@ -1948,6 +1949,188 @@ jump to everywhere quickly
   (provide 'init-org-fragtog)
 #+end_src
 
+** hydra
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-hydra.el
+:END:
+
+*** require
+#+begin_src emacs-lisp
+  (require 'hydra)
+  (require 'major-mode-hydra)
+  (require 'pretty-hydra)
+  (require 'org-tempo)
+  (require 'posframe)
+#+end_src
+*** hydra-posframe
+#+begin_src emacs-lisp
+  (defgroup hydra-posframe nil
+    "Using posframe to show hydra"
+    :group 'hydra
+    :prefix "hydra-posframe")
+
+  (defcustom hydra-posframe-parameters nil
+    "The frame parameters used by hydra-posframe."
+    :type 'string
+    :group 'hydra-posframe)
+
+  (defcustom hydra-posframe-border-width 1
+    "The border width used by hydra-posframe.
+  When 0, no border is showed."
+    :group 'hydra-posframe
+    :type 'number)
+
+  (defcustom hydra-posframe-poshandler 'posframe-poshandler-frame-center
+    "The poshandler used by hydra-posframe."
+    :group 'hydra-posframe
+    :type 'function)
+
+  (defcustom hydra-posframe-font nil
+    "The font used by hydra-posframe.
+  When nil, Using current frame's font as fallback."
+    :group 'hydra-posframe
+    :type 'string)
+
+  (defface hydra-posframe-face
+    '((t :inherit default))
+    "The background and foreground color of the posframe.
+  `background' and `foreground` are used in this face."
+    :group 'hydra-posframe)
+
+  (defface hydra-posframe-border-face
+    '((t (:background "gray50")))
+    "The border color of the posframe.
+  Only `background` is used in this face."
+    :group 'hydra-posframe)
+
+  (defvar hydra-posframe-buffer " *hydra-posframe-buffer*"
+    "The posframe-buffer used by hydra-posframe.")
+
+  (defun hydra-posframe-hide-window ()
+    "Hide the hydra posframe"
+    (posframe-hide hydra-posframe-buffer))
+
+  (defun hydra-posframe-show-window (str)
+    "Show hydra hints on the posframe"
+    (posframe-show
+     hydra-posframe-buffer
+     :font hydra-posframe-font
+     :poshandler hydra-posframe-poshandler
+     :foreground-color (face-foreground 'hydra-posframe-face nil t)
+     :background-color (face-background 'hydra-posframe-face nil t)
+     :border-width hydra-posframe-border-width
+     :border-color (face-attribute 'hydra-posframe-border-face :background)
+     :string (concat str "\n")
+     :override-parameters hydra-posframe-parameters)
+    (let ((current-frame
+           (buffer-local-value 'posframe--frame
+                               (get-buffer hydra-posframe-buffer))))
+      (redirect-frame-focus current-frame
+                            (frame-parent current-frame))))
+
+  ;;;###autoload
+  (define-minor-mode hydra-posframe-mode
+    "Display hydra via posframe."
+    :init-value nil
+    :global t
+    :require 'hydra-posframe
+    :group 'hydra-posframe
+    (let ((hydra-posframe-list (list 'hydra-posframe
+                                     #'hydra-posframe-show-window
+                                     #'hydra-posframe-hide-window)))
+      (if hydra-posframe-mode
+          (progn
+            (add-to-list 'hydra-hint-display-alist hydra-posframe-list)
+            (setq hydra-hint-display-type 'hydra-posframe))
+        (progn
+          (setq hydra-hint-display-alist
+                (delete hydra-posframe-list hydra-hint-display-alist))
+          (setq hydra-hint-display-type 'lv)))))
+
+  ;;;###autoload
+  (defun hydra-posframe-enable ()
+    "Enable hydra-posframe."
+    (interactive)
+    (hydra-posframe-mode 1)
+    (message "hydra-posframe: suggest use `hydra-posframe-mode` instead."))
+
+  (hydra-posframe-mode 1)
+#+end_src
+*** hydra-org
+#+begin_src emacs-lisp 
+  (defun hot-expand (str &optional mod)
+    "Expand org template.
+
+  STR is a structure template string recognised by org like <s. MOD is a
+  string with additional parameters to add the begin line of the
+  structure element. HEADER string includes more parameters that are
+  prepended to the element after the #+HEADER: tag."
+    (let (text)
+      (when (region-active-p)
+        (setq text (buffer-substring (region-beginning) (region-end)))
+        (delete-region (region-beginning) (region-end)))
+      (insert str)
+      (if (fboundp 'org-try-structure-completion)
+          (org-try-structure-completion) ; < org 9
+        (progn
+          (org-tempo-complete-tag)))
+      (when mod (insert mod) (forward-line))
+      (when text (insert text))))
+
+   (pretty-hydra-define org-hydra
+    (:color blue :quit-key "C-g" :title "Org Hydra")
+    ("Basic"
+     (("a" (hot-expand "<a") "ascii")
+      ("c" (hot-expand "<c") "center")
+      ("C" (hot-expand "<C") "comment")
+      ("x" (hot-expand "<e") "example")
+      ("E" (hot-expand "<E") "export")
+      ("h" (hot-expand "<h") "html")
+      ("l" (hot-expand "<l") "latex")
+      ;; ("n" (hot-expand "<n") "note")
+      ;; ("v" (hot-expand "<v") "verse")
+      ("q" (hot-expand "<q") "quote"))
+      
+     ;; "Head"
+     ;; (("i" (hot-expand "<i") "index")
+     ;;  ("A" (hot-expand "<A") "ASCII")
+     ;;  ("I" (hot-expand "<I") "INCLUDE")
+     ;;  ("H" (hot-expand "<H") "HTML")
+     ;;  ("L" (hot-expand "<L") "LaTeX"))
+     "Source"
+     (("s" (hot-expand "<s") "src")
+      ("e" (hot-expand "<s" "emacs-lisp") "emacs-lisp")
+      ("p" (hot-expand "<s" "python :results output") "python")
+      ("j" (hot-expand "<s" "javascript") "javascript")
+      ("w" (hot-expand "<s" "powershell") "powershell")
+      ("r" (hot-expand "<s" "ruby") "ruby")
+      ("S" (hot-expand "<s" "sh") "sh")
+      ("g" (hot-expand "<s" "go :imports '\(\"fmt\"\)") "golang"))
+     "Misc"
+     (("m" (hot-expand "<s" "mermaid :file chart.png") "mermaid")
+      ("u" (hot-expand "<s" "plantuml :file chart.png") "plantuml")
+      ("Y" (hot-expand "<s" "ipython :session :exports both :results raw drawer\n$0") "ipython")
+      ("P" (progn
+            (insert "#+HEADERS: :results output :exports both :shebang \"#!/usr/bin/env perl\"\n")
+            (hot-expand "<s" "perl")) "Perl tangled")
+      ("<" self-insert-command "ins"))))
+
+
+  (with-eval-after-load 'org
+    ;; 确保 org-hydra/body 在 org-mode-map 中可用
+    (define-key org-mode-map (kbd "<")
+      (lambda ()
+        "Insert org template."
+        (interactive)
+        (if (or (region-active-p) (looking-back "^\\s-*" 1))
+            (org-hydra/body)
+          (self-insert-command 1)))))
+#+end_src
+*** END
+
+#+begin_src emacs-lisp
+  (provide 'init-hydra)
+#+end_src
 * clone
 ** lsp bridge
 :PROPERTIES:
