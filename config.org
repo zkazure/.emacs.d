@@ -2258,6 +2258,11 @@ jump to everywhere quickly
   (global-set-key (kbd "M-O") (lambda () (interactive) (other-window -1)))
 #+end_src
 
+** babel
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-c C-'") 'org-edit-special)
+#+end_src
+
 ** END
 
 #+begin_src emacs-lisp
