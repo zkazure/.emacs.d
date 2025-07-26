@@ -506,6 +506,11 @@ only the language set here can be babeled.
   ;; for python
   (setq org-babel-python-command "python3")
 
+
+  (add-hook 'org-babel-after-execute
+            (lambda ()
+              (when (eq major-mode 'org-mode)
+                (org-redisplay-inline-images))))
 #+end_src
 
 *** appear
