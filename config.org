@@ -2264,10 +2264,8 @@ jump to everywhere quickly
                              'face 'mode-line-buffer-id 'help-echo (buffer-file-name))               
                  '(:eval (if (buffer-modified-p) "*" " ")) ; 如果缓冲区已修改，显示 "*"               
 
-                 ;; (propertize " %l:%c " 'face 'font-lock-builtin-face)
+                 (propertize " %l:%c " 'face 'font-lock-builtin-face)
                  (propertize " %p " 'face 'font-lock-constant-face)                 
-
-
 
                  
                  ;; Spaces to align right
