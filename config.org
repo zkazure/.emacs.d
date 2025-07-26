@@ -2245,6 +2245,12 @@ jump to everywhere quickly
   (pixel-scroll-mode 1)
 #+end_src
 
+** other window
+#+begin_src emacs-lisp
+  (global-set-key (kbd "M-o") 'other-window)
+  (global-set-key (kbd "M-O") (lambda () (interactive) (other-window -1)))
+#+end_src
+
 ** END
 
 #+begin_src emacs-lisp
