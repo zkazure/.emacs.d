@@ -2325,11 +2325,6 @@ jump to everywhere quickly
   (global-set-key (kbd "C-c C-'") 'org-edit-special)
 #+end_src
 
-** ui
-#+begin_src emacs-lisp
-  (setq-default line-spacing .2)
-#+end_src
-
 ** END
 
 #+begin_src emacs-lisp
