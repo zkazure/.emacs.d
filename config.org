@@ -2284,6 +2284,11 @@ jump to everywhere quickly
                  ;; The current major mode
                  (propertize " %m " 'face 'font-lock-string-face)))
 
+  ;; 将模式行的内容复制到标题行
+  (setq-default header-line-format mode-line-format)
+
+  ;; 禁用底部的模式行
+  (setq-default mode-line-format nil)
 
   (provide 'init-modeline)
 #+end_src
