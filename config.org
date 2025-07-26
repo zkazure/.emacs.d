@@ -2255,11 +2255,7 @@ jump to everywhere quickly
                  ;; Note: The original 'evil-state' check and icons are removed here.
                  ;; If you want a different fixed icon, you can add it back here.
 
-                 ;; VC/Git info
-                 '(:eval (when-let (vc vc-mode)
-                           (list " "
-                                 (propertize (substring vc 5)
-                                             'face 'font-lock-comment-face))))
+
                  '(:eval (when buffer-read-only
                            (propertize " " 'face 'error)))
                  
@@ -2270,14 +2266,24 @@ jump to everywhere quickly
                  ;; (propertize " %l:%c " 'face 'font-lock-builtin-face)
                  (propertize " %p " 'face 'font-lock-constant-face)                 
 
+
+
+                 
                  ;; Spaces to align right
                  '(:eval (propertize
                           " " 'display
                           `((space :align-to (- (+ right right-fringe right-margin)
-                                                ,(+ 3 (string-width mode-name)))))))
-
+                                                ,(+ 3 (string-width mode-name)
+                                                    (string-width (format-mode-line vc-mode))))))))
+                 ;; VC/Git info
+                 '(:eval (when-let (vc vc-mode)
+                           (list " "
+                                 (propertize (substring vc 5)
+                                             'face 'font-lock-comment-face)
+                                 " ")))
                  ;; The current major mode
                  (propertize " %m " 'face 'font-lock-string-face)))
+
 
   (provide 'init-modeline)
 #+end_src
