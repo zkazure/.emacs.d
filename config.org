@@ -374,13 +374,14 @@
   (global-display-line-numbers-mode t)
   (global-visual-line-mode t)  
 
-  ;; turn of the line numebr in the terminal
-  ;; why it is useless
-  ;; (dolist (mode '(org-mode-hook
-  ;;                 term-mode-hook
-  ;;                 shell-mode-hook
-  ;;                 eshell-mode-hook))
-  ;;   (add-hook mode (lambda () (display-line-numbers-mode 0))))
+  (dolist (mode '(org-mode-hook
+                  vterm-mode-hook
+                  dired-mode-hook
+                  markdown-mode-hook
+                  lisp-interaction-mode-hook
+                  org-agenda-mode-hook))
+    (add-hook mode (lambda () (display-line-numbers-mode -1))))
+
 
   (setq next-screen-context-lines 15)
 
