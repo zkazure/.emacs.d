@@ -300,7 +300,6 @@
   ;; outside
   (require 'init-rime)
   (require 'init-rainbow-delimiters)
-  ; (require 'init-auto-save)
   (require 'init-which-key)
   ; (require 'init-aweshell)
   (require 'init-ivy)
@@ -308,12 +307,9 @@
   (require 'init-yasnippet)
   (require 'init-lsp-bridge)
   (require 'init-avy)
-  ; (require 'init-magit)
   (require 'init-dirvish)
   (require 'init-projectile)
   (require 'init-latex)
-  ; 
-  ; (require 'init-test)
 
   (require 'init-emacs-everywhere)
   (require 'init-markdown-mode)
@@ -2289,68 +2285,13 @@ jump to everywhere quickly
 :HEADER-ARGS: :tangle lisp/init-test.el
 :END:
 
+
 #+begin_src emacs-lisp 
 
   (provide 'init-test)
 #+end_src
 
-** TODO dape
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-dape.el
-:END:
-
-- [ ] usability testing
-#+begin_src emacs-lisp :tangle no
-  (require 'dape)
-
-
-  ;; By default dape shares the same keybinding prefix as `gud'
-  ;; If you do not want to use any prefix, set it to nil.
-  ;; (setq dape-key-prefix "\C-x\C-a")
-
-
-
-  ;;  :hook
-  ;; Save breakpoints on quit
-  ;; (add-hook kill-emacs-hook dape-breakpoint-save)
-
-  ;; Load breakpoints on startup
-  ;; (add-hook after-init-hook dape-breakpoint-load)
-
-
-
-  ;; Turn on global bindings for setting breakpoints with mouse
-  ;; (dape-breakpoint-global-mode)
-
-  ;; Info buffers like gud (gdb-mi)
-  ;; (setq dape-buffer-window-arrangement 'gud)
-  ;; (setq dape-info-hide-mode-line nil)
-
-  ;; Pulse source line (performance hit)
-  ;; (add-hook 'dape-display-source-hook 'pulse-momentary-highlight-one-line)
-
-  ;; Showing inlay hints
-  ;; (setq dape-inlay-hints t)
-
-  ;; Save buffers on startup, useful for interpreted languages
-  ;; (add-hook 'dape-start-hook (lambda () (save-some-buffers t t)))
-
-  ;; Kill compile buffer on build success
-  (add-hook 'dape-compile-hook 'kill-buffer)
-
-  ;; Projectile users
-  ;; (setq dape-cwd-function 'projectile-project-root)
-
-
-  ;; Enable repeat mode for more ergonomic `dape' use
-  ;; (use-package repeat
-  ;;   :config
-  ;;   (repeat-mode))
-
-  (provide 'init-dape)
-#+end_src
 * wish list
-** TODO ox-hugo
 ** neotree
 ** org-tree-slide
 #+begin_src emacs-lisp
