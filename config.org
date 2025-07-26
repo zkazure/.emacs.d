@@ -340,6 +340,8 @@
   (require 'init-quickrun)
   (require 'init-org-fragtog)
   (require 'init-hydra)
+  (require 'init-sudo-edit)
+
 
   (require 'init-personal)
   (require 'init-test)
