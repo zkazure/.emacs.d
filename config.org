@@ -1500,6 +1500,13 @@ jump to everywhere quickly
   (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
   (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
   (add-hook 'html-mode-hook  'emmet-mode) ;; enable html
+  (add-hook 'js-mode-hook 'emmet-mode)
+
+  (add-hook 'sgml-mode-hook 'emmet-preview-mode) ;; Auto-start on any markup modes
+  (add-hook 'css-mode-hook  'emmet-preview-mode) ;; enable Emmet-Preview's css abbreviation.
+  (add-hook 'html-mode-hook  'emmet-preview-mode) ;; enable html
+  (add-hook 'js-mode-hook 'emmet-preview-mode)
+
   (add-to-list 'emmet-jsx-major-modes 'your-jsx-major-mode)
 
   (setq emmet-self-closing-tag-style " /") ;; default "/"
