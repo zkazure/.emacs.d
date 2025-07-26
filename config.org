@@ -421,6 +421,11 @@
                  '("~" (:box (:line-width 2
                                :color "grey75"
                                :style released-button)))))
+
+  (setq org-tags-column -80
+        org-catch-invisible-edits 'smart
+        org-startup-indented t
+        org-startup-folded t)
 #+END_SRC
 *** agenda
 #+begin_src emacs-lisp
@@ -443,6 +448,15 @@
 
   ;; ??? what is this
   (setq org-agenda-start-with-log-mode t)
+
+  ;; ui
+  (setq org-agenda-block-separator ?─
+        org-agenda-time-grid
+        '((daily today require-timed)
+          (800 1000 1200 1400 1600 1800 2000)
+          " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+        org-agenda-current-time-string
+        "⭠ now ─────────────────────────────────────────────────")
 #+end_src
 
 *** capture
