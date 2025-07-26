@@ -2105,6 +2105,19 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (provide 'init-hydra)
 #+end_src
+** sudo-edit
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-sudo-edit.el
+:END:
+
+
+#+begin_src emacs-lisp 
+  (require 'sudo-edit)
+
+  (define-key global-map (kbd "C-c s") 'sudo-edit)
+
+  (provide 'init-sudo-edit)
+#+end_src
 * clone
 ** lsp bridge
 :PROPERTIES:
