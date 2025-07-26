@@ -331,7 +331,6 @@
   (require 'init-web-mode)
   (require 'init-vterm)
   (require 'init-org-roam-ui)
-  (require 'init-ace-window)
   (require 'init-treesit)
   (require 'init-treesit-fold)
   (require 'init-yaml-mode)
@@ -1431,7 +1430,7 @@ jump to everywhere quickly
   (setq auto-save-default nil)
   (setq super-save-silent t)
 
-  (add-to-list 'super-save-triggers 'ace-window)
+  (add-to-list 'super-save-triggers 'other-window)
   (add-to-list 'super-save-hook-triggers 'find-file-hook)
 
   (super-save-mode +1)
@@ -1572,39 +1571,6 @@ jump to everywhere quickly
     (org-roam-ui-mode 1))
 
   (provide 'init-org-roam-ui)
-#+end_src
-** ace-window
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-ace-window.el
-:END:
-
-#+begin_src emacs-lisp
-  (require 'ace-window)
-
-  (global-set-key (kbd "M-o") 'ace-window)
-
-  (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9 ?0))
-  (setq aw-background nil)
-  (setq aw-scope 'frame)
-  (setq aw-dispatch-always nil)
-
-
-  (with-eval-after-load 'ace-window
-    (setq aw-dispatch-alist
-          '((?d aw-delete-window "Delete Window")
-            (?D delete-other-windows "Delete Other Windows") ; select one and delete others
-  	      (?s aw-swap-window "Swap Windows")
-  	      (?m aw-move-window "Move Window")
-  	      (?c aw-copy-window "Copy Window")
-  	      (?f aw-flip-window)
-            (?j aw-switch-buffer-in-window "Select Buffer") ; change and jump
-  	      (?J aw-switch-buffer-other-window "Switch Buffer Other Window") ; change but not jump
-  	      (?c aw-split-window-fair "Split Fair Window")
-  	      (?v aw-split-window-vert "Split Vert Window")
-  	      (?h aw-split-window-horz "Split Horz Window")
-  	      (?? aw-show-dispatch-help))))
-
-  (provide 'init-ace-window)
 #+end_src
 
 ** treesit
