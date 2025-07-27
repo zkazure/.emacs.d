@@ -1817,12 +1817,7 @@ jump to everywhere quickly
   (defun my-hugo-push ()
     (interactive) ; 这使得函数可以通过 M-x 调用
       (message "正在运行 Hugo 构建命令...")
-      (async-shell-command "cd ~/Documents/blog &&  hugo --minify" "*Hugo Build Output*") ;命令，输出缓冲区
-      (message "正在运行 Git 部署命令...")
-      (async-shell-command "cd ~/Documents/blog/public && git add . && git commit -m 'Update with Emacs: $(date +"%Y-%m-%d %H:%M")' && git push" "*Hugo Deploy Output*")
-
-      ;; 恢复原来的默认目录（可选，但推荐良好习惯）
-      (setq default-directory current-dir)
+      (async-shell-command "cd ~/Documents/blog &&  hugo --minify && cd ~/Documents/blog/public && git add . &&  git commit -m \"Update with Emacs: $(date +\"%Y-%m-%d %H:%M\")\" && git push" "*Hugo Build Output*") ;命令，输出缓冲区
 
       (message "Hugo 命令序列已触发。")
       ;; 你也可以打开一个shell缓冲区来查看输出
