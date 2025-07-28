@@ -1099,6 +1099,7 @@ jump to everywhere quickly
 
   (setq org-roam-directory (file-truename "~/Documents/roam/"))
   (setq org-roam-db-gc-threshold most-positive-fixnum)
+  (setq org-roam-complete-everywhere t)
 
   (define-key global-map (kbd "C-c n l") 'org-roam-buffer-toggle)
   (define-key global-map (kbd "C-c n f") 'org-roam-node-find)
@@ -1505,11 +1506,7 @@ jump to everywhere quickly
   (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
   (add-hook 'html-mode-hook  'emmet-mode) ;; enable html
   (add-hook 'js-mode-hook 'emmet-mode)
-
-  (add-hook 'sgml-mode-hook 'emmet-preview-mode) ;; Auto-start on any markup modes
-  (add-hook 'css-mode-hook  'emmet-preview-mode) ;; enable Emmet-Preview's css abbreviation.
-  (add-hook 'html-mode-hook  'emmet-preview-mode) ;; enable html
-  (add-hook 'js-mode-hook 'emmet-preview-mode)
+  (add-hook 'js-ts-mode-hook 'emmet-mode)
 
   (add-to-list 'emmet-jsx-major-modes 'your-jsx-major-mode)
 
@@ -1773,17 +1770,16 @@ jump to everywhere quickly
   ;; display at `ivy-posframe-style'
   ;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display)))
   ;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
-  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-bottom-left)))
+  ;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-bottom-left)))
   ;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-bottom-left)))
   ;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-bottom-left)))
   ;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center)))
 
 
-  ;; (setq ivy-posframe-display-functions-alist
-  ;;       '((swiper          . ivy-display-function-fallback)
-  ;;         (complete-symbol . ivy-posframe-display-at-point)
-  ;;         (counsel-M-x     . ivy-posframe-display-at-window-bottom-left)
-  ;;         (t               . ivy-posframe-display)))
+  (setq ivy-posframe-display-functions-alist
+        '((swiper          . ivy-display-function-fallback)
+         (org-roam-node-find . ivy-posframe-display-at-frame-center)
+          (t               . ivy-posframe-display-at-window-bottom-left)))
   ;; (ivy-posframe-mode 1)
 
 
@@ -2222,6 +2218,7 @@ jump to everywhere quickly
   (dolist (hook (list
                  'web-mode-hook
                  'js-mode-hook
+                 'js-ts-mode-hook
                  'typescript-mode-hook
                  ))
     (add-hook hook #'(lambda ()
@@ -2333,7 +2330,6 @@ jump to everywhere quickly
 
 
 #+begin_src emacs-lisp 
-
   (provide 'init-test)
 #+end_src
 
