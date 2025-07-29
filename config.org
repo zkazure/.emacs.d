@@ -2288,7 +2288,7 @@ jump to everywhere quickly
                  '(:eval (if (buffer-modified-p) "*" " ")) ; 如果缓冲区已修改，显示 "*"               
 
                  (propertize " %l:%c " 'face 'font-lock-builtin-face)
-                 (propertize " %p " 'face 'font-lock-constant-face)                 
+                 (propertize " %p " 'face 'font-lock-constant-face)
 
                  
                  ;; Spaces to align right
@@ -2306,11 +2306,17 @@ jump to everywhere quickly
                  ;; The current major mode
                  (propertize " %m " 'face 'font-lock-string-face)))
 
+  (add-hook 'pdf-view-mode-hook (lambda ()
+                                  (setq-local mode-line-format
+                                              (list
+                                               (propertize " %P " 'face 'font-lock-string-face)))))
+
+
   ;; 将模式行的内容复制到标题行
-  (setq-default header-line-format mode-line-format)
+  ;; (setq-default header-line-format mode-line-format)
 
   ;; 禁用底部的模式行
-  (setq-default mode-line-format nil)
+  ;; (setq-default mode-line-format nil)
 
   (provide 'init-modeline)
 #+end_src
