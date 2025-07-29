@@ -2429,7 +2429,6 @@ jump to everywhere quickly
 #+end_src
 
 * wish list
-** neotree
 ** org-tree-slide
 #+begin_src emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/site-lisp/org-tree-slide/")
