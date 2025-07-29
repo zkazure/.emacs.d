@@ -325,6 +325,7 @@
   (require 'init-indent)
   (require 'init-electric-pair-mode)
   (require 'init-modeline)
+  (require 'init-tab-bar)
 
   (require 'init-csv-mode)
   (require 'init-org-download)
@@ -2312,6 +2313,64 @@ jump to everywhere quickly
   (setq-default mode-line-format nil)
 
   (provide 'init-modeline)
+#+end_src
+** tab-bar
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-tab-bar.el
+:END:
+#+begin_src emacs-lisp
+  (tab-bar-mode 1)
+
+  (setq tab-bar-close-button-show nil
+        tab-bar-tab-hints t
+        tab-bar-format '(tab-bar-format-tabs tab-bar-separator))
+  ;; (setq tab-bar-separator "/"
+  ;;       tab-bar-new-tab-choice "*scratch*"
+  ;;       ;; tab-bar-auto-width nil
+  ;;       tab-bar-close-button-show nil
+  ;;       tab-bar-tab-hints t)
+
+  ;; (setq tab-bar-tab-name-format-function
+  ;;       (lambda (tab i)
+  ;;         (let ((face (funcall tab-bar-tab-face-function tab)))
+  ;;           (concat
+  ;;            (propertize " " 'face face)
+  ;;            (propertize (number-to-string i) 'face `(:inherit ,face :weight ultra-bold :underline t))
+  ;;            (propertize (concat " " (alist-get 'name tab) " ") 'face face)))))
+
+  ;; WORKAROUND: update tab-bar for daemon
+  (when (daemonp)
+    (add-hook 'after-make-frame-functions
+              #'(lambda (&rest _) (force-mode-line-update))))
+
+
+  ;; (global-unset-key (kbd "C-t"))
+
+  ;; (global-set-key (kbd "C-t RET") 'tab-switch)
+  ;; (global-set-key (kbd "C-t 0") 'tab-close)
+  ;; (global-set-key (kbd "C-t 1") 'tab-close-other)
+  ;; (global-set-key (kbd "C-t 2") 'tab-new)
+
+  ;; (global-set-key (kbd "C-t g") 'tab-group)
+
+  ;; (global-set-key (kbd "C-t N") 'tab-new-to)
+  ;; (global-set-key (kbd "C-t n") 'tab-duplicate)  
+  ;; (global-set-key (kbd "C-t M") 'tab-move-to) ;; ???
+  ;; (global-set-key (kbd "C-t m") 'tab-move)
+
+  ;; (global-set-key (kbd "C-t b") 'switch-to-buffer-other-tab)
+  ;; (global-set-key (kbd "C-t d") 'dired-other-tab)
+
+  ;; (global-set-key (kbd "C-t f") 'find-file-other-tab)
+  ;; (global-set-key (kbd "C-t C-f") 'find-file-other-tab)
+  ;; (global-set-key (kbd "C-t C-r") 'find-file-read-only-other-tab)
+
+  ;; (global-set-key (kbd "C-t p") 'project-other-tab-command)
+  ;; (global-set-key (kbd "C-t r") 'tab-rename)
+  ;; (global-set-key (kbd "C-t t") 'other-tab-prefix)
+  ;; (global-set-key (kbd "C-t u") 'tab-undo)
+
+  (provide 'init-tab-bar)
 #+end_src
 
 * Personal
