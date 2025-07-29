@@ -2140,7 +2140,7 @@ jump to everywhere quickly
                                  (display-line-numbers-mode -1)))
 
   (define-key neotree-mode-map (kbd "M-o") 'other-window)
-  (define-key neotree-mode-map (kbd "M-o") (lambda () (interactive) (other-window -1)))
+  (define-key neotree-mode-map (kbd "M-O") (lambda () (interactive) (other-window -1)))
 
   (provide 'init-neotree)
 #+end_src
