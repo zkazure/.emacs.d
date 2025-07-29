@@ -94,6 +94,9 @@
 [submodule "markdown-mode"]
 	path = lib/markdown-mode
 	url = https://github.com/jrblevin/markdown-mode
+[submodule "neotree"]
+	path = lib/neotree
+	url = https://github.com/jaypei/emacs-neotree
 [submodule "olivetti"]
 	path = lib/olivetti
 	url = https://github.com/rnkn/olivetti
