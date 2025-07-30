@@ -344,6 +344,7 @@
   (require 'init-hydra)
   (require 'init-sudo-edit)
   (require 'init-neotree)
+  (require 'init-leetcode)
 
   (require 'init-personal)
   (require 'init-test)
@@ -2181,6 +2182,35 @@ jump to everywhere quickly
   (define-key neotree-mode-map (kbd "M-O") (lambda () (interactive) (other-window -1)))
 
   (provide 'init-neotree)
+#+end_src
+** leetcode
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-leetcode.el
+:END:
+
+
+#+begin_src emacs-lisp 
+  (require 'leetcode)
+
+  (require 'leetcode)
+
+  (setq leetcode-prefer-language "cpp") 
+
+  ;; (setq leetcode-prefer-sql "mysql")
+
+  (setq leetcode-save-solutions t)
+  (setq leetcode-directory "~/Documents/cs_learning/leetcode")
+
+  ;; (setq leetcode-prefer-tag-display nil)
+
+  (global-set-key (kbd "C-c c l") 'leetcode)
+
+  (add-hook 'leetcode--problems-mode-hook
+            (lambda () (display-line-numbers-mode -1)))
+  (add-hook 'leetcode--problem-detail-mode-hook
+            (lambda () (display-line-numbers-mode -1)))
+
+  (provide 'init-leetcode)
 #+end_src
 * clone
 ** lsp bridge

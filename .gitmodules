@@ -1,6 +1,9 @@
 [include]
 	path = .gitremotes
 	path = .borgconfig
+[submodule "aio"]
+	path = lib/aio
+	url = https://github.com/skeeto/emacs-aio
 [submodule "async"]
 	path = lib/async
 	url = https://github.com/jwiegley/emacs-async
@@ -49,6 +52,9 @@
 [submodule "dirvish"]
 	path = lib/dirvish
 	url = https://github.com/alexluigit/dirvish
+[submodule "elfeed"]
+	path = lib/elfeed
+	url = https://github.com/skeeto/elfeed
 [submodule "emacs-everywhere"]
 	path = lib/emacs-everywhere
 	url = https://github.com/tecosaur/emacs-everywhere
@@ -85,9 +91,18 @@
 [submodule "jinx"]
 	path = lib/jinx
 	url = https://github.com/minad/jinx
+[submodule "js2-mode"]
+	path = lib/js2-mode
+	url = https://github.com/mooz/js2-mode
+[submodule "leetcode"]
+	path = lib/leetcode
+	url = https://github.com/kaiwk/leetcode.el
 [submodule "llama"]
 	path = lib/llama
 	url = https://github.com/tarsius/llama.git
+[submodule "log4e"]
+	path = lib/log4e
+	url = https://github.com/aki2o/log4e
 [submodule "magit"]
 	path = lib/magit
 	url = https://github.com/magit/magit.git
@@ -163,6 +178,9 @@
 [submodule "simple-httpd"]
 	path = lib/simple-httpd
 	url = https://github.com/skeeto/emacs-web-server
+[submodule "skewer-mode"]
+	path = lib/skewer-mode
+	url = https://github.com/skeeto/skewer-mode
 [submodule "snippets"]
 	path = snippets
 	url = git@github.com:zkazure/snippets.git
