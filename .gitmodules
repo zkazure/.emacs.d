@@ -205,3 +205,6 @@
 [submodule "yasnippet"]
 	path = lib/yasnippet
 	url = https://github.com/joaotavora/yasnippet
+[submodule "snippets"]
+	path = snippets
+	url = git@github.com:zkazure/snippets.git
