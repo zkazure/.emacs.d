@@ -623,9 +623,12 @@ only the language set here can be babeled.
 :END:
 #+begin_src emacs-lisp
   (require 'which-key)
-  
+  (require 'which-key-posframe)
+
   (which-key-mode)
   (setq which-key-idle-delay 0.5)
+
+  (which-key-posframe-mode)
 
   (provide 'init-which-key)
 #+end_src

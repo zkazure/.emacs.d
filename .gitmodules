@@ -160,6 +160,9 @@
 [submodule "simple-httpd"]
 	path = lib/simple-httpd
 	url = https://github.com/skeeto/emacs-web-server
+[submodule "snippets"]
+	path = snippets
+	url = git@github.com:zkazure/snippets.git
 [submodule "string-inflection"]
 	path = lib/string-inflection
 	url = https://github.com/akicho8/string-inflection
@@ -196,6 +199,9 @@
 [submodule "websocket"]
 	path = lib/websocket
 	url = https://github.com/ahyatt/emacs-websocket
+[submodule "which-key-posframe"]
+	path = lib/which-key-posframe
+	url = https://github.com/emacsorphanage/which-key-posframe
 [submodule "with-editor"]
 	path = lib/with-editor
 	url = https://github.com/magit/with-editor.git
@@ -205,6 +211,3 @@
 [submodule "yasnippet"]
 	path = lib/yasnippet
 	url = https://github.com/joaotavora/yasnippet
-[submodule "snippets"]
-	path = snippets
-	url = git@github.com:zkazure/snippets.git
