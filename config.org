@@ -1519,10 +1519,9 @@ jump to everywhere quickly
   (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
   (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
   (add-hook 'html-mode-hook  'emmet-mode) ;; enable html
-  (add-hook 'js-mode-hook 'emmet-mode)
   (add-hook 'js-ts-mode-hook 'emmet-mode)
 
-  (add-to-list 'emmet-jsx-major-modes 'your-jsx-major-mode)
+  ;; (add-to-list 'emmet-jsx-major-modes 'your-jsx-major-mode)
 
   (setq emmet-self-closing-tag-style " /") ;; default "/"
   ;; only " /", "/" and "" are valid.
@@ -2472,6 +2471,14 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-c c c") 'compile)
   (global-set-key (kbd "C-c c g") 'gdb)
+#+end_src
+
+** javascript
+#+begin_src emacs-lisp
+  (add-to-list 'auto-mode-alist '("\\.js\\'\\'" . js-ts-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsx\\'\\'" . tsx-ts-mode)) ; 如果有 JSX
+  (add-to-list 'auto-mode-alist '("\\.ts\\'\\'" . typescript-ts-mode))
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'\\'" . tsx-ts-mode))
 #+end_src
 
 ** END
