@@ -1652,10 +1652,9 @@ jump to everywhere quickly
           (java-mode . java-ts-mode)
           (clojure-mode . clojure-ts-mode)
           (yaml-mode . yaml-ts-mode)
-          (bash-mode . bash-ts-mode)
           (typescript-mode . typescript-ts-mode)
           (json-mode . json-ts-mode)
-          (sh-mode . sh-ts-mode)
+          (sh-mode . bash-ts-mode)
           ;; (markdown-mode . markdown-ts-mode)
           ))
 
@@ -1673,9 +1672,6 @@ jump to everywhere quickly
 
   (provide 'init-treesit)
 #+end_src
-
-#+RESULTS:
-: init-treesit
 
 ** treesit-fold
 :PROPERTIES:
