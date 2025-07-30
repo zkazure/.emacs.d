@@ -1184,7 +1184,12 @@ jump to everywhere quickly
            :if-new
            (file+head "web/${title}.org" "#+title: ${title}\n#+filetags: \n")
            :immediate-finish t
-           :unnarrowed t)        
+           :unnarrowed t)
+          ("s" "Stem" plain "%?"
+           :if-new
+           (file+head "stem/${title}.org" "#+title: ${title}\n#+filetags: \n")
+           :immediate-finish t
+           :unnarrowed t)                
           ))
 
 
