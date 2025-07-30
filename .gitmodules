@@ -40,6 +40,9 @@
 [submodule "dash"]
 	path = lib/dash
 	url = https://github.com/magnars/dash.el.git
+[submodule "deflate"]
+	path = lib/deflate
+	url = https://github.com/skuro/deflate
 [submodule "diff-hl"]
 	path = lib/diff-hl
 	url = https://github.com/dgutov/diff-hl.git
