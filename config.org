@@ -549,7 +549,7 @@ only the language set here can be babeled.
   (add-hook 'org-mode-hook 'org-cdlatex-mode)
 
   ;; org-cdlatex-mode 中使用 cdlatex 的自动匹配括号, 并把 $...$ 换成 \( ... \)
-  (defun my/insert-inline-OCDL ()
+  (defun my/insert-inline-parentheses ()
     (interactive)
     (insert "\\( ") ;; 把 "\\(" 和 "\\)" 替换成 "$" 就能实现输入成对 "$" 的功能.
     (save-excursion (insert " \\)" )))
@@ -559,9 +559,14 @@ only the language set here can be babeled.
     (insert "\\[ ")
     (save-excursion (insert " \\]" )))
 
+  (defun my/insert-inline-braces ()
+    (interactive)
+    (insert "\\{ ")
+    (save-excursion (insert " \\}" )))
 
-  (define-key org-cdlatex-mode-map (kbd "C-M-9") 'my/insert-inline-OCDL)
+  (define-key org-cdlatex-mode-map (kbd "C-M-9") 'my/insert-inline-parentheses)
   (define-key org-cdlatex-mode-map (kbd "C-M-[") 'my/insert-square-bra-OCDL)
+  (define-key org-cdlatex-mode-map (kbd "C-M-{") 'my/insert-inline-braces)  
 #+end_src
 
 **** preview
