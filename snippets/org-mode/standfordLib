@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: standfordLib
-# key: standfordLib
-# --
-"/home/kazure/Documents/cs_learning/cs106l/STL/${1}"

@@ -1,5 +1,0 @@
-# key: sq
-# name: sqrt
-# group: math
-# --
-\\sqrt{${1}}{${2}} ${0}
