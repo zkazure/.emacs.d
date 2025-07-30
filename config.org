@@ -1531,8 +1531,8 @@ jump to everywhere quickly
   (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
   (add-hook 'html-mode-hook  'emmet-mode) ;; enable html
   (add-hook 'js-ts-mode-hook 'emmet-mode)
-
-  ;; (add-to-list 'emmet-jsx-major-modes 'your-jsx-major-mode)
+  (add-hook 'tsx-ts-mode-hook 'emmet-mode)
+  (add-hook 'typescript-ts-mode-hook 'emmet-mode)
 
   (setq emmet-self-closing-tag-style " /") ;; default "/"
   ;; only " /", "/" and "" are valid.
