@@ -1700,6 +1700,10 @@ jump to everywhere quickly
 
   (setq treesit-font-lock-level 4)
 
+  ;; for cmake-ts-mode
+  (add-to-list 'auto-mode-alist '("CMakeLists\\.txt\\'" . cmake-ts-mode))
+  (add-to-list 'auto-mode-alist '("\\.cmake\\'" . cmake-ts-mode))
+
   (provide 'init-treesit)
 #+end_src
 
