@@ -428,6 +428,8 @@
         org-catch-invisible-edits 'smart
         org-startup-indented t
         org-startup-folded t)
+  
+  (define-key org-mode-map (kbd "C-c n o") 'browse-url)
 #+END_SRC
 *** agenda
 #+begin_src emacs-lisp
