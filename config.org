@@ -407,6 +407,7 @@
 :END:
 *** ui
 #+BEGIN_SRC emacs-lisp
+  (require 'org)
   (setq org-hide-leading-stars t)
   (add-hook 'org-mode-hook 'org-num-mode)
 
