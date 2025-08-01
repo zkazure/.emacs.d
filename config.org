@@ -679,6 +679,7 @@ only the language set here can be babeled.
   (keymap-global-set "C-c v" #'counsel-ag)
   (keymap-global-set "C-x l" #'counsel-locate)
   (keymap-global-set "C-S-o" #'counsel-rhythmbox)
+  (keymap-global-set "M-y" #'counsel-yank-pop)
   (keymap-set minibuffer-local-map "C-r" #'counsel-minibuffer-history)
 
   (provide 'init-ivy)
