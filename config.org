@@ -347,6 +347,7 @@
   (require 'init-leetcode)
   (require 'init-move-text)
   (require 'init-tag)
+  (require 'init-popper)
 
   (require 'init-personal)
   (require 'init-test)
@@ -2379,6 +2380,39 @@ jump to everywhere quickly
   (define-key web-mode-map (kbd "C-M-<return>") 'instant-rename-tag)
 
   (provide 'init-tag)
+#+end_src
+** popper
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-popper.el
+:END:
+
+#+begin_src emacs-lisp 
+  (require 'popper)
+  (require 'popper-echo)
+
+  (setq popper-reference-buffers
+        '("\\*Messages\\*"
+          "Output\\*$"
+          "\\*Async Shell Command\\*"
+          help-mode
+          compilation-mode))
+
+  ;; Match eshell, shell, term and/or vterm buffers
+  (setq popper-reference-buffers
+        (append popper-reference-buffers
+                '(
+                  "^\\*vterm.*\\*$"  vterm-mode  ;vterm as a popup
+                  )))
+
+  ;; (global-set-key (kbd "C-`") 'popper-toggle)  
+  ;; (global-set-key (kbd "M-`") 'popper-cycle)
+  ;; (global-set-key (kbd "C-M-`") 'popper-toggle-type)
+
+  (popper-mode +1)
+  (popper-echo-mode +1)
+
+
+  (provide 'init-popper)
 #+end_src
 * clone
 ** lsp bridge
