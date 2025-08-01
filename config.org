@@ -2773,6 +2773,10 @@ jump to everywhere quickly
 
 #+end_src
 
+** jump and back
+
+~C-u C-SPC~ will take you back to last mark. Many operation in Emacs will auto create a mark. 
+
 ** END
 
 #+begin_src emacs-lisp
