@@ -301,7 +301,6 @@
   (require 'init-rime)
   (require 'init-rainbow-delimiters)
   (require 'init-which-key)
-  ; (require 'init-aweshell)
   (require 'init-ivy)
   (require 'init-yasnippet)
   (require 'init-lsp-bridge)
@@ -2346,7 +2345,6 @@ jump to everywhere quickly
 :HEADER-ARGS: :tangle lisp/init-move-text.el
 :END:
 
-
 #+begin_src emacs-lisp 
   (require 'move-text)
 
@@ -2934,6 +2932,5 @@ do first
 ** magit forge
 ** plantuml complete
 ** vundo
-** sdcv
 ** project
 ** tabspace
