@@ -429,7 +429,7 @@
         org-catch-invisible-edits 'smart
         org-startup-indented t
         org-startup-folded t)
-  
+
   (define-key org-mode-map (kbd "C-c n o") 'browse-url)
 #+END_SRC
 *** agenda
@@ -1542,7 +1542,7 @@ jump to everywhere quickly
   (add-hook 'js-ts-mode-hook 'emmet-mode)
   (add-hook 'tsx-ts-mode-hook 'emmet-mode)
   (add-hook 'typescript-ts-mode-hook 'emmet-mode)
-
+  
   (setq emmet-self-closing-tag-style " /") ;; default "/"
   ;; only " /", "/" and "" are valid.
   ;; eg. <meta />, <meta/>, <meta>
