@@ -1444,11 +1444,16 @@ jump to everywhere quickly
   (define-key global-map (kbd "C-c n n") 'org-noter)
   (define-key org-noter-doc-mode-map (kbd "e") 'org-noter-insert-note) ;; 加入左手键位
   (define-key org-noter-doc-mode-map (kbd "M-e") 'org-noter-insert-precise-note) ;; 加入左手键位
+  (with-eval-after-load 'org-noter
+    (add-hook 'org-noter-insert-heading-hook #'org-id-get-create))
 
   (setq org-noter-auto-save-last-location t)
   (setq org-noter-highlight-selected-text t)
   (setq org-noter-max-short-selected-text-length 80)
-
+  
+  (setq org-noter-always-create-frame nil)
+  (setq org-noter-separate-notes-from-heading t)
+  (setq org-noter-doc-split-fraction 0.6)
 
   (provide 'init-org-noter)
 #+end_src
