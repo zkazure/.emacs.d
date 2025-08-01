@@ -1453,7 +1453,6 @@ jump to everywhere quickly
   
   (setq org-noter-always-create-frame nil)
   (setq org-noter-separate-notes-from-heading t)
-  (setq org-noter-doc-split-fraction 0.6)
 
   (provide 'init-org-noter)
 #+end_src
