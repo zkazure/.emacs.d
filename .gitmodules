@@ -229,6 +229,9 @@
 [submodule "vterm"]
 	path = lib/vterm
 	url = https://github.com/akermu/emacs-libvterm
+[submodule "vundo"]
+	path = lib/vundo
+	url = https://github.com/casouri/vundo
 [submodule "web-mode"]
 	path = lib/web-mode
 	url = https://github.com/fxbois/web-mode
