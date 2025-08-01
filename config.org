@@ -2790,79 +2790,64 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   ;; use to handle camel name
   (global-subword-mode 1)
-
 #+end_src
 
 ** jump and back
 
 ~C-u C-SPC~ will take you back to last mark. Many operation in Emacs will auto create a mark. 
 
-** easy-nav-mode
-#+begin_src emacs-lisp
-  ;; (require 'popweb)
-  (require 'init-lsp-bridge)
-  (require 'color-rg)
+** TODO read-only-mode
+#+begin_src emacs-lisp :tangle no
+  (defvar easy-nav-mode-map
+    (let ((map (make-sparse-keymap)))
+      ;; 用 n 和 p 来导航
+      (define-key map (kbd "n") #'next-line)
+      (define-key map (kbd "p") #'previous-line)
+      (define-key map (kbd "b") #'backward-char)
+      (define-key map (kbd "f") #'forward-char)
+      
+      (define-key map (kbd "M-f") #'forward-word)
+      (define-key map (kbd "M-b") #'backward-word)
+      
+      (define-key map (kbd "a") #'beginning-of-line)
+      (define-key map (kbd "e") #'end-of-line)
+      
+      (define-key map (kbd "y") #'yank)
+      (define-key map (kbd "w") #'kill-ring-save)
+      
+      (define-key map (kbd "SPC") #'set-mark-command)    
 
-  ;;; Code:
+      (define-key map (kbd "q") #'my/read-only-mode)
+      map)
+    "Keymap for `easy-nav-mode'.")
 
-  (defvar easy-nav-map nil
-    "Keymap used when popup is shown.")
-
-  (setq easy-nav-map
-        (let ((map (make-sparse-keymap)))
-          (define-key map (kbd "n") #'next-line)
-          (define-key map (kbd "p") #'previous-line)
-          (define-key map (kbd "N") #'scroll-up-one-line)
-          (define-key map (kbd "P") #'scroll-down-one-line)
-          ;; (define-key map (kbd "M-<") #'beginning-of-buffer)
-          ;; (define-key map (kbd "M->") #'end-of-buffer)
-          (define-key map (kbd "b") #'backward-char)
-          (define-key map (kbd "f") #'forward-char)
-          ;; (define-key map (kbd "H") #'backward-word)
-          ;; (define-key map (kbd "L") #'forward-word)
-          
-          ;; (define-key map (kbd "e") #'scroll-down)
-          ;; (define-key map (kbd "SPC") #'scroll-up)
-          
-          (define-key map (kbd "s") #'counsel-rg)
-          (define-key map (kbd "i") #'counsel-rg)
-          (define-key map (kbd ",") #'my/counsel-rg-current-file)
-          (define-key map (kbd ".") #'my/counsel-rg-current-file)
-          (define-key map (kbd "7") #'lsp-bridge-jump-back)
-          (define-key map (kbd "8") #'easy-nav-jump)
-          (define-key map (kbd "9") #'lsp-bridge-popup-documentation)
-          ;; (define-key map (kbd ";") #'popweb-dict-bing-input)
-          ;; (define-key map (kbd "y") #'popweb-dict-bing-pointer)
-          (define-key map (kbd "q") #'easy-nav-exist)
-          map))
 
   (define-minor-mode easy-nav-mode
-    "Easy navigator."
-    :keymap easy-nav-map
-    :init-value nil)
+    "Minor mode for Vi-style navigation in read-only buffers."
+    :lighter " Easy-Nav"
+    :keymap easy-nav-mode-map
+    :global nil
+    ;; 使用 (if easy-nav-mode ...) 逻辑来决定如何处理
+    (if easy-nav-mode
+        (message "Easy-Nav mode enabled.")
+      (message "Easy-Nav mode disabled.")))
 
-  (defun easy-nav-enter ()
+  (defun my/read-only-mode (arg)
+    "Toggle read-only-mode, and sync it with `easy-nav-mode'."
     (interactive)
-    (read-only-mode 1)
-    (easy-nav-mode 1)
-    (message "Enter easy navigator."))
+    ;; 直接检查 buffer-read-only 变量的值
+    (if buffer-read-only
+        ;; 如果当前是只读模式，则关闭它和 easy-nav-mode
+        (progn
+          (read-only-mode nil)
+          (easy-nav-mode nil))
+      ;; 否则，打开只读模式和 easy-nav-mode
+      (progn
+        (read-only-mode t)
+        (easy-nav-mode t))))
 
-  (defun easy-nav-exist ()
-    (interactive)
-    (read-only-mode -1)
-    (easy-nav-mode -1)
-    (message "Exit easy navigator."))
-
-  (defun easy-nav-jump ()
-    (interactive)
-    (lsp-bridge-jump)
-    (easy-nav-enter))
-
-  (defun my/counsel-rg-current-file (initial-input)
-    "Search in current file using counsel-rg."
-    (interactive "sSearch in current file: ")
-    (let ((counsel-rg-base-command (format "rg --no-heading --line-number --color-never -- %s %s" initial-input (buffer-file-name))))
-      (counsel-rg initial-input)))
+  ;; 替换默认的 C-x C-q 绑定，使其调用你的函数
+  (global-set-key (kbd "C-x C-q") #'my/read-only-mode)
 #+end_src
 
 
