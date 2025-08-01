@@ -2523,8 +2523,7 @@ jump to everywhere quickly
 :END:
 #+begin_src emacs-lisp
   (tab-bar-mode 1)
-  (desktop-save-mode 1)
-  
+
   (setq tab-bar-close-button-show nil
         tab-bar-new-button-show nil 
         tab-bar-tab-hints t
@@ -2559,9 +2558,9 @@ jump to everywhere quickly
   ;;            (propertize (concat " " (alist-get 'name tab) " ") 'face face)))))
 
   ;; WORKAROUND: update tab-bar for daemon
-  (when (daemonp)
-    (add-hook 'after-make-frame-functions
-              #'(lambda (&rest _) (force-mode-line-update))))
+  ;; (when (daemonp)
+  ;;   (add-hook 'after-make-frame-functions
+  ;;             #'(lambda (&rest _) (force-mode-line-update))))
 
   (defun emacs-solo/tab-group-from-project ()
   	"Call `tab-group` with the current project name as the group."
@@ -2623,7 +2622,13 @@ jump to everywhere quickly
 
   (provide 'init-tab-bar)
 #+end_src
+** desktop
+#+begin_src emacs-lisp
+  (setq desktop-load-locked-desktop t) ; don't popup dialog ask user, load anyway
+  (setq desktop-restore-frames nil)    ; don't restore any frame
 
+  (desktop-save-mode 1)
+#+end_src
 * Personal
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-personal.el
