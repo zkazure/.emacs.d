@@ -2727,9 +2727,12 @@ jump to everywhere quickly
 
 ** IDE
 #+begin_src emacs-lisp
-  (global-set-key (kbd "C-c c c") 'compile)
+  (global-set-key (kbd "C-c c C") 'compile)
+  (global-set-key (kbd "C-c c c") 'recompile)
   (global-set-key (kbd "C-c c g") 'gdb)
+
   (setq gdb-many-windows t)
+  (setq gud-gdb-enable-debuginfod t)
 
   ;; invoke
   ;; (global-set-key [f8] 'gdb)
