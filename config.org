@@ -2176,6 +2176,7 @@ jump to everywhere quickly
   ;; (global-set-key [f8] 'neotree-toggle)
   (global-set-key (kbd "C-c c n") 'neotree-toggle)
   (setq projectile-switch-project-action 'neotree-projectile-action)
+  (setq project-find-file 'neotree-projectile-action)
 
   ;; (defun neotree-ffip-project-dir ()
   ;;   "Open NeoTree using the git root."
@@ -2189,6 +2190,7 @@ jump to everywhere quickly
   ;;       (message "Could not find git project root."))))
 
   ;; (define-key map (kbd "C-c C-p") 'neotree-ffip-project-dir)
+
   (add-hook 'neotree-mode-hook (lambda ()
                                  (display-line-numbers-mode -1)))
 
