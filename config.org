@@ -346,6 +346,7 @@
   (require 'init-neotree)
   (require 'init-leetcode)
   (require 'init-move-text)
+  (require 'init-tag)
 
   (require 'init-personal)
   (require 'init-test)
@@ -2362,6 +2363,22 @@ jump to everywhere quickly
   (advice-add 'move-text-down :after 'indent-region-advice)
 
   (provide 'init-move-text)
+#+end_src
+** tag
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-tag.el
+:END:
+
+#+begin_src emacs-lisp 
+  (require 'highlight-matching-tag)
+  (require 'instant-rename-tag)
+
+  (with-eval-after-load 'web-mode
+    (highlight-matching-tag 1))
+
+  (define-key web-mode-map (kbd "C-M-<return>") 'instant-rename-tag)
+
+  (provide 'init-tag)
 #+end_src
 * clone
 ** lsp bridge

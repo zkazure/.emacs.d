@@ -79,12 +79,18 @@
 [submodule "git-modes"]
 	path = lib/git-modes
 	url = https://github.com/magit/git-modes.git
+[submodule "highlight-matching-tag"]
+	path = lib/highlight-matching-tag
+	url = https://github.com/manateelazycat/highlight-matching-tag.git
 [submodule "ht"]
 	path = lib/ht
 	url = https://github.com/Wilfred/ht.el
 [submodule "hydra"]
 	path = lib/hydra
 	url = https://github.com/abo-abo/hydra
+[submodule "instant-rename-tag"]
+	path = lib/instant-rename-tag
+	url = https://github.com/manateelazycat/instant-rename-tag.git
 [submodule "ivy"]
 	path = lib/ivy
 	url = https://github.com/abo-abo/swiper
