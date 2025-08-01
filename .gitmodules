@@ -115,6 +115,9 @@
 [submodule "markdown-mode"]
 	path = lib/markdown-mode
 	url = https://github.com/jrblevin/markdown-mode
+[submodule "move-text"]
+	path = lib/move-text
+	url = https://github.com/emacsfodder/move-text
 [submodule "neotree"]
 	path = lib/neotree
 	url = https://github.com/jaypei/emacs-neotree
