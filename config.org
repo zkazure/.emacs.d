@@ -2234,110 +2234,112 @@ jump to everywhere quickly
 :END:
 
 #+begin_src emacs-lisp
-  (require 'fingertip)
+    (require 'fingertip)
 
-  (dolist (hook (list
-                 'bash-ts-mode-hook
-                 'c++-mode-hook
-                 'c++-ts-mode-hook
-                 'c-mode-common-hook
-                 'c-mode-hook
-                 'c-ts-mode-hook
-                 'cmake-ts-mode-hook
-                 'coffee-mode-hook
-                 'conf-toml-mode-hook
-                 'css-mode-hook
-                 'css-ts-mode-hook
-                 'emacs-lisp-mode-hook
-                 'go-mode-hook
-                 'haskell-mode-hook
-                 'ielm-mode-hook
-                 'jade-mode-hook
-                 'java-mode-hook
-                 'js-mode-hook
-                 'js-ts-mode-hook
-                 'json-ts-mode-hook
-                 'kotlin-mode-hook
-                 'lisp-interaction-mode-hook
-                 'lisp-mode-hook
-                 'llvm-mode-hook
-                 'lua-mode-hook
-                 'makefile-gmake-mode-hook
-                 'markdown-ts-mode-hook
-                 'maxima-mode-hook
-                 'mojo-mode-hook
-                 'nim-mode-hook
-                 'php-mode-hook
-                 'php-ts-mode-hook
-                 'python-mode-hook
-                 'python-ts-mode-hook
-                 'qmake-mode-hook
-                 'qml-mode-hook
-                 'ruby-mode-hook
-                 'rust-mode-hook
-                 'rust-ts-mode-hook
-                 'sh-mode-hook
-                 'swift-mode-hook
-                 'toml-ts-mode-hook
-                 'typescript-mode-hook
-                 'typescript-ts-mode-hook
-                 'web-mode-hook
-                 'zig-mode-hook
-                 'fsharp-mode-hook
-                 'clojure-mode-hook
-                 'clojure-ts-mode-hook
-                 'cider-repl-mode-hook
-                 'nix-mode-hook
-                 'solidity-mode-hook
-                 ))
-    (add-hook hook #'(lambda ()
-                       (when (or
-                              (not (buffer-file-name))
-                              (not (string-equal (file-name-extension (buffer-file-name)) "chat")))
-                         (fingertip-mode 1)))))
+    (dolist (hook (list
+                   'bash-ts-mode-hook
+                   'c++-mode-hook
+                   'c++-ts-mode-hook
+                   'c-mode-common-hook
+                   'c-mode-hook
+                   'c-ts-mode-hook
+                   'cmake-ts-mode-hook
+                   'coffee-mode-hook
+                   'conf-toml-mode-hook
+                   'css-mode-hook
+                   'css-ts-mode-hook
+                   'emacs-lisp-mode-hook
+                   'go-mode-hook
+                   'haskell-mode-hook
+                   'ielm-mode-hook
+                   'jade-mode-hook
+                   'java-mode-hook
+                   'js-mode-hook
+                   'js-ts-mode-hook
+                   'json-ts-mode-hook
+                   'kotlin-mode-hook
+                   'lisp-interaction-mode-hook
+                   'lisp-mode-hook
+                   'llvm-mode-hook
+                   'lua-mode-hook
+                   'makefile-gmake-mode-hook
+                   'markdown-ts-mode-hook
+                   'maxima-mode-hook
+                   'mojo-mode-hook
+                   'nim-mode-hook
+                   'php-mode-hook
+                   'php-ts-mode-hook
+                   'python-mode-hook
+                   'python-ts-mode-hook
+                   'qmake-mode-hook
+                   'qml-mode-hook
+                   'ruby-mode-hook
+                   'rust-mode-hook
+                   'rust-ts-mode-hook
+                   'sh-mode-hook
+                   'swift-mode-hook
+                   'toml-ts-mode-hook
+                   'typescript-mode-hook
+                   'typescript-ts-mode-hook
+                   'web-mode-hook
+                   'zig-mode-hook
+                   'fsharp-mode-hook
+                   'clojure-mode-hook
+                   'clojure-ts-mode-hook
+                   'cider-repl-mode-hook
+                   'nix-mode-hook
+                   'solidity-mode-hook
+                   'org-mode-hook
+                   ))
+      (add-hook hook #'(lambda ()
+                         (when (or
+                                (not (buffer-file-name))
+                                (not (string-equal (file-name-extension (buffer-file-name)) "chat")))
+                           (fingertip-mode 1)))
+  ))
 
-  (define-key fingertip-mode-map (kbd "(") 'fingertip-open-round)
-  (define-key fingertip-mode-map (kbd "[") 'fingertip-open-bracket)
-  (define-key fingertip-mode-map (kbd "{") 'fingertip-open-curly)
-  (define-key fingertip-mode-map (kbd ")") 'fingertip-close-round)
-  (define-key fingertip-mode-map (kbd "]") 'fingertip-close-bracket)
-  (define-key fingertip-mode-map (kbd "}") 'fingertip-close-curly)
-  (define-key fingertip-mode-map (kbd "=") 'fingertip-equal)
 
-  (define-key fingertip-mode-map (kbd "（") 'fingertip-open-chinese-round)
-  (define-key fingertip-mode-map (kbd "「") 'fingertip-open-chinese-bracket)
-  (define-key fingertip-mode-map (kbd "【") 'fingertip-open-chinese-curly)
-  (define-key fingertip-mode-map (kbd "）") 'fingertip-close-chinese-round)
-  (define-key fingertip-mode-map (kbd "」") 'fingertip-close-chinese-bracket)
-  (define-key fingertip-mode-map (kbd "】") 'fingertip-close-chinese-curly)
+    (define-key fingertip-mode-map (kbd "(") 'fingertip-open-round)
+    (define-key fingertip-mode-map (kbd "[") 'fingertip-open-bracket)
+    (define-key fingertip-mode-map (kbd "{") 'fingertip-open-curly)
+    (define-key fingertip-mode-map (kbd ")") 'fingertip-close-round)
+    (define-key fingertip-mode-map (kbd "]") 'fingertip-close-bracket)
+    (define-key fingertip-mode-map (kbd "}") 'fingertip-close-curly)
+    (define-key fingertip-mode-map (kbd "=") 'fingertip-equal)
 
-  (define-key fingertip-mode-map (kbd "%") 'fingertip-match-paren)
-  (define-key fingertip-mode-map (kbd "\"") 'fingertip-double-quote)
-  (define-key fingertip-mode-map (kbd "'") 'fingertip-single-quote)
+    (define-key fingertip-mode-map (kbd "（") 'fingertip-open-chinese-round)
+    (define-key fingertip-mode-map (kbd "「") 'fingertip-open-chinese-bracket)
+    (define-key fingertip-mode-map (kbd "【") 'fingertip-open-chinese-curly)
+    (define-key fingertip-mode-map (kbd "）") 'fingertip-close-chinese-round)
+    (define-key fingertip-mode-map (kbd "」") 'fingertip-close-chinese-bracket)
+    (define-key fingertip-mode-map (kbd "】") 'fingertip-close-chinese-curly)
 
-  (define-key fingertip-mode-map (kbd "SPC") 'fingertip-space)
-  (define-key fingertip-mode-map (kbd "RET") 'fingertip-newline)
+    (define-key fingertip-mode-map (kbd "%") 'fingertip-match-paren)
+    (define-key fingertip-mode-map (kbd "\"") 'fingertip-double-quote)
+    (define-key fingertip-mode-map (kbd "'") 'fingertip-single-quote)
 
-  ;; (define-key fingertip-mode-map (kbd "M-o") 'fingertip-backward-delete)
-  ;; (define-key fingertip-mode-map (kbd "M-O") 'backward-kill-word)
-  (define-key fingertip-mode-map (kbd "C-d") 'fingertip-forward-delete)
-  (define-key fingertip-mode-map (kbd "C-k") 'fingertip-kill)
+    (define-key fingertip-mode-map (kbd "SPC") 'fingertip-space)
+    (define-key fingertip-mode-map (kbd "RET") 'fingertip-newline)
 
-  ;; ???
-  (define-key fingertip-mode-map (kbd "M-\"") 'fingertip-wrap-double-quote)
-  (define-key fingertip-mode-map (kbd "M-'") 'fingertip-wrap-single-quote)
-  (define-key fingertip-mode-map (kbd "M-[") 'fingertip-wrap-bracket)
-  (define-key fingertip-mode-map (kbd "M-{") 'fingertip-wrap-curly)
-  (define-key fingertip-mode-map (kbd "M-(") 'fingertip-wrap-round)
-  (define-key fingertip-mode-map (kbd "M-)") 'fingertip-unwrap)
+    (define-key fingertip-mode-map (kbd "M-n") 'backward-delete-char)
+    (define-key fingertip-mode-map (kbd "M-N") 'backward-kill-word)
+    (define-key fingertip-mode-map (kbd "C-k") 'fingertip-kill)
 
-  (define-key fingertip-mode-map (kbd "M-p") 'fingertip-jump-right)
-  (define-key fingertip-mode-map (kbd "M-n") 'fingertip-jump-left)
-  (define-key fingertip-mode-map (kbd "C-M-;") 'fingertip-jump-out-pair-and-newline) ;; ?
+    ;; ???
+    (define-key fingertip-mode-map (kbd "M-\"") 'fingertip-wrap-double-quote)
+    (define-key fingertip-mode-map (kbd "M-'") 'fingertip-wrap-single-quote)
+    (define-key fingertip-mode-map (kbd "M-[") 'fingertip-wrap-bracket)
+    (define-key fingertip-mode-map (kbd "M-{") 'fingertip-wrap-curly)
+    (define-key fingertip-mode-map (kbd "M-(") 'fingertip-wrap-round)
+    (define-key fingertip-mode-map (kbd "M-)") 'fingertip-unwrap)
 
-  (define-key fingertip-mode-map (kbd "C-j") 'fingertip-jump-up)
+    (define-key fingertip-mode-map (kbd "M-n") 'fingertip-jump-right)
+    (define-key fingertip-mode-map (kbd "M-p") 'fingertip-jump-left)
+    (define-key fingertip-mode-map (kbd "C-M-;") 'fingertip-jump-out-pair-and-newline) 
 
-  (provide 'init-fingertip)
+    (define-key fingertip-mode-map (kbd "C-j") 'fingertip-jump-up)
+
+    (provide 'init-fingertip)
 #+end_src
 
 ** move-text
