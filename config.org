@@ -2787,5 +2787,8 @@ jump to everywhere quickly
     )
 #+end_src
 ** magit forge
-** leetcode
 ** plantuml complete
+** vundo
+** sdcv
+** project
+** tabspace
