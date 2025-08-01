@@ -2866,7 +2866,7 @@ jump to everywhere quickly
 
 ** dictionary
 do first
-#+begin_src sh
+#+begin_src sh :tangle no
   sudo apt install dictd
   sudo apt install dict-gcide 
   sudo apt install dict-jargon
