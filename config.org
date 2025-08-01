@@ -2209,8 +2209,6 @@ jump to everywhere quickly
 #+begin_src emacs-lisp 
   (require 'leetcode)
 
-  (require 'leetcode)
-
   (setq leetcode-prefer-language "cpp") 
 
   ;; (setq leetcode-prefer-sql "mysql")
