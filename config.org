@@ -2898,6 +2898,36 @@ jump to everywhere quickly
 #+end_src
 
 
+** dictionary
+do first
+#+begin_src sh
+  sudo apt install dictd
+  sudo apt install dict-gcide 
+  sudo apt install dict-jargon
+#+end_src
+
+
+#+begin_src emacs-lisp
+  (require 'dictionary)
+
+  (setq dictionary-server "localhost")
+
+  (setq dictionary-default-dictionary-list '("gcide" "jargon"))
+  (setq dictionary-default-search-dictionary "gcide")
+
+  ;; 设置为在单个缓冲区中显示所有结果，避免创建过多的窗口。
+  (setq dictionary-use-single-buffer t)
+
+  ;; 设置 dictionary-mode 的字体样式，使其更易于阅读。
+  ;; 这里我们使用自定义的 face，但你也可以根据自己的喜好调整。
+  (custom-set-faces
+   '(dictionary-word-face ((t (:inherit font-lock-variable-name-face :weight bold))))
+   '(dictionary-definition-face ((t (:inherit default :weight normal))))
+   '(dictionary-header-face ((t (:inherit font-lock-comment-face :height 1.1))))
+   '(dictionary-info-face ((t (:inherit font-lock-doc-face))))
+   )
+#+end_src
+
 ** END
 
 #+begin_src emacs-lisp
