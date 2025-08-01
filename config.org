@@ -2725,6 +2725,13 @@ jump to everywhere quickly
   (add-to-list 'auto-mode-alist '("\\.tsx\\'\\'" . tsx-ts-mode))
 #+end_src
 
+** subword-mode
+#+begin_src emacs-lisp
+  ;; use to handle camel name
+  (global-subword-mode 1)
+
+#+end_src
+
 ** END
 
 #+begin_src emacs-lisp
