@@ -2235,6 +2235,7 @@ jump to everywhere quickly
   (require 'lsp-bridge-jdtls)
 
   ;;; Code:
+  (add-hook 'find-file-hook #'lsp-bridge-restart-process)
   (setq lsp-bridge-python-command (expand-file-name "~/.emacs.d/lsp-bridge-env/.venv/bin/python3"))
 
   (setq lsp-bridge-enable-completion-in-minibuffer t)
