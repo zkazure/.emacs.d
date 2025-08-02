@@ -2917,7 +2917,11 @@ jump to everywhere quickly
 ** pixel scrool
 
 #+begin_src emacs-lisp
-  (pixel-scroll-mode 1)
+  (pixel-scroll-precision-mode t)
+
+  (setq scroll-margin 3
+        scroll-conservatively 101
+        hscroll-margin 5)
 #+end_src
 
 ** other window
