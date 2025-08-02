@@ -2777,25 +2777,24 @@ jump to everywhere quickly
   				 (display-buffer-in-tab display-buffer-full-frame)
   				 (tab-group . "[EMACS]")))
 
+  ;; (defun ct/modus-themes-tab-bar-colors ()
+  ;;   "Override tab faces to have even less variety"
+  ;;   (modus-themes-with-colors
+  ;;       (custom-set-faces
+  ;;        `(tab-bar ((,c
+  ;;                    :height 0.8
+  ;;                    :background ,bg-main
+  ;;                    :box nil)))
+  ;;        `(tab-bar-tab ((,c
+  ;;                        :background ,bg-main
+  ;;                        :underline (:color ,blue-intense :style line)
+  ;;                        :box (:line-width 2 :style flat-button))))
+  ;;       `(tab-bar-tab-inactive ((,c
+  ;;                                :background ,bg-main
+  ;;                                :box (:line-width 2 :style flat-button)))))))
 
-  ;; (setq tab-bar-separator "/"
-  ;;       tab-bar-new-tab-choice "*scratch*"
-  ;;       ;; tab-bar-auto-width nil
-  ;;       tab-bar-close-button-show nil
-  ;;       tab-bar-tab-hints t)
+  ;; (add-hook 'modus-themes-after-load-theme-hook #'ct/modus-themes-tab-bar-colors)
 
-  ;; (setq tab-bar-tab-name-format-function
-  ;;       (lambda (tab i)
-  ;;         (let ((face (funcall tab-bar-tab-face-function tab)))
-  ;;           (concat
-  ;;            (propertize " " 'face face)
-  ;;            (propertize (number-to-string i) 'face `(:inherit ,face :weight ultra-bold :underline t))
-  ;;            (propertize (concat " " (alist-get 'name tab) " ") 'face face)))))
-
-  ;; WORKAROUND: update tab-bar for daemon
-  ;; (when (daemonp)
-  ;;   (add-hook 'after-make-frame-functions
-  ;;             #'(lambda (&rest _) (force-mode-line-update))))
 
   (defun emacs-solo/tab-group-from-project ()
   	"Call `tab-group` with the current project name as the group."
