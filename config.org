@@ -438,14 +438,27 @@
   (add-hook 'ibuffer-mode-hook #'ct/ibuffer-enable-saved-filter-groups)
   (setq ibuffer-formats
         '((mark modified read-only locked " "
-  	      (name 20 20 :left :elide)
-  	      " "
-  	      (mode 16 16 :left :elide)
-  	      " "
-  	      filename-and-process)
-  	(mark " "
-  	      (name 16 -1)
-  	      " " filename)))
+    	          (name 20 20 :left :elide)
+    	          " "
+    	          (mode 16 16 :left :elide)
+    	          " "
+    	          filename-and-process)
+    	    (mark " "
+    	          (name 16 -1)
+    	          " " filename)))
+
+  ;; other
+  (save-place-mode 1)
+  (setq fill-column 80)
+  (setq y-or-n-p-as-yes-or-no nil)
+
+  (setq system-time-locale "en_US.utf8")
+
+  (prefer-coding-system       'utf-8)
+  (set-default-coding-systems 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-language-environment   'utf-8)
 
   (provide 'init-ui)
 #+end_src
