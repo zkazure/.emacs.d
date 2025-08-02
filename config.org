@@ -467,7 +467,13 @@
 *** ui
 #+BEGIN_SRC emacs-lisp
   (require 'org)
-  (setq org-hide-leading-stars t)
+
+  (setq-default line-spacing .1)
+
+  (setq org-tags-column -80
+        org-catch-invisible-edits 'smart
+        org-startup-indented t
+        org-hide-leading-stars t)
   (add-hook 'org-mode-hook 'org-num-mode)
 
   (with-eval-after-load 'org
@@ -483,11 +489,6 @@
                  '("~" (:box (:line-width 2
                                :color "grey75"
                                :style released-button)))))
-
-  (setq org-tags-column -80
-        org-catch-invisible-edits 'smart
-        org-startup-indented t
-        org-startup-folded t)
 
   (define-key org-mode-map (kbd "C-c n o") 'browse-url)
 #+END_SRC
