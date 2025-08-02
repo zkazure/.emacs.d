@@ -895,8 +895,8 @@ jump to everywhere quickly
   (with-eval-after-load 'org
     (define-key org-mode-map (kbd "C-,") nil))
 
-  (global-set-key (kbd "C-.") 'avy-goto-char-2)
-  (global-set-key (kbd "C-,") 'avy-goto-char)
+  (global-set-key (kbd "C-,") 'avy-goto-char-2)
+  (global-set-key (kbd "C-.") 'avy-goto-char)
   (global-set-key (kbd "M-g f") 'avy-goto-line)
   (global-set-key (kbd "M-g w") 'avy-goto-word-1)
   (global-set-key (kbd "M-g e") 'avy-goto-word-0)
