@@ -375,6 +375,7 @@
 
   ;; display line numbers and disable in some mode
   (global-display-line-numbers-mode t)
+  ;; (setq-default display-line-numbers-width 4)
   (global-visual-line-mode t)  
 
   (dolist (mode '(org-mode-hook
