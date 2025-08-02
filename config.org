@@ -2757,6 +2757,7 @@ jump to everywhere quickly
 :END:
 #+begin_src emacs-lisp
   (tab-bar-mode 1)
+  (tab-bar-history-mode 1)
 
   (setq tab-bar-close-button-show nil
         tab-bar-new-button-show nil 
