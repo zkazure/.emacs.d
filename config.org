@@ -323,7 +323,7 @@
   (require 'init-indent)
   ;; (require 'init-electric-pair-mode)
   (require 'init-fingertip)
-  (require 'init-modeline)
+  ;; (require 'init-modeline)
   (require 'init-tab-bar)
 
   (require 'init-csv-mode)
