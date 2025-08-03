@@ -2619,7 +2619,7 @@ jump to everywhere quickly
 
   ;; (gptel-make-gh-copilot "Copilot")
   ;; OPTIONAL configuration
-  (setq gptel-model gpt-4.1
+  (setq gptel-model 'gpt-4.1
         gptel-backend (gptel-make-gh-copilot "Copilot"))
   ;; claude-sonnet-4
 
