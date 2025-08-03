@@ -12,6 +12,7 @@
 /elpa/
 /org-roam.db
 /*.el
+/.cache
 
 lisp/
 lib/lsp-bridge/
@@ -23,3 +24,4 @@ lib/lsp-bridge/
 /recentf
 /projectile-bookmarks.eld
 /.emacs.desktop*
+/projects
