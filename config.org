@@ -3095,6 +3095,74 @@ jump to everywhere quickly
 
 ~C-u C-SPC~ will take you back to last mark. Many operation in Emacs will auto create a mark. 
 
+** dictionary
+do first
+#+begin_src sh :tangle no
+  sudo apt install dictd
+  sudo apt install dict-gcide 
+  sudo apt install dict-jargon
+#+end_src
+
+
+#+begin_src emacs-lisp
+  (require 'dictionary)
+
+  (setq dictionary-server "localhost")
+
+  (setq dictionary-default-dictionary-list '("gcide" "jargon"))
+  (setq dictionary-default-search-dictionary "gcide")
+
+  ;; 设置为在单个缓冲区中显示所有结果，避免创建过多的窗口。
+  (setq dictionary-use-single-buffer t)
+
+  ;; 设置 dictionary-mode 的字体样式，使其更易于阅读。
+  ;; 这里我们使用自定义的 face，但你也可以根据自己的喜好调整。
+  (custom-set-faces
+   '(dictionary-word-face ((t (:inherit font-lock-variable-name-face :weight bold))))
+   '(dictionary-definition-face ((t (:inherit default :weight normal))))
+   '(dictionary-header-face ((t (:inherit font-lock-comment-face :height 1.1))))
+   '(dictionary-info-face ((t (:inherit font-lock-doc-face))))
+   )
+#+end_src
+
+** END
+
+#+begin_src emacs-lisp
+  (provide 'init-personal)
+#+end_src
+
+* test
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-test.el
+:END:
+
+#+begin_src emacs-lisp 
+  (provide 'init-test)
+#+end_src
+
+* COMMENT wish list
+** desktop
+#+begin_src emacs-lisp
+  (setq desktop-load-locked-desktop t) ; don't popup dialog ask user, load anyway
+  (setq desktop-restore-frames nil)    ; don't restore any frame
+
+  (desktop-save-mode 1)
+#+end_src
+** web mode
+- typecript-mode
+- php-mode
+- prettier
+** ui
+
+#+begin_src emacs-lisp
+  (setq frame-inhibit-implied-resize t
+      frame-resize-pixelwise t)
+  (setq initial-frame-alist '((top . 0.5)
+                              (left . 0.5)
+                              (width . 0.7)
+                              (height . 0.85)
+                              (fullscreen)))
+#+end_src
 ** TODO read-only-mode
 #+begin_src emacs-lisp :tangle no
   (defvar easy-nav-mode-map
@@ -3150,80 +3218,3 @@ jump to everywhere quickly
 #+end_src
 
 
-** dictionary
-do first
-#+begin_src sh :tangle no
-  sudo apt install dictd
-  sudo apt install dict-gcide 
-  sudo apt install dict-jargon
-#+end_src
-
-
-#+begin_src emacs-lisp
-  (require 'dictionary)
-
-  (setq dictionary-server "localhost")
-
-  (setq dictionary-default-dictionary-list '("gcide" "jargon"))
-  (setq dictionary-default-search-dictionary "gcide")
-
-  ;; 设置为在单个缓冲区中显示所有结果，避免创建过多的窗口。
-  (setq dictionary-use-single-buffer t)
-
-  ;; 设置 dictionary-mode 的字体样式，使其更易于阅读。
-  ;; 这里我们使用自定义的 face，但你也可以根据自己的喜好调整。
-  (custom-set-faces
-   '(dictionary-word-face ((t (:inherit font-lock-variable-name-face :weight bold))))
-   '(dictionary-definition-face ((t (:inherit default :weight normal))))
-   '(dictionary-header-face ((t (:inherit font-lock-comment-face :height 1.1))))
-   '(dictionary-info-face ((t (:inherit font-lock-doc-face))))
-   )
-#+end_src
-
-** END
-
-#+begin_src emacs-lisp
-  (provide 'init-personal)
-#+end_src
-
-* test
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-test.el
-:END:
-
-
-#+begin_src emacs-lisp 
-  (provide 'init-test)
-#+end_src
-
-* wish list
-** org-tree-slide
-#+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/site-lisp/org-tree-slide/")
-  (require 'org-tree-slide)
-  (with-eval-after-load 'org
-    (define-key org-mode-map (kbd "<f8>") 'org-tree-slide-mode)
-    (define-key org-mode-map (kbd "S-<f8>") 'org-tree-slide-skip-done-toggle))
-
-  ;; (when (require 'org-tree-slide nil t)
-  ;;   (global-set-key (kbd "<f8>") 'org-tree-slide-mode)
-  ;;   (global-set-key (kbd "S-<f8>") 'org-tree-slide-skip-done-toggle)
-  ;;   (org-tree-slide-simple-profile))
-
-  (with-eval-after-load "org-tree-slide"
-    (define-key org-tree-slide-mode-map (kbd "<f9>") 'org-tree-slide-move-previous-tree)
-    (define-key org-tree-slide-mode-map (kbd "<f10>") 'org-tree-slide-move-next-tree)
-    )
-#+end_src
-** magit forge
-** plantuml complete
-** vundo
-** project
-** tabspace
-** desktop
-#+begin_src emacs-lisp
-  (setq desktop-load-locked-desktop t) ; don't popup dialog ask user, load anyway
-  (setq desktop-restore-frames nil)    ; don't restore any frame
-
-  (desktop-save-mode 1)
-#+end_src
