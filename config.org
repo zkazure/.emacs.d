@@ -737,7 +737,7 @@ only the language set here can be babeled.
 *** olivetti
 #+begin_src emacs-lisp
   (require 'olivetti)
-  (define-key global-map "\C-co" 'olivetti-mode)
+  (define-key global-map (kbd "C-c o o") 'olivetti-mode)
 #+end_src
 *** latex
 
@@ -2509,7 +2509,7 @@ jump to everywhere quickly
   (define-key fingertip-mode-map (kbd "(") 'fingertip-open-round)
   (define-key fingertip-mode-map (kbd "[") 'fingertip-open-bracket)
   (define-key fingertip-mode-map (kbd "{") 'fingertip-open-curly)
-  (define-key fingertip-mode-map (kbd ")") 'fingertip-close-round)
+  ;; (define-key fingertip-mode-map (kbd ")") 'fingertip-close-round)
   (define-key fingertip-mode-map (kbd "]") 'fingertip-close-bracket)
   (define-key fingertip-mode-map (kbd "}") 'fingertip-close-curly)
   (define-key fingertip-mode-map (kbd "=") 'fingertip-equal)
@@ -2653,7 +2653,7 @@ jump to everywhere quickly
           (chat
            . "You are a large language model and a conversation partner. Respond concisely.")))
 
-  (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
+  ;; (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
   ;; (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
 
   (provide 'init-ai)
@@ -2679,8 +2679,6 @@ jump to everywhere quickly
   (setq gnus-secondary-select-methods
         '((nntp "gwene"
                 (nntp-address "news.gwene.org"))
-          (nnatom "xkcd.com/atom.xml")
-
           ))
 
   (setq message-send-mail-function 'smtpmail-send-it)
@@ -2694,16 +2692,38 @@ jump to everywhere quickly
 *** basic 
 
 #+begin_src elisp
-  (setq gnus-summary-ignore-most-enemies nil)
-  (setq gnus-permanently-visible-groups ".*")  
-  (setq gnus-use-followup-to t)
-  (setq gnus-check-new-newsgroups nil)  
+  (setq epa-file-cache-passphrase-for-symmetric-encryption t)
+  ;; (setq gnus-summary-ignore-most-enemies nil)
+  ;; (setq gnus-permanently-visible-groups ".*")  
+  ;; (setq gnus-use-followup-to t)
+  ;; (setq gnus-check-new-newsgroups nil)  
 
   (setq gnus-use-cache t)
 
   (setq gnus-thread-sort-functions
         '(gnus-thread-sort-by-most-recent-date
           (not gnus-thread-sort-by-number)))
+
+  ;; Fetch only part of the article if we can.
+  ;; I saw this in someone's .gnus
+  (setq gnus-read-active-file 'some)
+
+  (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
+
+
+  ;; Threads!  I hate reading un-threaded email -- especially mailing
+  ;; lists.  This helps a ton!
+  (setq gnus-summary-thread-gathering-function 'gnus-gather-threads-by-subject)
+
+
+  ;; Also, I prefer to see only the top level message.  If a message has
+  ;; several replies or is part of a thread, only show the first message.
+  ;; `gnus-thread-ignore-subject' will ignore the subject and
+  ;; look at 'In-Reply-To:' and 'References:' headers.
+  (setq gnus-thread-hide-subtree t)
+  (setq gnus-thread-ignore-subject t)
+
+  (setq gnus-use-correct-string-widths nil)
 #+end_src
 
 *** ui
@@ -2714,7 +2734,6 @@ jump to everywhere quickly
           ("other" "")))
 
   (setq gnus-summary-line-format "%U%R%z %~(max-right 18)Date: %~(pad-right 20)From: %s\n")
-  (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 #+end_src
 
 *** hydra
@@ -2930,8 +2949,6 @@ jump to everywhere quickly
        (gnus-topic-set-parameters "zoho" '((display . 200)))
        ;; (gnus-topic-set-parameters "hotmail" '((display . 200)))
        ))
-
-  (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 #+end_src
 
 *** END
@@ -3276,7 +3293,7 @@ jump to everywhere quickly
       (start-process "thunar" nil "thunar" dir)
       (message "open %s in Thunar" dir)))
 
-  (define-key global-map (kbd "C-c f") 'my-open-current-dir-in-thunar)
+  (define-key global-map (kbd "C-c o f") 'my-open-current-dir-in-thunar)
 #+end_src
 
 ** pixel scrool
