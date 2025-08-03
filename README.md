@@ -1,10 +1,6 @@
-+++
-title = "Emacs Configuration"
-author = ["Kazure Zheng"]
-draft = false
-+++
 
 From now on my Emacs configuration will be stable and reliable.
+
 However, there is still a long way to go.
 
 

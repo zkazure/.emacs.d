@@ -13,6 +13,7 @@
 /org-roam.db
 /*.el
 /.cache
+/README.org
 
 lisp/
 lib/lsp-bridge/
