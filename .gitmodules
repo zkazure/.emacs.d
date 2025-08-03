@@ -79,6 +79,12 @@
 [submodule "git-modes"]
 	path = lib/git-modes
 	url = https://github.com/magit/git-modes.git
+[submodule "gptel"]
+	path = lib/gptel
+	url = https://github.com/karthink/gptel
+[submodule "gptel-magit"]
+	path = lib/gptel-magit
+	url = https://github.com/ragnard/gptel-magit
 [submodule "highlight-matching-tag"]
 	path = lib/highlight-matching-tag
 	url = https://github.com/manateelazycat/highlight-matching-tag.git
@@ -121,6 +127,9 @@
 [submodule "markdown-mode"]
 	path = lib/markdown-mode
 	url = https://github.com/jrblevin/markdown-mode
+[submodule "mcp"]
+	path = lib/mcp
+	url = https://github.com/lizqwerscott/mcp.el
 [submodule "move-text"]
 	path = lib/move-text
 	url = https://github.com/emacsfodder/move-text
