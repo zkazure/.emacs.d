@@ -1646,6 +1646,20 @@ jump to everywhere quickly
   ;; (with-eval-after-load 'org-noter
   ;;   (add-hook 'org-noter-insert-heading-hook #'org-id-get-create))
 
+  (defun kz/org-noter-insert-precise-note-and-id ()
+      (org-noter-insert-precise-note)
+      (org-id-get-create))
+  (defun kz/org-noter-insert-note-and-id ()
+      (org-noter-insert-note)
+      (org-id-get-create))
+  (define-key org-noter-doc-mode-map (kbd "i") 'kz/org-noter-insert-note-and-id)
+  (define-key org-noter-doc-mode-map (kbd "M-i") 'org-noter-insert-precise-note-and-id)
+
+  (define-key org-noter-doc-mode-map (kbd "w") 'pdf-view-previous-line-or-previous-page)
+  (define-key org-noter-doc-mode-map (kbd "s") 'pdf-view-next-line-or-next-page)
+  (define-key org-noter-doc-mode-map (kbd "d") 'image-forward-hscroll)
+  (define-key org-noter-doc-mode-map (kbd "a") 'image-backward-hscroll)
+
   (setq org-noter-auto-save-last-location t)
   (setq org-noter-highlight-selected-text t)
   (setq org-noter-max-short-selected-text-length 80)
