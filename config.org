@@ -2820,6 +2820,72 @@ jump to everywhere quickly
   (add-hook 'message-mode-hook 'message-mode-hook-hydra-setup)
 #+end_src
 
+*** edbd
+#+begin_src emacs-lisp
+  ;; (add-hook 'message-mode-hook
+  ;;           '(lambda ()
+  ;;              (flyspell-mode t)
+  ;;              (local-set-key (kbd "TAB") 'bbdb-complete-name)))
+
+  ;; (add-to-list 'load-path "/where/you/place/bbdb/")
+  ;; (require 'bbdb)
+  ;; (bbdb-initialize 'message 'gnus 'sendmail)
+  ;; (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
+  ;; (setq bbdb/mail-auto-create-p t
+  ;;       bbdb/news-auto-create-p t)
+
+  (require 'ebdb)
+  (require 'ebdb-gnus)
+  (require 'ebdb-complete)
+
+  (ebdb-complete-enable)
+
+  (defun kz/ebdb-set-mail-from-address (&optional records arg kill)
+    (interactive (list (ebdb-prompt-for-record)
+  		     current-prefix-arg))
+    (let ((recs (if (listp records) records (list records)))
+  	(style (if arg 'list 'inline))
+  	usable str m)
+      (dolist (r recs)
+        (when (setq m (ebdb-record-mail r))
+  	(push (cons r (or (object-assoc 'primary 'priority m)
+  			  (car m)))
+  	      usable)))
+      (setq str (ebdb-records-cite style usable))
+      (if kill
+  	(progn
+  	  (kill-new str)
+  	  (message "Citation added to kill ring"))
+        (save-excursion
+          (goto-char (point-min))
+          (when (re-search-forward "^From:.*" nil t)
+            (replace-match (format "From: %s" str)))))))
+
+  (defun kz/ebdb-set-mail-to-address (&optional records arg kill)
+    (interactive (list (ebdb-prompt-for-record)
+  		     current-prefix-arg))
+    (let ((recs (if (listp records) records (list records)))
+  	(style (if arg 'list 'inline))
+  	usable str m)
+      (dolist (r recs)
+        (when (setq m (ebdb-record-mail r))
+  	(push (cons r (or (object-assoc 'primary 'priority m)
+  			  (car m)))
+  	      usable)))
+      (setq str (ebdb-records-cite style usable))
+      (if kill
+  	(progn
+  	  (kill-new str)
+  	  (message "Citation added to kill ring"))
+        (save-excursion
+          (goto-char (point-min))
+          (when (re-search-forward "^To:.*" nil t)
+            (replace-match (format "To: %s" str)))))))
+
+  (define-key message-mode-map (kbd "C-c e f") 'kz/ebdb-set-mail-from-address)
+  (define-key message-mode-map (kbd "C-c e t") 'kz/ebdb-set-mail-to-address)
+#+end_src
+
 *** other
 #+begin_src emacs-lisp
   (eval-after-load 'gnus-topic

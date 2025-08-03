@@ -52,6 +52,9 @@
 [submodule "dirvish"]
 	path = lib/dirvish
 	url = https://github.com/alexluigit/dirvish
+[submodule "ebdb"]
+	path = lib/ebdb
+	url = git@github.com:emacsmirror/ebdb.git
 [submodule "elfeed"]
 	path = lib/elfeed
 	url = https://github.com/skeeto/elfeed
