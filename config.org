@@ -2641,15 +2641,16 @@ jump to everywhere quickly
   ;; :END:
 
   (setq gptel-directives
-        '((rewrite . gptel--rewrite-directive-default)
+        '(
+          (rewrite . gptel--rewrite-directive-default)
           (default
-           . "You are a large language model living in Emacs and a helpful assistant. Respond concisely.")
+           . "You are a large language model and a conversation partner. Respond concisely.\n1. When I send a message, immediately check and point out any grammar mistakes or awkward wording.\n2. After feedback, answer my questions or provide your response in advanced, fluent English (above TOEFL 110 or IELTS 8.0 level).\n3. At the end of your response, explain any difficult grammar structures and advanced words you used, using clear English suitable for CET-4 550 level.\n")         
           (programming
            . "You are a large language model and a careful programmer. Provide code and only code as output without any additional text, prompt or note.")
           (writing
            . "You are a large language model and a writing assistant. Respond concisely.")
           (chat
-           . "You are a large language model and a conversation partner. Respond concisely.\n1. When I send a message, immediately check and point out any grammar mistakes or awkward wording.\n2. After feedback, answer my questions or provide your response in advanced, fluent English (above TOEFL 110 or IELTS 8.0 level).\n3. At the end of your response, explain any difficult grammar structures and advanced words you used, using clear English suitable for CET-4 550 level.\n")))
+           . "You are a large language model and a conversation partner. Respond concisely.")))
 
   (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
   ;; (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
