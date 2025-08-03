@@ -1,0 +1,31 @@
+#+title: Emacs Configuration
+
+From now on my Emacs configuration will be stable and reliable. 
+However, there is still a long way to go.
+
+* Road Map
+
+1. Write the document and reorganize my configuration.
+2. Continuing tweaking my configuration.
+   - [[https://github.com/seagle0128/.emacs.d][Centaur Emacs]]
+   - [[https://github.com/jwiegley/dot-emacs/tree/master][jwiegley]]: the author of *use-package*
+   - [[https://github.com/karthink/.emacs.d][karthink]]: the author of *gptel*
+     
+* Todo List
+
+- [ ] magit forge
+- [ ] customize theme
+- [ ] save tab-bar
+- [ ] aggressive-indent
+- [ ] present in Emacs
+- [ ] easy-nav in read-only mode
+
+* Acknowlegements
+
+Special thanks to 
+- [[https://github.com/manateelazycat][ManateeLazyCat]]: author of *lsp-bridge*
+- [[https://emacs-china.org/][Emacs China]]
+- [[https://codeberg.org/daviwil][David Wilson]]
+- [[https://github.com/tarsius][Jonas Bernoulli]]: author of *borg*
+- ... to be continue
+for their valuable inspiration and contribution to the Emacs community.

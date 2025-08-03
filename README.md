@@ -1,42 +1,40 @@
-Assimilate Emacs packages as Git submodules
-===========================================
++++
+title = "Emacs Configuration"
+author = ["Kazure Zheng"]
+draft = false
++++
 
-*For more information see the [announcement][init] and the [manual].*
+From now on my Emacs configuration will be stable and reliable.
+However, there is still a long way to go.
 
-About `borg.el`
----------------
 
-[Borg] is a bare-bones package manager for Emacs packages.  It
-provides only a few essential features and should be combined with
-other tools such as Magit, `epkg`, `use-package`, and `auto-compile`.
+## Road Map {#road-map}
 
-Borg assimilates packages into the `~/.emacs.d` repository as Git
-submodules.  An assimilated package is called a drone and a borg-based
-`~/.emacs.d` repository is called a collective.
+1.  Write the document and reorganize my configuration.
+2.  Continuing tweaking my configuration.
+    -   [Centaur Emacs](https://github.com/seagle0128/.emacs.d)
+    -   [jwiegley](https://github.com/jwiegley/dot-emacs/tree/master): the author of **use-package**
+    -   [karthink](https://github.com/karthink/.emacs.d): the author of **gptel**
 
-About this collective
----------------------
 
-This particular collective is intended to be used to bootstrap private
-configurations.  Fork your own copy and then start assimilating as you
-please.
+## Todo List {#todo-list}
 
-If you wish you can later merge changes from the upstream repository,
-to get updates for the drones that have been assimilated in the base
-configuration.  Very rarely additional drones might be assimilated or
-the configuration of existing drones might be tweaked.
+-   [ ] magit forge
+-   [ ] customize theme
+-   [ ] save tab-bar
+-   [ ] aggressive-indent
+-   [ ] present in Emacs
+-   [ ] easy-nav in read-only mode
 
-Or you can just update and further configure these drones as you would
-update the drones you have assimilated yourself.
 
-If you do base your own configuration on this collective and make it
-publicly available as source of inspiration for others, then please
-do so by forking the upstream repository, which is available from
-[Github].
+## Acknowlegements {#acknowlegements}
 
-You might also want to adjust this description.
+Special thanks to
 
-[init]:    https://emacsair.me/2016/05/17/assimilate-emacs-packages-as-git-submodules
-[Borg]:    https://github.com/emacscollective/borg
-[manual]:  https://emacsmirror.net/manual/borg
-[Github]:  https://github.com/emacscollective/emacs.g
+-   [ManateeLazyCat](https://github.com/manateelazycat): author of **lsp-bridge**
+-   [Emacs China](https://emacs-china.org/)
+-   [David Wilson](https://codeberg.org/daviwil)
+-   [Jonas Bernoulli](https://github.com/tarsius): author of **borg**
+-   ... to be continue
+
+for their valuable inspiration and contribution to the Emacs community.
