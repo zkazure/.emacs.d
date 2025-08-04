@@ -2674,19 +2674,48 @@ jump to everywhere quickly
         '(nnimap "zoho"
                  (nnimap-address "imappro.zoho.com")
                  (nnimap-server-port 993)
-                 (nnimap-stream ssl)))
+                 (nnimap-stream ssl)
+                 ;; (nnmail-expiry-target "zoho/Trash")
+                 ;; (nnmail-expiry-wait 90)
+                 ))
+
+
+  (setq smtpmail-smtp-server "smtppro.zoho.com"
+        smtpmail-smtp-service 465
+        smtpmail-stream-type 'ssl
+        ;; smtpmail-stream-type 'starttls
+        )
 
   (setq gnus-secondary-select-methods
         '((nntp "gwene"
                 (nntp-address "news.gwene.org"))
           ))
 
+  ;; (add-to-list 'gnus-secondary-select-methods
+  ;;              '(nnimap "sysu"
+  ;;                       (nnimap-address "imap.exmail.qq.com")
+  ;;                       (nnimap-user (getenv "SYSU_USER"))
+  ;;                       (nnimap-server-port 993)
+  ;;                       (nnimap-stream ssl)
+  ;;                       ; @see http://www.gnu.org/software/emacs/manual/html_node/gnus/Expiring-Mail.html
+  ;;                       ;; press 'E' to expire email
+  ;;                       ;; (nnmail-expiry-target "nnimap+gmail:[Gmail]/Trash")
+  ;;                       ;; (nnmail-expiry-wait 90)
+  ;;                       ))
+
+  ;; (setq gnus-posting-styles
+  ;;       '(("sysu"
+  ;;          (address (getenv "SYSU_USER"))
+  ;;          (gnus-message-headers "From: user2@example.com\n")
+  ;;          (organization "")
+  ;;          (smtp-server "smtp.exmail.qq.com"))
+  ;;         ("zoho"
+  ;;          (address (getenv "ZOZHO_USER"))
+  ;;          (gnus-message-headers "From: user1@example.com\n")
+  ;;          (organization "")
+  ;;          (smtp-server "smtppro.zoho.com"))))
+
   (setq message-send-mail-function 'smtpmail-send-it)
-  (setq smtpmail-smtp-server "smtppro.zoho.com"
-        smtpmail-smtp-service 465
-        smtpmail-stream-type 'ssl
-        ;; smtpmail-stream-type 'starttls
-        )
 #+end_src
 
 *** basic 
@@ -2724,6 +2753,8 @@ jump to everywhere quickly
   (setq gnus-thread-ignore-subject t)
 
   (setq gnus-use-correct-string-widths nil)
+
+  (global-set-key (kbd "C-c o g") 'gnus)
 #+end_src
 
 *** ui
@@ -2925,8 +2956,9 @@ jump to everywhere quickly
        ;; each topic corresponds to a public imap folder
        (setq gnus-topic-alist '(("zoho" ; the key of topic
                                  "INBOX"
-                                 "Drafts"
+                                 "Notification"
                                  "Archive"
+                                 "Drafts"
                                  "Sent"
                                  "Spam"
                                  "Trash"
