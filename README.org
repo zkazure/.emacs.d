@@ -28,5 +28,6 @@ Special thanks to
 - [[https://emacs-china.org/][Emacs China]]
 - [[https://codeberg.org/daviwil][David Wilson]]
 - [[https://github.com/tarsius][Jonas Bernoulli]]: author of *borg*
+- [[https://github.com/aikrahguzar/pdf-tools][aikrahguzar]]: forked his pdf-tools to able read pdf continuously.
 - ... to be continue
 for their valuable inspiration and contribution to the Emacs community.

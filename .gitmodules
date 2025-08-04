@@ -100,6 +100,9 @@
 [submodule "hydra"]
 	path = lib/hydra
 	url = https://github.com/abo-abo/hydra
+[submodule "image-roll"]
+	path = lib/image-roll
+	url = https://github.com/dalanicolai/image-roll.el.git
 [submodule "instant-rename-tag"]
 	path = lib/instant-rename-tag
 	url = https://github.com/manateelazycat/instant-rename-tag.git
@@ -174,7 +177,7 @@
 	url = https://github.com/joostkremers/parsebib
 [submodule "pdf-tools"]
 	path = lib/pdf-tools
-	url = https://github.com/vedang/pdf-tools
+	url = https://github.com/aikrahguzar/pdf-tools.git
 [submodule "pdf-view-restore"]
 	path = lib/pdf-view-restore
 	url = https://github.com/007kevin/pdf-view-restore
