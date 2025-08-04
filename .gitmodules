@@ -52,6 +52,9 @@
 [submodule "dirvish"]
 	path = lib/dirvish
 	url = https://github.com/alexluigit/dirvish
+[submodule "eaf"]
+	path = lib/eaf
+	url = https://github.com/emacs-eaf/emacs-application-framework
 [submodule "ebdb"]
 	path = lib/ebdb
 	url = git@github.com:emacsmirror/ebdb.git

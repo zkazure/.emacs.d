@@ -3423,6 +3423,25 @@ do first
    )
 #+end_src
 
+
+** eaf 
+#+begin_src elisp
+  (require 'eaf)
+  (require 'eaf-browser)
+  (require 'eaf-pdf-viewer)
+  (require 'eaf-jupyter)
+  (require 'eaf-rss-reader)  
+
+  (global-set-key (kbd "C-c o b") 'eaf-open-browser-with-history)
+  (global-set-key (kbd "C-c o j") 'eaf-open-jupyter)
+  (global-set-key (kbd "C-c o r") 'eaf-open-rss-reader)
+
+  (setq eaf-browser-keybinding
+    (remove '("M-o" . "eval_js") eaf-browser-keybinding))
+  (setq eaf-browser-keybinding
+    (remove '("M-o" . "eval_js") eaf-browser-keybinding))
+#+end_src
+
 ** END
 
 #+begin_src emacs-lisp
