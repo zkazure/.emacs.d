@@ -20,6 +20,7 @@ However, there is still a long way to go.
 - [ ] aggressive-indent
 - [ ] present in Emacs
 - [ ] easy-nav in read-only mode
+- [ ] ace-window
 
 * Acknowlegements
 
