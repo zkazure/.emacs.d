@@ -390,7 +390,7 @@
     (add-hook mode (lambda () (display-line-numbers-mode -1))))
 
 
-  (setq next-screen-context-lines 15)
+  (setq next-screen-context-lines 40)
 
   (setq enable-recursive-minibuffers +1)
   (setq cursor-in-non-selected-windows nil)
@@ -3304,10 +3304,15 @@ jump to everywhere quickly
 
 #+begin_src emacs-lisp
   (pixel-scroll-precision-mode t)
+  (setq scroll-preserve-screen-position t)
 
   (setq scroll-margin 3
-        scroll-conservatively 101
+        scroll-conservatively 100
         hscroll-margin 5)
+
+  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
+  (setq mouse-wheel-progressive-speed nil)
+  (setq mouse-wheel-follow-mouse 't)
 #+end_src
 
 ** other window
@@ -3429,7 +3434,7 @@ jump to everywhere quickly
   (require 'eaf)
   (require 'eaf-browser)
   (require 'eaf-jupyter)
-  (require 'eaf-pdf-viewer)
+  ;; (require 'eaf-pdf-viewer)
 
   (setq eaf-webengine-default-zoom 1.25)
   (global-set-key (kbd "C-c o b") 'eaf-open-browser-with-history)
