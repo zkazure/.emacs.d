@@ -3481,6 +3481,24 @@ do first
     (remove '("M-o" . "eval_js") eaf-browser-keybinding))
   (setq eaf-browser-keybinding
     (remove '("M-o" . "eval_js") eaf-browser-keybinding))
+  (setq eaf-browser-chrome-browser-name "Chromium")
+  (setq eaf-browser-auto-import-chrome-cookies t)
+  (setq eaf-chrome-bookmark-file "~/.config/chromium/Default/Bookmarks")
+
+  (setq eaf-python-command "~/.emacs.d/eaf-env/.venv/bin/python")
+#+end_src
+
+** fanyi
+#+begin_src elisp
+  (require 'fanyi)
+
+  (customize-set-variable 'fanyi-providers
+                         '(fanyi-longman-provider
+                           fanyi-etymon-provider
+                           ))
+  (setq fanyi-auto-select nil)
+  (global-set-key (kbd "C-c n t") #'fanyi-dwim2)
+  (global-set-key (kbd "C-c n T") #'fanyi-dwim)
 #+end_src
 
 ** END

@@ -79,6 +79,9 @@
 [submodule "f"]
 	path = lib/f
 	url = https://github.com/rejeep/f.el
+[submodule "fanyi"]
+	path = lib/fanyi
+	url = https://github.com/condy0919/fanyi.el
 [submodule "fingertip"]
 	path = lib/fingertip
 	url = https://github.com/manateelazycat/fingertip.git
