@@ -321,7 +321,7 @@
   (require 'init-org-noter)
   (require 'init-super-save)
   (require 'init-indent)
-  ;; (require 'init-electric-pair-mode)
+  (require 'init-electric-pair-mode)
   (require 'init-fingertip)
   ;; (require 'init-modeline)
   (require 'init-tab-bar)
@@ -2506,7 +2506,6 @@ jump to everywhere quickly
                  'cider-repl-mode-hook
                  'nix-mode-hook
                  'solidity-mode-hook
-                 'org-mode-hook
                  ))
     (add-hook hook #'(lambda ()
                        (when (or
@@ -2514,7 +2513,6 @@ jump to everywhere quickly
                               (not (string-equal (file-name-extension (buffer-file-name)) "chat")))
                          (fingertip-mode 1)))
               ))
-
 
   (define-key fingertip-mode-map (kbd "(") 'fingertip-open-round)
   (define-key fingertip-mode-map (kbd "[") 'fingertip-open-bracket)
@@ -3078,7 +3076,14 @@ jump to everywhere quickly
 :END:
 #+begin_src emacs-lisp
   (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
-  (electric-pair-mode 1)
+
+
+  (dolist (hook (list
+                 'org-mode-hook
+                 'text-mode-hook
+                 ))
+    (add-hook hook #'(lambda ()
+                       (electric-pair-mode 1))))
 
   (provide 'init-electric-pair-mode)
 #+end_src
