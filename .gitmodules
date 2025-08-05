@@ -145,6 +145,9 @@
 [submodule "move-text"]
 	path = lib/move-text
 	url = https://github.com/emacsfodder/move-text
+[submodule "mu4e"]
+	path = lib/mu4e
+	url = https://github.com/djcb/mu
 [submodule "neotree"]
 	path = lib/neotree
 	url = https://github.com/jaypei/emacs-neotree

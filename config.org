@@ -2653,9 +2653,12 @@ jump to everywhere quickly
 
   (setq gptel-directives
         '(
-          (rewrite . gptel--rewrite-directive-default)
           (default
-           . "You are a large language model and a conversation partner. Respond concisely.\n1. When I send a message, immediately check and point out any grammar mistakes or awkward wording.\n2. After feedback, answer my questions or provide your response in advanced, fluent English (above TOEFL 110 or IELTS 8.0 level).\n3. At the end of your response, explain any difficult grammar structures and advanced words you used, using clear English suitable for CET-4 550 level.\n")         
+           . "You are a large language model and a conversation partner. Respond concisely.\n1. When I send a message, immediately check and point out any grammar mistakes or awkward wording.\n2. After feedback, answer my questions or provide your response in advanced, fluent English (above TOEFL 110 or IELTS 8.0 level).\n3. At the end of your response, explain any difficult grammar structures and advanced words you used, using clear English suitable for CET-4 550 level.\n")
+          (rewrite
+           . "Please rewrite the following words or paragraphs and preserve original length as much as possible.")
+          (super-rewrite
+           . "Please rewrite the following words or paragraphs and preserve original length as much as possible. Your rewrite should:\n\n1. **Enhance academic precision** by refining terminology and eliminating ambiguous phrasing\n2. **Strengthen analytical depth** through more sophisticated argumentation, evidence presentation and logical progression between ideas\n3. **Improve technical clarity** by explaining complex concepts more accessibly without sacrificing accuracy\n4. **Adapt stylistic approach** based on content type:\n   - Formal academic tone for research-oriented material\n   - Professional technical style for industry applications\n   - Measured journalistic approach for broader academic dissemination\n5. Finally, point out what you modified")
           (programming
            . "You are a large language model and a careful programmer. Provide code and only code as output without any additional text, prompt or note.")
           (writing
@@ -2895,7 +2898,7 @@ jump to everywhere quickly
   ;;       bbdb/news-auto-create-p t)
 
   (require 'ebdb)
-  (require 'ebdb-gnus)
+  (require 'ebdb-mu4e)
   (require 'ebdb-complete)
 
   (ebdb-complete-enable)
@@ -2946,57 +2949,11 @@ jump to everywhere quickly
   (define-key message-mode-map (kbd "C-c e t") 'kz/ebdb-set-mail-to-address)
 #+end_src
 
-*** other
-#+begin_src emacs-lisp
-  (eval-after-load 'gnus-topic
-    '(progn
-       (setq gnus-message-archive-group '((format-time-string "sent.%Y")))
-       (setq gnus-server-alist '(("archive" nnfolder "archive" (nnfolder-directory "~/Mail/archive")
-                                  (nnfolder-active-file "~/Mail/archive/active")
-                                  (nnfolder-get-new-mail nil)
-                                  (nnfolder-inhibit-expiry t))))
-
-       ;; "Gnus" is the root folder, and there are three mail accounts, "misc", "hotmail", "gmail"
-       (setq gnus-topic-topology '(("Gnus" visible)
-                                   (("misc" visible))
-                                   (("zoho" visible nil nil))
-                                   ;; (("gmail" visible nil nil))
-                                   ))
-
-       ;; each topic corresponds to a public imap folder
-       (setq gnus-topic-alist '(("zoho" ; the key of topic
-                                 "INBOX"
-                                 "Notification"
-                                 "Archive"
-                                 "Drafts"
-                                 "Sent"
-                                 "Spam"
-                                 "Trash"
-                                 "Drafts"
-                                 "Newsletter"
-                                 "Templates")
-                                ;; ("gmail" ; the key of topic
-                                ;;  "nnimap+gmail:INBOX"
-                                ;;  "nnimap+gmail:[Gmail]/Sent Mail"
-                                ;;  "nnimap+gmail:[Gmail]/Trash"
-                                ;;  "nnimap+gmail:Drafts")
-                                ("misc" ; the key of topic
-                                 "nntp+gwene:gwene.com.stackoverflow.feeds.tag.emacs"
-                                 "nntp+gwene:gwene.net.systemcrafters.rss.news"
-                                 "nnrss:NYT > Technology"
-                                 "nndraft:drafts")
-                                ("Gnus")))
-
-       ;; see latest 200 mails in topic hen press Enter on any group
-       (gnus-topic-set-parameters "zoho" '((display . 200)))
-       ;; (gnus-topic-set-parameters "hotmail" '((display . 200)))
-       ))
-#+end_src
-
 *** END
 #+begin_src elisp
   (provide 'init-mail)
 #+end_src
+
 * clone
 ** lsp bridge
 :PROPERTIES:
