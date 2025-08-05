@@ -531,124 +531,125 @@
 #+END_SRC
 *** agenda
 #+begin_src emacs-lisp
-   (define-key global-map (kbd "C-c A") 'org-agenda)
+  (define-key global-map (kbd "C-c A") 'org-agenda)
+  (global-set-key (kbd "C-c o a") '(lambda () (interactive) (org-agenda nil "d")))
 
-   (setq org-agenda-span 'week 
-         org-agenda-window-setup 'current-window 
-         org-tags-column 0
-         ;; org-agenda-compact-blocks nil
-         )
+  (setq org-agenda-span 'week 
+        org-agenda-window-setup 'current-window 
+        org-tags-column 0
+        ;; org-agenda-compact-blocks nil
+        )
 
-   ;; ui
+  ;; ui
   (setq org-agenda-block-separator ?─
-         org-agenda-time-grid
-         '((daily today require-timed)
-           (800 1000 1200 1400 1600 1800 2000)
-           " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
-         org-agenda-current-time-string
-         "⭠ now  ────────")
+        org-agenda-time-grid
+        '((daily today require-timed)
+          (800 1000 1200 1400 1600 1800 2000)
+          " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+        org-agenda-current-time-string
+        "⭠ now  ────────")
 
-   (setq org-agenda-custom-commands 
-         (quote
-          ;; `C-a d` is my main Agenda
-          (("d" "Daily Action List"
-            (
+  (setq org-agenda-custom-commands 
+        (quote
+         ;; `C-a d` is my main Agenda
+         (("d" "Daily Action List"
+           (
 
-             (agenda "" ((org-agenda-overriding-header "\nOverdue")
-                         (org-agenda-time-grid nil)
-                         (org-agenda-start-on-weekday nil)
-                         (org-agenda-show-all-dates nil)
-                         (org-agenda-format-date "")  ;; Skip the date
-                         (org-agenda-span 1)
-                         (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                         (org-agenda-entry-types '(:deadline :scheduled))
-                         (org-scheduled-past-days 999)
-                         (org-deadline-past-days 999)
-                         (org-deadline-warning-days 0)))
-             (agenda "" ((org-agenda-overriding-header " ") ;; Non-empty string
-                         (org-agenda-span 'day)
-                         (org-agenda-ndays 1)
-                         (org-agenda-sorting-strategy (quote ((agenda time-up priority-down tag-up))))
+            (agenda "" ((org-agenda-overriding-header "\nOverdue")
+                        (org-agenda-time-grid nil)
+                        (org-agenda-start-on-weekday nil)
+                        (org-agenda-show-all-dates nil)
+                        (org-agenda-format-date "")  ;; Skip the date
+                        (org-agenda-span 1)
+                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                        (org-agenda-entry-types '(:deadline :scheduled))
+                        (org-scheduled-past-days 999)
+                        (org-deadline-past-days 999)
+                        (org-deadline-warning-days 0)))
+            (agenda "" ((org-agenda-overriding-header " ") ;; Non-empty string
+                        (org-agenda-span 'day)
+                        (org-agenda-ndays 1)
+                        (org-agenda-sorting-strategy (quote ((agenda time-up priority-down tag-up))))
 
-                         ;; Do not include scheduled, due or overdue items here
-                         (org-deadline-warning-days 0)
-                         (org-scheduled-past-days 0)
-                         (org-deadline-past-days 0)
+                        ;; Do not include scheduled, due or overdue items here
+                        (org-deadline-warning-days 0)
+                        (org-scheduled-past-days 0)
+                        (org-deadline-past-days 0)
 
-                         (org-agenda-skip-scheduled-if-done t)
-                         (org-agenda-skip-timestamp-if-done t)
-                         (org-agenda-skip-deadline-if-done t)))
+                        (org-agenda-skip-scheduled-if-done t)
+                        (org-agenda-skip-timestamp-if-done t)
+                        (org-agenda-skip-deadline-if-done t)))
 
-             (agenda "" ((org-agenda-overriding-header "\nNext three days\n")
-                         (org-agenda-start-on-weekday nil)
-                         (org-agenda-start-day "+1d")
-                         (org-agenda-span 3)
-                         (org-deadline-warning-days 0)
-                         (org-agenda-block-separator nil)
-                         (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))))
-             (agenda "" ((org-agenda-overriding-header "\nUpcoming deadlines (+14d)\n")
-                         (org-agenda-time-grid nil)
-                         (org-agenda-start-on-weekday nil)
-                         ;; We don't want to replicate the previous section's
-                         ;; three days, so we start counting from the day after.
-                         (org-agenda-start-day "+3d")
-                         (org-agenda-span 14)
-                         (org-agenda-show-all-dates nil)
-                         (org-agenda-time-grid nil)
-                         (org-deadline-warning-days 0)
-                         (org-agenda-block-separator nil)
-                         (org-agenda-entry-types '(:deadline))
-                         (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))))
-             (tags "+focus"
-                   (
-                    (org-tags-match-list-sublevels nil)
-                    (org-agenda-todo-ignore-scheduled 'future)))
-             )))))
-
-
-   ;; (setq org-agenda-custom-commands
-   ;;       '(("A" "Agenda and All todos"
-   ;;          ((agenda "" ((org-agenda-span 'week)))
-   ;;           (alltodo "")))
-   ;;         ))
-
-   (setq org-directory "~/Documents/org/")
-   (setq org-agenda-files '("~/Documents/org/agenda.org"))
-
-   (setq org-agenda-skip-scheduled-if-done t)
-   (setq org-agenda-skip-deadline-if-done t)
-   (setq org-agenda-skip-timestamp-if-done t)
-
-   ;; ??? what is this
-   (setq org-agenda-start-with-log-mode t)
+            (agenda "" ((org-agenda-overriding-header "\nNext three days\n")
+                        (org-agenda-start-on-weekday nil)
+                        (org-agenda-start-day "+1d")
+                        (org-agenda-span 3)
+                        (org-deadline-warning-days 0)
+                        (org-agenda-block-separator nil)
+                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))))
+            (agenda "" ((org-agenda-overriding-header "\nUpcoming deadlines (+14d)\n")
+                        (org-agenda-time-grid nil)
+                        (org-agenda-start-on-weekday nil)
+                        ;; We don't want to replicate the previous section's
+                        ;; three days, so we start counting from the day after.
+                        (org-agenda-start-day "+3d")
+                        (org-agenda-span 14)
+                        (org-agenda-show-all-dates nil)
+                        (org-agenda-time-grid nil)
+                        (org-deadline-warning-days 0)
+                        (org-agenda-block-separator nil)
+                        (org-agenda-entry-types '(:deadline))
+                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))))
+            (tags "+focus"
+                  (
+                   (org-tags-match-list-sublevels nil)
+                   (org-agenda-todo-ignore-scheduled 'future)))
+            )))))
 
 
+  ;; (setq org-agenda-custom-commands
+  ;;       '(("A" "Agenda and All todos"
+  ;;          ((agenda "" ((org-agenda-span 'week)))
+  ;;           (alltodo "")))
+  ;;         ))
 
-   ;; (defun ct/display-buffer-org-agenda-managed-p (buffer-name action)
-   ;;   "Determine whether BUFFER-NAME is an org-agenda managed buffer."
-   ;;   (with-current-buffer buffer-name
-   ;;     (and (derived-mode-p 'org-mode)
-   ;;          (member (buffer-file-name) (org-agenda-files)))))
+  (setq org-directory "~/Documents/org/")
+  (setq org-agenda-files '("~/Documents/org/agenda.org"))
 
-   ;; (add-to-list 'display-buffer-alist
-   ;;              `("\\*Org Agenda\\*"
-   ;;                (display-buffer-in-tab display-buffer-reuse-mode-window)
-   ;;                (ignore-current-tab . t)
-   ;;                (tab-name . "Org Files")
-   ;;                (window-width . ,ct/org-agenda-width)
-   ;;                (dedicated . side)  ;; Make the Agenda a dedicated side-window
-   ;;                (side . left)       ;; to the left so it always stays open.
-   ;;                (inhibit-same-window . nil)))
-   ;; (add-to-list 'display-buffer-alist
-   ;;              '(ct/display-buffer-org-agenda-managed-p
-   ;;                (display-buffer-reuse-mode-window  ;; Prioritize reuse of current window
-   ;;                 display-buffer-in-tab)            ;; over switching to the Org tab.
-   ;;                ;; (ignore-current-tab . t)
-   ;;                (tab-name . "Org Files")))
+  (setq org-agenda-skip-scheduled-if-done nil)
+  (setq org-agenda-skip-deadline-if-done nil)
+  (setq org-agenda-skip-timestamp-if-done nil)
 
-   (add-hook 'emacs-startup-hook
-             (lambda ()
-               (org-agenda nil "d")))
+  ;; ??? what is this
+  (setq org-agenda-start-with-log-mode t)
+
+
+
+  ;; (defun ct/display-buffer-org-agenda-managed-p (buffer-name action)
+  ;;   "Determine whether BUFFER-NAME is an org-agenda managed buffer."
+  ;;   (with-current-buffer buffer-name
+  ;;     (and (derived-mode-p 'org-mode)
+  ;;          (member (buffer-file-name) (org-agenda-files)))))
+
+  ;; (add-to-list 'display-buffer-alist
+  ;;              `("\\*Org Agenda\\*"
+  ;;                (display-buffer-in-tab display-buffer-reuse-mode-window)
+  ;;                (ignore-current-tab . t)
+  ;;                (tab-name . "Org Files")
+  ;;                (window-width . ,ct/org-agenda-width)
+  ;;                (dedicated . side)  ;; Make the Agenda a dedicated side-window
+  ;;                (side . left)       ;; to the left so it always stays open.
+  ;;                (inhibit-same-window . nil)))
+  ;; (add-to-list 'display-buffer-alist
+  ;;              '(ct/display-buffer-org-agenda-managed-p
+  ;;                (display-buffer-reuse-mode-window  ;; Prioritize reuse of current window
+  ;;                 display-buffer-in-tab)            ;; over switching to the Org tab.
+  ;;                ;; (ignore-current-tab . t)
+  ;;                (tab-name . "Org Files")))
+
+  (add-hook 'emacs-startup-hook
+            (lambda ()
+              (org-agenda nil "d")))
 #+end_src
 
 *** capture
