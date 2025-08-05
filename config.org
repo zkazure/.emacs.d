@@ -1633,7 +1633,7 @@ jump to everywhere quickly
   (define-key pdf-history-minor-mode-map "b" 'pdf-history-backward)
 
   (add-hook 'pdf-view-mode-hook #'pdf-view-roll-minor-mode)
-
+  (define-key pdf-view-mode-map (kbd "t") #'fanyi-dwim)
   (provide 'init-pdf-tools)
 #+end_src
 ** pdf-view-restore
@@ -2603,6 +2603,7 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (require 'gptel)
   (require 'gptel-magit)
+  (global-set-key (kbd "C-c o g") 'gptel)
   ;; (gptel-make-ollama "Ollama"             ;Any name of your choosing
   ;;   :host "localhost:11434"               ;Where it's running
   ;;   :stream t                             ;Stream responses
@@ -2629,7 +2630,7 @@ jump to everywhere quickly
 
   ;; (gptel-make-gh-copilot "Copilot")
   ;; OPTIONAL configuration
-  (setq gptel-model 'gpt-4.1
+  (setq gptel-model 'claude-sonnet-4
         gptel-backend (gptel-make-gh-copilot "Copilot"))
   ;; claude-sonnet-4
 
@@ -2669,28 +2670,17 @@ jump to everywhere quickly
   ;; (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
 
   (provide 'init-ai)
-#+end_src
 
+#+end_src
 ** mail
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-mail.el
 :END:
-*** account
-#+begin_src emacs-lisp 
-  (load-file "~/.emacs.d/private.el")
 
+*** account
+#+begin_src elisp
   (setq user-mail-address (getenv "ZOHO_USER"))
   (setq user-full-name (getenv "MY_NAME"))
-
-  (setq gnus-select-method
-        '(nnimap "zoho"
-                 (nnimap-address "imappro.zoho.com")
-                 (nnimap-server-port 993)
-                 (nnimap-stream ssl)
-                 ;; (nnmail-expiry-target "zoho/Trash")
-                 ;; (nnmail-expiry-wait 90)
-                 ))
-
 
   (setq smtpmail-smtp-server "smtppro.zoho.com"
         smtpmail-smtp-service 465
@@ -2698,190 +2688,44 @@ jump to everywhere quickly
         ;; smtpmail-stream-type 'starttls
         )
 
-  (setq gnus-secondary-select-methods
-        '((nntp "gwene"
-                (nntp-address "news.gwene.org"))
-          ))
-
-  ;; (add-to-list 'gnus-secondary-select-methods
-  ;;              '(nnimap "sysu"
-  ;;                       (nnimap-address "imap.exmail.qq.com")
-  ;;                       (nnimap-user (getenv "SYSU_USER"))
-  ;;                       (nnimap-server-port 993)
-  ;;                       (nnimap-stream ssl)
-  ;;                       ; @see http://www.gnu.org/software/emacs/manual/html_node/gnus/Expiring-Mail.html
-  ;;                       ;; press 'E' to expire email
-  ;;                       ;; (nnmail-expiry-target "nnimap+gmail:[Gmail]/Trash")
-  ;;                       ;; (nnmail-expiry-wait 90)
-  ;;                       ))
-
-  ;; (setq gnus-posting-styles
-  ;;       '(("sysu"
-  ;;          (address (getenv "SYSU_USER"))
-  ;;          (gnus-message-headers "From: user2@example.com\n")
-  ;;          (organization "")
-  ;;          (smtp-server "smtp.exmail.qq.com"))
-  ;;         ("zoho"
-  ;;          (address (getenv "ZOZHO_USER"))
-  ;;          (gnus-message-headers "From: user1@example.com\n")
-  ;;          (organization "")
-  ;;          (smtp-server "smtppro.zoho.com"))))
-
-  (setq message-send-mail-function 'smtpmail-send-it)
+  (setq send-mail-function 'smtpmail-send-it)
 #+end_src
 
-*** basic 
-
+*** mu4e
 #+begin_src elisp
-  (setq epa-file-cache-passphrase-for-symmetric-encryption t)
-  ;; (setq gnus-summary-ignore-most-enemies nil)
-  ;; (setq gnus-permanently-visible-groups ".*")  
-  ;; (setq gnus-use-followup-to t)
-  ;; (setq gnus-check-new-newsgroups nil)  
+  ;; (add-to-list 'load-path "~/.emacs.d/lib/mu4e/mu4e")
+  (require 'mu4e)
+  (require 'mu4e-compose)
+  ;; Show images
+  (setq mu4e-show-images t)
 
-  (setq gnus-use-cache t)
+  ;; Use fancy chars
+  (setq mu4e-use-fancy-chars t)
 
-  (setq gnus-thread-sort-functions
-        '(gnus-thread-sort-by-most-recent-date
-          (not gnus-thread-sort-by-number)))
+  ;; This is set to 't' to avoid mail syncing issues when using mbsync
+  (setq mu4e-change-filenames-when-moving t)
 
-  ;; Fetch only part of the article if we can.
-  ;; I saw this in someone's .gnus
-  (setq gnus-read-active-file 'some)
+  ;; Refresh mail using isync every 10 minutes
+  (setq mu4e-update-interval (* 10 60))
+  (setq mu4e-get-mail-command "mbsync -a")
+  (setq mu4e-maildir "~/Mail")
 
-  (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
+  (setq mu4e-drafts-folder "/Drafts")
+  (setq mu4e-sent-folder   "/Sent")
+  (setq mu4e-refile-folder "/Archive")
+  (setq mu4e-trash-folder  "/Trash")
 
+  ;; (setq mu4e-maildir-shortcuts
+  ;;       '(("/Inbox"             . ?i)
+  ;;         ("/[Gmail]/Sent Mail" . ?s)
+  ;;         ("/[Gmail]/Trash"     . ?t)
+  ;;         ("/[Gmail]/Drafts"    . ?d)
+  ;;         ("/[Gmail]/All Mail"  . ?a)))
 
-  ;; Threads!  I hate reading un-threaded email -- especially mailing
-  ;; lists.  This helps a ton!
-  (setq gnus-summary-thread-gathering-function 'gnus-gather-threads-by-subject)
-
-
-  ;; Also, I prefer to see only the top level message.  If a message has
-  ;; several replies or is part of a thread, only show the first message.
-  ;; `gnus-thread-ignore-subject' will ignore the subject and
-  ;; look at 'In-Reply-To:' and 'References:' headers.
-  (setq gnus-thread-hide-subtree t)
-  (setq gnus-thread-ignore-subject t)
-
-  (setq gnus-use-correct-string-widths nil)
-
-  (global-set-key (kbd "C-c o g") 'gnus)
+  (setq mu4e-get-mail-command "mbsync -a")  ; or offlineimap, isync, etc.
+  (setq mu4e-update-interval 300)  ; Update every 5 minutes
+  (global-set-key  (kbd "C-c o m") 'mu4e)
 #+end_src
-
-*** ui
-#+begin_src elisp :tangle no
-  (setq nnmail-split-methods
-        '(("junk" "^From:.*Lars Ingebrigtsen")
-          ("crazy" "^Subject:.*die\\|^Organization:.*flabby")
-          ("other" "")))
-
-  (setq gnus-summary-line-format "%U%R%z %~(max-right 18)Date: %~(pad-right 20)From: %s\n")
-#+end_src
-
-*** hydra
-#+begin_src elisp
-  ;; @see https://github.com/redguardtoo/mastering-emacs-in-one-year-guide/blob/master/gnus-guide-en.org
-  ;; gnus-group-mode
-  (eval-after-load 'gnus-group
-    '(progn
-       (defhydra hydra-gnus-group (:color blue)
-         "
-  [_A_] Remote groups (A A) [_g_] Refresh
-  [_L_] Local groups        [_\\^_] List servers
-  [_c_] Mark all read       [_m_] Compose new mail
-  [_G_] Search mails (G G) [_#_] Mark mail
-  "
-         ("A" gnus-group-list-active)
-         ("L" gnus-group-list-all-groups)
-         ("c" gnus-topic-catchup-articles)
-         ("G" dianyou-group-make-nnir-group)
-         ("g" gnus-group-get-new-news)
-         ("^" gnus-group-enter-server-mode)
-         ("m" gnus-group-new-mail)
-         ("#" gnus-topic-mark-topic)
-         ("q" nil))
-       ;; y is not used by default
-       (define-key gnus-group-mode-map "y" 'hydra-gnus-group/body)))
-
-  ;; gnus-summary-mode
-  (eval-after-load 'gnus-sum
-    '(progn
-       (defhydra hydra-gnus-summary (:color blue)
-         "
-  [_s_] Show thread   [_F_] Forward (C-c C-f)
-  [_h_] Hide thread   [_e_] Resend (S D e)
-  [_n_] Refresh (/ N) [_r_] Reply
-  [_!_] Mail -> disk  [_R_] Reply with original
-  [_d_] Disk -> mail  [_w_] Reply all (S w)
-  [_c_] Read all      [_W_] Reply all with original (S W)
-  [_#_] Mark          [_G_] Search mails
-  "
-         ("s" gnus-summary-show-thread)
-         ("h" gnus-summary-hide-thread)
-         ("n" gnus-summary-insert-new-articles)
-         ("F" gnus-summary-mail-forward)
-         ("!" gnus-summary-tick-article-forward)
-         ("d" gnus-summary-put-mark-as-read-next)
-         ("c" gnus-summary-catchup-and-exit)
-         ("e" gnus-summary-resend-message-edit)
-         ("R" gnus-summary-reply-with-original)
-         ("r" gnus-summary-reply)
-         ("W" gnus-summary-wide-reply-with-original)
-         ("w" gnus-summary-wide-reply)
-         ("#" gnus-topic-mark-topic)
-         ("G" dianyou-group-make-nnir-group)
-         ("q" nil))
-       ;; y is not used by default
-       (define-key gnus-summary-mode-map "y" 'hydra-gnus-summary/body)))
-
-  ;; gnus-article-mode
-  (eval-after-load 'gnus-art
-    '(progn
-       (defhydra hydra-gnus-article (:color blue)
-         "
-  [_o_] Save attachment        [_F_] Forward
-  [_v_] Play video/audio       [_r_] Reply
-  [_d_] CLI to download stream [_R_] Reply with original
-  [_b_] Open external browser  [_w_] Reply all (S w)
-  [_f_] Click link/button      [_W_] Reply all with original (S W)
-  [_g_] Focus link/button
-  "
-         ("F" gnus-summary-mail-forward)
-         ("r" gnus-article-reply)
-         ("R" gnus-article-reply-with-original)
-         ("w" gnus-article-wide-reply)
-         ("W" gnus-article-wide-reply-with-original)
-         ("o" gnus-mime-save-part)
-         ("v" my-w3m-open-with-mplayer)
-         ("d" my-w3m-download-rss-stream)
-         ("b" my-w3m-open-link-or-image-or-url)
-         ("f" w3m-lnum-follow)
-         ("g" w3m-lnum-goto)
-         ("q" nil))
-       ;; y is not used by default
-       (define-key gnus-article-mode-map "y" 'hydra-gnus-article/body)))
-
-  ;; message-mode
-  (eval-after-load 'message
-    '(progn
-       (defhydra hydra-message (:color blue)
-    "
-  [_c_] Complete mail address
-  [_a_] Attach file
-  [_s_] Send mail (C-c C-c)
-  "
-         ("c" counsel-bbdb-complete-mail)
-         ("a" mml-attach-file)
-         ("s" message-send-and-exit)
-         ("i" dianyou-insert-email-address-from-received-mails)
-         ("q" nil))))
-
-  (defun message-mode-hook-hydra-setup ()
-    (local-set-key (kbd "C-c C-y") 'hydra-message/body))
-  (add-hook 'message-mode-hook 'message-mode-hook-hydra-setup)
-#+end_src
-
 *** edbd
 #+begin_src emacs-lisp
   ;; (add-hook 'message-mode-hook
