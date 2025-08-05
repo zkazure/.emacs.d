@@ -3436,60 +3436,8 @@ jump to everywhere quickly
 ~C-u C-SPC~ will take you back to last mark. Many operation in Emacs will auto create a mark. 
 
 ** dictionary
-do first
-#+begin_src sh :tangle no
-  sudo apt install dictd
-  sudo apt install dict-gcide 
-  sudo apt install dict-jargon
-#+end_src
-
 
 #+begin_src emacs-lisp
-  (require 'dictionary)
-
-  (setq dictionary-server "localhost")
-
-  (setq dictionary-default-dictionary-list '("gcide" "jargon"))
-  (setq dictionary-default-search-dictionary "gcide")
-
-  ;; 设置为在单个缓冲区中显示所有结果，避免创建过多的窗口。
-  (setq dictionary-use-single-buffer t)
-
-  ;; 设置 dictionary-mode 的字体样式，使其更易于阅读。
-  ;; 这里我们使用自定义的 face，但你也可以根据自己的喜好调整。
-  (custom-set-faces
-   '(dictionary-word-face ((t (:inherit font-lock-variable-name-face :weight bold))))
-   '(dictionary-definition-face ((t (:inherit default :weight normal))))
-   '(dictionary-header-face ((t (:inherit font-lock-comment-face :height 1.1))))
-   '(dictionary-info-face ((t (:inherit font-lock-doc-face))))
-   )
-#+end_src
-
-
-** eaf 
-#+begin_src elisp
-  (require 'eaf)
-  (require 'eaf-browser)
-  (require 'eaf-jupyter)
-  (require 'eaf-rss-reader)  
-
-  (global-set-key (kbd "C-c o b") 'eaf-open-browser-with-history)
-  (global-set-key (kbd "C-c o j") 'eaf-open-jupyter)
-  (global-set-key (kbd "C-c o r") 'eaf-open-rss-reader)
-
-  (setq eaf-browser-keybinding
-    (remove '("M-o" . "eval_js") eaf-browser-keybinding))
-  (setq eaf-browser-keybinding
-    (remove '("M-o" . "eval_js") eaf-browser-keybinding))
-  (setq eaf-browser-chrome-browser-name "Chromium")
-  (setq eaf-browser-auto-import-chrome-cookies t)
-  (setq eaf-chrome-bookmark-file "~/.config/chromium/Default/Bookmarks")
-
-  (setq eaf-python-command "~/.emacs.d/eaf-env/.venv/bin/python")
-#+end_src
-
-** fanyi
-#+begin_src elisp
   (require 'fanyi)
 
   (customize-set-variable 'fanyi-providers
@@ -3499,6 +3447,38 @@ do first
   (setq fanyi-auto-select nil)
   (global-set-key (kbd "C-c n t") #'fanyi-dwim2)
   (global-set-key (kbd "C-c n T") #'fanyi-dwim)
+#+end_src
+
+** RSS
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-c o e") 'elfeed)
+
+  ;; Somewhere in your .emacs file
+  (setq elfeed-feeds
+        '(("http://nullprogram.com/feed/" blog emacs
+           "https://planet.emacslife.com/atom.xml")
+          "http://www.50ply.com/atom.xml"  ; no autotagging
+          ("http://nedroid.com/feed/" webcomic)
+          ))
+#+end_src
+
+** eaf 
+#+begin_src elisp
+  (require 'eaf)
+  (require 'eaf-browser)
+  (require 'eaf-jupyter)
+  (require 'eaf-pdf-viewer)
+
+  (setq eaf-webengine-default-zoom 1.25)
+  (global-set-key (kbd "C-c o b") 'eaf-open-browser-with-history)
+  (global-set-key (kbd "C-c o j") 'eaf-open-jupyter)
+  (global-set-key (kbd "C-c o r") 'eaf-open-rss-reader)
+
+  (setq eaf-browser-chrome-browser-name "Chromium")
+  (setq eaf-browser-auto-import-chrome-cookies t)
+  (setq eaf-chrome-bookmark-file "~/.config/chromium/Default/Bookmarks")
+
+  (setq eaf-python-command "~/.emacs.d/eaf-env/.venv/bin/python")
 #+end_src
 
 ** END
