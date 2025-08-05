@@ -184,6 +184,9 @@
 [submodule "plantuml-mode"]
 	path = lib/plantuml-mode
 	url = https://github.com/skuro/plantuml-mode
+[submodule "popper"]
+	path = lib/popper
+	url = https://github.com/karthink/popper
 [submodule "posframe"]
 	path = lib/posframe
 	url = https://github.com/tumashu/posframe
