@@ -1600,21 +1600,21 @@ jump to everywhere quickly
   (dolist (mode '(pdf-view-mode-hook))
     (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
-  (add-hook 'pdf-view-mode-hook 'pdf-view-fit-width-to-window) ;; 自动放大到页宽
+  (add-hook 'pdf-view-mode-hook 'pdf-view-fit-width-to-window)
 
   (setq TeX-PDF-mode t)
-  (setq TeX-source-correlate-mode t) ;; 编译后开启正反向搜索
-  (setq TeX-source-correlate-method 'synctex) ;; 正反向搜索的执行方式
-  (setq TeX-source-correlate-start-server t) ;; 不再询问是否开启服务器以执行反向搜索
+  (setq TeX-source-correlate-mode t)
+  (setq TeX-source-correlate-method 'synctex)
+  (setq TeX-source-correlate-start-server t)
 
-  (setq TeX-view-program-selection '((output-pdf "PDF Tools"))) ;; 用pdf-tools 打开 pdf
+  (setq TeX-view-program-selection '((output-pdf "PDF Tools")))
   (add-hook 'TeX-after-compilation-finished-functions
-            #'TeX-revert-document-buffer) ;; 在完成编译后刷新 pdf 文件
+            #'TeX-revert-document-buffer)
 
   (define-key pdf-view-mode-map
-              "D" 'pdf-view-next-page-command) ;; 向后翻页
+              "D" 'pdf-view-next-page-command)
   (define-key pdf-view-mode-map
-              "A" 'pdf-view-previous-page-command) ;; 向前翻页
+              "A" 'pdf-view-previous-page-command)
   (define-key pdf-view-mode-map
               "s" 'pdf-roll-scroll-forward)
   (define-key pdf-view-mode-map
@@ -1624,10 +1624,10 @@ jump to everywhere quickly
   (define-key pdf-view-mode-map
               "a" 'image-backward-hscroll)
 
-  (define-key pdf-annot-minor-mode-map (kbd "C-a a") 'pdf-annot-add-highlight-markup-annotation) ;; 高亮
-  (define-key pdf-annot-minor-mode-map (kbd "C-a s") 'pdf-annot-add-squiggly-markup-annotation) ;; 波浪线
-  (define-key pdf-annot-minor-mode-map (kbd "C-a u") 'pdf-annot-add-underline-markup-annotation) ;; 下划线
-  (define-key pdf-annot-minor-mode-map (kbd "C-a d") 'pdf-annot-delete) ;; 删除
+  (define-key pdf-annot-minor-mode-map (kbd "C-a a") 'pdf-annot-add-highlight-markup-annotation)
+  (define-key pdf-annot-minor-mode-map (kbd "C-a s") 'pdf-annot-add-squiggly-markup-annotation)
+  (define-key pdf-annot-minor-mode-map (kbd "C-a u") 'pdf-annot-add-underline-markup-annotation)
+  (define-key pdf-annot-minor-mode-map (kbd "C-a d") 'pdf-annot-delete)
 
   (define-key pdf-history-minor-mode-map "b" 'pdf-history-backward)
 
@@ -1649,6 +1649,7 @@ jump to everywhere quickly
 ** org noter
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-org-noter.el
+:GPTEL_TOPIC: org-noter
 :END:
 
 #+begin_src emacs-lisp
@@ -1660,13 +1661,15 @@ jump to everywhere quickly
   (define-key org-noter-doc-mode-map (kbd "M-c") 'org-noter-insert-precise-note)
 
   (defun kz/org-noter-insert-precise-note-and-id ()
-      (org-noter-insert-precise-note)
-      (org-id-get-create))
+    (interactive)
+    (org-noter-insert-precise-note)
+    (org-id-get-create))
   (defun kz/org-noter-insert-note-and-id ()
-      (org-noter-insert-note)
-      (org-id-get-create))
+    (interactive)
+    (org-noter-insert-note)
+    (org-id-get-create))
   (define-key org-noter-doc-mode-map (kbd "e") 'kz/org-noter-insert-note-and-id)
-  (define-key org-noter-doc-mode-map (kbd "M-e") 'org-noter-insert-precise-note-and-id)
+  (define-key org-noter-doc-mode-map (kbd "M-e") 'kz/org-noter-insert-precise-note-and-id)
 
   (setq org-noter-auto-save-last-location t)
   (setq org-noter-highlight-selected-text t)
