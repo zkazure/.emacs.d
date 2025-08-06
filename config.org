@@ -376,20 +376,10 @@
   (column-number-mode)
 
   ;; display line numbers and disable in some mode
-  (global-display-line-numbers-mode t)
   ;; (setq-default display-line-numbers-width 4)
   (global-visual-line-mode t)  
 
-  (dolist (mode '(org-mode-hook
-                  vterm-mode-hook
-                  dired-mode-hook
-                  markdown-mode-hook
-                  lisp-interaction-mode-hook
-                  org-agenda-mode-hook
-                  ibuffer-mode-hook))
-    (add-hook mode (lambda () (display-line-numbers-mode -1))))
-
-
+  (add-hook 'prog-mode-hook #'(lambda () (display-line-numbers 1)))
   (setq next-screen-context-lines 40)
 
   (setq enable-recursive-minibuffers +1)
