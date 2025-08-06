@@ -2663,9 +2663,6 @@ jump to everywhere quickly
 
 *** account
 #+begin_src elisp
-  (setq user-mail-address (getenv "ZOHO_USER"))
-  (setq user-full-name (getenv "MY_NAME"))
-
   (setq smtpmail-smtp-server "smtppro.zoho.com"
         smtpmail-smtp-service 465
         smtpmail-stream-type 'ssl
@@ -2673,13 +2670,20 @@ jump to everywhere quickly
         )
 
   (setq send-mail-function 'smtpmail-send-it)
+  ;; (setq mail-user-agent 'sendmail-user-agent)  
+  (setq mail-user-agent 'mu4e-user-agent)
+  (setq mu4e-compose-in-reply-to-function #'mu4e-compose-in-reply-to-function)
 #+end_src
 
 *** mu4e
 #+begin_src elisp
   ;; (add-to-list 'load-path "~/.emacs.d/lib/mu4e/mu4e")
   (require 'mu4e)
-  (require 'mu4e-compose)
+
+  (setq mu4e-notification-support t)
+  (setq mu4e-eldoc-support t)
+
+  (global-set-key (kbd "C-c n C") 'mu4e-org-store-and-capture)
   ;; Show images
   (setq mu4e-show-images t)
 
@@ -2778,6 +2782,7 @@ jump to everywhere quickly
 
 *** END
 #+begin_src elisp
+
   (provide 'init-mail)
 #+end_src
 
