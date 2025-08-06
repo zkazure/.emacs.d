@@ -1578,28 +1578,14 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (require 'pdf-tools)
 
-  (require 'pdf-annot)
-  (require 'pdf-cache)
-  (require 'pdf-dev)
+  (require 'pdf-occur)
   (require 'pdf-history)
-  (require 'pdf-info)
-  (require 'pdf-isearch)
-  (require 'pdf-links)  
-  (require 'pdf-loader)    
-  (require 'pdf-misc)    
-  (require 'pdf-occur)      
-  (require 'pdf-outline)        
-  (require 'pdf-roll)          
-  (require 'pdf-sync)            
-  (require 'pdf-util)              
-  (require 'pdf-view)                
-  (require 'pdf-virtual)                  
+  (require 'pdf-links)
+  (require 'pdf-outline)
+  (require 'pdf-annot)
+  (require 'pdf-sync)
 
   (pdf-tools-install)
-  (pdf-loader-install)
-
-  (dolist (mode '(pdf-view-mode-hook))
-    (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
   (add-hook 'pdf-view-mode-hook 'pdf-view-fit-width-to-window)
 
@@ -1617,9 +1603,9 @@ jump to everywhere quickly
   (define-key pdf-view-mode-map
               "A" 'pdf-view-previous-page-command)
   (define-key pdf-view-mode-map
-              "s" 'pdf-roll-scroll-forward)
+              "s" 'pdf-view-scroll-up-or-next-page)
   (define-key pdf-view-mode-map
-              "w" 'pdf-roll-scroll-backward)
+              "w" 'pdf-view-scroll-down-or-previous-page)
   (define-key pdf-view-mode-map
               "d" 'image-forward-hscroll)
   (define-key pdf-view-mode-map
@@ -1632,7 +1618,7 @@ jump to everywhere quickly
 
   (define-key pdf-history-minor-mode-map "b" 'pdf-history-backward)
 
-  (add-hook 'pdf-view-mode-hook #'pdf-view-roll-minor-mode)
+  ;; (add-hook 'pdf-view-mode-hook #'pdf-view-roll-minor-mode)
   (define-key pdf-view-mode-map (kbd "t") #'fanyi-dwim)
   (provide 'init-pdf-tools)
 #+end_src
