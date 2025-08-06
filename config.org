@@ -3286,6 +3286,7 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (require 'highlight-indent-guides)
 
+  (setq highlight-indent-guides-method 'character)
   (set-face-background 'highlight-indent-guides-odd-face "tomato")
   (set-face-background 'highlight-indent-guides-even-face "red3")
   (set-face-foreground 'highlight-indent-guides-character-face "red3")
@@ -3305,7 +3306,7 @@ jump to everywhere quickly
   (dolist (hook (list
                  'prog-mode-hook
                  'org-mode-hook))
-    (add-hook hook 'whitespace-cleanup-mode))
+    (add-hook hook 'whitespace-mode))
 
   (setq whitespace-style '(face trailing blanks))
 
