@@ -3282,6 +3282,17 @@ jump to everywhere quickly
   (setq eaf-python-command "~/.emacs.d/eaf-env/.venv/bin/python")
 #+end_src
 
+** highlight-indent-guides
+#+begin_src emacs-lisp
+  (require 'highlight-indent-guides)
+
+  (set-face-background 'highlight-indent-guides-odd-face "tomato")
+  (set-face-background 'highlight-indent-guides-even-face "red3")
+  (set-face-foreground 'highlight-indent-guides-character-face "red3")
+
+  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+#+end_src
+
 ** END
 
 #+begin_src emacs-lisp

@@ -94,6 +94,9 @@
 [submodule "gptel-magit"]
 	path = lib/gptel-magit
 	url = https://github.com/ragnard/gptel-magit
+[submodule "highlight-indent-guides"]
+	path = lib/highlight-indent-guides
+	url = https://github.com/DarthFennec/highlight-indent-guides
 [submodule "highlight-matching-tag"]
 	path = lib/highlight-matching-tag
 	url = https://github.com/manateelazycat/highlight-matching-tag.git
