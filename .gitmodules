@@ -268,6 +268,9 @@
 [submodule "which-key-posframe"]
 	path = lib/which-key-posframe
 	url = https://github.com/emacsorphanage/which-key-posframe
+[submodule "whitespace-cleanup-mode"]
+	path = lib/whitespace-cleanup-mode
+	url = https://github.com/purcell/whitespace-cleanup-mode
 [submodule "with-editor"]
 	path = lib/with-editor
 	url = https://github.com/magit/with-editor.git

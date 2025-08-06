@@ -3293,6 +3293,24 @@ jump to everywhere quickly
   (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
 #+end_src
 
+** whitespace
+#+begin_src emacs-lisp
+  (require 'whitespace-cleanup-mode)
+
+  (dolist (hook (list
+                 'prog-mode-hook
+                 'org-mode-hook))
+    (add-hook hook 'whitespace-cleanup-mode))
+
+  (dolist (hook (list
+                 'prog-mode-hook
+                 'org-mode-hook))
+    (add-hook hook 'whitespace-cleanup-mode))
+
+  (setq whitespace-style '(face trailing blanks))
+
+#+end_src
+
 ** END
 
 #+begin_src emacs-lisp
