@@ -377,9 +377,9 @@
 
   ;; display line numbers and disable in some mode
   ;; (setq-default display-line-numbers-width 4)
-  (global-visual-line-mode t)  
+  (global-visual-line-mode t)
 
-  (add-hook 'prog-mode-hook #'(lambda () (display-line-numbers 1)))
+  (add-hook 'prog-mode-hook #'(lambda () (display-line-numbers-mode 1)))
   (setq next-screen-context-lines 40)
 
   (setq enable-recursive-minibuffers +1)
