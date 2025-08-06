@@ -604,7 +604,7 @@
   ;;         ))
 
   (setq org-directory "~/Documents/org/")
-  (setq org-agenda-files '("~/Documents/org/agenda.org"))
+  (setq org-agenda-files '("~/Documents/org/agenda.org" "~/Documents/org/todo.org"))
 
   (setq org-agenda-skip-scheduled-if-done nil)
   (setq org-agenda-skip-deadline-if-done nil)
@@ -652,6 +652,14 @@ set the org capture template
   (add-to-list 'org-capture-templates
                '("i" "Inbox" entry (file "~/Documents/roam/inbox.org")
                  "* %^{title} \n %?\n"))
+
+  (add-to-list 'org-capture-templates
+               '("t" "Todo" entry (file+header "~/Documents/org/todo.org" "GTD")
+                 "* TODO %^{title}\n%?"))
+
+  (add-to-list 'org-capture-templates
+               '("m" "Mail" entry (file+header "~/Documents/org/todo.org" "GTD")
+                 "* TODO %:fromname: %a %?\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))"))
 
   ;; (add-to-list 'org-capture-templates '("b" "Blog"))
 
