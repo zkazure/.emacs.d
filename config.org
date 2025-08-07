@@ -380,7 +380,8 @@
   (global-visual-line-mode t)
 
   (add-hook 'prog-mode-hook #'(lambda () (display-line-numbers-mode 1)))
-  (setq next-screen-context-lines 40)
+  (setq next-screen-context-lines 20)
+  ;;FIXED the problem of pdf rolling problem,value can't larger than 21
 
   (setq enable-recursive-minibuffers +1)
   (setq cursor-in-non-selected-windows nil)
