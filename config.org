@@ -655,11 +655,11 @@ set the org capture template
                  "* %^{title} \n %?\n"))
 
   (add-to-list 'org-capture-templates
-               '("t" "Todo" entry (file+header "~/Documents/org/todo.org" "GTD")
+               '("t" "Todo" entry (file+headline "~/Documents/org/agenda.org" "GTD")
                  "* TODO %^{title}\n%?"))
 
   (add-to-list 'org-capture-templates
-               '("m" "Mail" entry (file+header "~/Documents/org/todo.org" "GTD")
+               '("m" "Mail" entry (file+headline "~/Documents/org/agenda.org" "GTD")
                  "* TODO %:fromname: %a %?\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))"))
 
   ;; (add-to-list 'org-capture-templates '("b" "Blog"))
