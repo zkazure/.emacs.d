@@ -13,6 +13,7 @@
 /org-roam.db
 /*.el
 /.cache
+/go/
 
 lisp/
 lib/lsp-bridge/
@@ -25,3 +26,6 @@ lib/lsp-bridge/
 /projectile-bookmarks.eld
 /.emacs.desktop*
 /projects
+/eaf/
+/ebdb
+/network-security.data
