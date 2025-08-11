@@ -3175,6 +3175,7 @@ jump to everywhere quickly
   (require 'eaf-browser)
   (require 'eaf-jupyter)
   ;; (require 'eaf-pdf-viewer)
+  (require 'eaf-video-player)
 
   (setq eaf-webengine-default-zoom 1.25)
   (global-set-key (kbd "C-c o b") 'eaf-open-browser-with-history)
