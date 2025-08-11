@@ -14,6 +14,7 @@ However, there is still a long way to go.
      
 * Todo List
 
+- [ ] auto tangle.
 - [ ] magit forge
 - [ ] customize theme
 - [ ] save tab-bar
@@ -21,6 +22,7 @@ However, there is still a long way to go.
 - [ ] present in Emacs
 - [ ] easy-nav in read-only mode
 - [ ] ace-window
+- [ ] org-links
 
 * Acknowlegements
 
