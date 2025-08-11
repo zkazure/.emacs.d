@@ -3230,6 +3230,13 @@ jump to everywhere quickly
   (setq whitespace-style '(face trailing blanks))
 #+end_src
 
+** colorful-mode
+#+begin_src elisp
+  (require 'colorful-mode)
+  (setq global-colorful-mode t)
+  (add-to-list 'global-colorful-modes 'helpful-mode)
+#+end_src
+
 ** END
 
 #+begin_src emacs-lisp

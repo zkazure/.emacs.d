@@ -15,6 +15,7 @@ However, there is still a long way to go.
 * Todo List
 
 - [X] auto tangle.
+- [X] colorful-mode
 - [ ] magit forge
 - [ ] save tab-bar
 - [ ] aggressive-indent
@@ -22,8 +23,9 @@ However, there is still a long way to go.
 - [ ] easy-nav in read-only mode
 - [ ] ace-window
 - [ ] org-links
+- [ ] symbol overlay
 
-* Acknowlegements
+* Acknowledgments
 
 Special thanks to 
 - [[https://github.com/manateelazycat][ManateeLazyCat]]: author of *lsp-bridge*
