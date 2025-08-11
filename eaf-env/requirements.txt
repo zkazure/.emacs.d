@@ -1,0 +1,12 @@
+pycookiecheat
+PyQt6
+PyQt6-WebEngine
+sexpdata
+epc
+
+fitz
+frontend
+pymupdf
+
+qtconsole
+
