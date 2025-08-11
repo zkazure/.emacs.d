@@ -3184,7 +3184,7 @@ jump to everywhere quickly
 #+end_src
 
 ** whitespace
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (require 'whitespace-cleanup-mode)
 
   (dolist (hook (list
@@ -3194,11 +3194,10 @@ jump to everywhere quickly
 
   (dolist (hook (list
                  'prog-mode-hook
-                 'org-mode-hook))
+                 ))
     (add-hook hook 'whitespace-mode))
 
   (setq whitespace-style '(face trailing blanks))
-
 #+end_src
 
 ** END
