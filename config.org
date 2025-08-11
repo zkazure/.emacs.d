@@ -2544,7 +2544,7 @@ jump to everywhere quickly
           (default
            . "You are a large language model and a conversation partner. Respond concisely.\n1. When I send a message, immediately check and point out any grammar mistakes or awkward wording.\n2. After feedback, answer my questions or provide your response in advanced, fluent English (above TOEFL 110 or IELTS 8.0 level).\n3. At the end of your response, explain any difficult grammar structures and advanced words you used, using clear English suitable for CET-4 550 level.\n")
           (rewrite
-           . "Please rewrite the following words or paragraphs and preserve original length as much as possible.")
+           . "Please rewrite the following words or paragraphs\n1. preserve original length.\n2. maintain original style\n3. correct grammatical errors")
           (super-rewrite
            . "Please rewrite the following words or paragraphs and preserve original length as much as possible. Your rewrite should:\n\n1. **Enhance academic precision** by refining terminology and eliminating ambiguous phrasing\n2. **Strengthen analytical depth** through more sophisticated argumentation, evidence presentation and logical progression between ideas\n3. **Improve technical clarity** by explaining complex concepts more accessibly without sacrificing accuracy\n4. **Adapt stylistic approach** based on content type:\n   - Formal academic tone for research-oriented material\n   - Professional technical style for industry applications\n   - Measured journalistic approach for broader academic dissemination\n5. Finally, point out what you modified")
           (programming
