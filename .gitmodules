@@ -82,9 +82,6 @@
 [submodule "fanyi"]
 	path = lib/fanyi
 	url = https://github.com/condy0919/fanyi.el
-[submodule "fingertip"]
-	path = lib/fingertip
-	url = https://github.com/manateelazycat/fingertip.git
 [submodule "git-modes"]
 	path = lib/git-modes
 	url = https://github.com/magit/git-modes.git
