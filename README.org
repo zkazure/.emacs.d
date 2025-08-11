@@ -14,9 +14,8 @@ However, there is still a long way to go.
      
 * Todo List
 
-- [ ] auto tangle.
+- [X] auto tangle.
 - [ ] magit forge
-- [ ] customize theme
 - [ ] save tab-bar
 - [ ] aggressive-indent
 - [ ] present in Emacs

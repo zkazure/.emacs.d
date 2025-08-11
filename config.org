@@ -1,3 +1,4 @@
+# -*- eval: (add-hook 'after-save-hook 'org-babel-tangle 'append 'local) -*-
 #+title: Emacs Configuration
 #+startup: show2levels
 
