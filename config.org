@@ -2581,8 +2581,7 @@ jump to everywhere quickly
 *** account
 #+begin_src elisp
   ;; (require 'private)
-  (setq user-mail-address "hello@kazurezheng.xyz")
-  (setq user-full-name "Kazure Zheng")
+
   (setq smtpmail-smtp-server "smtppro.zoho.com"
         smtpmail-smtp-service 465
         smtpmail-stream-type 'ssl
