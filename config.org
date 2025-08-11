@@ -913,8 +913,19 @@ jump to everywhere quickly
 :END:
 #+begin_src emacs-lisp
   (require 'dirvish)
-  (define-key global-map "\C-xd" 'dirvish)
+  (add-to-list 'load-path "~/.emacs.d/lib/dirvish/extensions/")
+  (dirvish-override-dired-mode)
+  (define-key global-map (kbd "C-x d") 'dirvish)
   (define-key dired-mode-map (kbd "b") 'dired-up-directory)
+
+  (setq dirvish-mode-line-format
+        '(:left (sort symlink) :right (omit yank index)))
+  (setq dirvish-attributes           ; The order *MATTERS* for some attributes
+        '(vc-state subtree-state nerd-icons collapse git-msg file-time file-size)
+        dirvish-side-attributes
+        '(vc-state nerd-icons collapse file-size))
+  ;; open large directory (over 20000 files) asynchronously with `fd' command
+  (setq dirvish-large-directory-threshold 20000)
 
   (provide 'init-dirvish)
 #+end_src
