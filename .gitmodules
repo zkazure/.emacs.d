@@ -31,6 +31,9 @@
 [submodule "closql"]
 	path = lib/closql
 	url = https://github.com/magit/closql.git
+[submodule "colorful-mode"]
+	path = lib/colorful-mode
+	url = https://github.com/DevelopmentCool2449/colorful-mode
 [submodule "compat"]
 	path = lib/compat
 	url = https://github.com/emacs-compat/compat.git
@@ -151,9 +154,6 @@
 [submodule "neotree"]
 	path = lib/neotree
 	url = https://github.com/jaypei/emacs-neotree
-[submodule "pdf-tools"]
-	path = lib/pdf-tools
-	url = https://github.com/aikrahguzar/pdf-tools.git
 [submodule "olivetti"]
 	path = lib/olivetti
 	url = https://github.com/rnkn/olivetti
@@ -184,6 +184,9 @@
 [submodule "parsebib"]
 	path = lib/parsebib
 	url = https://github.com/joostkremers/parsebib
+[submodule "pdf-tools"]
+	path = lib/pdf-tools
+	url = https://github.com/aikrahguzar/pdf-tools.git
 [submodule "pdf-tools"]
 	path = lib/pdf-tools
 	url = https://github.com/vedang/pdf-tools
