@@ -16,6 +16,7 @@ However, there is still a long way to go.
 
 - [X] auto tangle.
 - [X] colorful-mode
+- [X] symbol overlay
 - [ ] magit forge
 - [ ] save tab-bar
 - [ ] aggressive-indent
@@ -23,7 +24,6 @@ However, there is still a long way to go.
 - [ ] easy-nav in read-only mode
 - [ ] ace-window
 - [ ] link-hint
-- [ ] symbol overlay
 
 * Acknowledgments
 
