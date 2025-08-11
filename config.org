@@ -464,7 +464,15 @@
 :END:
 
 #+begin_src emacs-lisp
-  (load-theme 'modus-operandi-tinted)
+
+  (defvar my-themes '(modus-operandi-tinted modus-operandi-deuteranopia modus-vivendi-tinted))
+
+  (defun load-random-theme ()
+    (interactive)
+    (load-theme (nth (random (length my-themes)) my-themes) t))
+
+  (load-random-theme)
+  ;; (load-theme 'modus-operandi-tinted)
 
   (provide 'init-theme)
 #+end_src
