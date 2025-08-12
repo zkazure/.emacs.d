@@ -18,12 +18,12 @@ However, there is still a long way to go.
 - [X] colorful-mode
 - [X] symbol overlay
 - [X] ace-window
+- [X] link-hint
 - [ ] magit forge
 - [ ] save tab-bar
 - [ ] aggressive-indent
 - [ ] present in Emacs
 - [ ] easy-nav in read-only mode
-- [ ] link-hint
 
 * Acknowledgments
 
