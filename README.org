@@ -21,12 +21,12 @@ However, there is still a long way to go.
 - [X] link-hint
 - [X] doom-modeline
 - [X] org-superstar-mode
+- [ ] meow mode edit
 - [ ] dape
 - [ ] magit forge
 - [ ] save tab-bar
 - [ ] aggressive-indent
 - [ ] present in Emacs
-- [ ] easy-nav in read-only mode
 
 * Acknowledgments
 
