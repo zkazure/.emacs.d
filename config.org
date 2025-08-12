@@ -3319,6 +3319,12 @@ jump to everywhere quickly
   (global-set-key (kbd "C-c o L") 'link-hint-copy-link)
 #+end_src
 
+** doom-modeline
+#+begin_src emacs-lisp
+  (require 'doom-modeline)
+  (doom-modeline-mode 1)
+#+end_src
+
 ** END
 
 #+begin_src emacs-lisp
