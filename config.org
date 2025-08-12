@@ -349,6 +349,7 @@
   (require 'init-tag)
   (require 'init-ai)
   (require 'init-mail)
+  (require 'init-ace-window)
 
   (require 'init-personal)
   (require 'init-test)
@@ -491,11 +492,11 @@
 
   (setq org-log-into-drawer t)
 
-  (setq org-tags-column -80
+  (setq org-tags-column 0
         org-catch-invisible-edits 'smart
         org-startup-indented t
-        org-hide-leading-stars t)
-  (add-hook 'org-mode-hook 'org-num-mode)
+        org-hide-leading-stars nil
+        org-indent-mode-turns-on-hiding-stars nil)
 
   (with-eval-after-load 'org
     ;; Make verbatim with highlight text background.
@@ -3323,6 +3324,27 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (require 'doom-modeline)
   (doom-modeline-mode 1)
+#+end_src
+
+** org-superstar-mode
+#+begin_src emacs-lisp
+  (require 'org-superstar)
+  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
+
+  ;; (with-eval-after-load 'org-superstar
+  ;;   (setq org-superstar-headline-bullets-list '("☰" "☱" "☲" "☳" "☴" "☵" "☶" "☷" ))
+  ;;   (setq org-superstar-item-bullet-alist '((?- . ?•) (?+ . ?➤)))
+  ;;   (setq org-superstar-special-todo-items t))
+
+  (with-eval-after-load 'org-superstar
+    (setq org-superstar-leading-bullet ?\s)
+    (setq org-superstar-special-todo-items t)
+    (setq org-superstar-item-bullet-alist '((43 . "⬧") (45 . "⬨")))
+    (setq org-superstar-headline-bullets-list '("☰" "☱" "☲" "☳" "☴" "☵" "☶" "☷"))
+    )
+
+  (custom-set-faces
+   '(org-superstar-header-bullet ((t (:weight normal :height 1.04)))))
 #+end_src
 
 ** END

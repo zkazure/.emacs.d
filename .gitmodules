@@ -193,6 +193,9 @@
 [submodule "org-roam-ui"]
 	path = lib/org-roam-ui
 	url = https://github.com/org-roam/org-roam-ui
+[submodule "org-superstar"]
+	path = lib/org-superstar
+	url = https://github.com/integral-dw/org-superstar-mode
 [submodule "ox-hugo"]
 	path = lib/ox-hugo
 	url = https://github.com/kaushalmodi/ox-hugo
