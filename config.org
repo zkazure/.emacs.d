@@ -3325,7 +3325,6 @@ jump to everywhere quickly
   (require 'doom-modeline)
   (doom-modeline-mode 1)
 #+end_src
-
 ** org-superstar-mode
 #+begin_src emacs-lisp
   (require 'org-superstar)
@@ -3338,13 +3337,13 @@ jump to everywhere quickly
 
   (with-eval-after-load 'org-superstar
     (setq org-superstar-leading-bullet ?\s)
-    (setq org-superstar-special-todo-items t)
+    (setq org-superstar-special-todo-items nil)
     (setq org-superstar-item-bullet-alist '((43 . "⬧") (45 . "⬨")))
     (setq org-superstar-headline-bullets-list '("☰" "☱" "☲" "☳" "☴" "☵" "☶" "☷"))
     )
 
   (custom-set-faces
-   '(org-superstar-header-bullet ((t (:weight normal :height 1.04)))))
+   '(org-superstar-header-bullet ((t (:weight normal :height 1.2)))))
 #+end_src
 
 ** END
