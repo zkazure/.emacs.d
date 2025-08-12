@@ -17,12 +17,12 @@ However, there is still a long way to go.
 - [X] auto tangle.
 - [X] colorful-mode
 - [X] symbol overlay
+- [X] ace-window
 - [ ] magit forge
 - [ ] save tab-bar
 - [ ] aggressive-indent
 - [ ] present in Emacs
 - [ ] easy-nav in read-only mode
-- [ ] ace-window
 - [ ] link-hint
 
 * Acknowledgments
