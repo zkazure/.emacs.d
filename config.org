@@ -3311,6 +3311,14 @@ jump to everywhere quickly
   ;; (global-set-key (kbd "<f8>") 'symbol-overlay-remove-all)
 #+end_src
 
+** link-hint
+#+begin_src emacs-lisp
+  (require 'link-hint)
+  
+  (global-set-key (kbd "C-c o l") 'link-hint-open-link)
+  (global-set-key (kbd "C-c o L") 'link-hint-copy-link)
+#+end_src
+
 ** END
 
 #+begin_src emacs-lisp
