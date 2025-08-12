@@ -58,6 +58,9 @@
 [submodule "dirvish"]
 	path = lib/dirvish
 	url = https://github.com/alexluigit/dirvish
+[submodule "doom-modeline"]
+	path = lib/doom-modeline
+	url = https://github.com/seagle0128/doom-modeline
 [submodule "eaf"]
 	path = lib/eaf
 	url = https://github.com/emacs-eaf/emacs-application-framework
@@ -88,6 +91,9 @@
 [submodule "fanyi"]
 	path = lib/fanyi
 	url = https://github.com/condy0919/fanyi.el
+[submodule "ghub"]
+	path = lib/ghub
+	url = https://github.com/magit/ghub
 [submodule "git-modes"]
 	path = lib/git-modes
 	url = https://github.com/magit/git-modes.git
@@ -160,6 +166,9 @@
 [submodule "neotree"]
 	path = lib/neotree
 	url = https://github.com/jaypei/emacs-neotree
+[submodule "nerd-icons"]
+	path = lib/nerd-icons
+	url = https://github.com/rainstormstudio/nerd-icons.el
 [submodule "olivetti"]
 	path = lib/olivetti
 	url = https://github.com/rnkn/olivetti
@@ -226,6 +235,9 @@
 [submodule "s"]
 	path = lib/s
 	url = https://github.com/magnars/s.el
+[submodule "shrink-path"]
+	path = lib/shrink-path
+	url = https://gitlab.com/bennya/shrink-path.el
 [submodule "simple-httpd"]
 	path = lib/simple-httpd
 	url = https://github.com/skeeto/emacs-web-server

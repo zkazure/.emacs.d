@@ -19,6 +19,7 @@ However, there is still a long way to go.
 - [X] symbol overlay
 - [X] ace-window
 - [X] link-hint
+- [X] doom-modeline
 - [ ] magit forge
 - [ ] save tab-bar
 - [ ] aggressive-indent
