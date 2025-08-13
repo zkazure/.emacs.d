@@ -2348,7 +2348,7 @@ jump to everywhere quickly
     (:color blue :quit-key "C-g" :title "Org Hydra")
     ("Basic"
      (("a" (hot-expand "<a") "ascii")
-      ("c" (hot-expand "<c") "center")
+      ;; ("c" (hot-expand "<c") "center")
       ("C" (hot-expand "<C") "comment")
       ("x" (hot-expand "<e") "example")
       ("E" (hot-expand "<E") "export")
@@ -2365,8 +2365,9 @@ jump to everywhere quickly
      ;;  ("H" (hot-expand "<H") "HTML")
      ;;  ("L" (hot-expand "<L") "LaTeX"))
      "Source"
-     (("s" (hot-expand "<s") "src")
-      ("e" (hot-expand "<s" "emacs-lisp") "emacs-lisp")
+     (("c" (hot-expand "<s" "cpp") "cpp")
+      ("s" (hot-expand "<s") "src")
+      ("e" (hot-expand "<s" "elisp") "emacs-lisp")
       ("p" (hot-expand "<s" "python :results output") "python")
       ("j" (hot-expand "<s" "javascript") "javascript")
       ("w" (hot-expand "<s" "powershell") "powershell")
