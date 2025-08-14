@@ -3351,6 +3351,11 @@ jump to everywhere quickly
   (custom-set-faces
    '(org-superstar-header-bullet ((t (:weight normal :height 1.2)))))
 #+end_src
+** keycast
+#+begin_src elisp
+  (require 'keycast)
+  (setq keycast-tab-bar-mode t)
+#+end_src
 ** END
 
 #+begin_src emacs-lisp
