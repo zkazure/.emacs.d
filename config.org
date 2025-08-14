@@ -2779,15 +2779,16 @@ jump to everywhere quickly
   (require 'lsp-bridge-jdtls)
 
   ;;; Code:
-  (add-hook 'find-file-hook #'lsp-bridge-restart-process)
-  (add-hook 'org-edit-special-hook #'lsp-bridge-restart-process)
-
-  (setq lsp-bridge-python-command (expand-file-name "~/.emacs.d/lsp-bridge-env/.venv/bin/python3"))
+  ;; (add-hook 'find-file-hook #'lsp-bridge-restart-process)
+  ;; (add-hook 'org-edit-special-hook #'lsp-bridge-restart-process)
 
   (setq lsp-bridge-enable-completion-in-minibuffer t)
+  (setq lsp-bridge-python-command (expand-file-name "~/.emacs.d/lsp-bridge-env/.venv/bin/python3"))
+  ;; (setq lsp-pyright-langserver-command "~/.emacs.d/lsp-bridge-env/.venv/bin/python3 -m basedpyright")
+
   (setq lsp-bridge-signature-show-function 'lsp-bridge-signature-show-with-frame)
   (setq lsp-bridge-enable-with-tramp t)
-  (setq lsp-bridge-enable-org-babel nil)
+  (setq lsp-bridge-enable-org-babel t)
   (setq acm-enable-capf t)
   (setq acm-enable-quick-access t)
   (setq acm-backend-yas-match-by-trigger-keyword t)
@@ -2821,6 +2822,9 @@ jump to everywhere quickly
                     (when (search-forward-regexp (regexp-quote "from \"https://deno.land") nil t)
                       (return "deno")))))))))
 
+  (global-set-key (kbd "C-c l f") 'lsp-bridge-find-def)
+  (global-set-key (kbd "C-c l r") 'lsp-bridge-find-def-return)
+  (global-set-key (kbd "C-c l R") 'lsp-bridge-find-find-references)
   (provide 'init-lsp-bridge)
 #+end_src
 
@@ -3347,7 +3351,6 @@ jump to everywhere quickly
   (custom-set-faces
    '(org-superstar-header-bullet ((t (:weight normal :height 1.2)))))
 #+end_src
-
 ** END
 
 #+begin_src emacs-lisp
@@ -3439,4 +3442,3 @@ jump to everywhere quickly
   ;; 替换默认的 C-x C-q 绑定，使其调用你的函数
   (global-set-key (kbd "C-x C-q") #'my/read-only-mode)
 #+end_src
-
