@@ -810,10 +810,11 @@ only the language set here can be babeled.
   ;;   	  :internal-border-width 5))
 
   (setq rime-user-data-dir "~/.config/rime-pro")
-  (setq default-input-method "rime")
-  ;; (setq default-input-method "rime"
-  ;;       rime-show-candidate 'posframe)
-  ;; (setq rime-posframe-style 'vertical)
+  ;; (setq default-input-method "rime")
+
+  (setq default-input-method "rime"
+        rime-show-candidate 'posframe)
+  (setq rime-posframe-style 'vertical)
 
   (provide 'init-rime)
 #+end_src
