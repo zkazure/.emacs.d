@@ -3404,6 +3404,54 @@ jump to everywhere quickly
   (require 'keycast)
   (setq keycast-tab-bar-mode t)
 #+end_src
+** org-id-all-file
+#+begin_src elisp
+  ;;; org-id-all-headlines.el --- Add IDs to all headlines in a buffer
+
+  ;; This file provides a function to iterate through all headlines
+  ;; in an Org-mode buffer and ensure each one has a unique ID.
+  ;; It requires the built-in org-id library.
+
+  ;; Make sure the org-id library is loaded.
+  (require 'org-id)
+  (require 'org-element) ; We need this for the new, more robust approach
+
+  (defun my-org-id-all-headlines ()
+    "Add a unique ID to every headline in the current Org-mode buffer.
+
+  This function uses the modern `org-element` API to reliably find every
+  headline and call `org-id-get-create` to generate and assign a new ID
+  if one does not already exist.
+
+  This function is interactive, which means you can call it with `M-x`
+  followed by `my-org-id-all-headlines`."
+    (interactive)
+    ;; Check if the current major mode is org-mode
+    (unless (eq major-mode 'org-mode)
+      (error "This command is only for Org-mode buffers."))
+    (message "Adding IDs to all headlines...")
+    (save-excursion
+      (let ((headlines-processed 0))
+        ;; Use org-element-map to reliably find and process every headline.
+        ;; The first argument `(org-element-parse-buffer)` parses the entire
+        ;; buffer into an element tree. The second argument `'headline`
+        ;; tells the function to only operate on headline elements.
+        (org-element-map (org-element-parse-buffer) 'headline
+          (lambda (headline)
+            (goto-char (org-element-property :begin headline))
+            (org-id-get-create)
+            (setq headlines-processed (1+ headlines-processed))))
+        (if (= headlines-processed 0)
+            (message "Done. No headlines found to process.")
+          (message "Done. Processed %d headlines." headlines-processed))))
+    ;; Save the buffer to make the changes permanent
+    (save-buffer))
+
+  ;; Provide a brief description for discoverability.
+  (provide 'org-id-all-headlines)
+
+  ;;; End of file
+#+end_src
 ** END
 
 #+begin_src emacs-lisp
