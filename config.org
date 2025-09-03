@@ -2845,7 +2845,7 @@ jump to everywhere quickly
 
   (defun adjust-languages-indent (n)
     (setq-local c-basic-offset n)
-
+    
     (setq-local coffee-tab-width n)
     (setq-local javascript-indent-level n)
     (setq-local js-indent-level n)
@@ -2860,7 +2860,9 @@ jump to everywhere quickly
 
     (setq-local css-indent-offset n)
 
-    (setq-local typescript-indent-level n))
+    (setq-local typescript-indent-level n)
+    (setq-local c-ts-mode-indent-offset n)
+    )
 
   (dolist (hook (list
                  'c-mode-hook
