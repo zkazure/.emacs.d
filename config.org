@@ -1854,11 +1854,11 @@ jump to everywhere quickly
   (require 'org-roam-ui)
   (require 'websocket)
 
-  (with-eval-after-load 'org-roam
-    (setq org-roam-ui-open-on-start nil
-          org-roam-ui-update-on-save t
-          org-roam-ui-sync-theme t)
-    (org-roam-ui-mode 1))
+  ;; (with-eval-after-load 'org-roam
+  ;;   (setq org-roam-ui-open-on-start nil
+  ;;         org-roam-ui-update-on-save t
+  ;;         org-roam-ui-sync-theme t)
+  ;;   (org-roam-ui-mode 1))
 
   (provide 'init-org-roam-ui)
 #+end_src
