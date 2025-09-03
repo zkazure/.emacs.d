@@ -810,10 +810,11 @@ only the language set here can be babeled.
   ;;   	  :internal-border-width 5))
 
   (setq rime-user-data-dir "~/.config/rime-pro")
-  (setq default-input-method "rime")
-  ;; (setq default-input-method "rime"
-  ;;       rime-show-candidate 'posframe)
-  ;; (setq rime-posframe-style 'vertical)
+  ;; (setq default-input-method "rime")
+
+  (setq default-input-method "rime"
+        rime-show-candidate 'posframe)
+  (setq rime-posframe-style 'vertical)
 
   (provide 'init-rime)
 #+end_src
@@ -1853,11 +1854,11 @@ jump to everywhere quickly
   (require 'org-roam-ui)
   (require 'websocket)
 
-  (with-eval-after-load 'org-roam
-    (setq org-roam-ui-open-on-start nil
-          org-roam-ui-update-on-save t
-          org-roam-ui-sync-theme t)
-    (org-roam-ui-mode 1))
+  ;; (with-eval-after-load 'org-roam
+  ;;   (setq org-roam-ui-open-on-start nil
+  ;;         org-roam-ui-update-on-save t
+  ;;         org-roam-ui-sync-theme t)
+  ;;   (org-roam-ui-mode 1))
 
   (provide 'init-org-roam-ui)
 #+end_src
@@ -2783,12 +2784,13 @@ jump to everywhere quickly
   ;; (add-hook 'org-edit-special-hook #'lsp-bridge-restart-process)
 
   (setq lsp-bridge-enable-completion-in-minibuffer t)
+  ;; (setq lsp-bridge-python-command "uv run python3")
   (setq lsp-bridge-python-command (expand-file-name "~/.emacs.d/lsp-bridge-env/.venv/bin/python3"))
   ;; (setq lsp-pyright-langserver-command "~/.emacs.d/lsp-bridge-env/.venv/bin/python3 -m basedpyright")
 
   (setq lsp-bridge-signature-show-function 'lsp-bridge-signature-show-with-frame)
   (setq lsp-bridge-enable-with-tramp t)
-  (setq lsp-bridge-enable-org-babel t)
+  (setq lsp-bridge-enable-org-babel nil)
   (setq acm-enable-capf t)
   (setq acm-enable-quick-access t)
   (setq acm-backend-yas-match-by-trigger-keyword t)
@@ -2823,8 +2825,10 @@ jump to everywhere quickly
                       (return "deno")))))))))
 
   (global-set-key (kbd "C-c l f") 'lsp-bridge-find-def)
+  (global-set-key (kbd "C-c l F") 'lsp-bridge-find-def-other-window)
   (global-set-key (kbd "C-c l r") 'lsp-bridge-find-def-return)
   (global-set-key (kbd "C-c l R") 'lsp-bridge-find-find-references)
+
   (provide 'init-lsp-bridge)
 #+end_src
 
@@ -2841,7 +2845,7 @@ jump to everywhere quickly
 
   (defun adjust-languages-indent (n)
     (setq-local c-basic-offset n)
-
+    
     (setq-local coffee-tab-width n)
     (setq-local javascript-indent-level n)
     (setq-local js-indent-level n)
@@ -2856,7 +2860,9 @@ jump to everywhere quickly
 
     (setq-local css-indent-offset n)
 
-    (setq-local typescript-indent-level n))
+    (setq-local typescript-indent-level n)
+    (setq-local c-ts-mode-indent-offset n)
+    )
 
   (dolist (hook (list
                  'c-mode-hook
@@ -3260,15 +3266,23 @@ jump to everywhere quickly
 ** dictionary
 
 #+begin_src emacs-lisp
-  (require 'fanyi)
+  ;; (require 'fanyi)
 
-  (customize-set-variable 'fanyi-providers
-                         '(fanyi-longman-provider
-                           fanyi-etymon-provider
-                           ))
-  (setq fanyi-auto-select nil)
-  (global-set-key (kbd "C-c n t") #'fanyi-dwim2)
-  (global-set-key (kbd "C-c n T") #'fanyi-dwim)
+  ;; (customize-set-variable 'fanyi-providers
+  ;;                        '(fanyi-longman-provider
+  ;;                          fanyi-etymon-provider
+  ;;                          ))
+  ;; (setq fanyi-auto-select nil)
+  ;; (global-set-key (kbd "C-c n t") #'fanyi-dwim2)
+  ;; (global-set-key (kbd "C-c n T") #'fanyi-dwim)
+
+  (defun +dict-word-at-point ()
+    "Search word in goldendict"
+    (interactive)
+    (call-process-shell-command (concat "goldendict " (current-word) " &") nil 0)
+    )
+
+  (global-set-key (kbd "C-c n t") '+dict-word-at-point)
 #+end_src
 
 ** RSS
@@ -3389,6 +3403,54 @@ jump to everywhere quickly
 #+begin_src elisp
   (require 'keycast)
   (setq keycast-tab-bar-mode t)
+#+end_src
+** org-id-all-file
+#+begin_src elisp
+  ;;; org-id-all-headlines.el --- Add IDs to all headlines in a buffer
+
+  ;; This file provides a function to iterate through all headlines
+  ;; in an Org-mode buffer and ensure each one has a unique ID.
+  ;; It requires the built-in org-id library.
+
+  ;; Make sure the org-id library is loaded.
+  (require 'org-id)
+  (require 'org-element) ; We need this for the new, more robust approach
+
+  (defun my-org-id-all-headlines ()
+    "Add a unique ID to every headline in the current Org-mode buffer.
+
+  This function uses the modern `org-element` API to reliably find every
+  headline and call `org-id-get-create` to generate and assign a new ID
+  if one does not already exist.
+
+  This function is interactive, which means you can call it with `M-x`
+  followed by `my-org-id-all-headlines`."
+    (interactive)
+    ;; Check if the current major mode is org-mode
+    (unless (eq major-mode 'org-mode)
+      (error "This command is only for Org-mode buffers."))
+    (message "Adding IDs to all headlines...")
+    (save-excursion
+      (let ((headlines-processed 0))
+        ;; Use org-element-map to reliably find and process every headline.
+        ;; The first argument `(org-element-parse-buffer)` parses the entire
+        ;; buffer into an element tree. The second argument `'headline`
+        ;; tells the function to only operate on headline elements.
+        (org-element-map (org-element-parse-buffer) 'headline
+          (lambda (headline)
+            (goto-char (org-element-property :begin headline))
+            (org-id-get-create)
+            (setq headlines-processed (1+ headlines-processed))))
+        (if (= headlines-processed 0)
+            (message "Done. No headlines found to process.")
+          (message "Done. Processed %d headlines." headlines-processed))))
+    ;; Save the buffer to make the changes permanent
+    (save-buffer))
+
+  ;; Provide a brief description for discoverability.
+  (provide 'org-id-all-headlines)
+
+  ;;; End of file
 #+end_src
 ** END
 
