@@ -2784,12 +2784,13 @@ jump to everywhere quickly
   ;; (add-hook 'org-edit-special-hook #'lsp-bridge-restart-process)
 
   (setq lsp-bridge-enable-completion-in-minibuffer t)
+  ;; (setq lsp-bridge-python-command "uv run python3")
   (setq lsp-bridge-python-command (expand-file-name "~/.emacs.d/lsp-bridge-env/.venv/bin/python3"))
   ;; (setq lsp-pyright-langserver-command "~/.emacs.d/lsp-bridge-env/.venv/bin/python3 -m basedpyright")
 
   (setq lsp-bridge-signature-show-function 'lsp-bridge-signature-show-with-frame)
   (setq lsp-bridge-enable-with-tramp t)
-  (setq lsp-bridge-enable-org-babel t)
+  (setq lsp-bridge-enable-org-babel nil)
   (setq acm-enable-capf t)
   (setq acm-enable-quick-access t)
   (setq acm-backend-yas-match-by-trigger-keyword t)
@@ -2824,8 +2825,10 @@ jump to everywhere quickly
                       (return "deno")))))))))
 
   (global-set-key (kbd "C-c l f") 'lsp-bridge-find-def)
+  (global-set-key (kbd "C-c l F") 'lsp-bridge-find-def-other-window)
   (global-set-key (kbd "C-c l r") 'lsp-bridge-find-def-return)
   (global-set-key (kbd "C-c l R") 'lsp-bridge-find-find-references)
+
   (provide 'init-lsp-bridge)
 #+end_src
 
