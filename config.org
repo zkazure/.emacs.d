@@ -3452,6 +3452,12 @@ jump to everywhere quickly
 
   ;;; End of file
 #+end_src
+** go-mode
+#+begin_src elisp
+  (require 'go-mode)
+  (autoload 'go-mode "go-mode" nil t)
+  (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
+#+end_src
 ** END
 
 #+begin_src emacs-lisp
