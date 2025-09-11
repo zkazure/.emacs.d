@@ -3389,11 +3389,13 @@ jump to everywhere quickly
 ** dap-mode
 #+begin_src elisp
   (require 'dap-mode)
-#+end_sr
+#+end_src
 ** company
 #+begin_src elisp
   (require 'company)
   (add-hook 'after-init-hook 'global-company-mode)
+  (setq company-minimum-prefix-length 1
+        company-idle-delay 0.0)
 #+end_src
 ** lsp-mode
 #+begin_src elisp
@@ -3401,14 +3403,19 @@ jump to everywhere quickly
   (add-to-list 'load-path (expand-file-name "lib/lsp-mode" user-emacs-directory))
   (add-to-list 'load-path (expand-file-name "lib/lsp-mode/clients" user-emacs-directory))
 
-  (add-hook 'prog-mode-hook #'lsp)
+  (add-hook 'prog-mode-hook #'lsp-deferred)
+  (setq lsp-log-io nil)
   (setq lsp-auto-configure t)
+  (setq lsp-signature-auto-activate t)
+  (setq lsp-eldoc-render-all t)
   (setq lsp-enable-symbol-highlighting t)
   (setq lsp-enable-dap-auto-configure t)
 
   (setq lsp-idle-delay 0.3)
+  (with-eval-after-load 'lsp-mode
+    (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
+  ;; (setq lsp-keymap-prefix "C-c l")
 
-  (setq lsp-keymap-prefix "C-c l")
 #+end_src
 *** lsp-ui
 #+begin_src elisp
@@ -3416,11 +3423,6 @@ jump to everywhere quickly
   (add-hook 'lsp-mode-hook 'lsp-ui-mode)
 #+end_src
 
-*** flycheck
-#+begin_src elisp
-  (require 'flycheck)
-  (global-flycheck-mode +1)
-#+end_src
 *** lsp-treemacs
 #+begin_src elisp
   (require 'lsp-treemacs)
@@ -3429,11 +3431,23 @@ jump to everywhere quickly
 #+begin_src elisp
   (require 'lsp-java)
 #+end_src
+*** company-lsp
+#+begin_src elisp
+  (require 'company-lsp)
+  (push 'company-lsp company-backends)
+  (setq company-lsp-cache-candidates t
+        company-lsp-async t
+        company-lsp-enable-snippet t)
+
+#+end_src
+
+
 ** END
 
 #+begin_src emacs-lisp
   (provide 'init-personal)
 #+end_src
+
 
 * test
 :PROPERTIES:

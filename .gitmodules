@@ -22,6 +22,9 @@
 [submodule "borg"]
 	path = lib/borg
 	url = https://github.com/emacscollective/borg.git
+[submodule "bui"]
+	path = lib/bui
+	url = https://github.com/alezost/bui.el
 [submodule "cdlatex"]
 	path = lib/cdlatex
 	url = https://github.com/cdominik/cdlatex
@@ -40,6 +43,9 @@
 [submodule "company"]
 	path = lib/company
 	url = https://github.com/company-mode/company-mode
+[submodule "company-lsp"]
+	path = lib/company-lsp
+	url = git@github.com:emacsattic/company-lsp.git
 [submodule "compat"]
 	path = lib/compat
 	url = https://github.com/emacs-compat/compat.git
@@ -97,9 +103,6 @@
 [submodule "fanyi"]
 	path = lib/fanyi
 	url = https://github.com/condy0919/fanyi.el
-[submodule "flycheck"]
-	path = lib/flycheck
-	url = https://github.com/flycheck/flycheck
 [submodule "ghub"]
 	path = lib/ghub
 	url = https://github.com/magit/ghub
@@ -163,12 +166,18 @@
 [submodule "lsp-docker"]
 	path = lib/lsp-docker
 	url = https://github.com/emacs-lsp/lsp-docker
+[submodule "lsp-ivy"]
+	path = lib/lsp-ivy
+	url = https://github.com/emacs-lsp/lsp-ivy
 [submodule "lsp-java"]
 	path = lib/lsp-java
 	url = https://github.com/emacs-lsp/lsp-java
 [submodule "lsp-mode"]
 	path = lib/lsp-mode
 	url = https://github.com/emacs-lsp/lsp-mode
+[submodule "lsp-pyright"]
+	path = lib/lsp-pyright
+	url = https://github.com/emacs-lsp/lsp-pyright
 [submodule "lsp-treemacs"]
 	path = lib/lsp-treemacs
 	url = https://github.com/emacs-lsp/lsp-treemacs
