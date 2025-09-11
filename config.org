@@ -701,6 +701,8 @@ only the language set here can be babeled.
         (shell . t)
         (C . t)
         (javascript . t)
+        (go . t)
+        (java . t)
         ))))
 
   (with-eval-after-load 'org
@@ -2787,7 +2789,7 @@ jump to everywhere quickly
   ;; (setq lsp-bridge-python-command "uv run python3")
   (setq lsp-bridge-python-command (expand-file-name "~/.emacs.d/lsp-bridge-env/.venv/bin/python3"))
   ;; (setq lsp-pyright-langserver-command "~/.emacs.d/lsp-bridge-env/.venv/bin/python3 -m basedpyright")
-
+  (setq lsp-bridge-enable-auto-import t)
   (setq lsp-bridge-signature-show-function 'lsp-bridge-signature-show-with-frame)
   (setq lsp-bridge-enable-with-tramp t)
   (setq lsp-bridge-enable-org-babel nil)
