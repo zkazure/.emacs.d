@@ -46,7 +46,8 @@
   (setq inhibit-splash-screen t)
   (setq use-file-dialog nil)
 
-
+  (setenv "LSP_USE_PLISTS" "true")
+  (setq lsp-use-plists t)
 #+end_src
 
 ** END
@@ -3388,6 +3389,11 @@ jump to everywhere quickly
 ** dap-mode
 #+begin_src elisp
   (require 'dap-mode)
+#+end_sr
+** company
+#+begin_src elisp
+  (require 'company)
+  (add-hook 'after-init-hook 'global-company-mode)
 #+end_src
 ** lsp-mode
 #+begin_src elisp
@@ -3398,19 +3404,18 @@ jump to everywhere quickly
   (add-hook 'prog-mode-hook #'lsp)
   (setq lsp-auto-configure t)
   (setq lsp-enable-symbol-highlighting t)
-  (setq lsp-idle-delay 0.5)
+  (setq lsp-enable-dap-auto-configure t)
 
+  (setq lsp-idle-delay 0.3)
+
+  (setq lsp-keymap-prefix "C-c l")
 #+end_src
 *** lsp-ui
 #+begin_src elisp
   (require 'lsp-ui)
   (add-hook 'lsp-mode-hook 'lsp-ui-mode)
 #+end_src
-*** company
-#+begin_src elisp
-  (require 'company)
-  (add-hook 'after-init-hook 'global-company-mode)
-#+end_src
+
 *** flycheck
 #+begin_src elisp
   (require 'flycheck)
