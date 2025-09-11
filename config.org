@@ -2805,6 +2805,8 @@ jump to everywhere quickly
   (dolist (hook (list
                  'c-mode-hook
                  'c++-mode-hook
+                 'c++-ts-mode-hook
+                 'c-ts-mode-hook
                  'java-mode-hook
                  'haskell-mode-hook
                  'asm-mode-hook
@@ -3377,6 +3379,16 @@ jump to everywhere quickly
   (autoload 'go-mode "go-mode" nil t)
   (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
 #+end_src
+** treemacs
+#+begin_src elisp
+  (require 'treemacs-autoloads)
+  (add-to-list 'load-path (expand-file-name "lib/treemacs/src/elisp" user-emacs-directory))
+  (add-to-list 'load-path (expand-file-name "lib/treemacs/src/extra" user-emacs-directory))
+#+end_src
+** dap-mode
+#+begin_src elisp
+  (require 'dap-mode)
+#+end_src
 ** lsp-mode
 #+begin_src elisp
   (require 'lsp-mode)
@@ -3392,6 +3404,7 @@ jump to everywhere quickly
 *** lsp-ui
 #+begin_src elisp
   (require 'lsp-ui)
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode)
 #+end_src
 *** company
 #+begin_src elisp
@@ -3402,6 +3415,14 @@ jump to everywhere quickly
 #+begin_src elisp
   (require 'flycheck)
   (global-flycheck-mode +1)
+#+end_src
+*** lsp-treemacs
+#+begin_src elisp
+  (require 'lsp-treemacs)
+#+end_src
+*** lsp-java
+#+begin_src elisp
+  (require 'lsp-java)
 #+end_src
 ** END
 
