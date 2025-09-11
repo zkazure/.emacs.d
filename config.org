@@ -304,7 +304,6 @@
   (require 'init-which-key)
   (require 'init-ivy)
   (require 'init-yasnippet)
-  (require 'init-lsp-bridge)
   (require 'init-avy)
   (require 'init-dirvish)
   (require 'init-projectile)
@@ -323,7 +322,6 @@
   (require 'init-super-save)
   (require 'init-indent)
   (require 'init-electric-pair-mode)
-  ;; (require 'init-fingertip)
   ;; (require 'init-modeline)
   (require 'init-tab-bar)
 
@@ -3378,6 +3376,18 @@ jump to everywhere quickly
   (require 'go-mode)
   (autoload 'go-mode "go-mode" nil t)
   (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
+#+end_src
+** lsp-mode
+#+begin_src elisp
+  (require 'lsp-mode)
+  (add-to-list 'load-path (expand-file-name "lib/lsp-mode" user-emacs-directory))
+  (add-to-list 'load-path (expand-file-name "lib/lsp-mode/clients" user-emacs-directory))
+
+  (add-hook 'prog-mode-hook #'lsp)
+  (setq lsp-auto-configure t)
+  (setq lsp-enable-symbol-highlighting t)
+  (setq lsp-idle-delay 0.5)
+
 #+end_src
 ** END
 

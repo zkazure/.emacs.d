@@ -148,6 +148,9 @@
 [submodule "log4e"]
 	path = lib/log4e
 	url = https://github.com/aki2o/log4e
+[submodule "lsp-mode"]
+	path = lib/lsp-mode
+	url = https://github.com/emacs-lsp/lsp-mode
 [submodule "magit"]
 	path = lib/magit
 	url = https://github.com/magit/magit.git
@@ -253,6 +256,9 @@
 [submodule "snippets"]
 	path = snippets
 	url = git@github.com:zkazure/snippets.git
+[submodule "spinner"]
+	path = lib/spinner
+	url = https://github.com/Malabarba/spinner.el
 [submodule "string-inflection"]
 	path = lib/string-inflection
 	url = https://github.com/akicho8/string-inflection
