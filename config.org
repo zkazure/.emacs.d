@@ -3398,6 +3398,11 @@ jump to everywhere quickly
   (require 'company)
   (add-hook 'after-init-hook 'global-company-mode)
 #+end_src
+*** flycheck
+#+begin_src elisp
+  (require 'flycheck)
+  (global-flycheck-mode +1)
+#+end_src
 ** END
 
 #+begin_src emacs-lisp
