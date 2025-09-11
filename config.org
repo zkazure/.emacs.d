@@ -1200,39 +1200,10 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (require 'orderless)
 
-  (setq completion-styles '(orderless basic)
-        completion-category-overrides '((file (styles basic partial-completion))))
-
-  ;; fuzzy match after ~
-  (defun flex-if-twiddle (pattern _index _total)
-    (when (string-suffix-p "~" pattern)
-      `(orderless-flex . ,(substring pattern 0 -1))))
-
-  ;; (defun first-initialism (pattern index _total)
-  ;;   (if (= index 0) 'orderless-initialism))
-
-  ;; ! exclude match
-  (defun not-if-bang (pattern _index _total)
-    (cond
-     ((equal "!" pattern)
-      #'ignore)
-     ((string-prefix-p "!" pattern)
-      `(orderless-not . ,(substring pattern 1)))))
-
-  (setq orderless-matching-styles '(orderless-regexp)
-        orderless-style-dispatchers '(; first-initialism
-                                      flex-if-twiddle
-                                      not-if-bang))
-
-
-  (orderless-define-completion-style orderless+initialism
-    (orderless-matching-styles '(orderless-initialism
-                                 orderless-literal
-                                 orderless-regexp)))
-  (setq completion-category-overrides
-        '((command (styles orderless+initialism))
-          (symbol (styles orderless+initialism))
-          (variable (styles orderless+initialism))))
+  (setq completion-styles '(orderless basic))
+  (setq completion-category-defaults nil)
+  (setq completion-category-overrides '((file (styles basic partial-completion))))
+  (setq orderless-component-separator #'orderless-escapable-split-on-space)
 
   ;; integrate with ivy
   (setq ivy-re-builders-alist '((t . orderless-ivy-re-builder)))
@@ -3402,16 +3373,76 @@ jump to everywhere quickly
   (require 'dap-go)
   (require 'dap-python)
 #+end_src
-** company
+** corfu
 #+begin_src elisp
-  (require 'company)
-  (add-hook 'after-init-hook 'global-company-mode)
-  (setq company-minimum-prefix-length 2
-        company-idle-delay 0.1
-        company-tooltip-align-annotations t
-        company-abort-on-unique-match nil)
+  (require 'corfu)
+  (add-to-list 'load-path (expand-file-name "lib/corfu/extensions" user-emacs-directory))
+  (require 'corfu-echo)
+  (require 'corfu-history)
+  (require 'corfu-indexed)
+  (require 'corfu-info)
+  (require 'corfu-popupinfo)
+  (require 'corfu-quick)
 
+  (setq corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
+  (setq corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
+  (setq corfu-quit-no-match 'separator)      ;; Never quit, even if there is no match
+  (setq corfu-preview-current nil)    ;; Disable current candidate preview
+  (setq corfu-preselect 'prompt)      ;; Preselect the prompt
+  (setq corfu-on-exact-match nil)     ;; Configure handling of exact matches
+  (setq corfu-auto-prefix 2
+        corfu-count 10
+        corfu-auto-delay 0.1
+        corfu-popupinfo-delay '(0.4 . 0.2)
+        corfu-auto t)
+
+  (global-corfu-mode t)
+
+  (add-hook 'corfu-mode-hook 'corfu-history-mode)
+  (add-hook 'corfu-mode-hook 'corfu-popupinfo-mode)
+  (add-hook 'corfu-mode-hook 'corfu-echo-mode)
+  (add-hook 'corfu-mode-hook 'corfu-indexed-mode)
+
+  (defun corfu-lsp-setup ()
+    (setq-local completion-styles '(orderless)
+                completion-category-defaults nil))
+  (add-hook 'lsp-mode-hook #'corfu-lsp-setup)
+
+  (setq text-mode-ispell-word-completion nil
+        read-extended-command-predicate #'command-completion-default-include-p)
+  ;; (setq tab-always-indent 'complete)
 #+end_src
+*** nerd-icon
+#+begin_src elisp
+  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
+
+  ;; Optionally:
+  (setq nerd-icons-corfu-mapping
+        '((array :style "cod" :icon "symbol_array" :face font-lock-type-face)
+          (boolean :style "cod" :icon "symbol_boolean" :face font-lock-builtin-face)
+          ;; You can alternatively specify a function to perform the mapping,
+          ;; use this when knowing the exact completion candidate is important.
+          ;; Don't pass `:face' if the function already returns string with the
+          ;; face property, though.
+          (file :fn nerd-icons-icon-for-file :face font-lock-string-face)
+          ;; ...
+          (t :style "cod" :icon "code" :face font-lock-warning-face)))
+          ;; If you add an entry for t, the library uses that as fallback.
+          ;; The default fallback (when it's not specified) is the ? symbol.
+
+  ;; The Custom interface is also supported for tuning the variable above.
+#+end_src
+** cape
+#+begin_src elisp
+  (require 'cape)
+
+  (add-hook 'completion-at-point-functions #'cape-dabbrev)
+  (add-hook 'completion-at-point-functions #'cape-file)
+  (add-hook 'completion-at-point-functions #'cape-elisp-block)
+  (add-hook 'completion-at-point-functions #'cape-history)
+  (add-hook 'completion-at-point-functions #'cape-yasnippet)
+#+end_src
+
 ** lsp-mode
 #+begin_src elisp
   (require 'lsp-mode)
@@ -3421,7 +3452,7 @@ jump to everywhere quickly
   (add-hook 'prog-mode-hook #'lsp-deferred)
 
   ;; (setq lsp-eldoc-render-all nil)
-  (setq lsp-enable-dap-auto-configure t)
+  ;; (setq lsp-enable-dap-auto-configure t)
 
   (setq lsp-use-plists t
         lsp-log-io nil
@@ -3444,13 +3475,13 @@ jump to everywhere quickly
         lsp-enable-on-type-formatting nil
 
         ;; For diagnostics
-        lsp-diagnostics-disabled-modes '(markdown-mode gfm-mode))
+        lsp-diagnostics-disabled-modes '(markdown-mode gfm-mode)
+        lsp-completion-provider :none)
+
 
   (setq lsp-idle-delay 0.3)
   (with-eval-after-load 'lsp-mode
     (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
-
-
 #+end_src
 
 *** emacs-lsp-booster
@@ -3507,16 +3538,6 @@ jump to everywhere quickly
 #+begin_src elisp
   (require 'lsp-java)
 #+end_src
-*** company-lsp
-#+begin_src elisp
-  (require 'company-lsp)
-  (push 'company-lsp company-backends)
-  (setq company-lsp-cache-candidates t
-        company-lsp-async t
-        company-lsp-enable-snippet t)
-
-#+end_src
-
 
 ** END
 
