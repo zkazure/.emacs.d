@@ -3385,10 +3385,21 @@ jump to everywhere quickly
   (require 'treemacs-autoloads)
   (add-to-list 'load-path (expand-file-name "lib/treemacs/src/elisp" user-emacs-directory))
   (add-to-list 'load-path (expand-file-name "lib/treemacs/src/extra" user-emacs-directory))
+
+  (setq treemacs-collapse-dirs           (if treemacs-python-executable 3 0)
+        treemacs-missing-project-action  'remove
+        treemacs-user-mode-line-format   'none
+        treemacs-sorting                 'alphabetic-asc
+        treemacs-follow-after-init       t
+        treemacs-width                   30)
 #+end_src
 ** dap-mode
 #+begin_src elisp
   (require 'dap-mode)
+  (require 'dap-cpptools)
+  (require 'dap-chrome)
+  (require 'dap-go)
+  (require 'dap-python)
 #+end_src
 ** company
 #+begin_src elisp
@@ -3404,17 +3415,37 @@ jump to everywhere quickly
   (add-to-list 'load-path (expand-file-name "lib/lsp-mode/clients" user-emacs-directory))
 
   (add-hook 'prog-mode-hook #'lsp-deferred)
-  (setq lsp-log-io nil)
-  (setq lsp-auto-configure t)
-  (setq lsp-signature-auto-activate t)
-  (setq lsp-eldoc-render-all t)
-  (setq lsp-enable-symbol-highlighting t)
+
+  ;; (setq lsp-eldoc-render-all nil)
   (setq lsp-enable-dap-auto-configure t)
+
+  (setq lsp-use-plists t
+        lsp-log-io nil
+        lsp-keymap-prefix "C-c l"
+        lsp-keep-workspace-alive nil
+        lsp-signature-auto-activate t
+        lsp-modeline-code-actions-enable nil
+        lsp-modeline-diagnostics-enable nil
+        lsp-modeline-workspace-status-enable nil
+
+        lsp-semantic-tokens-enable t
+        lsp-progress-spinner-type 'progress-bar-filled
+
+        lsp-enable-file-watchers nil
+        lsp-enable-folding nil
+        lsp-enable-symbol-highlighting nil
+        lsp-enable-text-document-color nil
+
+        lsp-enable-indentation nil
+        lsp-enable-on-type-formatting nil
+
+        ;; For diagnostics
+        lsp-diagnostics-disabled-modes '(markdown-mode gfm-mode))
 
   (setq lsp-idle-delay 0.3)
   (with-eval-after-load 'lsp-mode
     (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
-  ;; (setq lsp-keymap-prefix "C-c l")
+
 
 #+end_src
 *** lsp-ui
@@ -3430,6 +3461,7 @@ jump to everywhere quickly
 *** lsp-treemacs
 #+begin_src elisp
   (require 'lsp-treemacs)
+  (lsp-treemacs-sync-mode 1)
 #+end_src
 *** lsp-java
 #+begin_src elisp
