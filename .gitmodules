@@ -103,6 +103,9 @@
 [submodule "fanyi"]
 	path = lib/fanyi
 	url = https://github.com/condy0919/fanyi.el
+[submodule "flycheck"]
+	path = lib/flycheck
+	url = https://github.com/flycheck/flycheck
 [submodule "ghub"]
 	path = lib/ghub
 	url = https://github.com/magit/ghub

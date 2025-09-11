@@ -3422,7 +3422,11 @@ jump to everywhere quickly
   (require 'lsp-ui)
   (add-hook 'lsp-mode-hook 'lsp-ui-mode)
 #+end_src
-
+*** flycheck
+#+begin_src elisp
+  (require 'flycheck)
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+#+end_src
 *** lsp-treemacs
 #+begin_src elisp
   (require 'lsp-treemacs)
