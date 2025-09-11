@@ -3386,12 +3386,13 @@ jump to everywhere quickly
   (add-to-list 'load-path (expand-file-name "lib/treemacs/src/elisp" user-emacs-directory))
   (add-to-list 'load-path (expand-file-name "lib/treemacs/src/extra" user-emacs-directory))
 
-  (setq treemacs-collapse-dirs           (if treemacs-python-executable 3 0)
-        treemacs-missing-project-action  'remove
-        treemacs-user-mode-line-format   'none
-        treemacs-sorting                 'alphabetic-asc
-        treemacs-follow-after-init       t
-        treemacs-width                   30)
+  ;; (setq treemacs-collapse-dirs           (if treemacs-python-executable 3 0)
+  ;;       treemacs-missing-project-action  'remove
+  ;;       treemacs-user-mode-line-format   'none
+  ;;       treemacs-sorting                 'alphabetic-asc
+  ;;       treemacs-follow-after-init       t
+  ;;       treemacs-width                   30)
+  (setq treemacs-width 30)
 #+end_src
 ** dap-mode
 #+begin_src elisp
