@@ -4,9 +4,15 @@
 [submodule "ace-window"]
 	path = lib/ace-window
 	url = https://github.com/abo-abo/ace-window
+[submodule "aggressive-indent"]
+	path = lib/aggressive-indent
+	url = https://github.com/Malabarba/aggressive-indent-mode
 [submodule "aio"]
 	path = lib/aio
 	url = https://github.com/skeeto/emacs-aio
+[submodule "amx"]
+	path = lib/amx
+	url = https://github.com/DarwinAwardWinner/amx
 [submodule "async"]
 	path = lib/async
 	url = https://github.com/jwiegley/emacs-async
@@ -22,6 +28,12 @@
 [submodule "borg"]
 	path = lib/borg
 	url = https://github.com/emacscollective/borg.git
+[submodule "breadcrumb"]
+	path = lib/breadcrumb
+	url = https://github.com/joaotavora/breadcrumb
+[submodule "bui"]
+	path = lib/bui
+	url = https://github.com/alezost/bui.el
 [submodule "cdlatex"]
 	path = lib/cdlatex
 	url = https://github.com/cdominik/cdlatex
@@ -43,12 +55,18 @@
 [submodule "consult"]
 	path = lib/consult
 	url = https://github.com/minad/consult
+[submodule "corfu"]
+	path = lib/corfu
+	url = https://github.com/minad/corfu
 [submodule "csv-mode"]
 	path = lib/csv-mode
 	url = git@github.com:emacsmirror/csv-mode.git
 [submodule "dash"]
 	path = lib/dash
 	url = https://github.com/magnars/dash.el.git
+[submodule "deferred"]
+	path = lib/deferred
+	url = https://github.com/kiwanami/emacs-deferred
 [submodule "deflate"]
 	path = lib/deflate
 	url = https://github.com/skuro/deflate
@@ -61,18 +79,15 @@
 [submodule "doom-modeline"]
 	path = lib/doom-modeline
 	url = https://github.com/seagle0128/doom-modeline
-[submodule "eaf"]
-	path = lib/eaf
-	url = https://github.com/emacs-eaf/emacs-application-framework
+[submodule "eat"]
+	path = lib/eat
+	url = https://codeberg.org/akib/emacs-eat
 [submodule "ebdb"]
 	path = lib/ebdb
 	url = git@github.com:emacsmirror/ebdb.git
-[submodule "elfeed"]
-	path = lib/elfeed
-	url = https://github.com/skeeto/elfeed
-[submodule "emacs-everywhere"]
-	path = lib/emacs-everywhere
-	url = https://github.com/tecosaur/emacs-everywhere
+[submodule "elisp-refs"]
+	path = lib/elisp-refs
+	url = https://github.com/Wilfred/elisp-refs
 [submodule "emacsql"]
 	path = lib/emacsql
 	url = https://github.com/magit/emacsql.git
@@ -85,12 +100,24 @@
 [submodule "epkg"]
 	path = lib/epkg
 	url = https://github.com/emacscollective/epkg.git
+[submodule "exec-path-from-shell"]
+	path = lib/exec-path-from-shell
+	url = https://github.com/purcell/exec-path-from-shell
+[submodule "expand-region"]
+	path = lib/expand-region
+	url = https://github.com/magnars/expand-region.el
 [submodule "f"]
 	path = lib/f
 	url = https://github.com/rejeep/f.el
-[submodule "fanyi"]
-	path = lib/fanyi
-	url = https://github.com/condy0919/fanyi.el
+[submodule "flycheck"]
+	path = lib/flycheck
+	url = https://github.com/flycheck/flycheck
+[submodule "geiser"]
+	path = lib/geiser
+	url = https://gitlab.com/emacs-geiser/geiser
+[submodule "geiser-racket"]
+	path = lib/geiser-racket
+	url = https://gitlab.com/emacs-geiser/racket
 [submodule "ghub"]
 	path = lib/ghub
 	url = https://github.com/magit/ghub
@@ -106,6 +133,9 @@
 [submodule "gptel-magit"]
 	path = lib/gptel-magit
 	url = https://github.com/ragnard/gptel-magit
+[submodule "helpful"]
+	path = lib/helpful
+	url = https://github.com/Wilfred/helpful
 [submodule "highlight-indent-guides"]
 	path = lib/highlight-indent-guides
 	url = https://github.com/DarthFennec/highlight-indent-guides
@@ -115,21 +145,18 @@
 [submodule "ht"]
 	path = lib/ht
 	url = https://github.com/Wilfred/ht.el
+[submodule "htmlize"]
+	path = lib/htmlize
+	url = https://github.com/hniksic/emacs-htmlize
 [submodule "hydra"]
 	path = lib/hydra
 	url = https://github.com/abo-abo/hydra
-[submodule "image-roll"]
-	path = lib/image-roll
-	url = https://github.com/dalanicolai/image-roll.el.git
 [submodule "instant-rename-tag"]
 	path = lib/instant-rename-tag
 	url = https://github.com/manateelazycat/instant-rename-tag.git
 [submodule "ivy"]
 	path = lib/ivy
 	url = https://github.com/abo-abo/swiper
-[submodule "ivy-posframe"]
-	path = lib/ivy-posframe
-	url = https://github.com/tumashu/ivy-posframe
 [submodule "jinx"]
 	path = lib/jinx
 	url = https://github.com/minad/jinx
@@ -142,6 +169,9 @@
 [submodule "leetcode"]
 	path = lib/leetcode
 	url = https://github.com/kaiwk/leetcode.el
+[submodule "lib/cond-let"]
+	path = lib/cond-let
+	url = https://github.com/tarsius/cond-let.git
 [submodule "link-hint"]
 	path = lib/link-hint
 	url = https://github.com/noctuid/link-hint.el
@@ -157,6 +187,9 @@
 [submodule "major-mode-hydra"]
 	path = lib/major-mode-hydra
 	url = https://github.com/jerrypnz/major-mode-hydra.el
+[submodule "marginalia"]
+	path = lib/marginalia
+	url = https://github.com/minad/marginalia
 [submodule "markdown-mode"]
 	path = lib/markdown-mode
 	url = https://github.com/jrblevin/markdown-mode
@@ -166,18 +199,18 @@
 [submodule "move-text"]
 	path = lib/move-text
 	url = https://github.com/emacsfodder/move-text
-[submodule "mu4e"]
-	path = lib/mu4e
-	url = https://github.com/djcb/mu
-[submodule "neotree"]
-	path = lib/neotree
-	url = https://github.com/jaypei/emacs-neotree
+[submodule "multiple-cursors"]
+	path = lib/multiple-cursors
+	url = https://github.com/magnars/multiple-cursors.el
 [submodule "nerd-icons"]
 	path = lib/nerd-icons
 	url = https://github.com/rainstormstudio/nerd-icons.el
-[submodule "olivetti"]
-	path = lib/olivetti
-	url = https://github.com/rnkn/olivetti
+[submodule "nerd-icons-completion"]
+	path = lib/nerd-icons-completion
+	url = https://github.com/rainstormstudio/nerd-icons-completion
+[submodule "nerd-icons-corfu"]
+	path = lib/nerd-icons-corfu
+	url = https://github.com/LuigiPiucco/nerd-icons-corfu
 [submodule "orderless"]
 	path = lib/orderless
 	url = https://github.com/oantolin/orderless
@@ -199,27 +232,12 @@
 [submodule "org-roam-ui"]
 	path = lib/org-roam-ui
 	url = https://github.com/org-roam/org-roam-ui
-[submodule "org-superstar"]
-	path = lib/org-superstar
-	url = https://github.com/integral-dw/org-superstar-mode
-[submodule "ox-hugo"]
-	path = lib/ox-hugo
-	url = https://github.com/kaushalmodi/ox-hugo
 [submodule "parsebib"]
 	path = lib/parsebib
 	url = https://github.com/joostkremers/parsebib
-[submodule "pdf-tools"]
-	path = lib/pdf-tools
-	url = https://github.com/aikrahguzar/pdf-tools.git
-[submodule "pdf-tools"]
-	path = lib/pdf-tools
-	url = https://github.com/vedang/pdf-tools
-[submodule "pdf-view-restore"]
-	path = lib/pdf-view-restore
-	url = https://github.com/007kevin/pdf-view-restore
-[submodule "plantuml-mode"]
-	path = lib/plantuml-mode
-	url = https://github.com/skuro/plantuml-mode
+[submodule "pfuture"]
+	path = lib/pfuture
+	url = https://github.com/Alexander-Miller/pfuture
 [submodule "popper"]
 	path = lib/popper
 	url = https://github.com/karthink/popper
@@ -232,15 +250,18 @@
 [submodule "queue"]
 	path = lib/queue
 	url = git@github.com:emacsmirror/queue.git
-[submodule "quickrun"]
-	path = lib/quickrun
-	url = https://github.com/emacsorphanage/quickrun
 [submodule "rainbow-delimiters"]
 	path = lib/rainbow-delimiters
 	url = https://github.com/Fanael/rainbow-delimiters
+[submodule "request"]
+	path = lib/request
+	url = https://github.com/tkf/emacs-request
 [submodule "rime"]
 	path = lib/rime
 	url = https://github.com/DogLooksGood/emacs-rime
+[submodule "rust-mode"]
+	path = lib/rust-mode
+	url = https://github.com/rust-lang/rust-mode
 [submodule "s"]
 	path = lib/s
 	url = https://github.com/magnars/s.el
@@ -256,6 +277,9 @@
 [submodule "snippets"]
 	path = snippets
 	url = git@github.com:zkazure/snippets.git
+[submodule "spinner"]
+	path = lib/spinner
+	url = https://github.com/Malabarba/spinner.el
 [submodule "string-inflection"]
 	path = lib/string-inflection
 	url = https://github.com/akicho8/string-inflection
@@ -268,15 +292,15 @@
 [submodule "symbol-overlay"]
 	path = lib/symbol-overlay
 	url = https://github.com/wolray/symbol-overlay
-[submodule "tablist"]
-	path = lib/tablist
-	url = https://github.com/emacsorphanage/tablist
 [submodule "tomelr"]
 	path = lib/tomelr
 	url = https://github.com/kaushalmodi/tomelr
 [submodule "transient"]
 	path = lib/transient
 	url = https://github.com/magit/transient.git
+[submodule "treemacs"]
+	path = lib/treemacs
+	url = https://github.com/Alexander-Miller/treemacs
 [submodule "treepy"]
 	path = lib/treepy
 	url = https://github.com/volrath/treepy.el.git
@@ -286,9 +310,6 @@
 [submodule "visual-regexp"]
 	path = lib/visual-regexp
 	url = https://github.com/benma/visual-regexp.el
-[submodule "vterm"]
-	path = lib/vterm
-	url = https://github.com/akermu/emacs-libvterm
 [submodule "vundo"]
 	path = lib/vundo
 	url = https://github.com/casouri/vundo
@@ -307,9 +328,15 @@
 [submodule "with-editor"]
 	path = lib/with-editor
 	url = https://github.com/magit/with-editor.git
+[submodule "yaml"]
+	path = lib/yaml
+	url = https://github.com/zkry/yaml.el
 [submodule "yaml-mode"]
 	path = lib/yaml-mode
 	url = https://github.com/yoshiki/yaml-mode
 [submodule "yasnippet"]
 	path = lib/yasnippet
 	url = https://github.com/joaotavora/yasnippet
+[submodule "yasnippet-capf"]
+	path = lib/yasnippet-capf
+	url = https://github.com/elken/yasnippet-capf
