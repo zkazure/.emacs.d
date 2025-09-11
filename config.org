@@ -3389,6 +3389,10 @@ jump to everywhere quickly
   (setq lsp-idle-delay 0.5)
 
 #+end_src
+*** lsp-ui
+#+begin_src elisp
+  (require 'lsp-ui)
+#+end_src
 ** END
 
 #+begin_src emacs-lisp

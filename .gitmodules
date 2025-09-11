@@ -151,6 +151,9 @@
 [submodule "lsp-mode"]
 	path = lib/lsp-mode
 	url = https://github.com/emacs-lsp/lsp-mode
+[submodule "lsp-ui"]
+	path = lib/lsp-ui
+	url = https://github.com/emacs-lsp/lsp-ui
 [submodule "magit"]
 	path = lib/magit
 	url = https://github.com/magit/magit.git
