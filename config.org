@@ -2771,68 +2771,6 @@ jump to everywhere quickly
 
   (provide 'init-ace-window)
 #+end_src
-* clone
-** lsp bridge
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-lsp-bridge.el
-:END:
-#+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/lib/lsp-bridge/")
-  (require 'lsp-bridge)
-  (require 'lsp-bridge-jdtls)
-
-  ;;; Code:
-  ;; (add-hook 'find-file-hook #'lsp-bridge-restart-process)
-  ;; (add-hook 'org-edit-special-hook #'lsp-bridge-restart-process)
-
-  (setq lsp-bridge-enable-completion-in-minibuffer t)
-  ;; (setq lsp-bridge-python-command "uv run python3")
-  (setq lsp-bridge-python-command (expand-file-name "~/.emacs.d/lsp-bridge-env/.venv/bin/python3"))
-  ;; (setq lsp-pyright-langserver-command "~/.emacs.d/lsp-bridge-env/.venv/bin/python3 -m basedpyright")
-  (setq lsp-bridge-enable-auto-import t)
-  (setq lsp-bridge-signature-show-function 'lsp-bridge-signature-show-with-frame)
-  (setq lsp-bridge-enable-with-tramp t)
-  (setq lsp-bridge-enable-org-babel nil)
-  (setq acm-enable-capf t)
-  (setq acm-enable-quick-access t)
-  (setq acm-backend-yas-match-by-trigger-keyword t)
-  (setq acm-enable-tabnine nil)
-  (setq acm-enable-codeium nil)
-  (setq acm-enable-lsp-workspace-symbol t)
-  (setq lsp-bridge-enable-inlay-hint t)
-  (setq lsp-bridge-semantic-tokens t)
-  (setq-default lsp-bridge-semantic-tokens-ignore-modifier-limit-types ["variable"])
-
-  (global-lsp-bridge-mode)
-
-  (add-to-list 'lsp-bridge-multi-lang-server-extension-list '(("html") . "html_tailwindcss"))
-  (add-to-list 'lsp-bridge-multi-lang-server-extension-list '(("css") . "css_tailwindcss"))
-
-  (setq lsp-bridge-csharp-lsp-server "csharp-ls")
-  (setq lsp-bridge-nix-lsp-server "nil")
-
-  ;; 打开日志，开发者才需要
-  ;; (setq lsp-bridge-enable-log t)
-
-  (setq lsp-bridge-get-multi-lang-server-by-project
-        (lambda (project-path filepath)
-          ;; If typescript file include deno.land url, then use Deno LSP server.
-          (save-excursion
-            (when (string-equal (file-name-extension filepath) "ts")
-              (dolist (buf (buffer-list))
-                (when (string-equal (buffer-file-name buf) filepath)
-                  (with-current-buffer buf
-                    (goto-char (point-min))
-                    (when (search-forward-regexp (regexp-quote "from \"https://deno.land") nil t)
-                      (return "deno")))))))))
-
-  (global-set-key (kbd "C-c l f") 'lsp-bridge-find-def)
-  (global-set-key (kbd "C-c l F") 'lsp-bridge-find-def-other-window)
-  (global-set-key (kbd "C-c l r") 'lsp-bridge-find-def-return)
-  (global-set-key (kbd "C-c l R") 'lsp-bridge-find-find-references)
-
-  (provide 'init-lsp-bridge)
-#+end_src
 
 * munual clone
 
@@ -3301,25 +3239,6 @@ jump to everywhere quickly
           ))
 #+end_src
 
-** eaf
-#+begin_src elisp
-  (require 'eaf)
-  (require 'eaf-browser)
-  (require 'eaf-jupyter)
-  ;; (require 'eaf-pdf-viewer)
-  (require 'eaf-video-player)
-
-  (setq eaf-webengine-default-zoom 1.25)
-  (global-set-key (kbd "C-c o b") 'eaf-open-browser-with-history)
-  (global-set-key (kbd "C-c o j") 'eaf-open-jupyter)
-  (global-set-key (kbd "C-c o r") 'eaf-open-rss-reader)
-
-  (setq eaf-browser-chrome-browser-name "Chromium")
-  (setq eaf-browser-auto-import-chrome-cookies t)
-  (setq eaf-chrome-bookmark-file "~/.config/chromium/Default/Bookmarks")
-
-  (setq eaf-python-command "~/.emacs.d/eaf-env/.venv/bin/python")
-#+end_src
 
 ** highlight-indent-guides
 #+begin_src emacs-lisp
