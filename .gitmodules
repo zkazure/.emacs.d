@@ -37,6 +37,9 @@
 [submodule "colorful-mode"]
 	path = lib/colorful-mode
 	url = https://github.com/DevelopmentCool2449/colorful-mode
+[submodule "company"]
+	path = lib/company
+	url = https://github.com/company-mode/company-mode
 [submodule "compat"]
 	path = lib/compat
 	url = https://github.com/emacs-compat/compat.git

@@ -3393,6 +3393,11 @@ jump to everywhere quickly
 #+begin_src elisp
   (require 'lsp-ui)
 #+end_src
+*** company
+#+begin_src elisp
+  (require 'company)
+  (add-hook 'after-init-hook 'global-company-mode)
+#+end_src
 ** END
 
 #+begin_src emacs-lisp
