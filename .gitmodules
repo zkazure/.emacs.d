@@ -25,9 +25,6 @@
 [submodule "bui"]
 	path = lib/bui
 	url = https://github.com/alezost/bui.el
-[submodule "cape"]
-	path = lib/cape
-	url = https://github.com/minad/cape
 [submodule "cdlatex"]
 	path = lib/cdlatex
 	url = https://github.com/cdominik/cdlatex
@@ -43,15 +40,18 @@
 [submodule "colorful-mode"]
 	path = lib/colorful-mode
 	url = https://github.com/DevelopmentCool2449/colorful-mode
+[submodule "company"]
+	path = lib/company
+	url = https://github.com/company-mode/company-mode
+[submodule "company-lsp"]
+	path = lib/company-lsp
+	url = git@github.com:emacsattic/company-lsp.git
 [submodule "compat"]
 	path = lib/compat
 	url = https://github.com/emacs-compat/compat.git
 [submodule "consult"]
 	path = lib/consult
 	url = https://github.com/minad/consult
-[submodule "corfu"]
-	path = lib/corfu
-	url = https://github.com/minad/corfu
 [submodule "csv-mode"]
 	path = lib/csv-mode
 	url = git@github.com:emacsmirror/csv-mode.git
@@ -211,9 +211,6 @@
 [submodule "nerd-icons"]
 	path = lib/nerd-icons
 	url = https://github.com/rainstormstudio/nerd-icons.el
-[submodule "nerd-icons-corfu"]
-	path = lib/nerd-icons-corfu
-	url = https://github.com/LuigiPiucco/nerd-icons-corfu
 [submodule "olivetti"]
 	path = lib/olivetti
 	url = https://github.com/rnkn/olivetti
