@@ -25,6 +25,9 @@
 [submodule "bui"]
 	path = lib/bui
 	url = https://github.com/alezost/bui.el
+[submodule "cape"]
+	path = lib/cape
+	url = https://github.com/minad/cape
 [submodule "cdlatex"]
 	path = lib/cdlatex
 	url = https://github.com/cdominik/cdlatex
@@ -43,9 +46,6 @@
 [submodule "company"]
 	path = lib/company
 	url = https://github.com/company-mode/company-mode
-[submodule "company-lsp"]
-	path = lib/company-lsp
-	url = git@github.com:emacsattic/company-lsp.git
 [submodule "compat"]
 	path = lib/compat
 	url = https://github.com/emacs-compat/compat.git

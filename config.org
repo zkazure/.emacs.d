@@ -1212,8 +1212,12 @@ jump to everywhere quickly
   (defun just-one-face (fn &rest args)
     (let ((orderless-match-faces [completions-common-part]))
       (apply fn args)))
-
   (advice-add 'company-capf--candidates :around #'just-one-face)
+
+  (defun company-completion-styles (capf-fn &rest args)
+    (let ((completion-styles '(basic partial-completion)))
+      (apply capf-fn args)))
+  (advice-add 'company-capf :around #'company-completion-styles)
 
   (provide 'init-orderless)
 #+end_src
@@ -3383,9 +3387,17 @@ jump to everywhere quickly
 #+begin_src elisp
   (require 'company)
   (add-hook 'after-init-hook 'global-company-mode)
-  (setq company-minimum-prefix-length 2
-        company-idle-delay 0.1
+  (setq company-minimum-prefix-length 1
+        company-idle-delay 0.5
         company-tooltip-align-annotations t)
+#+end_src
+** cape
+#+begin_src elisp
+  (require 'cape)
+  ;; Use Company backends as Capfs.
+  (setq-local completion-at-point-functions
+              (mapcar #'cape-company-to-capf
+                      (list #'company-files #'company-keywords #'company-dabbrev)))
 #+end_src
 ** lsp-mode
 #+begin_src elisp
@@ -3436,8 +3448,24 @@ jump to everywhere quickly
     (setq-local completion-at-point-functions (list (cape-capf-buster #'lsp-completion-at-point))))
 
   (add-hook 'lsp-completion-mode-hook #'my/lsp-mode-setup-completion)
-#+end_src
 
+#+end_src
+*** go
+#+begin_src elisp
+  (add-hook 'go-mode-hook #'lsp-deferred)
+  (add-hook 'go-mode-hook #'yas-minor-mode)
+
+  (setq lsp-go-analyses '((shadow . t)
+                          (simplifycompositelit . :json-false)))
+  (defun lsp-go-install-save-hooks ()
+    (add-hook 'before-save-hook #'lsp-format-buffer t t)
+    (add-hook 'before-save-hook #'lsp-organize-imports t t))
+  (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
+  
+  (lsp-register-custom-settings
+   '(("gopls.completeUnimported" t t)
+     ("gopls.staticcheck" t t)))
+#+end_src
 *** emacs-lsp-booster
 #+begin_src elisp
   (defun lsp-booster--advice-json-parse (old-fn &rest args)
@@ -3492,15 +3520,10 @@ jump to everywhere quickly
 #+begin_src elisp
   (require 'lsp-java)
 #+end_src
-*** company-lsp
+** no backup
 #+begin_src elisp
-  (require 'company-lsp)
-  (push 'company-lsp company-backends)
-  (setq company-lsp-cache-candidates t
-        company-lsp-async t
-        company-lsp-enable-snippet t)
+  (setq make-backup-files nil)
 #+end_src
-
 ** END
 
 #+begin_src emacs-lisp
