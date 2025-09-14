@@ -3355,6 +3355,15 @@ jump to everywhere quickly
 
   ;;; End of file
 #+end_src
+** exec-path-from-shell
+#+begin_src elisp
+  (require 'exec-path-from-shell)
+  (when (daemonp)
+    (exec-path-from-shell-initialize))
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize))
+#+end_src
+
 ** go-mode
 #+begin_src elisp
   (require 'go-mode)
