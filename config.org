@@ -3398,15 +3398,16 @@ jump to everywhere quickly
   (add-hook 'after-init-hook 'global-company-mode)
   (setq company-minimum-prefix-length 1
         company-idle-delay 0.5
-        company-tooltip-align-annotations t)
+        company-tooltip-align-annotations t
+        company-show-numbers t)
 #+end_src
 ** cape
 #+begin_src elisp
-  (require 'cape)
+  ;; (require 'cape)
   ;; Use Company backends as Capfs.
-  (setq-local completion-at-point-functions
-              (mapcar #'cape-company-to-capf
-                      (list #'company-files #'company-keywords #'company-dabbrev)))
+  ;; (setq-local completion-at-point-functions
+  ;;             (mapcar #'cape-company-to-capf
+  ;;                     (list #'company-files #'company-keywords #'company-dabbrev)))
 #+end_src
 ** lsp-mode
 #+begin_src elisp
@@ -3415,7 +3416,8 @@ jump to everywhere quickly
   (add-to-list 'load-path (expand-file-name "lib/lsp-mode/clients" user-emacs-directory))
 
   (add-hook 'prog-mode-hook #'lsp-deferred)
-
+  (add-hook 'yaml-ts-mode-hook #'lsp-deferred)
+  
   ;; (setq lsp-eldoc-render-all nil)
   ;; (setq lsp-enable-dap-auto-configure t)
 
@@ -3461,6 +3463,8 @@ jump to everywhere quickly
 #+end_src
 *** go
 #+begin_src elisp
+  (setq lsp-go-gopls-server-path "~/go/bin/gopls")
+
   (add-hook 'go-mode-hook #'lsp-deferred)
   (add-hook 'go-mode-hook #'yas-minor-mode)
 
