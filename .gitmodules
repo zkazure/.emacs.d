@@ -7,6 +7,9 @@
 [submodule "aio"]
 	path = lib/aio
 	url = https://github.com/skeeto/emacs-aio
+[submodule "amx"]
+	path = lib/amx
+	url = https://github.com/DarwinAwardWinner/amx
 [submodule "async"]
 	path = lib/async
 	url = https://github.com/jwiegley/emacs-async
