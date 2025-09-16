@@ -3491,15 +3491,13 @@ jump to everywhere quickly
 
   (add-hook 'prog-mode-hook #'lsp-deferred)
   (add-hook 'yaml-ts-mode-hook #'lsp-deferred)
-  
+
   ;; (setq lsp-eldoc-render-all nil)
   ;; (setq lsp-enable-dap-auto-configure t)
 
   (setq lsp-use-plists t
         lsp-log-io nil
-        lsp-keymap-prefix "C-c l"
         lsp-keep-workspace-alive nil
-        lsp-signature-auto-activate t
         lsp-modeline-code-actions-enable nil
         lsp-modeline-diagnostics-enable nil
         lsp-modeline-workspace-status-enable nil
@@ -3515,6 +3513,12 @@ jump to everywhere quickly
         lsp-enable-indentation nil
         lsp-enable-on-type-formatting nil
 
+        ;; lsp-enable-snippet t
+        lsp-keymap-prefix "C-c l"
+        lsp-signature-auto-activate t
+        lsp-prefer-capf t
+        lsp-enable-completion-at-point t
+        
         ;; For diagnostics
         lsp-diagnostics-disabled-modes '(markdown-mode gfm-mode))
 
@@ -3530,7 +3534,8 @@ jump to everywhere quickly
     ;; Optionally configure the first word as flex filtered.
     (add-hook 'orderless-style-dispatchers #'my/orderless-dispatch-flex-first nil 'local)
     ;; Optionally configure the cape-capf-buster.
-    (setq-local completion-at-point-functions (list (cape-capf-buster #'lsp-completion-at-point))))
+    ;; (setq-local completion-at-point-functions (list (cape-capf-buster #'lsp-completion-at-point)))
+    )
 
   (add-hook 'lsp-completion-mode-hook #'my/lsp-mode-setup-completion)
 
@@ -3548,10 +3553,11 @@ jump to everywhere quickly
     (add-hook 'before-save-hook #'lsp-format-buffer t t)
     (add-hook 'before-save-hook #'lsp-organize-imports t t))
   (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
-  
+
   (lsp-register-custom-settings
    '(("gopls.completeUnimported" t t)
      ("gopls.staticcheck" t t)))
+
 #+end_src
 *** emacs-lsp-booster
 #+begin_src elisp
@@ -3596,7 +3602,7 @@ jump to everywhere quickly
 *** flycheck
 #+begin_src elisp
   (require 'flycheck)
-  (add-hook 'after-init-hook #'global-flycheck-mode)
+  (add-hook 'prog-mode-hook #'global-flycheck-mode)
 #+end_src
 *** lsp-treemacs
 #+begin_src elisp
@@ -3611,6 +3617,7 @@ jump to everywhere quickly
 #+begin_src elisp
   (setq make-backup-files nil)
 #+end_src
+
 ** END
 
 #+begin_src emacs-lisp
