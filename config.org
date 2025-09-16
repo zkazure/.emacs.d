@@ -3394,7 +3394,77 @@ jump to everywhere quickly
   (require 'dap-cpptools)
   (require 'dap-chrome)
   (require 'dap-go)
+
+  (add-hook 'dap-stopped-hook
+            (lambda (arg) (call-interactively #'dap-hydra)))
+  ;; Enabling only some features
+  (setq dap-auto-configure-features '(sessions locals controls tooltip))
+
+#+end_src
+*** Java
+#+begin_src elisp
+  (require 'dap-java)
+
+  (dap-register-debug-template "My Runner"
+                               (list :type "java"
+                                     :request "launch"
+                                     :args ""
+                                     :vmArgs "-ea -Dmyapp.instance.name=myapp_1"
+                                     :projectName "myapp"
+                                     :mainClass "com.domain.AppRunner"
+                                     :env '(("DEV" . "1"))))
+#+end_src
+*** Python
+#+begin_src elisp
+  ;; pip install "debugpy"
   (require 'dap-python)
+  ;; if you installed debugpy, you need to set this
+  ;; https://github.com/emacs-lsp/dap-mode/issues/306
+  (setq dap-python-debugger 'debugpy)
+
+  (dap-register-debug-template "My App"
+    (list :type "python"
+          :args "-i"
+          :cwd nil
+          :env '(("DEBUG" . "1"))
+          :target-module (expand-file-name "~/src/myapp/.env/bin/myapp")
+          :request "launch"
+          :name "My App"))
+
+  (dap-register-debug-template "Python :: Attach to running process"
+    (list :type "python"
+          :request "attach"
+          :processId "${command:pickProcess}"
+          :name "Python :: Attach to running process"))
+#+end_src
+
+*** Native Debuging (C, C++, Rust etc)
+#+begin_src elisp
+  (require 'dap-gdb)
+  (require 'dap-cpptools)
+  (require 'dap-dlv-go)
+
+  (dap-register-debug-template
+   "Launch Executable trimmed path"
+   (list :type "go"
+         :request "launch"
+         :name "Launch Executable trimmed path"
+         :mode "exec"
+         :program nil
+         :args nil
+         :env nil
+         :substitutePath (vector (ht ("from" "/home/user/projects/tribonacci") ("to" "github.com/s-kostyaev/tribonacci")))))
+
+  ;; .dir-locals.el
+  ;; ((go-mode  . ((eval . (progn
+  ;;                         (dap-register-debug-template
+  ;;                          "Remote debug in docker container"
+  ;;                          (list :type "go"
+  ;;                                :request "attach"
+  ;;                                :name "Remote debug in docker container"
+  ;;                                :mode "remote"
+  ;;                                :substitutePath (vector (ht ("from" "/home/user/projects/tribonacci") ("to" "/app"))))))))))
+
 #+end_src
 ** company
 #+begin_src elisp
