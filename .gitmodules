@@ -211,9 +211,6 @@
 [submodule "mu4e"]
 	path = lib/mu4e
 	url = https://github.com/djcb/mu
-[submodule "neotree"]
-	path = lib/neotree
-	url = https://github.com/jaypei/emacs-neotree
 [submodule "nerd-icons"]
 	path = lib/nerd-icons
 	url = https://github.com/rainstormstudio/nerd-icons.el

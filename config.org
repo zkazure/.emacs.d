@@ -342,7 +342,6 @@
   (require 'init-org-fragtog)
   (require 'init-hydra)
   (require 'init-sudo-edit)
-  (require 'init-neotree)
   (require 'init-leetcode)
   (require 'init-move-text)
   (require 'init-tag)
@@ -1944,7 +1943,6 @@ jump to everywhere quickly
   (provide 'init-treesit)
 #+end_src
 
-
 ** treesit-fold
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-treesit-fold.el
@@ -2394,36 +2392,6 @@ jump to everywhere quickly
   (define-key global-map (kbd "C-c s") 'sudo-edit)
 
   (provide 'init-sudo-edit)
-#+end_src
-** neotree
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-neotree.el
-:END:
-#+begin_src emacs-lisp
-  (require 'neotree)
-
-  ;; (global-set-key [f8] 'neotree-toggle)
-  (global-set-key (kbd "C-c c n") 'neotree-toggle)
-  (setq projectile-switch-project-action 'neotree-projectile-action)
-  (setq project-find-file 'neotree-projectile-action)
-
-  ;; (defun neotree-ffip-project-dir ()
-  ;;   "Open NeoTree using the git root."
-  ;;   (interactive)
-  ;;   (let ((project-dir (ffip-project-root))
-  ;;         (file-name (buffer-file-name)))
-  ;;     (if project-dir
-  ;;         (progn
-  ;;           (neotree-dir project-dir)
-  ;;           (neotree-find file-name))
-  ;;       (message "Could not find git project root."))))
-
-  ;; (define-key map (kbd "C-c C-p") 'neotree-ffip-project-dir)
-
-  ;; (define-key neotree-mode-map (kbd "M-o") 'other-window)
-  ;; (define-key neotree-mode-map (kbd "M-O") (lambda () (interactive) (other-window -1)))
-
-  (provide 'init-neotree)
 #+end_src
 ** leetcode
 :PROPERTIES:
@@ -3380,13 +3348,116 @@ jump to everywhere quickly
   (add-to-list 'load-path (expand-file-name "lib/treemacs/src/elisp" user-emacs-directory))
   (add-to-list 'load-path (expand-file-name "lib/treemacs/src/extra" user-emacs-directory))
 
-  ;; (setq treemacs-collapse-dirs           (if treemacs-python-executable 3 0)
-  ;;       treemacs-missing-project-action  'remove
-  ;;       treemacs-user-mode-line-format   'none
-  ;;       treemacs-sorting                 'alphabetic-asc
-  ;;       treemacs-follow-after-init       t
-  ;;       treemacs-width                   30)
-  (setq treemacs-width 30)
+  (require 'treemacs-annotations)
+  (require 'treemacs-async)
+  (require 'treemacs-bookmarks)
+  (require 'treemacs-compatibility)
+  (require 'treemacs-core-utils)
+  (require 'treemacs-customization)
+  (require 'treemacs-dom)
+  (require 'treemacs)
+  (require 'treemacs-extensions)
+  (require 'treemacs-faces)
+  (require 'treemacs-file-management)
+  (require 'treemacs-filewatch-mode)
+  (require 'treemacs-follow-mode)
+  (require 'treemacs-fringe-indicator)
+  (require 'treemacs-git-commit-diff-mode)
+  (require 'treemacs-header-line)
+  (require 'treemacs-hydras)
+  (require 'treemacs-icons)
+  (require 'treemacs-interface)
+  (require 'treemacs-logging)
+  (require 'treemacs-macros)
+  (require 'treemacs-mode)
+  (require 'treemacs-mouse-interface)
+  (require 'treemacs-peek-mode)
+  (require 'treemacs-persistence)
+  (require 'treemacs-project-follow-mode)
+  (require 'treemacs-rendering)
+  (require 'treemacs-scope)
+  (require 'treemacs-tag-follow-mode)
+  (require 'treemacs-tags)
+  (require 'treemacs-themes)
+  (require 'treemacs-treelib)
+  (require 'treemacs-visuals)
+  (require 'treemacs-workspaces)
+  ;; (require 'treemacs-all-the-icons)
+  ;; (require 'treemacs-evil)
+  ;; (require 'treemacs-icons-dired)
+  (require 'treemacs-magit)
+  (require 'treemacs-mu4e)
+  ;; (require 'treemacs-perspective)
+  ;; (require 'treemacs-persp)
+  (require 'treemacs-projectile)
+  (require 'treemacs-tab-bar)
+
+
+  (treemacs-git-mode 'deferred)
+
+  (setq treemacs-buffer-name-function            #'treemacs-default-buffer-name
+        treemacs-buffer-name-prefix              " *Treemacs-Buffer-"
+        treemacs-collapse-dirs                   (if treemacs-python-executable 3 0)
+        treemacs-deferred-git-apply-delay        0.5
+        treemacs-directory-name-transformer      #'identity
+        treemacs-display-in-side-window          t
+        treemacs-eldoc-display                   'simple
+        treemacs-file-event-delay                2000
+        treemacs-file-extension-regex            treemacs-last-period-regex-value
+        treemacs-file-follow-delay               0.2
+        treemacs-file-name-transformer           #'identity
+        treemacs-follow-after-init               t
+        treemacs-expand-after-init               t
+        treemacs-find-workspace-method           'find-for-file-or-pick-first
+        treemacs-git-command-pipe                ""
+        treemacs-goto-tag-strategy               'refetch-index
+        treemacs-header-scroll-indicators        '(nil . "^^^^^^")
+        treemacs-hide-dot-git-directory          t
+        treemacs-indentation                     2
+        treemacs-indentation-string              " "
+        treemacs-is-never-other-window           nil
+        treemacs-max-git-entries                 5000
+        treemacs-missing-project-action          'ask
+        treemacs-move-files-by-mouse-dragging    t
+        treemacs-move-forward-on-expand          nil
+        treemacs-no-png-images                   nil
+        treemacs-no-delete-other-windows         t
+        treemacs-project-follow-cleanup          nil
+        treemacs-persist-file                    (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
+        treemacs-position                        'left
+        treemacs-read-string-input               'from-child-frame
+        treemacs-recenter-distance               0.1
+        treemacs-recenter-after-file-follow      nil
+        treemacs-recenter-after-tag-follow       nil
+        treemacs-recenter-after-project-jump     'always
+        treemacs-recenter-after-project-expand   'on-distance
+        treemacs-litter-directories              '("/node_modules" "/.venv" "/.cask")
+        treemacs-project-follow-into-home        nil
+        treemacs-show-cursor                     nil
+        treemacs-show-hidden-files               t
+        treemacs-silent-filewatch                nil
+        treemacs-silent-refresh                  nil
+        treemacs-sorting                         'alphabetic-asc
+        treemacs-select-when-already-in-treemacs 'move-back
+        treemacs-space-between-root-nodes        t
+        treemacs-tag-follow-cleanup              t
+        treemacs-tag-follow-delay                1.5
+        treemacs-text-scale                      nil
+        treemacs-user-mode-line-format           nil
+        treemacs-user-header-line-format         nil
+        treemacs-wide-toggle-width               70
+        treemacs-width                           25
+        treemacs-width-increment                 1
+        treemacs-width-is-initially-locked       t
+        treemacs-workspace-switch-cleanup        nil)
+
+  (treemacs-resize-icons 12)
+  (treemacs-follow-mode t)
+  (treemacs-filewatch-mode t)
+  (treemacs-fringe-indicator-mode 'always)
+  (when treemacs-python-executable
+    (treemacs-git-commit-diff-mode t))
+  (treemacs-hide-gitignored-files-mode nil)
 #+end_src
 ** dap-mode
 #+begin_src elisp
