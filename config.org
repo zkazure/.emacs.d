@@ -2749,7 +2749,7 @@ jump to everywhere quickly
   (add-to-list 'load-path "~/.emacs.d/lib/lsp-bridge/")
   (require 'lsp-bridge)
   (require 'lsp-bridge-jdtls)
-
+  
   ;;; Code:
   ;; (add-hook 'find-file-hook #'lsp-bridge-restart-process)
   ;; (add-hook 'org-edit-special-hook #'lsp-bridge-restart-process)
@@ -3271,7 +3271,7 @@ jump to everywhere quickly
 #+end_src
 
 ** eaf
-#+begin_src elisp
+#+begin_src elisp :tangle no
   (require 'eaf)
   (require 'eaf-browser)
   (require 'eaf-jupyter)
