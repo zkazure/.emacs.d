@@ -3536,6 +3536,15 @@ jump to everywhere quickly
   ;;                                :mode "remote"
   ;;                                :substitutePath (vector (ht ("from" "/home/user/projects/tribonacci") ("to" "/app"))))))))))
 
+
+  (dap-register-debug-template
+    "cpptools::Run OI"
+    (list :type "cppdbg"
+          :request "launch"
+          :name "cpptools::Run OI"
+          :MIMode "gdb"
+          :program "${workspaceFolder}/test"
+          :cwd "${workspaceFolder}"))
 #+end_src
 ** company
 #+begin_src elisp
@@ -3688,7 +3697,28 @@ jump to everywhere quickly
 #+begin_src elisp
   (setq make-backup-files nil)
 #+end_src
+** debug
+#+begin_src elisp
+  ;; (defun my-smart-compile ()
+  ;;   "Compile with 'make -k' and fall back to 'g++' if make fails."
+  ;;   (interactive)
+  ;;   ;; Get the current file's name without the directory
+  ;;   (let* ((file-name (file-name-nondirectory buffer-file-name))
+  ;;          (output-file "test") ;; Default executable name
+  ;;          (g++-command (format "g++ %s -o %s -g" file-name output-file)))
 
+  ;;     ;; Run 'make -k' and capture the result
+  ;;     (let ((make-result (shell-command "make -k" "*compilation*")))
+  ;;       (if (= 0 make-result)
+  ;;           (message "Compilation with make succeeded.")
+  ;;         (progn
+  ;;           (message "Compilation with make failed. Trying g++...")
+  ;;           (shell-command g++-command "*compilation*"))))))
+
+  ;; ;; Set this function as the compile-command
+  ;; (setq compile-command (list 'my-smart-compile))
+  (setq compile-command "g++ -o test -g ")
+#+end_src
 ** END
 
 #+begin_src emacs-lisp
