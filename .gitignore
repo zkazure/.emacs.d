@@ -14,6 +14,12 @@
 /*.el
 /.cache
 /go/
+/.dap-breakpoints
+/.extension/
+/.lsp-session-v1
+/amx-items
+/eclipse.jdt.ls/
+/workspace
 
 lisp/
 lib/lsp-bridge/
