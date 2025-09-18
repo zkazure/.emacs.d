@@ -727,3 +727,130 @@
 
   (provide 'init-lsp-bridge)
 #+end_src
+* mail
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-mail.el
+:END:
+
+** account
+#+begin_src elisp
+  ;; (require 'private)
+  (setq user-mail-address "hello@kazurezheng.xyz")
+
+  (setq smtpmail-smtp-server "smtppro.zoho.com"
+        smtpmail-smtp-service 465
+        smtpmail-stream-type 'ssl
+        ;; smtpmail-stream-type 'starttls
+        )
+
+  (setq send-mail-function 'smtpmail-send-it)
+  ;; (setq mail-user-agent 'sendmail-user-agent)
+  (setq mail-user-agent 'mu4e-user-agent)
+  (setq mu4e-compose-in-reply-to-function #'mu4e-compose-in-reply-to-function)
+#+end_src
+
+** mu4e
+#+begin_src elisp
+  ;; (add-to-list 'load-path "~/.emacs.d/lib/mu4e/mu4e")
+  (require 'mu4e)
+
+  (setq mu4e-notification-support t)
+  (setq mu4e-eldoc-support t)
+
+  (global-set-key (kbd "C-c n C") 'mu4e-org-store-and-capture)
+  ;; Show images
+  (setq mu4e-show-images t)
+
+  ;; Use fancy chars
+  (setq mu4e-use-fancy-chars t)
+
+  ;; This is set to 't' to avoid mail syncing issues when using mbsync
+  (setq mu4e-change-filenames-when-moving t)
+
+  ;; Refresh mail using isync every 10 minutes
+  (setq mu4e-update-interval (* 10 60))
+  (setq mu4e-get-mail-command "mbsync -a")
+  (setq mu4e-maildir "~/Mail")
+
+  (setq mu4e-drafts-folder "/Drafts")
+  (setq mu4e-sent-folder   "/Sent")
+  (setq mu4e-refile-folder "/Archive")
+  (setq mu4e-trash-folder  "/Trash")
+
+  ;; (setq mu4e-maildir-shortcuts
+  ;;       '(("/Inbox"             . ?i)
+  ;;         ("/[Gmail]/Sent Mail" . ?s)
+  ;;         ("/[Gmail]/Trash"     . ?t)
+  ;;         ("/[Gmail]/Drafts"    . ?d)
+  ;;         ("/[Gmail]/All Mail"  . ?a)))
+
+  (setq mu4e-get-mail-command "mbsync -a")  ; or offlineimap, isync, etc.
+  (setq mu4e-update-interval 300)  ; Update every 5 minutes
+  (global-set-key  (kbd "C-c o m") 'mu4e)
+#+end_src
+** edbd
+#+begin_src emacs-lisp
+  ;; (add-hook 'message-mode-hook
+  ;;           '(lambda ()
+  ;;              (flyspell-mode t)
+  ;;              (local-set-key (kbd "TAB") 'bbdb-complete-name)))
+
+  ;; (add-to-list 'load-path "/where/you/place/bbdb/")
+  ;; (require 'bbdb)
+  ;; (bbdb-initialize 'message 'gnus 'sendmail)
+  ;; (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
+  ;; (setq bbdb/mail-auto-create-p t
+  ;;       bbdb/news-auto-create-p t)
+
+  (require 'ebdb)
+  (require 'ebdb-mu4e)
+  (require 'ebdb-complete)
+
+  (ebdb-complete-enable)
+
+  (defun kz/ebdb-set-mail-from-address (&optional records arg kill)
+    (interactive (list (ebdb-prompt-for-record)
+  		     current-prefix-arg))
+    (let ((recs (if (listp records) records (list records)))
+  	(style (if arg 'list 'inline))
+  	usable str m)
+      (dolist (r recs)
+        (when (setq m (ebdb-record-mail r))
+  	(push (cons r (or (object-assoc 'primary 'priority m)
+  			  (car m)))
+  	      usable)))
+      (setq str (ebdb-records-cite style usable))
+      (if kill
+  	(progn
+  	  (kill-new str)
+  	  (message "Citation added to kill ring"))
+        (save-excursion
+          (goto-char (point-min))
+          (when (re-search-forward "^From:.*" nil t)
+            (replace-match (format "From: %s" str)))))))
+
+  (defun kz/ebdb-set-mail-to-address (&optional records arg kill)
+    (interactive (list (ebdb-prompt-for-record)
+  		     current-prefix-arg))
+    (let ((recs (if (listp records) records (list records)))
+  	(style (if arg 'list 'inline))
+  	usable str m)
+      (dolist (r recs)
+        (when (setq m (ebdb-record-mail r))
+  	(push (cons r (or (object-assoc 'primary 'priority m)
+  			  (car m)))
+  	      usable)))
+      (setq str (ebdb-records-cite style usable))
+      (if kill
+  	(progn
+  	  (kill-new str)
+  	  (message "Citation added to kill ring"))
+        (save-excursion
+          (goto-char (point-min))
+          (when (re-search-forward "^To:.*" nil t)
+            (replace-match (format "To: %s" str)))))))
+
+  (define-key message-mode-map (kbd "C-c e f") 'kz/ebdb-set-mail-from-address)
+  (define-key message-mode-map (kbd "C-c e t") 'kz/ebdb-set-mail-to-address)
+#+end_src
+
