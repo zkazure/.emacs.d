@@ -2886,6 +2886,17 @@ jump to everywhere quickly
   (define-key global-map (kbd "C-c o f") 'my-open-current-dir-in-thunar)
 #+end_src
 
+** open outer terminal
+#+begin_src emacs-lisp
+  (defun my-open-current-dir-in-terminal()
+    (interactive)
+    (let ((dir (expand-file-name default-directory)))
+      (start-process "kitty" nil "kitty" dir)
+      (message "open %s in terminal" dir)))
+
+  (define-key global-map (kbd "C-c o t") 'my-open-current-dir-in-terminal)
+#+end_src
+
 ** pixel scrool
 
 #+begin_src emacs-lisp
