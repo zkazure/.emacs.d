@@ -3616,6 +3616,10 @@ jump to everywhere quickly
   ;; (setq compile-command (list 'my-smart-compile))
   (setq compile-command "g++ -o test -g ")
 #+end_src
+** riscv-mode
+#+begin_src elisp
+  (require 'riscv-mode)
+#+end_src
 ** END
 
 #+begin_src emacs-lisp

@@ -286,6 +286,9 @@
 [submodule "rime"]
 	path = lib/rime
 	url = https://github.com/DogLooksGood/emacs-rime
+[submodule "riscv-mode"]
+	path = lib/riscv-mode
+	url = https://github.com/AdamNiederer/riscv-mode
 [submodule "s"]
 	path = lib/s
 	url = https://github.com/magnars/s.el
