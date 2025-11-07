@@ -289,6 +289,9 @@
 [submodule "riscv-mode"]
 	path = lib/riscv-mode
 	url = https://github.com/AdamNiederer/riscv-mode
+[submodule "rust-mode"]
+	path = lib/rust-mode
+	url = https://github.com/rust-lang/rust-mode
 [submodule "s"]
 	path = lib/s
 	url = https://github.com/magnars/s.el

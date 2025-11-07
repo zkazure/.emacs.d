@@ -382,6 +382,8 @@
   (add-hook 'prog-mode-hook #'(lambda () (display-line-numbers-mode 1)))
   (add-hook 'xml-mode-hook #'(lambda () (display-line-numbers-mode 1)))
   (add-hook 'nxml-mode-hook #'(lambda () (display-line-numbers-mode 1)))
+  (add-hook 'toml-mode-hook #'(lambda () (display-line-numbers-mode 1)))
+  (add-hook 'toml-ts-mode-hook #'(lambda () (display-line-numbers-mode 1)))
 
   (setq next-screen-context-lines 2)
   ;;FIXED the problem of pdf rolling problem,value can't larger than 21
@@ -3652,6 +3654,13 @@ jump to everywhere quickly
              :publishing-function org-publish-attachment)
 
             ("blog" :components ("pages" "static"))))
+#+end_src
+** rust-mode
+#+begin_src elisp
+  (require 'rust-mode)
+  (autoload 'rust-mode "rust-mode" nil t)
+  (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+  (add-hook 'rust-mode-hook #'lsp)
 #+end_src
 ** END
 
