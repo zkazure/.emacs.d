@@ -1351,49 +1351,55 @@ jump to everywhere quickly
 
   (setq org-roam-capture-templates
         '(
-          ("g" "Game" plain "%?"
-           :if-new (file+head "game/%<%Y%m%d%H%M%S>-${slug}.org"
-                              "#+title: ${title}\n#+filetags:\n")`
-  	     :immediate-finish t
-  	     :unnarrowed t)
+          ;; ("g" "Game" plain "%?"
+          ;;  :if-new (file+head "game/%<%Y%m%d%H%M%S>-${slug}.org"
+          ;;                     "#+title: ${title}\n#+filetags:\n")`
+  	    ;;  :immediate-finish t
+  	    ;;  :unnarrowed t)
           ("m" "Main" plain  "%?"
            :if-new (file+head "main/${slug}.org"
-                              "#+title: ${title}\n#+filetags: \n")
+                              "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
            :immediate-finish t
            :unnarrowed t)
           ("r" "Reference" plain "%?"
            :if-new
-           (file+head "reference/${title}.org" "#+title: ${title}\n#+filetags: \n")
+           (file+head "reference/${title}.org"
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
            :immediate-finish t
            :unnarrowed t)
           ("a" "Article" plain "%?"
            :if-new
-           (file+head "article/${title}.org" "#+title: ${title}\n#+filetags: :article:\n")
+           (file+head "article/${title}.org"
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: :article:\n")
            :immediate-finish t
            :unnarrowed t)
           ("c" "Coding" plain "%?"
            :if-new
-           (file+head "coding/${title}.org" "#+title: ${title}\n#+filetags: \n")
+           (file+head "coding/${title}.org"
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
            :immediate-finish t
            :unnarrowed t)
           ("i" "Idea" plain "%?"
            :if-new
-           (file+head "idea/${title}.org" "#+title: ${title}\n#+filetags: \n")
+           (file+head "idea/${title}.org"
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
            :immediate-finish t
            :unnarrowed t)
           ("R" "Reading" plain "%?"
            :if-new (file+head "reading/${title}.org"
-                              "#+title: ${title}\n#+filetags: \n* ${title}\n:PROPERTIES:\n:NOTER_DOCUMENT: ~/Documents/calibre_library\n:NOTER_PAGE:\n:END:")
+                              "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
            :immediate-finish t
            :unnarrowed t)
           ("w" "Web" plain "%?"
            :if-new
-           (file+head "web/${title}.org" "#+title: ${title}\n#+filetags: \n")
+           (file+head "web/${title}.org"
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
            :immediate-finish t
            :unnarrowed t)
           ("s" "Stem" plain "%?"
            :if-new
-           (file+head "stem/${title}.org" "#+title: ${title}\n#+filetags: \n")
+           (file+head "stem/${title}.org"
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
            :immediate-finish t
            :unnarrowed t)
           ))
@@ -3619,6 +3625,30 @@ jump to everywhere quickly
 ** riscv-mode
 #+begin_src elisp
   (require 'riscv-mode)
+#+end_src
+** blog
+#+begin_src elisp
+  (require 'ox-publish)
+
+  (setq org-publish-project-alist
+          `(("pages"
+             :base-directory "~/Documents/roam/blog/"
+             :base-extension "org"
+             :recursive t
+             :publishing-directory "~/Developments/blog/public/"
+             :auto-sitemap t
+             :sitemap-filename "sitemap.org"
+             :sitemap-title ""
+             :publishing-function org-html-publish-to-html)
+
+            ("static"
+             :base-directory "~/Documents/roam/blog/"
+             :base-extension "css\\|txt\\|jpg\\|gif\\|png"
+             :recursive t
+             :publishing-directory  "~/Developments/blog/public/"
+             :publishing-function org-publish-attachment)
+
+            ("blog" :components ("pages" "static"))))
 #+end_src
 ** END
 
