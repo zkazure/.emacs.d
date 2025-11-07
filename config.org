@@ -380,6 +380,9 @@
   (global-visual-line-mode t)
 
   (add-hook 'prog-mode-hook #'(lambda () (display-line-numbers-mode 1)))
+  (add-hook 'xml-mode-hook #'(lambda () (display-line-numbers-mode 1)))
+  (add-hook 'nxml-mode-hook #'(lambda () (display-line-numbers-mode 1)))
+
   (setq next-screen-context-lines 2)
   ;;FIXED the problem of pdf rolling problem,value can't larger than 21
 
@@ -2363,7 +2366,7 @@ jump to everywhere quickly
       ("g" (hot-expand "<s" "go :imports '\(\"fmt\"\)") "golang"))
      "Misc"
      (("m" (hot-expand "<s" "mermaid :file chart.png") "mermaid")
-      ("u" (hot-expand "<s" "plantuml :file chart.png") "plantuml")
+      ("u" (hot-expand "<s" "plantuml :file ./static/chart.png") "plantuml")
       ("Y" (hot-expand "<s" "ipython :session :exports both :results raw drawer\n$0") "ipython")
       ("P" (progn
             (insert "#+HEADERS: :results output :exports both :shebang \"#!/usr/bin/env perl\"\n")
@@ -3062,7 +3065,7 @@ jump to everywhere quickly
 #+end_src
 
 ** RSS
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (global-set-key (kbd "C-c o e") 'elfeed)
 
   ;; Somewhere in your .emacs file
@@ -3119,8 +3122,8 @@ jump to everywhere quickly
   (global-set-key (kbd "M-i") 'symbol-overlay-put)
   (global-set-key (kbd "M-n") 'symbol-overlay-switch-forward)
   (global-set-key (kbd "M-p") 'symbol-overlay-switch-backward)
-  ;; (global-set-key (kbd "<f7>") 'symbol-overlay-mode)
-  ;; (global-set-key (kbd "<f8>") 'symbol-overlay-remove-all)
+  (global-set-key (kbd "<f7>") 'symbol-overlay-mode)
+  (global-set-key (kbd "<f8>") 'symbol-overlay-remove-all)
 #+end_src
 
 ** link-hint
