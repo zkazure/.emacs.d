@@ -3349,11 +3349,47 @@ jump to everywhere quickly
 #+end_src
 ** eglot
 #+begin_src elisp
+  (require 'eglot)
+
   (with-eval-after-load 'eglot
     ;; Start Eglot automatically in Python, C++, and Rust buffers
-    (add-hook 'prog-mode-hook 'eglot-ensure))
-#+end_src
+    (add-hook 'prog-mode-hook 'eglot-ensure)
+    ;; (add-hook 'python-ts-mode 'eglot-ensure)
+    ;; (add-hook 'python-mode 'eglot-ensure)
+    )
 
+  (with-eval-after-load 'eglot
+    (setq eglot-server-programs
+          `((java-mode
+             . ("/home/kazure/.emacs.d/.cache/lsp/eclipse.jdt.ls/bin/jdtls"))
+            (java-ts-mode
+             . ("/home/kazure/.emacs.d/.cache/lsp/eclipse.jdt.ls/bin/jdtls")))))
+#+end_src
+** corfu
+#+begin_src elisp
+  (require 'corfu)
+
+  (setq tab-always-indent 'complete)
+  (setq completion-styles '(orderless basic))
+  (setq completion-category-defaults nil
+        completion-category-overrides nil)
+  (setq completion-cycle-threshold 4)
+
+  (setq-default corfu-auto t)
+  (with-eval-after-load 'vterm
+    (add-hook 'vterm-mode-hook (lambda () (setq-local corfu-auto nil))))
+  (setq-default corfu-quit-no-match 'separator)
+  (add-hook 'after-init-hook 'global-corfu-mode)
+  ;; (with-eval-after-load 'corfu
+  ;;   (corfu-popupinfo-mode))
+#+end_src
+*** icon
+#+begin_src elisp
+  (require 'kind-icon)
+  (setq kind-icon-use-icons nil)
+  (with-eval-after-load 'corfu
+    (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+#+end_src
 ** END
 
 #+begin_src emacs-lisp
