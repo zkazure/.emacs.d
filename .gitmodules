@@ -169,27 +169,6 @@
 [submodule "log4e"]
 	path = lib/log4e
 	url = https://github.com/aki2o/log4e
-[submodule "lsp-docker"]
-	path = lib/lsp-docker
-	url = https://github.com/emacs-lsp/lsp-docker
-[submodule "lsp-ivy"]
-	path = lib/lsp-ivy
-	url = https://github.com/emacs-lsp/lsp-ivy
-[submodule "lsp-java"]
-	path = lib/lsp-java
-	url = https://github.com/emacs-lsp/lsp-java
-[submodule "lsp-mode"]
-	path = lib/lsp-mode
-	url = https://github.com/emacs-lsp/lsp-mode
-[submodule "lsp-pyright"]
-	path = lib/lsp-pyright
-	url = https://github.com/emacs-lsp/lsp-pyright
-[submodule "lsp-treemacs"]
-	path = lib/lsp-treemacs
-	url = https://github.com/emacs-lsp/lsp-treemacs
-[submodule "lsp-ui"]
-	path = lib/lsp-ui
-	url = https://github.com/emacs-lsp/lsp-ui
 [submodule "magit"]
 	path = lib/magit
 	url = https://github.com/magit/magit.git
