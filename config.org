@@ -3360,29 +3360,6 @@ jump to everywhere quickly
   (provide 'init-personal)
 #+end_src
 
-
-** dictionary
-
-#+begin_src emacs-lisp tangle :no
-  ;; (require 'fanyi)
-
-  ;; (customize-set-variable 'fanyi-providers
-  ;;                        '(fanyi-longman-provider
-  ;;                          fanyi-etymon-provider
-  ;;                          ))
-  ;; (setq fanyi-auto-select nil)
-  ;; (global-set-key (kbd "C-c n t") #'fanyi-dwim2)
-  ;; (global-set-key (kbd "C-c n T") #'fanyi-dwim)
-
-  (defun +dict-word-at-point ()
-    "Search word in goldendict"
-    (interactive)
-    (call-process-shell-command (concat "goldendict " (current-word) " &") nil 0)
-    )
-
-  (global-set-key (kbd "C-c n t") '+dict-word-at-point)
-#+end_src
-
 ** cape
 #+begin_src elisp
   ;; (require 'cape)
