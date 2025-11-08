@@ -3360,14 +3360,6 @@ jump to everywhere quickly
   (provide 'init-personal)
 #+end_src
 
-** cape
-#+begin_src elisp
-  ;; (require 'cape)
-  ;; Use Company backends as Capfs.
-  ;; (setq-local completion-at-point-functions
-  ;;             (mapcar #'cape-company-to-capf
-  ;;                     (list #'company-files #'company-keywords #'company-dabbrev)))
-#+end_src
 
 * COMMENT wish list
 ** desktop
