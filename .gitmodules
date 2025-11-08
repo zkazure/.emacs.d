@@ -79,9 +79,6 @@
 [submodule "ebdb"]
 	path = lib/ebdb
 	url = git@github.com:emacsmirror/ebdb.git
-[submodule "elfeed"]
-	path = lib/elfeed
-	url = https://github.com/skeeto/elfeed
 [submodule "emacs-everywhere"]
 	path = lib/emacs-everywhere
 	url = https://github.com/tecosaur/emacs-everywhere

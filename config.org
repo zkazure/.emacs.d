@@ -3383,21 +3383,6 @@ jump to everywhere quickly
   (global-set-key (kbd "C-c n t") '+dict-word-at-point)
 #+end_src
 
-** RSS
-#+begin_src emacs-lisp :tangle no
-  (global-set-key (kbd "C-c o e") 'elfeed)
-
-  ;; Somewhere in your .emacs file
-  '(setq elfeed-feeds
-        '(("http://nullprogram.com/feed/" blog emacs
-           "https://planet.emacslife.com/atom.xml")
-          "http://www.50ply.com/atom.xml"  ; no autotagging
-          "https://www.debian.org/News/news"
-          ("http://nedroid.com/feed/" webcomic)
-          ))
-#+end_src
-
-
 ** cape
 #+begin_src elisp
   ;; (require 'cape)
