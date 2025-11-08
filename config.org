@@ -894,9 +894,10 @@ only the language set here can be babeled.
 :END:
 #+begin_src emacs-lisp
   (require 'yasnippet)
+  (require 'yasnippet-capf)
 
   (yas-global-mode 1)
-
+  (add-to-list 'completion-at-point-functions #'yasnippet-capf)
   (provide 'init-yasnippet)
 #+end_src
 
@@ -3383,6 +3384,7 @@ jump to everywhere quickly
   ;; (with-eval-after-load 'corfu
   ;;   (corfu-popupinfo-mode))
 #+end_src
+
 *** icon
 #+begin_src elisp
   (require 'kind-icon)
@@ -3390,6 +3392,7 @@ jump to everywhere quickly
   (with-eval-after-load 'corfu
     (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 #+end_src
+
 ** END
 
 #+begin_src emacs-lisp
