@@ -3649,26 +3649,6 @@ jump to everywhere quickly
           :program "${workspaceFolder}/test"
           :cwd "${workspaceFolder}"))
 #+end_src
-** org-superstar-mode
-#+begin_src emacs-lisp tangle no
-  ;; (require 'org-superstar)
-  ;; (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
-
-  ;; ;; (with-eval-after-load 'org-superstar
-  ;; ;;   (setq org-superstar-headline-bullets-list '("☰" "☱" "☲" "☳" "☴" "☵" "☶" "☷" ))
-  ;; ;;   (setq org-superstar-item-bullet-alist '((?- . ?•) (?+ . ?➤)))
-  ;; ;;   (setq org-superstar-special-todo-items t))
-
-  ;; (with-eval-after-load 'org-superstar
-  ;;   (setq org-superstar-leading-bullet ?\s)
-  ;;   (setq org-superstar-special-todo-items nil)
-  ;;   (setq org-superstar-item-bullet-alist '((43 . "⬧") (45 . "⬨")))
-  ;;   (setq org-superstar-headline-bullets-list '("☰" "☱" "☲" "☳" "☴" "☵" "☶" "☷"))
-  ;;   )
-
-  ;; (custom-set-faces
-  ;;  '(org-superstar-header-bullet ((t (:weight normal :height 1.2)))))
-#+end_src
 * test
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-test.el
