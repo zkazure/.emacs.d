@@ -3044,43 +3044,6 @@ jump to everywhere quickly
 
 ~C-u C-SPC~ will take you back to last mark. Many operation in Emacs will auto create a mark.
 
-** dictionary
-
-#+begin_src emacs-lisp
-  ;; (require 'fanyi)
-
-  ;; (customize-set-variable 'fanyi-providers
-  ;;                        '(fanyi-longman-provider
-  ;;                          fanyi-etymon-provider
-  ;;                          ))
-  ;; (setq fanyi-auto-select nil)
-  ;; (global-set-key (kbd "C-c n t") #'fanyi-dwim2)
-  ;; (global-set-key (kbd "C-c n T") #'fanyi-dwim)
-
-  (defun +dict-word-at-point ()
-    "Search word in goldendict"
-    (interactive)
-    (call-process-shell-command (concat "goldendict " (current-word) " &") nil 0)
-    )
-
-  (global-set-key (kbd "C-c n t") '+dict-word-at-point)
-#+end_src
-
-** RSS
-#+begin_src emacs-lisp :tangle no
-  (global-set-key (kbd "C-c o e") 'elfeed)
-
-  ;; Somewhere in your .emacs file
-  '(setq elfeed-feeds
-        '(("http://nullprogram.com/feed/" blog emacs
-           "https://planet.emacslife.com/atom.xml")
-          "http://www.50ply.com/atom.xml"  ; no autotagging
-          "https://www.debian.org/News/news"
-          ("http://nedroid.com/feed/" webcomic)
-          ))
-#+end_src
-
-
 ** highlight-indent-guides
 #+begin_src emacs-lisp
   (require 'highlight-indent-guides)
@@ -3117,17 +3080,6 @@ jump to everywhere quickly
   (add-to-list 'global-colorful-modes 'helpful-mode)
 #+end_src
 
-** symbol-overlay
-
-#+begin_src emacs-lisp
-  (require 'symbol-overlay)
-  (global-set-key (kbd "M-i") 'symbol-overlay-put)
-  (global-set-key (kbd "M-n") 'symbol-overlay-switch-forward)
-  (global-set-key (kbd "M-p") 'symbol-overlay-switch-backward)
-  (global-set-key (kbd "<f7>") 'symbol-overlay-mode)
-  (global-set-key (kbd "<f8>") 'symbol-overlay-remove-all)
-#+end_src
-
 ** link-hint
 #+begin_src emacs-lisp
   (require 'link-hint)
@@ -3140,26 +3092,6 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (require 'doom-modeline)
   (doom-modeline-mode 1)
-#+end_src
-** org-superstar-mode
-#+begin_src emacs-lisp
-  ;; (require 'org-superstar)
-  ;; (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
-
-  ;; ;; (with-eval-after-load 'org-superstar
-  ;; ;;   (setq org-superstar-headline-bullets-list '("☰" "☱" "☲" "☳" "☴" "☵" "☶" "☷" ))
-  ;; ;;   (setq org-superstar-item-bullet-alist '((?- . ?•) (?+ . ?➤)))
-  ;; ;;   (setq org-superstar-special-todo-items t))
-
-  ;; (with-eval-after-load 'org-superstar
-  ;;   (setq org-superstar-leading-bullet ?\s)
-  ;;   (setq org-superstar-special-todo-items nil)
-  ;;   (setq org-superstar-item-bullet-alist '((43 . "⬧") (45 . "⬨")))
-  ;;   (setq org-superstar-headline-bullets-list '("☰" "☱" "☲" "☳" "☴" "☵" "☶" "☷"))
-  ;;   )
-
-  ;; (custom-set-faces
-  ;;  '(org-superstar-header-bullet ((t (:weight normal :height 1.2)))))
 #+end_src
 ** keycast
 #+begin_src elisp
@@ -3352,93 +3284,6 @@ jump to everywhere quickly
 
   (define-key global-map (kbd "C-c o s") 'treemacs-select-window)
 #+end_src
-** dap-mode
-#+begin_src elisp
-  (require 'dap-mode)
-  (require 'dap-cpptools)
-  (require 'dap-chrome)
-  (require 'dap-go)
-
-  (add-hook 'dap-stopped-hook
-            (lambda (arg) (call-interactively #'dap-hydra)))
-  ;; Enabling only some features
-  (setq dap-auto-configure-features '(sessions locals controls tooltip))
-
-#+end_src
-*** Java
-#+begin_src elisp
-  (require 'dap-java)
-
-  (dap-register-debug-template "My Runner"
-                               (list :type "java"
-                                     :request "launch"
-                                     :args ""
-                                     :vmArgs "-ea -Dmyapp.instance.name=myapp_1"
-                                     :projectName "myapp"
-                                     :mainClass "com.domain.AppRunner"
-                                     :env '(("DEV" . "1"))))
-#+end_src
-*** Python
-#+begin_src elisp
-  ;; pip install "debugpy"
-  (require 'dap-python)
-  ;; if you installed debugpy, you need to set this
-  ;; https://github.com/emacs-lsp/dap-mode/issues/306
-  (setq dap-python-debugger 'debugpy)
-
-  (dap-register-debug-template "My App"
-    (list :type "python"
-          :args "-i"
-          :cwd nil
-          :env '(("DEBUG" . "1"))
-          :target-module (expand-file-name "~/src/myapp/.env/bin/myapp")
-          :request "launch"
-          :name "My App"))
-
-  (dap-register-debug-template "Python :: Attach to running process"
-    (list :type "python"
-          :request "attach"
-          :processId "${command:pickProcess}"
-          :name "Python :: Attach to running process"))
-#+end_src
-
-*** Native Debuging (C, C++, Rust etc)
-#+begin_src elisp
-  (require 'dap-gdb)
-  (require 'dap-cpptools)
-  (require 'dap-dlv-go)
-
-  (dap-register-debug-template
-   "Launch Executable trimmed path"
-   (list :type "go"
-         :request "launch"
-         :name "Launch Executable trimmed path"
-         :mode "exec"
-         :program nil
-         :args nil
-         :env nil
-         :substitutePath (vector (ht ("from" "/home/user/projects/tribonacci") ("to" "github.com/s-kostyaev/tribonacci")))))
-
-  ;; .dir-locals.el
-  ;; ((go-mode  . ((eval . (progn
-  ;;                         (dap-register-debug-template
-  ;;                          "Remote debug in docker container"
-  ;;                          (list :type "go"
-  ;;                                :request "attach"
-  ;;                                :name "Remote debug in docker container"
-  ;;                                :mode "remote"
-  ;;                                :substitutePath (vector (ht ("from" "/home/user/projects/tribonacci") ("to" "/app"))))))))))
-
-
-  (dap-register-debug-template
-    "cpptools::Run OI"
-    (list :type "cppdbg"
-          :request "launch"
-          :name "cpptools::Run OI"
-          :MIMode "gdb"
-          :program "${workspaceFolder}/test"
-          :cwd "${workspaceFolder}"))
-#+end_src
 ** company
 #+begin_src elisp
   (require 'company)
@@ -3448,16 +3293,124 @@ jump to everywhere quickly
         company-tooltip-align-annotations t
         company-show-numbers t)
 #+end_src
-** cape
+** no backup
 #+begin_src elisp
-  ;; (require 'cape)
-  ;; Use Company backends as Capfs.
-  ;; (setq-local completion-at-point-functions
-  ;;             (mapcar #'cape-company-to-capf
-  ;;                     (list #'company-files #'company-keywords #'company-dabbrev)))
+  (setq make-backup-files nil)
 #+end_src
-** lsp-mode
+** debug
 #+begin_src elisp
+  ;; (defun my-smart-compile ()
+  ;;   "Compile with 'make -k' and fall back to 'g++' if make fails."
+  ;;   (interactive)
+  ;;   ;; Get the current file's name without the directory
+  ;;   (let* ((file-name (file-name-nondirectory buffer-file-name))
+  ;;          (output-file "test") ;; Default executable name
+  ;;          (g++-command (format "g++ %s -o %s -g" file-name output-file)))
+
+  ;;     ;; Run 'make -k' and capture the result
+  ;;     (let ((make-result (shell-command "make -k" "*compilation*")))
+  ;;       (if (= 0 make-result)
+  ;;           (message "Compilation with make succeeded.")
+  ;;         (progn
+  ;;           (message "Compilation with make failed. Trying g++...")
+  ;;           (shell-command g++-command "*compilation*"))))))
+
+  ;; ;; Set this function as the compile-command
+  ;; (setq compile-command (list 'my-smart-compile))
+  (setq compile-command "g++ -o test -g ")
+#+end_src
+** riscv-mode
+#+begin_src elisp
+  (require 'riscv-mode)
+#+end_src
+** blog
+#+begin_src elisp
+  (require 'ox-publish)
+
+  (setq org-publish-project-alist
+          `(("pages"
+             :base-directory "~/Documents/roam/blog/"
+             :base-extension "org"
+             :recursive t
+             :publishing-directory "~/Developments/blog/public/"
+             :auto-sitemap t
+             :sitemap-filename "sitemap.org"
+             :sitemap-title ""
+             :publishing-function org-html-publish-to-html)
+
+            ("static"
+             :base-directory "~/Documents/roam/blog/"
+             :base-extension "css\\|txt\\|jpg\\|gif\\|png"
+             :recursive t
+             :publishing-directory  "~/Developments/blog/public/"
+             :publishing-function org-publish-attachment)
+
+            ("blog" :components ("pages" "static"))))
+#+end_src
+** rust-mode
+#+begin_src elisp
+  (require 'rust-mode)
+  (autoload 'rust-mode "rust-mode" nil t)
+  (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+  (add-hook 'rust-mode-hook #'lsp)
+#+end_src
+** END
+
+#+begin_src emacs-lisp
+  (provide 'init-personal)
+#+end_src
+
+
+** dictionary
+
+#+begin_src emacs-lisp tangle :no
+  ;; (require 'fanyi)
+
+  ;; (customize-set-variable 'fanyi-providers
+  ;;                        '(fanyi-longman-provider
+  ;;                          fanyi-etymon-provider
+  ;;                          ))
+  ;; (setq fanyi-auto-select nil)
+  ;; (global-set-key (kbd "C-c n t") #'fanyi-dwim2)
+  ;; (global-set-key (kbd "C-c n T") #'fanyi-dwim)
+
+  (defun +dict-word-at-point ()
+    "Search word in goldendict"
+    (interactive)
+    (call-process-shell-command (concat "goldendict " (current-word) " &") nil 0)
+    )
+
+  (global-set-key (kbd "C-c n t") '+dict-word-at-point)
+#+end_src
+
+** RSS
+#+begin_src emacs-lisp :tangle no
+  (global-set-key (kbd "C-c o e") 'elfeed)
+
+  ;; Somewhere in your .emacs file
+  '(setq elfeed-feeds
+        '(("http://nullprogram.com/feed/" blog emacs
+           "https://planet.emacslife.com/atom.xml")
+          "http://www.50ply.com/atom.xml"  ; no autotagging
+          "https://www.debian.org/News/news"
+          ("http://nedroid.com/feed/" webcomic)
+          ))
+#+end_src
+
+
+** symbol-overlay
+
+#+begin_src emacs-lisp :tangle no
+  (require 'symbol-overlay)
+  (global-set-key (kbd "M-i") 'symbol-overlay-put)
+  (global-set-key (kbd "M-n") 'symbol-overlay-switch-forward)
+  (global-set-key (kbd "M-p") 'symbol-overlay-switch-backward)
+  (global-set-key (kbd "<f7>") 'symbol-overlay-mode)
+  (global-set-key (kbd "<f8>") 'symbol-overlay-remove-all)
+#+end_src
+
+** lsp-mode
+#+begin_src elisp :tangle no
   (add-to-list 'load-path (expand-file-name "lib/lsp-mode" user-emacs-directory))
   (add-to-list 'load-path (expand-file-name "lib/lsp-mode/clients" user-emacs-directory))
 
@@ -3601,74 +3554,121 @@ jump to everywhere quickly
   (advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
 #+end_src
 
-** no backup
+** cape
 #+begin_src elisp
-  (setq make-backup-files nil)
+  ;; (require 'cape)
+  ;; Use Company backends as Capfs.
+  ;; (setq-local completion-at-point-functions
+  ;;             (mapcar #'cape-company-to-capf
+  ;;                     (list #'company-files #'company-keywords #'company-dabbrev)))
 #+end_src
-** debug
+** dap-mode
+#+begin_src elisp :tangle no
+  (require 'dap-mode)
+  (require 'dap-cpptools)
+  (require 'dap-chrome)
+  (require 'dap-go)
+
+  (add-hook 'dap-stopped-hook
+            (lambda (arg) (call-interactively #'dap-hydra)))
+  ;; Enabling only some features
+  (setq dap-auto-configure-features '(sessions locals controls tooltip))
+
+#+end_src
+*** Java
 #+begin_src elisp
-  ;; (defun my-smart-compile ()
-  ;;   "Compile with 'make -k' and fall back to 'g++' if make fails."
-  ;;   (interactive)
-  ;;   ;; Get the current file's name without the directory
-  ;;   (let* ((file-name (file-name-nondirectory buffer-file-name))
-  ;;          (output-file "test") ;; Default executable name
-  ;;          (g++-command (format "g++ %s -o %s -g" file-name output-file)))
+  (require 'dap-java)
 
-  ;;     ;; Run 'make -k' and capture the result
-  ;;     (let ((make-result (shell-command "make -k" "*compilation*")))
-  ;;       (if (= 0 make-result)
-  ;;           (message "Compilation with make succeeded.")
-  ;;         (progn
-  ;;           (message "Compilation with make failed. Trying g++...")
-  ;;           (shell-command g++-command "*compilation*"))))))
-
-  ;; ;; Set this function as the compile-command
-  ;; (setq compile-command (list 'my-smart-compile))
-  (setq compile-command "g++ -o test -g ")
+  (dap-register-debug-template "My Runner"
+                               (list :type "java"
+                                     :request "launch"
+                                     :args ""
+                                     :vmArgs "-ea -Dmyapp.instance.name=myapp_1"
+                                     :projectName "myapp"
+                                     :mainClass "com.domain.AppRunner"
+                                     :env '(("DEV" . "1"))))
 #+end_src
-** riscv-mode
+*** Python
 #+begin_src elisp
-  (require 'riscv-mode)
+  ;; pip install "debugpy"
+  (require 'dap-python)
+  ;; if you installed debugpy, you need to set this
+  ;; https://github.com/emacs-lsp/dap-mode/issues/306
+  (setq dap-python-debugger 'debugpy)
+
+  (dap-register-debug-template "My App"
+    (list :type "python"
+          :args "-i"
+          :cwd nil
+          :env '(("DEBUG" . "1"))
+          :target-module (expand-file-name "~/src/myapp/.env/bin/myapp")
+          :request "launch"
+          :name "My App"))
+
+  (dap-register-debug-template "Python :: Attach to running process"
+    (list :type "python"
+          :request "attach"
+          :processId "${command:pickProcess}"
+          :name "Python :: Attach to running process"))
 #+end_src
-** blog
+
+*** Native Debuging (C, C++, Rust etc)
 #+begin_src elisp
-  (require 'ox-publish)
+  (require 'dap-gdb)
+  (require 'dap-cpptools)
+  (require 'dap-dlv-go)
 
-  (setq org-publish-project-alist
-          `(("pages"
-             :base-directory "~/Documents/roam/blog/"
-             :base-extension "org"
-             :recursive t
-             :publishing-directory "~/Developments/blog/public/"
-             :auto-sitemap t
-             :sitemap-filename "sitemap.org"
-             :sitemap-title ""
-             :publishing-function org-html-publish-to-html)
+  (dap-register-debug-template
+   "Launch Executable trimmed path"
+   (list :type "go"
+         :request "launch"
+         :name "Launch Executable trimmed path"
+         :mode "exec"
+         :program nil
+         :args nil
+         :env nil
+         :substitutePath (vector (ht ("from" "/home/user/projects/tribonacci") ("to" "github.com/s-kostyaev/tribonacci")))))
 
-            ("static"
-             :base-directory "~/Documents/roam/blog/"
-             :base-extension "css\\|txt\\|jpg\\|gif\\|png"
-             :recursive t
-             :publishing-directory  "~/Developments/blog/public/"
-             :publishing-function org-publish-attachment)
+  ;; .dir-locals.el
+  ;; ((go-mode  . ((eval . (progn
+  ;;                         (dap-register-debug-template
+  ;;                          "Remote debug in docker container"
+  ;;                          (list :type "go"
+  ;;                                :request "attach"
+  ;;                                :name "Remote debug in docker container"
+  ;;                                :mode "remote"
+  ;;                                :substitutePath (vector (ht ("from" "/home/user/projects/tribonacci") ("to" "/app"))))))))))
 
-            ("blog" :components ("pages" "static"))))
+
+  (dap-register-debug-template
+    "cpptools::Run OI"
+    (list :type "cppdbg"
+          :request "launch"
+          :name "cpptools::Run OI"
+          :MIMode "gdb"
+          :program "${workspaceFolder}/test"
+          :cwd "${workspaceFolder}"))
 #+end_src
-** rust-mode
-#+begin_src elisp
-  (require 'rust-mode)
-  (autoload 'rust-mode "rust-mode" nil t)
-  (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
-  (add-hook 'rust-mode-hook #'lsp)
+** org-superstar-mode
+#+begin_src emacs-lisp tangle no
+  ;; (require 'org-superstar)
+  ;; (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
+
+  ;; ;; (with-eval-after-load 'org-superstar
+  ;; ;;   (setq org-superstar-headline-bullets-list '("☰" "☱" "☲" "☳" "☴" "☵" "☶" "☷" ))
+  ;; ;;   (setq org-superstar-item-bullet-alist '((?- . ?•) (?+ . ?➤)))
+  ;; ;;   (setq org-superstar-special-todo-items t))
+
+  ;; (with-eval-after-load 'org-superstar
+  ;;   (setq org-superstar-leading-bullet ?\s)
+  ;;   (setq org-superstar-special-todo-items nil)
+  ;;   (setq org-superstar-item-bullet-alist '((43 . "⬧") (45 . "⬨")))
+  ;;   (setq org-superstar-headline-bullets-list '("☰" "☱" "☲" "☳" "☴" "☵" "☶" "☷"))
+  ;;   )
+
+  ;; (custom-set-faces
+  ;;  '(org-superstar-header-bullet ((t (:weight normal :height 1.2)))))
 #+end_src
-** END
-
-#+begin_src emacs-lisp
-  (provide 'init-personal)
-#+end_src
-
-
 * test
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-test.el
