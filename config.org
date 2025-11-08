@@ -3285,15 +3285,7 @@ jump to everywhere quickly
 
   (define-key global-map (kbd "C-c o s") 'treemacs-select-window)
 #+end_src
-** company
-#+begin_src elisp
-  (require 'company)
-  (add-hook 'after-init-hook 'global-company-mode)
-  (setq company-minimum-prefix-length 1
-        company-idle-delay 0.5
-        company-tooltip-align-annotations t
-        company-show-numbers t)
-#+end_src
+
 ** no backup
 #+begin_src elisp
   (setq make-backup-files nil)
