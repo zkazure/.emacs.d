@@ -1912,6 +1912,7 @@ jump to everywhere quickly
           (typescript-mode . typescript-ts-mode)
           (json-mode . json-ts-mode)
           (sh-mode . bash-ts-mode)
+          (toml-mode . toml-ts-mode)
           ;; (markdown-mode . markdown-ts-mode)
           ))
 
@@ -3354,6 +3355,13 @@ jump to everywhere quickly
   (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
   (add-hook 'rust-mode-hook #'lsp)
 #+end_src
+** eglot
+#+begin_src elisp
+  (with-eval-after-load 'eglot
+    ;; Start Eglot automatically in Python, C++, and Rust buffers
+    (add-hook 'prog-mode-hook 'eglot-ensure))
+#+end_src
+
 ** END
 
 #+begin_src emacs-lisp
