@@ -823,7 +823,7 @@ only the language set here can be babeled.
   ;;   	  :internal-border-width 5))
 
   (setq rime-user-data-dir "~/.config/rime-zrm/")
-  ;; (setq default-input-method "rime")
+  (setq default-input-method "rime")
 
   ;; (setq default-input-method "rime"
   ;;       rime-show-candidate 'posframe)
@@ -3247,7 +3247,7 @@ jump to everywhere quickly
         treemacs-goto-tag-strategy               'refetch-index
         treemacs-header-scroll-indicators        '(nil . "^^^^^^")
         treemacs-hide-dot-git-directory          t
-        treemacs-indentation                     2
+        treemacs-indentation                     1
         treemacs-indentation-string              " "
         treemacs-is-never-other-window           nil
         treemacs-max-git-entries                 5000
@@ -3276,7 +3276,7 @@ jump to everywhere quickly
         treemacs-space-between-root-nodes        t
         treemacs-tag-follow-cleanup              t
         treemacs-tag-follow-delay                1.5
-        treemacs-text-scale                      nil
+        treemacs-text-scale                      0.1
         treemacs-user-mode-line-format           nil
         treemacs-user-header-line-format         nil
         treemacs-wide-toggle-width               70
@@ -3285,7 +3285,7 @@ jump to everywhere quickly
         treemacs-width-is-initially-locked       t
         treemacs-workspace-switch-cleanup        nil)
 
-  (treemacs-resize-icons 12)
+  (treemacs-resize-icons 10)
   (treemacs-follow-mode t)
   (treemacs-filewatch-mode t)
   (treemacs-fringe-indicator-mode 'always)
@@ -3321,10 +3321,6 @@ jump to everywhere quickly
   ;; ;; Set this function as the compile-command
   ;; (setq compile-command (list 'my-smart-compile))
   (setq compile-command "g++ -o test -g ")
-#+end_src
-** riscv-mode
-#+begin_src elisp
-  (require 'riscv-mode)
 #+end_src
 ** blog
 #+begin_src elisp
