@@ -371,6 +371,14 @@
 #+begin_src emacs-lisp
   ;; (setq visible-bell t)
   (setq word-wrap-by-category t)
+  ;; 减少闪烁
+  (modify-frame-parameters nil '((inhibit-double-buffering . nil)))
+
+  ;; 鼠标设置
+  (setq mouse-wheel-scroll-amount '(2 ((shift) . 1)) ;; one line at a time
+        mouse-wheel-progressive-speed nil ;; don't accelerate scrolling
+        mouse-wheel-follow-mouse 't ;; scroll window under mouse
+        )
 
   ;; display column number in the modeline
   (column-number-mode)
@@ -384,6 +392,7 @@
   (add-hook 'nxml-mode-hook #'(lambda () (display-line-numbers-mode 1)))
   (add-hook 'toml-mode-hook #'(lambda () (display-line-numbers-mode 1)))
   (add-hook 'toml-ts-mode-hook #'(lambda () (display-line-numbers-mode 1)))
+  (add-hook 'csv-mode-hook #'(lambda () (display-line-numbers-mode 1)))
 
   (setq next-screen-context-lines 2)
   ;;FIXED the problem of pdf rolling problem,value can't larger than 21
@@ -816,9 +825,9 @@ only the language set here can be babeled.
   (setq rime-user-data-dir "~/.config/rime-zrm/")
   ;; (setq default-input-method "rime")
 
-  (setq default-input-method "rime"
-        rime-show-candidate 'posframe)
-  (setq rime-posframe-style 'vertical)
+  ;; (setq default-input-method "rime"
+  ;;       rime-show-candidate 'posframe)
+  ;; (setq rime-posframe-style 'vertical)
 
   (provide 'init-rime)
 #+end_src
@@ -2904,7 +2913,7 @@ jump to everywhere quickly
   (defun my-open-current-dir-in-terminal()
     (interactive)
     (let ((dir (expand-file-name default-directory)))
-      (start-process "kitty" nil "kitty" dir)
+      (start-process "alacritty" nil "alacritty" dir)
       (message "open %s in terminal" dir)))
 
   (define-key global-map (kbd "C-c o t") 'my-open-current-dir-in-terminal)
@@ -3360,11 +3369,34 @@ jump to everywhere quickly
     )
 
   (with-eval-after-load 'eglot
-    (setq eglot-server-programs
-          `((java-mode
-             . ("/home/kazure/.emacs.d/.cache/lsp/eclipse.jdt.ls/bin/jdtls"))
-            (java-ts-mode
-             . ("/home/kazure/.emacs.d/.cache/lsp/eclipse.jdt.ls/bin/jdtls")))))
+    (add-to-list 'eglot-server-programs
+                 '(c++-mode . ("clangd")))
+    (add-to-list 'eglot-server-programs
+                 '(c-mode . ("clangd")))
+    (add-to-list 'eglot-server-programs
+                 '(python-mode . ("pyright-langserver")) t)
+    (add-to-list 'eglot-server-programs
+                 '(python-ts-mode . ("pyright-langserver")) t)
+    (add-to-list 'eglot-server-programs
+                 '(java-mode . ("/home/kazure/.emacs.d/.cache/lsp/eclipse.jdt.ls/bin/jdtls")))
+    (add-to-list 'eglot-server-programs
+                 '(java-ts-mode . ("/home/kazure/.emacs.d/.cache/lsp/eclipse.jdt.ls/bin/jdtls")))
+    (add-to-list 'eglot-server-programs
+                 '(scheme-mode . ("racket" "-l" "racket-langserver")))
+    )
+
+  (setq eglot-ignored-server-capabilities
+        '(:documentOnTypeFormattingProvider
+          ;; :documentHighlightProvider
+          :foldingRangeProvider))
+
+  ;; ;; use .eglot-root as project root
+  ;; (defun rc/find-root-for-eglot-for-clj
+  ;;     (di)r
+  ;;   (when (bound-and-true-p eglot-lsp-context)
+  ;;     (let ((root (locate-dominating-file dir ".eglot-root")))
+  ;; 	  (when root (cons 'transient root)))))
+  ;; (add-hook 'project-find-functions #'rc/find-root-for-eglot-for-clj)
 #+end_src
 ** corfu
 #+begin_src elisp
@@ -3377,6 +3409,9 @@ jump to everywhere quickly
   (setq completion-cycle-threshold 4)
 
   (setq-default corfu-auto t)
+  (setq corfu-auto-delay 0.3)
+  (setq corfu-quit-at-boundary t)
+  (setq corfu-preview-current nil)
   (with-eval-after-load 'vterm
     (add-hook 'vterm-mode-hook (lambda () (setq-local corfu-auto nil))))
   (setq-default corfu-quit-no-match 'separator)
@@ -3476,3 +3511,5 @@ jump to everywhere quickly
   ;; 替换默认的 C-x C-q 绑定，使其调用你的函数
   (global-set-key (kbd "C-x C-q") #'my/read-only-mode)
 #+end_src
+** latex
+https://abode.karthinks.com/org-latex-preview/
