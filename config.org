@@ -3368,6 +3368,12 @@ jump to everywhere quickly
     )
 
   (with-eval-after-load 'eglot
+    (setq eglot-autoshutdown t
+          eglot-send-changes-idle-time 0.5)
+    (setf (plist-get eglot-events-buffer-config :size) 0)
+    )
+
+  (with-eval-after-load 'eglot
     (add-to-list 'eglot-server-programs
                  '(c++-mode . ("clangd")))
     (add-to-list 'eglot-server-programs
@@ -3405,7 +3411,13 @@ jump to everywhere quickly
 #+end_src
 ** corfu
 #+begin_src elisp
+  (add-to-list 'load-path "~/.emacs.d/lib/corfu/extensions/")
   (require 'corfu)
+  ;; (require 'corfu-echo)
+  ;; (require 'corfu-history)
+  (require 'corfu-indexed)
+  ;; (require 'corfu-info)
+  ;; (require 'corfu-popupinfo)
 
   (setq tab-always-indent 'complete)
   (setq completion-styles '(orderless basic))
@@ -3413,16 +3425,26 @@ jump to everywhere quickly
         completion-category-overrides nil)
   (setq completion-cycle-threshold 4)
 
-  (setq-default corfu-auto t)
-  (setq corfu-auto-delay 0.3)
-  (setq corfu-quit-at-boundary t)
-  (setq corfu-preview-current nil)
+  (setq corfu-auto t
+        corfu-auto-prefix 2
+        corfu-count 10
+        corfu-preview-current nil
+        corfu-auto-delay 0.3
+        corfu-quit-at-boundary t) 
+
+  ;; (setq corfu-popupinfo-delay '(0.4 . 0.2))
+
   (with-eval-after-load 'vterm
     (add-hook 'vterm-mode-hook (lambda () (setq-local corfu-auto nil))))
   (setq-default corfu-quit-no-match 'separator)
   (add-hook 'after-init-hook 'global-corfu-mode)
-  ;; (with-eval-after-load 'corfu
-  ;;   (corfu-popupinfo-mode))
+
+  (with-eval-after-load 'corfu (corfu-indexed-mode))
+
+  (dotimes (i 10)
+    (define-key corfu-mode-map
+                      (kbd (format "M-%s" i))
+                      (kbd (format "C-%s <tab>" i))))
 #+end_src
 
 *** icon
