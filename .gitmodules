@@ -100,6 +100,12 @@
 [submodule "flycheck"]
 	path = lib/flycheck
 	url = https://github.com/flycheck/flycheck
+[submodule "geiser"]
+	path = lib/geiser
+	url = https://gitlab.com/emacs-geiser/geiser
+[submodule "geiser-racket"]
+	path = lib/geiser-racket
+	url = https://gitlab.com/emacs-geiser/racket
 [submodule "ghub"]
 	path = lib/ghub
 	url = https://github.com/magit/ghub

@@ -3432,7 +3432,13 @@ jump to everywhere quickly
   (with-eval-after-load 'corfu
     (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 #+end_src
-
+** geiser
+#+begin_src elisp
+  (require 'geiser)
+  (require 'geiser-racket)
+  (add-hook 'scheme-mode-hook 'geiser-mode)
+  (setq geiser-default-implementation 'racket)
+#+end_src
 ** END
 
 #+begin_src emacs-lisp
