@@ -714,6 +714,7 @@ only the language set here can be babeled.
         (javascript . t)
         (go . t)
         (java . t)
+        (scheme . t)
         ))))
 
   (with-eval-after-load 'org
@@ -2910,13 +2911,15 @@ jump to everywhere quickly
 
 ** open outer terminal
 #+begin_src emacs-lisp
-  (defun my-open-current-dir-in-terminal()
+  (defun my-open-current-dir-in-terminal ()
+    "Open the current directory in the Alacritty terminal."
     (interactive)
-    (let ((dir (expand-file-name default-directory)))
-      (start-process "alacritty" nil "alacritty" dir)
-      (message "open %s in terminal" dir)))
+    (let ((dir default-directory))
+      ;; Arguments for Alacritty to set the working directory
+      (start-process "alacritty-process" nil "alacritty" "--working-directory" dir)
+      (message "Opened directory: %s in Alacritty" dir)))
 
-  (define-key global-map (kbd "C-c o t") 'my-open-current-dir-in-terminal)
+  (global-set-key (kbd "C-c o t") 'my-open-current-dir-in-terminal)
 #+end_src
 
 ** pixel scrool
@@ -3368,7 +3371,11 @@ jump to everywhere quickly
     (add-to-list 'eglot-server-programs
                  '(c++-mode . ("clangd")))
     (add-to-list 'eglot-server-programs
+                 '(c++-ts-mode . ("clangd")))
+    (add-to-list 'eglot-server-programs
                  '(c-mode . ("clangd")))
+    (add-to-list 'eglot-server-programs
+                 '(c-ts-mode . ("clangd")))
     (add-to-list 'eglot-server-programs
                  '(python-mode . ("pyright-langserver")) t)
     (add-to-list 'eglot-server-programs
@@ -3379,6 +3386,8 @@ jump to everywhere quickly
                  '(java-ts-mode . ("/home/kazure/.emacs.d/.cache/lsp/eclipse.jdt.ls/bin/jdtls")))
     (add-to-list 'eglot-server-programs
                  '(scheme-mode . ("racket" "-l" "racket-langserver")))
+    (add-to-list 'eglot-server-programs
+                 '(asm-mode . ("asm-lsp")))
     )
 
   (setq eglot-ignored-server-capabilities
