@@ -2110,58 +2110,6 @@ jump to everywhere quickly
   (with-eval-after-load 'ox
     (require 'ox-hugo))
 
-
-
-  (defun my-hugo-push ()
-    (interactive) ; 这使得函数可以通过 M-x 调用
-      (message "正在运行 Hugo 构建命令...")
-      (async-shell-command "cd ~/Documents/blog &&  hugo --minify && cd ~/Documents/blog/public && git add . &&  git commit -m \"Update with Emacs: $(date +\"%Y-%m-%d %H:%M\")\" && git push" "*Hugo Build Output*") ;命令，输出缓冲区
-
-      (message "Hugo 命令序列已触发。")
-      ;; 你也可以打开一个shell缓冲区来查看输出
-      ;; (display-buffer (get-buffer "*Hugo Build Output*"))
-      ;; (display-buffer (get-buffer "*Hugo Deploy Output*"))
-      )
-
-  (defun my-hugo-preview ()
-    (interactive)
-    ;; 这是一个非常重要的步骤，避免重复启动服务器导致端口冲突
-    (message "正在检查并停止可能正在运行的 Hugo server 进程...")
-    (let ((process-name "hugo-server-process"))
-      (when (get-process process-name)
-        (message "发现正在运行的 Hugo server 进程，正在停止...")
-        (delete-process process-name)
-        (sit-for 0.5)
-        (message "Hugo server 进程已停止。")))
-
-    (message "正在启动 Hugo 本地预览服务器 (hugo server -D)...")
-    (async-shell-command "cd ~/Documents/blog && hugo server -D" "*Hugo Deploy Output*")
-
-    (message "等待 Hugo 服务器启动...")
-    (sit-for 0.5)
-
-    (browse-url "http://localhost:1313/")
-    (message "Hugo 本地预览已启动并在浏览器中打开。")) ;; <-- Added closing parenthesis
-
-
-  ;; (defun my-hugo-stop ()
-  ;;   (interactive)
-  ;;   ;; 这是一个非常重要的步骤，避免重复启动服务器导致端口冲突
-  ;;   (message "正在检查并停止可能正在运行的 Hugo server 进程...")
-  ;;   (let ((process-name "hugo-server-process"))
-  ;;     (when (get-process process-name)
-  ;;       (message "发现正在运行的 Hugo server 进程，正在停止...")
-  ;;       (delete-process process-name)
-  ;;       (sit-for 0.5)
-  ;;       (message "Hugo server 进程已停止。"))
-  ;;     (unless (get-process process-name)
-  ;;             (message "did not find hugo server process running"))))
-  ;; (define-key global-map (kbd "C-c b s") 'my-hugo-stop)
-
-  (define-key global-map (kbd "C-c b l") 'my-hugo-preview)
-  (define-key global-map (kbd "C-c b p") 'my-hugo-push)
-
-
   (provide 'init-ox-hugo)
 #+end_src
 
@@ -2376,7 +2324,8 @@ jump to everywhere quickly
       ("j" (hot-expand "<s" "javascript") "javascript")
       ("w" (hot-expand "<s" "powershell") "powershell")
       ("r" (hot-expand "<s" "ruby") "ruby")
-      ("S" (hot-expand "<s" "sh") "sh")
+      ;; ("S" (hot-expand "<s" "sh") "sh")
+      ("S" (hot-expand "<s" "scheme :results output") "scheme")
       ("g" (hot-expand "<s" "go :imports '\(\"fmt\"\)") "golang"))
      "Misc"
      (("m" (hot-expand "<s" "mermaid :file chart.png") "mermaid")
@@ -3333,8 +3282,30 @@ jump to everywhere quickly
           `(("pages"
              :base-directory "~/Documents/roam/blog/"
              :base-extension "org"
+             :exclude: "ltximg/*"
+             :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />"
+             :html-preamble
+             "<nav id=\"main-nav\">
+               <ul>
+                 <li><a href=\"index.html\">Main</a></li>
+                 <li><a href=\"about.html\">About Me</a></li>
+                 <li><a href=\"archives.html\">Articles</a></li>
+               </ul>
+             </nav>"           
+             :html-postamble
+             "<div id=\"blog-footer\">
+             <hr>
+             <p>
+               Content licensed under 
+               <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc-sa/4.0/\" target=\"_blank\">
+                 Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+               </a>
+               <br>
+               &copy; 2025 Kazure Zheng. All Rights Reserved.
+             </p>
+             </div>"
              :recursive t
-             :publishing-directory "~/Developments/blog/public/"
+             :publishing-directory "~/Developments/blog/"
              :auto-sitemap t
              :sitemap-filename "sitemap.org"
              :sitemap-title ""
@@ -3343,8 +3314,9 @@ jump to everywhere quickly
             ("static"
              :base-directory "~/Documents/roam/blog/"
              :base-extension "css\\|txt\\|jpg\\|gif\\|png"
+             :exclude: "ltximg/*"
              :recursive t
-             :publishing-directory  "~/Developments/blog/public/"
+             :publishing-directory  "~/Developments/blog/"
              :publishing-function org-publish-attachment)
 
             ("blog" :components ("pages" "static"))))
