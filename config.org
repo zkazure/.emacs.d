@@ -323,7 +323,6 @@
   (require 'init-super-save)
   (require 'init-indent)
   (require 'init-electric-pair-mode)
-  ;; (require 'init-modeline)
   (require 'init-tab-bar)
 
   (require 'init-csv-mode)
@@ -391,7 +390,6 @@
   (add-hook 'xml-mode-hook #'(lambda () (display-line-numbers-mode 1)))
   (add-hook 'nxml-mode-hook #'(lambda () (display-line-numbers-mode 1)))
   (add-hook 'toml-mode-hook #'(lambda () (display-line-numbers-mode 1)))
-  (add-hook 'toml-ts-mode-hook #'(lambda () (display-line-numbers-mode 1)))
   (add-hook 'csv-mode-hook #'(lambda () (display-line-numbers-mode 1)))
 
   (setq next-screen-context-lines 2)
@@ -477,7 +475,8 @@
 
 #+begin_src emacs-lisp
 
-  (defvar my-themes '(modus-operandi-tinted modus-operandi-deuteranopia modus-vivendi-tinted))
+  (defvar my-themes '(modus-operandi-tinted modus-operandi-deuteranopia))
+  ;; modus-vivendi-tinted
 
   (defun load-random-theme ()
     (interactive)
@@ -524,10 +523,10 @@
                                :style released-button)))))
 
 
-  (setq org-todo-keywords
-        (quote ((sequence "TODO(t)" "NEXT(n)" "DOING(g)" "|" "DONE(d)" "HOLD(h)")
-                (sequence "LOOP(l)" "|" "DONE(d)")
-                (sequence "PROJECT(p)"))))
+  ;; (setq org-todo-keywords
+  ;;       (quote ((sequence "TODO(t)" "NEXT(n)" "DOING(g)" "|" "DONE(d)" "HOLD(h)")
+  ;;               (sequence "LOOP(l)" "|" "DONE(d)")
+  ;;               (sequence "PROJECT(p)"))))
 
   (setq org-todo-keyword-faces
         '(("TODO" . (:foreground "red1"  :weight bold))
@@ -841,7 +840,7 @@ only the language set here can be babeled.
   (require 'rainbow-delimiters)
 
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-  (add-hook 'java-mode-hook #'rainbow-delimiters-mode)
+  ;; (add-hook 'java-mode-hook #'rainbow-delimiters-mode)
 
   (provide 'init-rainbow-delimiters)
 #+end_src
@@ -919,17 +918,17 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (require 'avy)
 
-  (with-eval-after-load 'org
-    (define-key org-mode-map (kbd "C-,") nil))
+  ;; (with-eval-after-load 'org
+  ;;   (define-key org-mode-map (kbd "C-,") nil))
 
-  (global-set-key (kbd "C-,") 'avy-goto-char-2)
-  (global-set-key (kbd "C-.") 'avy-goto-char)
+  ;; (global-set-key (kbd "C-,") 'avy-goto-char-2)
+  ;; (global-set-key (kbd "C-.") 'avy-goto-char)
   (global-set-key (kbd "M-g f") 'avy-goto-line)
-  (global-set-key (kbd "M-g w") 'avy-goto-word-1)
-  (global-set-key (kbd "M-g e") 'avy-goto-word-0)
+  (global-set-key (kbd "M-g w") 'avy-goto-char-2)
+  (global-set-key (kbd "M-g e") 'avy-goto-word-1)
 
   (avy-setup-default)
-  (global-set-key (kbd "C-c C-j") 'avy-resume)
+  ;; (global-set-key (kbd "C-c C-j") 'avy-resume)
 
   (setq avy-all-windows nil)
   (provide 'init-avy)
@@ -1160,7 +1159,6 @@ jump to everywhere quickly
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-emacs-everywhere.el
 :END:
-- [ ] usability test
 - [ ] how to remove the file store in the ~/tmp~
 
 #+begin_src emacs-lisp
@@ -1420,7 +1418,9 @@ jump to everywhere quickly
            :unnarrowed t)
           ))
 
-
+  (setq org-roam-dailies-capture-templates
+        '(("d" "default" entry "* %<%I:%M %p>: %?" 
+           :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n#+filetags: :diary:draft:\n\n* Main\n"))))
 #+end_src
 
 
@@ -1792,9 +1792,10 @@ jump to everywhere quickly
   (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
   (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
   (add-hook 'html-mode-hook  'emmet-mode) ;; enable html
-  (add-hook 'js-ts-mode-hook 'emmet-mode)
-  (add-hook 'tsx-ts-mode-hook 'emmet-mode)
-  (add-hook 'typescript-ts-mode-hook 'emmet-mode)
+  (add-hook 'js-mode-hook 'emmet-mode)
+  ;; (add-hook 'js-ts-mode-hook 'emmet-mode)
+  ;; (add-hook 'tsx-ts-mode-hook 'emmet-mode)
+  ;; (add-hook 'typescript-ts-mode-hook 'emmet-mode)
 
   (setq emmet-self-closing-tag-style " /") ;; default "/"
   ;; only " /", "/" and "" are valid.
@@ -1909,42 +1910,45 @@ jump to everywhere quickly
           (clojure . ("https://github.com/sogaiu/tree-sitter-clojure"))
           ))
 
+
   (setq major-mode-remap-alist
         '((c-mode . c-ts-mode)
           (c++-mode . c++-ts-mode)
+          (clojure-mode . clojure-ts-mode)
           (conf-toml-mode . toml-ts-mode)
           (css-mode . css-ts-mode)
+          (go-mode . go-ts-mode)
           (js-mode . js-ts-mode)
           (js2-mode . js-ts-mode)
-          (python-mode . python-ts-mode)
           (java-mode . java-ts-mode)
-          (clojure-mode . clojure-ts-mode)
-          (yaml-mode . yaml-ts-mode)
-          (typescript-mode . typescript-ts-mode)
           (json-mode . json-ts-mode)
+          (js-json-mode . js-ts-mode)
+          (python-mode . python-ts-mode)
+          (rust-mode . rust-ts-mode)
           (sh-mode . bash-ts-mode)
+          (typescript-mode . typescript-ts-mode)
           (toml-mode . toml-ts-mode)
+          (yaml-mode . yaml-ts-mode)
           ;; (markdown-mode . markdown-ts-mode)
           ))
 
-  (add-hook 'markdown-ts-mode-hook (lambda () (treesit-parser-create 'markdown)))
-  (add-hook 'zig-mode-hook (lambda () (treesit-parser-create 'zig)))
-  (add-hook 'mojo-mode-hook (lambda () (treesit-parser-create 'mojo)))
+  ;; (add-hook 'markdown-ts-mode-hook (lambda () (treesit-parser-create 'markdown)))
+  ;; (add-hook 'zig-mode-hook (lambda () (treesit-parser-create 'zig)))
+  ;; (add-hook 'mojo-mode-hook (lambda () (treesit-parser-create 'mojo)))
   (add-hook 'emacs-lisp-mode-hook (lambda () (treesit-parser-create 'elisp)))
   (add-hook 'ielm-mode-hook (lambda () (treesit-parser-create 'elisp)))
-  (add-hook 'json-mode-hook (lambda () (treesit-parser-create 'json)))
-  (add-hook 'go-mode-hook (lambda () (treesit-parser-create 'go)))
-  (add-hook 'java-mode-hook (lambda () (treesit-parser-create 'java)))
-  (add-hook 'java-ts-mode-hook (lambda () (treesit-parser-create 'java)))
-  (add-hook 'clojure-mode-hook (lambda () (treesit-parser-create 'clojure)))
-  (add-hook 'clojure-ts-mode-hook (lambda () (treesit-parser-create 'clojure)))
-  (add-hook 'cider-repl-mode-hook (lambda () (treesit-parser-create 'clojure)))
-  (add-hook 'php-mode-hook (lambda () (treesit-parser-create 'php)))
-  (add-hook 'php-ts-mode-hook (lambda () (treesit-parser-create 'php)))
-  (add-hook 'java-ts-mode-hook (lambda () (treesit-parser-create 'java)))
-  (add-hook 'haskell-mode-hook (lambda () (treesit-parser-create 'haskell)))
-  (add-hook 'kotlin-mode-hook (lambda () (treesit-parser-create 'kotlin)))
-  (add-hook 'ruby-mode-hook (lambda () (treesit-parser-create 'ruby)))
+  ;; (add-hook 'json-mode-hook (lambda () (treesit-parser-create 'json)))
+  ;; (add-hook 'go-mode-hook (lambda () (treesit-parser-create 'go)))
+  ;; (add-hook 'java-mode-hook (lambda () (treesit-parser-create 'java)))
+  ;; (add-hook 'java-ts-mode-hook (lambda () (treesit-parser-create 'java)))
+  ;; (add-hook 'clojure-mode-hook (lambda () (treesit-parser-create 'clojure)))
+  ;; (add-hook 'clojure-ts-mode-hook (lambda () (treesit-parser-create 'clojure)))
+  ;; (add-hook 'cider-repl-mode-hook (lambda () (treesit-parser-create 'clojure)))
+  ;; (add-hook 'php-mode-hook (lambda () (treesit-parser-create 'php)))
+  ;; (add-hook 'php-ts-mode-hook (lambda () (treesit-parser-create 'php)))
+  ;; (add-hook 'haskell-mode-hook (lambda () (treesit-parser-create 'haskell)))
+  ;; (add-hook 'kotlin-mode-hook (lambda () (treesit-parser-create 'kotlin)))
+  ;; (add-hook 'ruby-mode-hook (lambda () (treesit-parser-create 'ruby)))
   ;; (add-hook 'org-mode-hook (lambda () (treesit-parser-create 'org)))
 
   (add-hook 'web-mode-hook #'(lambda ()
@@ -2596,8 +2600,8 @@ jump to everywhere quickly
   (dolist (hook (list
                  'c-mode-hook
                  'c++-mode-hook
-                 'c++-ts-mode-hook
-                 'c-ts-mode-hook
+                 ;; 'c++-ts-mode-hook
+                 ;; 'c-ts-mode-hook
                  'java-mode-hook
                  'haskell-mode-hook
                  'asm-mode-hook
@@ -2617,7 +2621,7 @@ jump to everywhere quickly
   (dolist (hook (list
                  'web-mode-hook
                  'js-mode-hook
-                 'js-ts-mode-hook
+                 ;; 'js-ts-mode-hook
                  'typescript-mode-hook
                  ))
     (add-hook hook #'(lambda ()
@@ -2644,57 +2648,6 @@ jump to everywhere quickly
                        (electric-pair-mode 1))))
 
   (provide 'init-electric-pair-mode)
-#+end_src
-** modeline
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-modeline.el
-:END:
-#+begin_src emacs-lisp
-  (setq-default mode-line-format
-                (list
-                 ;; Note: The original 'evil-state' check and icons are removed here.
-                 ;; If you want a different fixed icon, you can add it back here.
-
-
-                 '(:eval (when buffer-read-only
-                           (propertize " " 'face 'error)))
-
-                 (propertize " %b"
-                             'face 'mode-line-buffer-id 'help-echo (buffer-file-name))
-                 '(:eval (if (buffer-modified-p) "*" " ")) ; 如果缓冲区已修改，显示 "*"
-
-                 (propertize " %l:%c " 'face 'font-lock-builtin-face)
-                 (propertize " %p " 'face 'font-lock-constant-face)
-
-
-                 ;; Spaces to align right
-                 '(:eval (propertize
-                          " " 'display
-                          `((space :align-to (- (+ right right-fringe right-margin)
-                                                ,(+ 3 (string-width mode-name)
-                                                    (string-width (format-mode-line vc-mode))))))))
-                 ;; VC/Git info
-                 '(:eval (when-let (vc vc-mode)
-                           (list " "
-                                 (propertize (substring vc 5)
-                                             'face 'font-lock-comment-face)
-                                 " ")))
-                 ;; The current major mode
-                 (propertize " %m " 'face 'font-lock-string-face)))
-
-  (add-hook 'pdf-view-mode-hook (lambda ()
-                                  (setq-local mode-line-format
-                                              (list
-                                               (propertize " %P " 'face 'font-lock-string-face)))))
-
-
-  ;; 将模式行的内容复制到标题行
-  ;; (setq-default header-line-format mode-line-format)
-
-  ;; 禁用底部的模式行
-  ;; (setq-default mode-line-format nil)
-
-  (provide 'init-modeline)
 #+end_src
 ** tab-bar
 :PROPERTIES:
@@ -2886,17 +2839,6 @@ jump to everywhere quickly
   (setq mouse-wheel-follow-mouse 't)
 #+end_src
 
-** other window
-#+begin_src emacs-lisp
-  ;; (global-set-key (kbd "M-o") 'other-window)
-  ;; (global-set-key (kbd "M-O") (lambda () (interactive) (other-window -1)))
-#+end_src
-
-** babel
-#+begin_src emacs-lisp
-  (global-set-key (kbd "C-c C-'") 'org-edit-special)
-#+end_src
-
 ** IDE
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-c c C") 'compile)
@@ -2991,10 +2933,10 @@ jump to everywhere quickly
 
 ** javascript
 #+begin_src emacs-lisp
-  (add-to-list 'auto-mode-alist '("\\.js\\'\\'" . js-ts-mode))
-  (add-to-list 'auto-mode-alist '("\\.jsx\\'\\'" . tsx-ts-mode)) ; 如果有 JSX
-  (add-to-list 'auto-mode-alist '("\\.ts\\'\\'" . typescript-ts-mode))
-  (add-to-list 'auto-mode-alist '("\\.tsx\\'\\'" . tsx-ts-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.js\\'\\'" . js-ts-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.jsx\\'\\'" . tsx-ts-mode)) ; 如果有 JSX
+  ;; (add-to-list 'auto-mode-alist '("\\.ts\\'\\'" . typescript-ts-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.tsx\\'\\'" . tsx-ts-mode))
 #+end_src
 
 ** subword-mode
@@ -3002,10 +2944,6 @@ jump to everywhere quickly
   ;; use to handle camel name
   (global-subword-mode 1)
 #+end_src
-
-** jump and back
-
-~C-u C-SPC~ will take you back to last mark. Many operation in Emacs will auto create a mark.
 
 ** highlight-indent-guides
 #+begin_src emacs-lisp
