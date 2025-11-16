@@ -3224,7 +3224,7 @@ jump to everywhere quickly
   (require 'ox-publish)
 
   (setq org-publish-project-alist
-          `(("pages"
+          `(("content"
              :base-directory "~/Documents/roam/blog/"
              :base-extension "org"
              :exclude: "ltximg/*"
@@ -3232,11 +3232,11 @@ jump to everywhere quickly
              :html-preamble
              "<nav id=\"main-nav\">
                <ul>
-                 <li><a href=\"index.html\">Main</a></li>
-                 <li><a href=\"about.html\">About Me</a></li>
+                 <li><a href=\"/\">Main</a></li>
+                 <li><a href=\"/about.html\">About</a></li>
                  <li><a href=\"archives.html\">Articles</a></li>
                </ul>
-             </nav>"           
+             </nav>"
              :html-postamble
              "<div id=\"blog-footer\">
              <hr>
@@ -3255,16 +3255,15 @@ jump to everywhere quickly
              :sitemap-filename "sitemap.org"
              :sitemap-title ""
              :publishing-function org-html-publish-to-html)
-
             ("static"
              :base-directory "~/Documents/roam/blog/"
-             :base-extension "css\\|txt\\|jpg\\|gif\\|png"
+             :base-extension "js\\|css\\|txt\\|jpg\\|gif\\|png"
              :exclude: "ltximg/*"
              :recursive t
              :publishing-directory  "~/Developments/blog/"
              :publishing-function org-publish-attachment)
 
-            ("blog" :components ("pages" "static"))))
+            ("blog" :components ("content" "static"))))
 #+end_src
 ** rust-mode
 #+begin_src elisp
