@@ -329,7 +329,7 @@
   (require 'init-org-download)
   (require 'init-emmet-mode)
   (require 'init-web-mode)
-  (require 'init-vterm)
+  ;; (require 'init-vterm)
   (require 'init-org-roam-ui)
   (require 'init-treesit)
   (require 'init-treesit-fold)
@@ -3376,6 +3376,11 @@ jump to everywhere quickly
   (require 'geiser-racket)
   (add-hook 'scheme-mode-hook 'geiser-mode)
   (setq geiser-default-implementation 'racket)
+#+end_src
+** eat
+#+begin_src elisp
+  (require 'eat)
+  (define-key global-map (kbd "C-c c t") 'eat)
 #+end_src
 ** END
 

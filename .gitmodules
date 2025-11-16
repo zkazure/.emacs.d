@@ -73,6 +73,9 @@
 [submodule "doom-modeline"]
 	path = lib/doom-modeline
 	url = https://github.com/seagle0128/doom-modeline
+[submodule "eat"]
+	path = lib/eat
+	url = https://codeberg.org/akib/emacs-eat
 [submodule "ebdb"]
 	path = lib/ebdb
 	url = git@github.com:emacsmirror/ebdb.git
@@ -310,9 +313,6 @@
 [submodule "visual-regexp"]
 	path = lib/visual-regexp
 	url = https://github.com/benma/visual-regexp.el
-[submodule "vterm"]
-	path = lib/vterm
-	url = https://github.com/akermu/emacs-libvterm
 [submodule "vundo"]
 	path = lib/vundo
 	url = https://github.com/casouri/vundo
