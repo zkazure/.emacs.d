@@ -1789,10 +1789,17 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (require 'emmet-mode)
 
+  (with-eval-after-load 'emmet-mode
+    (define-key emmet-mode-keymap (kbd "M-RET") 'emmet-expand-line))
+  
   (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
   (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
   (add-hook 'html-mode-hook  'emmet-mode) ;; enable html
   (add-hook 'js-mode-hook 'emmet-mode)
+  ;; (add-to-list 'emmet-jsx-major-modes 'js-mode)
+  (add-to-list 'emmet-jsx-major-modes 'js-jsx-mode)
+  (add-to-list 'emmet-jsx-major-modes 'js2-jsx-mode)
+
   ;; (add-hook 'js-ts-mode-hook 'emmet-mode)
   ;; (add-hook 'tsx-ts-mode-hook 'emmet-mode)
   ;; (add-hook 'typescript-ts-mode-hook 'emmet-mode)
