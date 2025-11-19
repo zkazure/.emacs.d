@@ -335,7 +335,7 @@
   (require 'init-treesit-fold)
   (require 'init-yaml-mode)
   (require 'init-citar)
-  (require 'init-ivy-posframe)
+  ;; (require 'init-ivy-posframe)
   (require 'init-ox-hugo)
   (require 'init-quickrun)
   (require 'init-org-fragtog)
@@ -372,12 +372,6 @@
   (setq word-wrap-by-category t)
   ;; 减少闪烁
   (modify-frame-parameters nil '((inhibit-double-buffering . nil)))
-
-  ;; 鼠标设置
-  (setq mouse-wheel-scroll-amount '(2 ((shift) . 1)) ;; one line at a time
-        mouse-wheel-progressive-speed nil ;; don't accelerate scrolling
-        mouse-wheel-follow-mouse 't ;; scroll window under mouse
-        )
 
   ;; display column number in the modeline
   (column-number-mode)
@@ -659,9 +653,9 @@
   ;;                ;; (ignore-current-tab . t)
   ;;                (tab-name . "Org Files")))
 
-  (add-hook 'emacs-startup-hook
-            (lambda ()
-              (org-agenda nil "d")))
+  ;; (add-hook 'emacs-startup-hook
+  ;;           (lambda ()
+  ;;             (org-agenda nil "d")))
 #+end_src
 
 *** capture
@@ -780,6 +774,11 @@ only the language set here can be babeled.
     (insert "\\( ") ;; 把 "\\(" 和 "\\)" 替换成 "$" 就能实现输入成对 "$" 的功能.
     (save-excursion (insert " \\)" )))
 
+  (defun my/insert-inline-parentheses2 ()
+    (interactive)
+    (insert "\\(") ;; 把 "\\(" 和 "\\)" 替换成 "$" 就能实现输入成对 "$" 的功能.
+    (save-excursion (insert "\\)" )))
+
   (defun my/insert-square-bra-OCDL ()
     (interactive)
     (insert "\\[ ")
@@ -791,6 +790,7 @@ only the language set here can be babeled.
     (save-excursion (insert " \\}" )))
 
   (define-key org-cdlatex-mode-map (kbd "C-M-9") 'my/insert-inline-parentheses)
+  (define-key global-map (kbd "C-M-(") 'my/insert-inline-parentheses2)
   (define-key org-cdlatex-mode-map (kbd "C-M-[") 'my/insert-square-bra-OCDL)
   (define-key org-cdlatex-mode-map (kbd "C-M-{") 'my/insert-inline-braces)
 #+end_src
@@ -923,12 +923,15 @@ jump to everywhere quickly
 
   ;; (global-set-key (kbd "C-,") 'avy-goto-char-2)
   ;; (global-set-key (kbd "C-.") 'avy-goto-char)
-  (global-set-key (kbd "M-g f") 'avy-goto-line)
-  (global-set-key (kbd "M-g w") 'avy-goto-char-2)
-  (global-set-key (kbd "M-g e") 'avy-goto-word-1)
+  (global-set-key (kbd "M-g g") 'avy-goto-line)
+  ;; (global-set-key (kbd "M-g w") 'avy-goto-word-2)
+  ;; (global-set-key (kbd "M-g e") 'avy-goto-word-1)
+  (global-set-key (kbd "M-g c") 'avy-goto-char-2)
+  ;; (global-set-key (kbd "M-g n") 'avy-next)
+  ;; (global-set-key (kbd "M-g p") 'avy-prev)
+  (global-set-key (kbd "M-g M-g") 'avy-resume)
 
   (avy-setup-default)
-  ;; (global-set-key (kbd "C-c C-j") 'avy-resume)
 
   (setq avy-all-windows nil)
   (provide 'init-avy)
@@ -1371,49 +1374,51 @@ jump to everywhere quickly
   	    ;;  :immediate-finish t
   	    ;;  :unnarrowed t)
           ("m" "Main" plain  "%?"
-           :if-new (file+head "main/${slug}.org"
-                              "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
+           :if-new
+           (file+head "main/${slug}.org"
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n\n* Main\n")
            :immediate-finish t
            :unnarrowed t)
           ("r" "Reference" plain "%?"
            :if-new
            (file+head "reference/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n\n* Main\n")
            :immediate-finish t
            :unnarrowed t)
           ("a" "Article" plain "%?"
            :if-new
            (file+head "article/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: :article:\n")
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: :article:\n\n* Main\n")
            :immediate-finish t
            :unnarrowed t)
           ("c" "Coding" plain "%?"
            :if-new
            (file+head "coding/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n\n* Main\n")
            :immediate-finish t
            :unnarrowed t)
           ("i" "Idea" plain "%?"
            :if-new
            (file+head "idea/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n\n* Main\n")
            :immediate-finish t
            :unnarrowed t)
           ("R" "Reading" plain "%?"
-           :if-new (file+head "reading/${title}.org"
-                              "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
+           :if-new
+           (file+head "reading/${title}.org"
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n\n* Main\n")
            :immediate-finish t
            :unnarrowed t)
           ("w" "Web" plain "%?"
            :if-new
            (file+head "web/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n\n* Main\n")
            :immediate-finish t
            :unnarrowed t)
           ("s" "Stem" plain "%?"
            :if-new
            (file+head "stem/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n\n* Main\n")
            :immediate-finish t
            :unnarrowed t)
           ))
@@ -2089,22 +2094,29 @@ jump to everywhere quickly
   ;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center)))
 
 
+  ;; (setq ivy-posframe-display-functions-alist
+  ;;       '(
+  ;;         ;; (swiper          . ivy-display-function-fallback)
+  ;;         ;; (org-roam-node-find . ivy-posframe-display-at-frame-center)
+  ;;         ;; (t               . ivy-posframe-display-at-window-bottom-left)
+  ;;         (t . ivy-posframe-display-at-frame-center))
+  ;;       )
+  (setq ivy-posframe-height-alist '((swiper . 20)
+                                    (t      . 40)))
+
   (setq ivy-posframe-display-functions-alist
         '((swiper          . ivy-display-function-fallback)
-         (org-roam-node-find . ivy-posframe-display-at-frame-center)
-          (t               . ivy-posframe-display-at-window-bottom-left)))
-  ;; (ivy-posframe-mode 1)
+          (complete-symbol . ivy-posframe-display-at-point)
+          (counsel-M-x     . ivy-posframe-display-at-window-bottom-left)
+          (t               . ivy-posframe-display)))
 
+  (setq ivy-posframe-width nil)
 
-  (setq ivy-posframe-height-alist '(
-                                    (t . 12)
-                                    ;; (swiper . 30)
-                                    ))
-
-  (setq ivy-posframe-width 90)
-
+  ;; (setq ivy-posframe-parameters
+  ;;       '((left-fringe . 20)
+  ;;         (right-fringe . 8)))
   (setq ivy-posframe-parameters
-        '((left-fringe . 20)
+        '((left-fringe . 8)
           (right-fringe . 8)))
 
   (ivy-posframe-mode 1)
@@ -2607,8 +2619,8 @@ jump to everywhere quickly
   (dolist (hook (list
                  'c-mode-hook
                  'c++-mode-hook
-                 ;; 'c++-ts-mode-hook
-                 ;; 'c-ts-mode-hook
+                 'c++-ts-mode-hook ;; ???
+                 'c-ts-mode-hook
                  'java-mode-hook
                  'haskell-mode-hook
                  'asm-mode-hook
@@ -2835,7 +2847,7 @@ jump to everywhere quickly
 
 #+begin_src emacs-lisp
   (pixel-scroll-precision-mode t)
-  (setq scroll-preserve-screen-position t)
+  (setq scroll-preserve-screen-position 'always)
 
   (setq scroll-margin 3
         scroll-conservatively 100
@@ -2957,9 +2969,10 @@ jump to everywhere quickly
   (require 'highlight-indent-guides)
 
   (setq highlight-indent-guides-method 'character)
-  (set-face-background 'highlight-indent-guides-odd-face "tomato")
-  (set-face-background 'highlight-indent-guides-even-face "red3")
-  (set-face-foreground 'highlight-indent-guides-character-face "red3")
+  (setq highlight-indent-guides-auto-enabled t)
+  ;; (set-face-background 'highlight-indent-guides-odd-face "darkgray")
+  ;; (set-face-background 'highlight-indent-guides-even-face "dimgray")
+  ;; (set-face-foreground 'highlight-indent-guides-character-face "dimgray")
 
   (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
 #+end_src
@@ -3381,6 +3394,10 @@ jump to everywhere quickly
 #+begin_src elisp
   (require 'eat)
   (define-key global-map (kbd "C-c c t") 'eat)
+#+end_src
+** others
+#+begin_src elisp
+  (setq-local multibyte-syntax-as-symbol nil)
 #+end_src
 ** END
 
