@@ -923,7 +923,7 @@ jump to everywhere quickly
 
   ;; (global-set-key (kbd "C-,") 'avy-goto-char-2)
   ;; (global-set-key (kbd "C-.") 'avy-goto-char)
-  (global-set-key (kbd "M-g g") 'avy-goto-line)
+  ;; (global-set-key (kbd "M-g g") 'avy-goto-line)
   ;; (global-set-key (kbd "M-g w") 'avy-goto-word-2)
   ;; (global-set-key (kbd "M-g e") 'avy-goto-word-1)
   (global-set-key (kbd "M-g c") 'avy-goto-char)
@@ -931,7 +931,7 @@ jump to everywhere quickly
   ;; (global-set-key (kbd "M-g e") 'avy-goto-char-2)
   ;; (global-set-key (kbd "M-g n") 'avy-next)
   ;; (global-set-key (kbd "M-g p") 'avy-prev)
-  (global-set-key (kbd "M-g M-g") 'avy-resume)
+  ;; (global-set-key (kbd "M-g M-g") 'avy-resume)
 
   (avy-setup-default)
 
@@ -1218,15 +1218,15 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (require 'orderless)
 
-  (setq completion-styles '(orderless partial-completion basic)
+  (setq completion-styles '(orderless basic)
         completion-category-defaults nil
-        completion-category-overrides nil)
+        completion-category-overrides '((file (styles basic partial-completion)))
+        orderless-component-separator #'orderless-escapable-split-on-space)
 
-  ;; integrate with ivy
-  (setq ivy-re-builders-alist '((t . orderless-ivy-re-builder)))
-  (add-to-list 'ivy-highlight-functions-alist '(orderless-ivy-re-builder . orderless-ivy-highlight))
+  ;; ;; integrate with ivy
+  ;; (setq ivy-re-builders-alist '((t . orderless-ivy-re-builder)))
+  ;; (add-to-list 'ivy-highlight-functions-alist '(orderless-ivy-re-builder . orderless-ivy-highlight))
 
-  (setq orderless-component-separator "[ &]")
   (defun just-one-face (fn &rest args)
     (let ((orderless-match-faces [completions-common-part]))
       (apply fn args)))
@@ -2104,19 +2104,17 @@ jump to everywhere quickly
   ;;         (t . ivy-posframe-display-at-frame-center))
   ;;       )
   (setq ivy-posframe-height-alist '((swiper . 20)
-                                    (t      . 40)))
+                                    (t      . 20)))
 
   (setq ivy-posframe-display-functions-alist
         '((swiper          . ivy-display-function-fallback)
+          (swiper-isearch  . ivy-posframe-display-at-window-bottom-left)
           (complete-symbol . ivy-posframe-display-at-point)
           (counsel-M-x     . ivy-posframe-display-at-window-bottom-left)
           (t               . ivy-posframe-display)))
 
   (setq ivy-posframe-width nil)
 
-  ;; (setq ivy-posframe-parameters
-  ;;       '((left-fringe . 20)
-  ;;         (right-fringe . 8)))
   (setq ivy-posframe-parameters
         '((left-fringe . 8)
           (right-fringe . 8)))
@@ -3345,45 +3343,65 @@ jump to everywhere quickly
   (add-to-list 'load-path "~/.emacs.d/lib/corfu/extensions/")
   (require 'corfu)
   ;; (require 'corfu-echo)
-  ;; (require 'corfu-history)
+  (require 'corfu-history)
   (require 'corfu-indexed)
   ;; (require 'corfu-info)
-  ;; (require 'corfu-popupinfo)
+  (require 'corfu-popupinfo)
 
   (setq tab-always-indent 'complete)
   (setq completion-styles '(orderless basic))
   (setq completion-category-defaults nil
         completion-category-overrides nil)
   (setq completion-cycle-threshold 4)
+  (setq text-mode-ispell-word-completion nil)
 
   (setq corfu-auto t
         corfu-auto-prefix 2
         corfu-count 10
         corfu-preview-current nil
+        corfu-on-exact-match nil
         corfu-auto-delay 0.3
-        corfu-quit-at-boundary t) 
+        corfu-popupinfo-delay '(0.4 . 0.2)
+        corfu-quit-at-boundary t
+        global-corfu-modes '((not erc-mode
+                                  circe-mode
+                                  help-mode
+                                  gud-mode
+                                  eat-mode)
+                             t))
 
   ;; (setq corfu-popupinfo-delay '(0.4 . 0.2))
 
-  (with-eval-after-load 'vterm
-    (add-hook 'vterm-mode-hook (lambda () (setq-local corfu-auto nil))))
   (setq-default corfu-quit-no-match 'separator)
-  (add-hook 'after-init-hook 'global-corfu-mode)
+  (add-hook 'after-init-hook #'global-corfu-mode)
 
-  (with-eval-after-load 'corfu (corfu-indexed-mode))
+  (with-eval-after-load 'corfu
+    (corfu-indexed-mode)
+    (corfu-popupinfo-mode)
+    (corfu-history-mode))
 
-  (dotimes (i 10)
-    (define-key corfu-mode-map
-                      (kbd (format "M-%s" i))
-                      (kbd (format "C-%s <tab>" i))))
+  ;; (dotimes (i 10)
+  ;;   (define-key corfu-mode-map
+  ;;                     (kbd (format "M-%s" i))
+  ;;                     (kbd (format "C-%s <tab>" i))))
+
+  ;; ;; Move completions to minibuffer
+  ;; (defun corfu-move-to-minibuffer ()
+  ;;   (interactive)
+  ;;   (pcase completion-in-region--data
+  ;;     (`(,beg ,end ,table ,pred ,extras)
+  ;;      (let ((completion-extra-properties extras)
+  ;;            completion-cycle-threshold completion-cycling)
+  ;;        (consult-completion-in-region beg end table pred)))))
+  ;; (keymap-set corfu-map "M-m" #'corfu-move-to-minibuffer)
+  ;; (add-to-list 'corfu-continue-commands #'corfu-move-to-minibuffer)
 #+end_src
 
 *** icon
 #+begin_src elisp
-  (require 'kind-icon)
-  (setq kind-icon-use-icons nil)
+  (require 'nerd-icons-corfu)
   (with-eval-after-load 'corfu
-    (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+    (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 #+end_src
 ** geiser
 #+begin_src elisp
@@ -3539,3 +3557,213 @@ jump to everywhere quickly
 #+end_src
 ** latex
 https://abode.karthinks.com/org-latex-preview/
+
+** vertico
+#+begin_src elisp :tangle nil
+  (add-to-list 'load-path "~/.emacs.d/lib/vertico/extensions")
+  (require 'vertico)
+  (require 'vertico-buffer)
+  (require 'vertico-directory)
+  (require 'vertico-flat)
+  (require 'vertico-grid)
+  (require 'vertico-indexed)
+  (require 'vertico-mouse)
+  (require 'vertico-multiform)
+  (require 'vertico-quick)
+  (require 'vertico-repeat)
+  (require 'vertico-reverse)
+  (require 'vertico-sort)
+  (require 'vertico-suspend)
+  (require 'vertico-unobtrusive)
+  
+  (require 'vertico-posframe)
+
+  ;; (vertico-scroll-margin 0) ;; Different scroll margin
+  ;; (vertico-count 20) ;; Show more candidates
+  ;; (vertico-resize t) ;; Grow and shrink the Vertico minibuffer
+  ;; (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
+  (setq vertico-count 15)
+  (vertico-mode)
+  ;; (add-hook 'after-init-hook #'vertico-mode)
+  ;; (add-hook 'rfn-eshadow-update-overlay #'vertico-directory-tidy)
+
+  (setq vertico-multiform-commands
+        '((consult-line (:not posframe))
+          (t posframe)))
+  (setq vertico-posframe-poshandler
+        #'posframe-poshandler-frame-center-near-bottom)
+  (setq vertico-posframe-parameters
+        '((left-fringe . 8)
+          (right-fringe . 8)))
+  (add-hook 'vertico-mode-hook #'vertico-posframe-mode)
+
+  ;; ;; Persist history over Emacs restarts. Vertico sorts by history position.
+  ;; (use-package savehist
+  ;;   :init
+  ;;   (savehist-mode))
+
+  (setq context-menu-mode t
+        enable-recursive-minibuffers t
+        read-extended-command-predicate #'command-completion-default-include-p)
+  (setq minibuffer-prompt-properties
+        '(read-only t cursor-intangible t face minibuffer-prompt))
+#+end_src
+** consult
+#+begin_src elisp :tangle nil
+  (require 'consult)
+  (require 'consult-compile)
+  (require 'consult-flymake)
+  (require 'consult-imenu)
+  (require 'consult-info)
+  (require 'consult-kmacro)
+  (require 'consult-org)
+  (require 'consult-register)
+  (require 'consult-xref)
+
+
+
+  (setq register-preview-delay 0.5
+        register-preview-function #'consult-register-format)
+
+  (advice-add #'register-preview :override #'consult-register-window)
+
+  (with-eval-after-load 'xref
+    (setq xref-show-xrefs-function #'consult-xref
+          xref-show-definitions-function #'consult-xref))
+
+  ;; :config part of Consult (executed after package is loaded)
+  (setq consult-preview-key nil)
+  (consult-customize
+   consult-line consult-line-multi :preview-key 'any
+   consult-buffer consult-recent-file consult-theme :preview-key '(:debounce 1.0 any)
+   consult-goto-line :preview-key '(:debounce 0.5 any)
+   consult-ripgrep consult-git-grep consult-grep
+   :initial (selected-region-or-symbol-at-point)
+   :preview-key '(:debounce 0.5 any))
+
+  (setq consult-narrow-key "<") ;; "C-+"
+
+  (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'consult-narrow-help)
+
+
+  ;; CONSULT Keybindings (Global and Mode-Specific)
+  (global-set-key (kbd "C-c M-x") #'consult-mode-command)
+  (global-set-key (kbd "C-c h") #'consult-history)
+  (global-set-key (kbd "C-c k") #'consult-kmacro)
+  ;; (global-set-key (kbd "C-c m") #'consult-man)
+  (global-set-key (kbd "C-c i") #'consult-info)
+
+  (global-set-key (kbd "C-x M-:") #'consult-complex-command)
+  (global-set-key (kbd "C-x b") #'consult-buffer)
+  ;; (global-set-key (kbd "C-x 4 b") #'consult-buffer-other-window)
+  ;; (global-set-key (kbd "C-x 5 b") #'consult-buffer-other-frame)
+  (global-set-key (kbd "C-x t b") #'consult-buffer-other-tab)
+  (global-set-key (kbd "C-x r b") #'consult-bookmark)
+  (global-set-key (kbd "C-x p b") #'consult-project-buffer)
+
+  (global-set-key (kbd "M-#") #'consult-register-load)
+  (global-set-key (kbd "M-'") #'consult-register-store)
+  (global-set-key (kbd "C-M-#") #'consult-register)
+  (global-set-key (kbd "M-y") #'consult-yank-pop)
+
+  (global-set-key (kbd "M-g e") #'consult-compile-error)
+  (global-set-key (kbd "M-g f") #'consult-flymake)
+  (global-set-key (kbd "M-g g") #'consult-goto-line)
+  (global-set-key (kbd "M-g M-g") #'consult-goto-line)
+  (global-set-key (kbd "M-g o") #'consult-outline)
+  (global-set-key (kbd "M-g m") #'consult-mark)
+  (global-set-key (kbd "M-g k") #'consult-global-mark)
+  (global-set-key (kbd "M-g i") #'consult-imenu)
+  (global-set-key (kbd "M-g I") #'consult-imenu-multi)
+
+  (global-set-key (kbd "M-s d") #'consult-find)
+  (global-set-key (kbd "M-s c") #'consult-locate)
+  (global-set-key (kbd "M-s g") #'consult-grep)
+  (global-set-key (kbd "M-s G") #'consult-git-grep)
+  (global-set-key (kbd "M-s r") #'consult-ripgrep)
+  (global-set-key (kbd "M-s l") #'consult-line)
+  (global-set-key (kbd "M-s L") #'consult-line-multi)
+  (global-set-key (kbd "M-s k") #'consult-keep-lines)
+  (global-set-key (kbd "M-s u") #'consult-focus-lines)
+  (global-set-key (kbd "M-s e") #'consult-isearch-history)
+
+  ;; Remaps
+  (global-set-key [remap Info-search] #'consult-info)
+  (global-set-key [remap isearch-forward] #'consult-line)
+  (global-set-key [remap recentf-open-files] #'consult-recent-file)
+
+  ;; ;; Isearch integration
+  ;; (with-eval-after-load 'isearch
+  ;;   (define-key isearch-mode-map (kbd "M-e") #'consult-isearch-history)
+  ;;   (define-key isearch-mode-map (kbd "M-s e") #'consult-isearch-history)
+  ;;   (define-key isearch-mode-map (kbd "M-s l") #'consult-line)
+  ;;   (define-key isearch-mode-map (kbd "M-s L") #'consult-line-multi))
+
+  ;; ;; Minibuffer history
+  ;; (with-eval-after-load 'minibuffer
+  ;;   (define-key minibuffer-local-map (kbd "M-s") #'consult-history)
+  ;;   (define-key minibuffer-local-map (kbd "M-r") #'consult-history))
+
+  ;; Hook
+  (add-hook 'completion-list-mode #'consult-preview-at-point-mode)
+  ;; (global-set-key (kbd "M-g s") #'consult-flyspell)
+  ;; (global-set-key (kbd "M-g y") #'consult-yasnippet)
+
+#+end_src
+** embark
+#+begin_src elisp :tangle nil
+  (setq prefix-help-command #'embark-prefix-help-command)
+
+  ;; :config part of Embark
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none))))
+
+  (with-no-warnings
+    (with-eval-after-load 'which-key
+      (defun embark-which-key-indicator ()
+        "An embark indicator that displays keymaps using which-key.
+  The which-key help message will show the type and value of the
+  current target followed by an ellipsis if there are further
+  targets."
+        (lambda (&optional keymap targets prefix)
+          (if (null keymap)
+              (which-key--hide-popup-ignore-command)
+            (which-key--show-keymap
+             (if (eq (plist-get (car targets) :type) 'embark-become)
+                 "Become"
+               (format "Act on %s '%s'%s"
+                       (plist-get (car targets) :type)
+                       (embark--truncate-target (plist-get (car targets) :target))
+                       (if (cdr targets) "…" "")))
+             (if prefix
+                 (pcase (lookup-key keymap prefix 'accept-default)
+                   ((and (pred keymapp) km) km)
+                   (_ (key-binding prefix 'accept-default)))
+               keymap)
+             nil nil t (lambda (binding)
+                         (not (string-suffix-p "-argument" (cdr binding))))))))
+
+      (setq embark-indicators
+            '(embark-which-key-indicator
+              embark-highlight-indicator
+              embark-isearch-highlight-indicator))
+
+      (defun embark-hide-which-key-indicator (fn &rest args)
+        "Hide the which-key indicator immediately when using the completing-read prompter."
+        (which-key--hide-popup-ignore-command)
+        (let ((embark-indicators
+               (remq #'embark-which-key-indicator embark-indicators)))
+          (apply fn args)))
+
+      (advice-add #'embark-completing-read-prompter
+                  :around #'embark-hide-which-key-indicator)))
+
+  ;; EMBARK Keybindings
+  (global-set-key [remap describe-bindings] #'embark-bindings)
+  ;; (with-eval-after-load 'minibuffer
+  ;;   (define-key minibuffer-mode-map (kbd "C-c C-o") #'embark-export))
+  (add-hook 'embark-collect-mode #'consult-preview-at-point-mode)
+
+#+end_src
