@@ -3445,7 +3445,10 @@ jump to everywhere quickly
 ** marginalia
 #+begin_src elisp
   (require 'marginalia)
+  (require 'nerd-icons-completion)
   (add-hook 'after-init-hook 'marginalia-mode)
+  (add-hook 'marginalia-mode #'nerd-icons-completion-marginalia-setup)
+  (nerd-icons-completion-mode)
 #+end_src
 ** others
 #+begin_src elisp
