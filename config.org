@@ -1406,7 +1406,7 @@ jump to everywhere quickly
           ("R" "Reading" plain "%?"
            :if-new
            (file+head "reading/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n\n* Main\n")
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
            :immediate-finish t
            :unnarrowed t)
           ("w" "Web" plain "%?"
@@ -3394,6 +3394,51 @@ jump to everywhere quickly
 #+begin_src elisp
   (require 'eat)
   (define-key global-map (kbd "C-c c t") 'eat)
+#+end_src
+** multiple-cursor
+#+begin_src elisp
+  (require 'multiple-cursors)
+
+  (define-key global-map (kbd "C-c m l l") 'mc/edit-lines)
+  (define-key global-map (kbd "C-c m l e") 'mc/edit-ends-of-lines)
+  (define-key global-map (kbd "C-c m l a") 'mc/edit-beginnings-of-lines)
+  ;; (mc/mark-all-like-this)
+  ;; (mc/mark-all-words-like-this)
+  ;; (mc/mark-all-symbols-like-this)
+  ;; (mc/mark-all-in-region)
+  ;; (mc/mark-all-like-this-in-defun)
+  ;; (mc/mark-all-words-like-this-in-defun)
+  ;; (mc/mark-all-symbols-like-this-in-defun)
+  ;; (mc/mark-all-dwim)
+
+  ;; (mc/mark-next-like-this)
+  ;; (mc/mark-next-like-this-word)
+  ;; (mc/mark-next-word-like-this)
+  ;; (mc/mark-next-like-this-symbol)
+  ;; (mc/mark-next-symbol-like-this)
+
+  ;; (mc/mark-previous-like-this)
+  ;; (mc/mark-previous-like-this-word)
+  ;; (mc/mark-previous-word-like-this)
+  ;; (mc/mark-previous-like-this-symbol)
+  ;; (mc/mark-previous-symbol-like-this)
+
+  ;; (mc/mark-more-like-this-extended)
+  ;; (mc/add-cursor-on-click)
+  ;; (mc/mark-pop)
+
+  ;; (mc/unmark-next-like-this)
+  ;; (mc/unmark-previous-like-this)
+  ;; (mc/skip-to-next-like-this)
+  ;; (mc/skip-to-previous-like-this)
+
+  ;; (set-rectangular-region-anchor)
+  ;; (mc/mark-sgml-tag-pair)
+  ;; (mc/insert-numbers)
+  ;; (mc/insert-letters)
+  ;; (mc/reverse-regions)
+  ;; (mc/vertical-align)
+  ;; (mc/vertical-align-with-space)
 #+end_src
 ** others
 #+begin_src elisp
