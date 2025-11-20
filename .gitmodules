@@ -145,9 +145,6 @@
 [submodule "ivy"]
 	path = lib/ivy
 	url = https://github.com/abo-abo/swiper
-[submodule "ivy-posframe"]
-	path = lib/ivy-posframe
-	url = https://github.com/tumashu/ivy-posframe
 [submodule "jinx"]
 	path = lib/jinx
 	url = https://github.com/minad/jinx
@@ -178,6 +175,9 @@
 [submodule "major-mode-hydra"]
 	path = lib/major-mode-hydra
 	url = https://github.com/jerrypnz/major-mode-hydra.el
+[submodule "marginalia"]
+	path = lib/marginalia
+	url = https://github.com/minad/marginalia
 [submodule "markdown-mode"]
 	path = lib/markdown-mode
 	url = https://github.com/jrblevin/markdown-mode

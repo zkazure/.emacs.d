@@ -926,7 +926,9 @@ jump to everywhere quickly
   (global-set-key (kbd "M-g g") 'avy-goto-line)
   ;; (global-set-key (kbd "M-g w") 'avy-goto-word-2)
   ;; (global-set-key (kbd "M-g e") 'avy-goto-word-1)
-  (global-set-key (kbd "M-g c") 'avy-goto-char-2)
+  (global-set-key (kbd "M-g c") 'avy-goto-char)
+  (global-set-key (kbd "M-g w") 'avy-goto-char-2)
+  ;; (global-set-key (kbd "M-g e") 'avy-goto-char-2)
   ;; (global-set-key (kbd "M-g n") 'avy-next)
   ;; (global-set-key (kbd "M-g p") 'avy-prev)
   (global-set-key (kbd "M-g M-g") 'avy-resume)
@@ -3439,6 +3441,11 @@ jump to everywhere quickly
   ;; (mc/reverse-regions)
   ;; (mc/vertical-align)
   ;; (mc/vertical-align-with-space)
+#+end_src
+** marginalia
+#+begin_src elisp
+  (require 'marginalia)
+  (add-hook 'after-init-hook 'marginalia-mode)
 #+end_src
 ** others
 #+begin_src elisp
