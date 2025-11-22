@@ -3362,10 +3362,10 @@ jump to everywhere quickly
     (corfu-popupinfo-mode)
     (corfu-history-mode))
 
-  ;; (dotimes (i 10)
-  ;;   (define-key corfu-mode-map
-  ;;                     (kbd (format "M-%s" i))
-  ;;                     (kbd (format "C-%s <tab>" i))))
+  (dotimes (i 10)
+    (define-key corfu-mode-map
+                      (kbd (format "M-%s" i))
+                      (kbd (format "C-%s <tab>" i))))
 
   ;; ;; Move completions to minibuffer
   ;; (defun corfu-move-to-minibuffer ()
