@@ -2979,8 +2979,13 @@ jump to everywhere quickly
 ** colorful-mode
 #+begin_src elisp
   (require 'colorful-mode)
-  (setq global-colorful-mode t)
-  (add-to-list 'global-colorful-modes 'helpful-mode)
+
+  (setq global-colorful-mode t
+        colorful-use-prefix t
+        colorful-only-strings 'only-prog
+        css-fontify-colors nil)
+
+  ;; (add-to-list 'global-colorful-modes 'helpful-mode)
 #+end_src
 
 ** link-hint

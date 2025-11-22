@@ -133,6 +133,9 @@
 [submodule "ht"]
 	path = lib/ht
 	url = https://github.com/Wilfred/ht.el
+[submodule "htmlize"]
+	path = lib/htmlize
+	url = https://github.com/hniksic/emacs-htmlize
 [submodule "hydra"]
 	path = lib/hydra
 	url = https://github.com/abo-abo/hydra
