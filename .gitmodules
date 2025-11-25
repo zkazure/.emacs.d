@@ -250,9 +250,6 @@
 [submodule "pfuture"]
 	path = lib/pfuture
 	url = https://github.com/Alexander-Miller/pfuture
-[submodule "plantuml-mode"]
-	path = lib/plantuml-mode
-	url = https://github.com/skuro/plantuml-mode
 [submodule "popper"]
 	path = lib/popper
 	url = https://github.com/karthink/popper
