@@ -3461,6 +3461,11 @@ jump to everywhere quickly
   (add-hook 'marginalia-mode #'nerd-icons-completion-marginalia-setup)
   (nerd-icons-completion-mode)
 #+end_src
+** breadcrumb
+#+begin_src elisp
+  (require 'breadcrumb)
+  (breadcrumb-mode 1)
+#+end_src
 ** others
 #+begin_src elisp
   (setq-local multibyte-syntax-as-symbol nil)

@@ -25,6 +25,9 @@
 [submodule "borg"]
 	path = lib/borg
 	url = https://github.com/emacscollective/borg.git
+[submodule "breadcrumb"]
+	path = lib/breadcrumb
+	url = https://github.com/joaotavora/breadcrumb
 [submodule "bui"]
 	path = lib/bui
 	url = https://github.com/alezost/bui.el
