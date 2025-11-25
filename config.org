@@ -3228,7 +3228,7 @@ jump to everywhere quickly
              :base-directory "~/Documents/roam/blog/"
              :base-extension "org"
              :exclude: "ltximg/*"
-             :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />"
+             :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"/style.css\" />"
              :html-preamble
              "<nav id=\"main-nav\">
                <ul>
@@ -3251,6 +3251,7 @@ jump to everywhere quickly
              </div>"
              :recursive t
              :publishing-directory "~/Developments/blog/"
+             :with-tags t
              :auto-sitemap t
              :sitemap-filename "sitemap.org"
              :sitemap-title ""
@@ -3291,13 +3292,13 @@ jump to everywhere quickly
 
   (with-eval-after-load 'eglot
     (add-to-list 'eglot-server-programs
-                 '(c++-mode . ("clangd")))
+                 '(c++-mode . ("clangd" "--header-insertion=never")))
+    ;; (add-to-list 'eglot-server-programs
+    ;;              '(c++-ts-mode . ("clangd" "--header-insertion=never")))
     (add-to-list 'eglot-server-programs
-                 '(c++-ts-mode . ("clangd")))
-    (add-to-list 'eglot-server-programs
-                 '(c-mode . ("clangd")))
-    (add-to-list 'eglot-server-programs
-                 '(c-ts-mode . ("clangd")))
+                 '(c-mode . ("clangd" "--header-insertion=never")))
+    ;; (add-to-list 'eglot-server-programs
+    ;;              '(c-ts-mode . ("clangd" "--header-insertion=never")))
     (add-to-list 'eglot-server-programs
                  '(python-mode . ("pyright-langserver")) t)
     (add-to-list 'eglot-server-programs
@@ -3310,11 +3311,16 @@ jump to everywhere quickly
                  '(scheme-mode . ("racket" "-l" "racket-langserver")))
     (add-to-list 'eglot-server-programs
                  '(asm-mode . ("asm-lsp")))
+    (add-to-list 'eglot-server-programs
+                 '(emacs-lisp-mode . ("ellsp")))
     )
 
   (setq eglot-ignored-server-capabilities
         '(:documentOnTypeFormattingProvider
-          ;; :documentHighlightProvider
+          :documentFormattingProvider
+          :documentRangeFormattingProvider
+          :renameProvider
+          :documentHighlightProvider
           :foldingRangeProvider))
 
   ;; ;; use .eglot-root as project root
