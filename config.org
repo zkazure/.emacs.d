@@ -707,6 +707,7 @@ only the language set here can be babeled.
         (go . t)
         (java . t)
         (scheme . t)
+        (sqlite . t)
         ))))
 
   (with-eval-after-load 'org
@@ -2331,6 +2332,7 @@ jump to everywhere quickly
       ("r" (hot-expand "<s" "ruby") "ruby")
       ;; ("S" (hot-expand "<s" "sh") "sh")
       ("S" (hot-expand "<s" "scheme :results output") "scheme")
+      ("Q" (hot-expand "<s" "sqlite :colnames yes") "sqlite")
       ("g" (hot-expand "<s" "go :imports '\(\"fmt\"\)") "golang"))
      "Misc"
      (("m" (hot-expand "<s" "mermaid :file chart.png") "mermaid")
