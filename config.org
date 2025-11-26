@@ -333,7 +333,7 @@
   (require 'init-treesit)
   (require 'init-treesit-fold)
   (require 'init-yaml-mode)
-  (require 'init-citar)
+  ;; (require 'init-citar)
   (require 'init-ivy-posframe)
   (require 'init-ox-hugo)
   (require 'init-quickrun)
@@ -2938,30 +2938,14 @@ jump to everywhere quickly
   (require 'highlight-indent-guides)
 
   (setq highlight-indent-guides-method 'character)
-  (setq highlight-indent-guides-auto-enabled t)
+  (setq highlight-indent-guides-auto-enabled nil)
   ;; (set-face-background 'highlight-indent-guides-odd-face "darkgray")
   ;; (set-face-background 'highlight-indent-guides-even-face "dimgray")
-  ;; (set-face-foreground 'highlight-indent-guides-character-face "dimgray")
+  ;; (set-face-foreground 'highlight-indent-guides-character-face "gray20")
 
   (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
 #+end_src
 
-** whitespace
-#+begin_src emacs-lisp :tangle no
-  (require 'whitespace-cleanup-mode)
-
-  (dolist (hook (list
-                 'prog-mode-hook
-                 'org-mode-hook))
-    (add-hook hook 'whitespace-cleanup-mode))
-
-  (dolist (hook (list
-                 'prog-mode-hook
-                 ))
-    (add-hook hook 'whitespace-mode))
-
-  (setq whitespace-style '(face trailing blanks))
-#+end_src
 
 ** colorful-mode
 #+begin_src elisp
@@ -3060,126 +3044,6 @@ jump to everywhere quickly
   (autoload 'go-mode "go-mode" nil t)
   (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
 #+end_src
-** treemacs
-#+begin_src elisp
-  (require 'treemacs-autoloads)
-  (add-to-list 'load-path (expand-file-name "lib/treemacs/src/elisp" user-emacs-directory))
-  (add-to-list 'load-path (expand-file-name "lib/treemacs/src/extra" user-emacs-directory))
-
-  (require 'treemacs-annotations)
-  (require 'treemacs-async)
-  (require 'treemacs-bookmarks)
-  (require 'treemacs-compatibility)
-  (require 'treemacs-core-utils)
-  (require 'treemacs-customization)
-  (require 'treemacs-dom)
-  (require 'treemacs)
-  (require 'treemacs-extensions)
-  (require 'treemacs-faces)
-  (require 'treemacs-file-management)
-  (require 'treemacs-filewatch-mode)
-  (require 'treemacs-follow-mode)
-  (require 'treemacs-fringe-indicator)
-  (require 'treemacs-git-commit-diff-mode)
-  (require 'treemacs-header-line)
-  (require 'treemacs-hydras)
-  (require 'treemacs-icons)
-  (require 'treemacs-interface)
-  (require 'treemacs-logging)
-  (require 'treemacs-macros)
-  (require 'treemacs-mode)
-  (require 'treemacs-mouse-interface)
-  (require 'treemacs-peek-mode)
-  (require 'treemacs-persistence)
-  (require 'treemacs-project-follow-mode)
-  (require 'treemacs-rendering)
-  (require 'treemacs-scope)
-  (require 'treemacs-tag-follow-mode)
-  (require 'treemacs-tags)
-  (require 'treemacs-themes)
-  (require 'treemacs-treelib)
-  (require 'treemacs-visuals)
-  (require 'treemacs-workspaces)
-  ;; (require 'treemacs-all-the-icons)
-  ;; (require 'treemacs-evil)
-  ;; (require 'treemacs-icons-dired)
-  (require 'treemacs-magit)
-  ;; (require 'treemacs-mu4e)
-  ;; (require 'treemacs-perspective)
-  ;; (require 'treemacs-persp)
-  (require 'treemacs-projectile)
-  (require 'treemacs-tab-bar)
-
-
-  (treemacs-git-mode 'deferred)
-
-  (setq treemacs-buffer-name-function            #'treemacs-default-buffer-name
-        treemacs-buffer-name-prefix              " *Treemacs-Buffer-"
-        treemacs-collapse-dirs                   (if treemacs-python-executable 3 0)
-        treemacs-deferred-git-apply-delay        0.5
-        treemacs-directory-name-transformer      #'identity
-        treemacs-display-in-side-window          t
-        treemacs-eldoc-display                   'simple
-        treemacs-file-event-delay                2000
-        treemacs-file-extension-regex            treemacs-last-period-regex-value
-        treemacs-file-follow-delay               0.2
-        treemacs-file-name-transformer           #'identity
-        treemacs-follow-after-init               t
-        treemacs-expand-after-init               t
-        treemacs-find-workspace-method           'find-for-file-or-pick-first
-        treemacs-git-command-pipe                ""
-        treemacs-goto-tag-strategy               'refetch-index
-        treemacs-header-scroll-indicators        '(nil . "^^^^^^")
-        treemacs-hide-dot-git-directory          t
-        treemacs-indentation                     1
-        treemacs-indentation-string              " "
-        treemacs-is-never-other-window           nil
-        treemacs-max-git-entries                 5000
-        treemacs-missing-project-action          'ask
-        treemacs-move-files-by-mouse-dragging    t
-        treemacs-move-forward-on-expand          nil
-        treemacs-no-png-images                   nil
-        treemacs-no-delete-other-windows         t
-        treemacs-project-follow-cleanup          nil
-        treemacs-persist-file                    (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
-        treemacs-position                        'left
-        treemacs-read-string-input               'from-child-frame
-        treemacs-recenter-distance               0.1
-        treemacs-recenter-after-file-follow      nil
-        treemacs-recenter-after-tag-follow       nil
-        treemacs-recenter-after-project-jump     'always
-        treemacs-recenter-after-project-expand   'on-distance
-        treemacs-litter-directories              '("/node_modules" "/.venv" "/.cask")
-        treemacs-project-follow-into-home        nil
-        treemacs-show-cursor                     nil
-        treemacs-show-hidden-files               t
-        treemacs-silent-filewatch                nil
-        treemacs-silent-refresh                  nil
-        treemacs-sorting                         'alphabetic-asc
-        treemacs-select-when-already-in-treemacs 'move-back
-        treemacs-space-between-root-nodes        t
-        treemacs-tag-follow-cleanup              t
-        treemacs-tag-follow-delay                1.5
-        treemacs-text-scale                      0.1
-        treemacs-user-mode-line-format           nil
-        treemacs-user-header-line-format         nil
-        treemacs-wide-toggle-width               70
-        treemacs-width                           25
-        treemacs-width-increment                 1
-        treemacs-width-is-initially-locked       t
-        treemacs-workspace-switch-cleanup        nil)
-
-  (treemacs-resize-icons 10)
-  (treemacs-follow-mode t)
-  (treemacs-filewatch-mode t)
-  (treemacs-fringe-indicator-mode 'always)
-  (when treemacs-python-executable
-    (treemacs-git-commit-diff-mode t))
-  (treemacs-hide-gitignored-files-mode nil)
-
-  (define-key global-map (kbd "C-c o s") 'treemacs-select-window)
-#+end_src
-
 ** no backup
 #+begin_src elisp
   (setq make-backup-files nil)
@@ -3775,3 +3639,139 @@ https://abode.karthinks.com/org-latex-preview/
   (provide 'init-plantuml-mode)
 #+end_src
 
+** treemacs
+#+begin_src elisp :tangle no
+  (require 'treemacs-autoloads)
+  (add-to-list 'load-path (expand-file-name "lib/treemacs/src/elisp" user-emacs-directory))
+  (add-to-list 'load-path (expand-file-name "lib/treemacs/src/extra" user-emacs-directory))
+
+  (require 'treemacs-annotations)
+  (require 'treemacs-async)
+  (require 'treemacs-bookmarks)
+  (require 'treemacs-compatibility)
+  (require 'treemacs-core-utils)
+  (require 'treemacs-customization)
+  (require 'treemacs-dom)
+  (require 'treemacs)
+  (require 'treemacs-extensions)
+  (require 'treemacs-faces)
+  (require 'treemacs-file-management)
+  (require 'treemacs-filewatch-mode)
+  (require 'treemacs-follow-mode)
+  (require 'treemacs-fringe-indicator)
+  (require 'treemacs-git-commit-diff-mode)
+  (require 'treemacs-header-line)
+  (require 'treemacs-hydras)
+  (require 'treemacs-icons)
+  (require 'treemacs-interface)
+  (require 'treemacs-logging)
+  (require 'treemacs-macros)
+  (require 'treemacs-mode)
+  (require 'treemacs-mouse-interface)
+  (require 'treemacs-peek-mode)
+  (require 'treemacs-persistence)
+  (require 'treemacs-project-follow-mode)
+  (require 'treemacs-rendering)
+  (require 'treemacs-scope)
+  (require 'treemacs-tag-follow-mode)
+  (require 'treemacs-tags)
+  (require 'treemacs-themes)
+  (require 'treemacs-treelib)
+  (require 'treemacs-visuals)
+  (require 'treemacs-workspaces)
+  ;; (require 'treemacs-all-the-icons)
+  ;; (require 'treemacs-evil)
+  ;; (require 'treemacs-icons-dired)
+  (require 'treemacs-magit)
+  ;; (require 'treemacs-mu4e)
+  ;; (require 'treemacs-perspective)
+  ;; (require 'treemacs-persp)
+  (require 'treemacs-projectile)
+  (require 'treemacs-tab-bar)
+
+
+  (treemacs-git-mode 'deferred)
+
+  (setq treemacs-buffer-name-function            #'treemacs-default-buffer-name
+        treemacs-buffer-name-prefix              " *Treemacs-Buffer-"
+        treemacs-collapse-dirs                   (if treemacs-python-executable 3 0)
+        treemacs-deferred-git-apply-delay        0.5
+        treemacs-directory-name-transformer      #'identity
+        treemacs-display-in-side-window          t
+        treemacs-eldoc-display                   'simple
+        treemacs-file-event-delay                2000
+        treemacs-file-extension-regex            treemacs-last-period-regex-value
+        treemacs-file-follow-delay               0.2
+        treemacs-file-name-transformer           #'identity
+        treemacs-follow-after-init               t
+        treemacs-expand-after-init               t
+        treemacs-find-workspace-method           'find-for-file-or-pick-first
+        treemacs-git-command-pipe                ""
+        treemacs-goto-tag-strategy               'refetch-index
+        treemacs-header-scroll-indicators        '(nil . "^^^^^^")
+        treemacs-hide-dot-git-directory          t
+        treemacs-indentation                     1
+        treemacs-indentation-string              " "
+        treemacs-is-never-other-window           nil
+        treemacs-max-git-entries                 5000
+        treemacs-missing-project-action          'ask
+        treemacs-move-files-by-mouse-dragging    t
+        treemacs-move-forward-on-expand          nil
+        treemacs-no-png-images                   nil
+        treemacs-no-delete-other-windows         t
+        treemacs-project-follow-cleanup          nil
+        treemacs-persist-file                    (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
+        treemacs-position                        'left
+        treemacs-read-string-input               'from-child-frame
+        treemacs-recenter-distance               0.1
+        treemacs-recenter-after-file-follow      nil
+        treemacs-recenter-after-tag-follow       nil
+        treemacs-recenter-after-project-jump     'always
+        treemacs-recenter-after-project-expand   'on-distance
+        treemacs-litter-directories              '("/node_modules" "/.venv" "/.cask")
+        treemacs-project-follow-into-home        nil
+        treemacs-show-cursor                     nil
+        treemacs-show-hidden-files               t
+        treemacs-silent-filewatch                nil
+        treemacs-silent-refresh                  nil
+        treemacs-sorting                         'alphabetic-asc
+        treemacs-select-when-already-in-treemacs 'move-back
+        treemacs-space-between-root-nodes        t
+        treemacs-tag-follow-cleanup              t
+        treemacs-tag-follow-delay                1.5
+        treemacs-text-scale                      0.1
+        treemacs-user-mode-line-format           nil
+        treemacs-user-header-line-format         nil
+        treemacs-wide-toggle-width               70
+        treemacs-width                           25
+        treemacs-width-increment                 1
+        treemacs-width-is-initially-locked       t
+        treemacs-workspace-switch-cleanup        nil)
+
+  (treemacs-resize-icons 10)
+  (treemacs-follow-mode t)
+  (treemacs-filewatch-mode t)
+  (treemacs-fringe-indicator-mode 'always)
+  (when treemacs-python-executable
+    (treemacs-git-commit-diff-mode t))
+  (treemacs-hide-gitignored-files-mode nil)
+
+  (define-key global-map (kbd "C-c o s") 'treemacs-select-window)
+#+end_src
+
+** whitespace
+#+begin_src emacs-lisp :tangle no
+  (require 'whitespace-cleanup-mode)
+
+  (dolist (hook (list
+                 'prog-mode-hook
+                 'org-mode-hook))
+    (add-hook hook 'whitespace-cleanup-mode))
+
+  (dolist (hook (list
+                 'prog-mode-hook
+                 ))
+    (add-hook hook 'whitespace-mode))
+
+  (setq whitespace-style '(face trailing blanks))
+#+end_src
