@@ -466,10 +466,40 @@
 :HEADER-ARGS: :tangle lisp/init-theme.el
 :END:
 
-#+begin_src emacs-lisp
 
-  (defvar my-themes '(modus-operandi-tinted modus-operandi-deuteranopia))
-  ;; modus-vivendi-tinted
+#+begin_src elisp
+  (setq modus-vivendi-tinted-palette-overrides
+        '(
+          (fg-main "gray80")
+          (bg-main "#181a26")
+          (cursor      "green")        ; 来自 (cursor ... :background "green")
+
+          (bg-region   "#103050")
+          ;; (fg-region "gray80")
+          
+          (comment     "gray50")       ; 来自 font-lock-comment-face
+          (constant    "DarkOliveGreen3") ; 来自 font-lock-constant-face
+          (keyword     "DeepSkyBlue1") ; 来自 font-lock-keyword-face
+          (preprocessor "gold")        ; 来自 font-lock-preprocessor-face
+          (string      "burlywood")    ; 来自 font-lock-string-face
+          (fnname "goldenrod")
+          (type        "CadetBlue1")   ; 来自 font-lock-type-face
+          (variable "SeaGreen2")  ; 来自 font-lock-variable-name-face
+          (builtin     "LightCoral")   ; 来自 font-lock-builtin-face
+          (docstring         "moccasin")     ; ??? 来自 font-lock-doc-face
+          
+          (err       "red")          ; 来自 error 和 compilation-error
+          (warning     "Yellow")       ; 来自 warning
+          (info        "LightSkyBlue") ; 来自 compilation-info
+
+          ;; --- deeper-blue: 括号匹配 ---
+          (bg-paren-match "dodgerblue1")
+          (fg-paren-match "white")
+          ))
+#+end_src
+
+#+begin_src emacs-lisp
+  (defvar my-themes '(modus-operandi modus-vivendi-tinted))
 
   (defun load-random-theme ()
     (interactive)
