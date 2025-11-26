@@ -491,7 +491,9 @@
 
   (setq-default line-spacing .1)
   (setq org-imenu-depth 4
-        org-ellipsis " ┑")
+        org-ellipsis nil
+        ;; org-ellipsis " ┑"
+        )
 
   (setq org-log-into-drawer t)
 
@@ -521,18 +523,18 @@
   ;;               (sequence "LOOP(l)" "|" "DONE(d)")
   ;;               (sequence "PROJECT(p)"))))
 
-  (setq org-todo-keyword-faces
-        '(("TODO" . (:foreground "red1"  :weight bold))
-          ("NEXT" . (:foreground "DeepSkyBlue" :weight bold))
-          ("DOING" . (:foreground "DarkOrchid1"  :weight bold))
-          ("DONE" . (:foreground "lime green" :weight bold))
-          ("HOLD" . (:foreground "snow3" :weight bold))
-          ("LOOP" . (:foreground "tomato1"  :weight bold))
-          ("PROJECT" . (:foreground "firebrick"  :weight bold))))
+  ;; (setq org-todo-keyword-faces
+  ;;       '(("TODO" . (:foreground "red1"  :weight bold))
+  ;;         ("NEXT" . (:foreground "DeepSkyBlue" :weight bold))
+  ;;         ("DOING" . (:foreground "DarkOrchid1"  :weight bold))
+  ;;         ("DONE" . (:foreground "lime green" :weight bold))
+  ;;         ("HOLD" . (:foreground "snow3" :weight bold))
+  ;;         ("LOOP" . (:foreground "tomato1"  :weight bold))
+  ;;         ("PROJECT" . (:foreground "firebrick"  :weight bold))))
 
   (setq org-use-fast-todo-selection t) ;; C-c C-t KEY
 
-  (define-key org-mode-map (kbd "C-c n o") 'browse-url)
+  ;; (define-key org-mode-map (kbd "C-c n o") 'browse-url)
 #+END_SRC
 *** agenda
 #+begin_src emacs-lisp
@@ -1406,6 +1408,12 @@ jump to everywhere quickly
                       "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
            :immediate-finish t
            :unnarrowed t)     
+          ("p" "Personality" plain "%?"
+           :if-new
+           (file+head "psychology/${title}.org"
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: :Psych: \n\n* Main\n")
+           :immediate-finish t
+           :unnarrowed t)
           ))
 
   (setq org-roam-dailies-capture-templates
