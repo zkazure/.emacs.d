@@ -499,17 +499,42 @@
 #+end_src
 
 #+begin_src emacs-lisp
-  (defvar my-themes '(modus-operandi modus-vivendi-tinted))
+  ;; --- 自动主题切换 (init.el 版本) ---
+  (setq my-auto-theme-light-theme 'modus-operandi)
+  (setq my-auto-theme-dark-theme 'modus-vivendi-tinted)
+  (setq my-auto-theme-day-start 9)  ; 白天开始时间 (7 = 7:00)
+  (setq my-auto-theme-day-end 18) ; 白天结束时间 (19 = 19:00)
 
-  (defun load-random-theme ()
+  ;; 2. 定义一个函数来检查并应用主题
+  ;;    (我们把它命名为 'my/...' 来避免和其他插件冲突)
+  (defun my/auto-theme-switcher-apply-theme ()
     (interactive)
-    (load-theme (nth (random (length my-themes)) my-themes) t))
+    "根据时间检查并应用一次主题。"
+    (let* (
+           ;; 获取当前小时 (0-23)
+           (current-hour (nth 2 (decode-time (current-time))))
+           
+           ;; 决定目标主题
+           (target-theme
+            (if (and (>= current-hour my-auto-theme-day-start)
+                     (< current-hour my-auto-theme-day-end))
+                ;; 现在是白天
+                my-auto-theme-light-theme
+              ;; 现在是夜晚
+              my-auto-theme-dark-theme)))
+      (load-theme target-theme)
+      ;; 仅在目标主题尚未加载时才加载它
+      ;; (unless (memq target-theme custom-enabled-themes)
+      ;;   (message "AutoTheme: 正在根据时间应用 %s" target-theme)
+      ;;   (load-theme target-theme ))
+      )) ; 't' 表示不询问用户
 
-  (load-random-theme)
-  ;; (load-theme 'modus-operandi-tinted)
-
+  ;; (add-hook 'after-make-frame-functions #'my/auto-theme-switcher-apply-theme)
+  (my/auto-theme-switcher-apply-theme)
+  
   (provide 'init-theme)
 #+end_src
+
 
 ** org
 :PROPERTIES:
@@ -523,15 +548,13 @@
   (setq org-imenu-depth 4
         org-ellipsis nil
         ;; org-ellipsis " ┑"
-        )
-
-  (setq org-log-into-drawer t)
-
-  (setq org-tags-column 0
-        org-catch-invisible-edits 'smart
+        org-startup-folded 'show2levels
         org-startup-indented t
         org-hide-leading-stars nil
-        org-indent-mode-turns-on-hiding-stars nil)
+        org-log-into-drawer t
+        org-indent-mode-turns-on-hiding-stars nil
+        org-fold-catch-invisible-edits 'smart
+        )
 
   (with-eval-after-load 'org
     ;; Make verbatim with highlight text background.
@@ -2968,7 +2991,9 @@ jump to everywhere quickly
   (require 'highlight-indent-guides)
 
   (setq highlight-indent-guides-method 'character)
-  (setq highlight-indent-guides-auto-enabled nil)
+  (setq highlight-indent-guides-auto-character-face-perc 40)
+  (setq highlight-indent-guides-auto-enabled t)
+
   ;; (set-face-background 'highlight-indent-guides-odd-face "darkgray")
   ;; (set-face-background 'highlight-indent-guides-even-face "dimgray")
   ;; (set-face-foreground 'highlight-indent-guides-character-face "gray20")
