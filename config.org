@@ -3372,6 +3372,15 @@ jump to everywhere quickly
   (require 'breadcrumb)
   (breadcrumb-mode 1)
 #+end_src
+** symbol-overlay
+#+begin_src elisp
+  (require 'symbol-overlay)
+  (global-set-key (kbd "M-i") 'symbol-overlay-put)
+  (global-set-key (kbd "M-n") 'symbol-overlay-switch-forward)
+  (global-set-key (kbd "M-p") 'symbol-overlay-switch-backward)
+  (global-set-key (kbd "C-c o s") 'symbol-overlay-mode)
+  (global-set-key (kbd "C-c o S") 'symbol-overlay-remove-all)
+#+end_src
 ** others
 #+begin_src elisp
   (setq-local multibyte-syntax-as-symbol nil)
