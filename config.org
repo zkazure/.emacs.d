@@ -3383,6 +3383,12 @@ jump to everywhere quickly
   (global-set-key (kbd "C-c o s") 'symbol-overlay-mode)
   (global-set-key (kbd "C-c o S") 'symbol-overlay-remove-all)
 #+end_src
+** aggressive-indent
+#+begin_src elisp
+  (require 'aggressive-indent)
+  (global-aggressive-indent-mode 1)
+  (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
+#+end_src
 ** others
 #+begin_src elisp
   (setq-local multibyte-syntax-as-symbol nil)

@@ -4,6 +4,9 @@
 [submodule "ace-window"]
 	path = lib/ace-window
 	url = https://github.com/abo-abo/ace-window
+[submodule "aggressive-indent"]
+	path = lib/aggressive-indent
+	url = https://github.com/Malabarba/aggressive-indent-mode
 [submodule "aio"]
 	path = lib/aio
 	url = https://github.com/skeeto/emacs-aio
@@ -160,6 +163,9 @@
 [submodule "leetcode"]
 	path = lib/leetcode
 	url = https://github.com/kaiwk/leetcode.el
+[submodule "lib/cond-let"]
+	path = lib/cond-let
+	url = https://github.com/tarsius/cond-let.git
 [submodule "link-hint"]
 	path = lib/link-hint
 	url = https://github.com/noctuid/link-hint.el
@@ -346,6 +352,3 @@
 [submodule "yasnippet-capf"]
 	path = lib/yasnippet-capf
 	url = https://github.com/elken/yasnippet-capf
-[submodule "lib/cond-let"]
-	path = lib/cond-let
-	url = https://github.com/tarsius/cond-let.git
