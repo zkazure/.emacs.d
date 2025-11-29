@@ -187,9 +187,6 @@
 [submodule "move-text"]
 	path = lib/move-text
 	url = https://github.com/emacsfodder/move-text
-[submodule "mu4e"]
-	path = lib/mu4e
-	url = https://github.com/djcb/mu
 [submodule "multiple-cursors"]
 	path = lib/multiple-cursors
 	url = https://github.com/magnars/multiple-cursors.el
