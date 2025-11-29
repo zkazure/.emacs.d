@@ -82,9 +82,6 @@
 [submodule "ebdb"]
 	path = lib/ebdb
 	url = git@github.com:emacsmirror/ebdb.git
-[submodule "emacs-everywhere"]
-	path = lib/emacs-everywhere
-	url = https://github.com/tecosaur/emacs-everywhere
 [submodule "emacsql"]
 	path = lib/emacsql
 	url = https://github.com/magit/emacsql.git
@@ -151,9 +148,6 @@
 [submodule "ivy"]
 	path = lib/ivy
 	url = https://github.com/abo-abo/swiper
-[submodule "ivy-posframe"]
-	path = lib/ivy-posframe
-	url = https://github.com/tumashu/ivy-posframe
 [submodule "jinx"]
 	path = lib/jinx
 	url = https://github.com/minad/jinx
@@ -208,9 +202,6 @@
 [submodule "nerd-icons-corfu"]
 	path = lib/nerd-icons-corfu
 	url = https://github.com/LuigiPiucco/nerd-icons-corfu
-[submodule "olivetti"]
-	path = lib/olivetti
-	url = https://github.com/rnkn/olivetti
 [submodule "orderless"]
 	path = lib/orderless
 	url = https://github.com/oantolin/orderless

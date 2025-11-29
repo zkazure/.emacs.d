@@ -310,7 +310,7 @@
   (require 'init-projectile)
   (require 'init-latex)
 
-  (require 'init-emacs-everywhere)
+  ;; (require 'init-emacs-everywhere)
   (require 'init-markdown-mode)
   (require 'init-jinx)
   (require 'init-orderless)
@@ -334,7 +334,7 @@
   (require 'init-treesit-fold)
   (require 'init-yaml-mode)
   ;; (require 'init-citar)
-  (require 'init-ivy-posframe)
+  ;; (require 'init-ivy-posframe)
   (require 'init-ox-hugo)
   (require 'init-quickrun)
   (require 'init-org-fragtog)
@@ -589,7 +589,7 @@
 
   ;; (define-key org-mode-map (kbd "C-c n o") 'browse-url)
 #+END_SRC
-*** agenda
+*** COMMENT agenda
 #+begin_src emacs-lisp
   (define-key global-map (kbd "C-c A") 'org-agenda)
   (global-set-key (kbd "C-c o a") '(lambda () (interactive) (org-agenda nil "d")))
@@ -712,7 +712,7 @@
   ;;             (org-agenda nil "d")))
 #+end_src
 
-*** capture
+*** COMMENT capture
 set the org capture template
 #+begin_src emacs-lisp
   (define-key global-map (kbd "C-c n c") 'org-capture)
@@ -803,7 +803,7 @@ only the language set here can be babeled.
   (add-hook 'org-mode-hook 'org-appear-mode)
 
 #+end_src
-*** olivetti
+*** COMMENT olivetti
 #+begin_src emacs-lisp
   (require 'olivetti)
   (define-key global-map (kbd "C-c o o") 'olivetti-mode)
@@ -1214,7 +1214,7 @@ jump to everywhere quickly
   (provide 'init-latex)
 #+end_src
 
-** everywhere
+** COMMENT everywhere
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-emacs-everywhere.el
 :END:
@@ -1253,8 +1253,7 @@ jump to everywhere quickly
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-jinx.el
 :END:
-- [X] ignore Chinese
-- [ ] ignore the code in the emphasis.
+
 #+begin_src emacs-lisp
   (require 'jinx)
 
@@ -1335,7 +1334,6 @@ jump to everywhere quickly
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-visual-regexp.el
 :END:
-- [ ] test
 
   #+begin_src emacs-lisp
     (require 'visual-regexp)
@@ -1638,6 +1636,23 @@ jump to everywhere quickly
   (provide 'init-org-roam)
 #+end_src
 
+** org-roam-ui
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-org-roam-ui.el
+:END:
+
+#+begin_src emacs-lisp
+  (require 'org-roam-ui)
+  (require 'websocket)
+
+  ;; (with-eval-after-load 'org-roam
+  ;;   (setq org-roam-ui-open-on-start nil
+  ;;         org-roam-ui-update-on-save t
+  ;;         org-roam-ui-sync-theme t)
+  ;;   (org-roam-ui-mode 1))
+
+  (provide 'init-org-roam-ui)
+#+end_src
 
 ** pdf-tools
 :PROPERTIES:
@@ -1889,23 +1904,6 @@ jump to everywhere quickly
 
   (provide 'init-web-mode)
 #+end_src
-** org-roam-ui
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-org-roam-ui.el
-:END:
-
-#+begin_src emacs-lisp
-  (require 'org-roam-ui)
-  (require 'websocket)
-
-  ;; (with-eval-after-load 'org-roam
-  ;;   (setq org-roam-ui-open-on-start nil
-  ;;         org-roam-ui-update-on-save t
-  ;;         org-roam-ui-sync-theme t)
-  ;;   (org-roam-ui-mode 1))
-
-  (provide 'init-org-roam-ui)
-#+end_src
 
 ** treesit
 :PROPERTIES:
@@ -2106,7 +2104,7 @@ jump to everywhere quickly
   (provide 'init-citar)
 #+end_src
 
-** ivy-posframe
+** COMMENT ivy-posframe
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-ivy-posframe.el
 :END:
@@ -2373,8 +2371,9 @@ jump to everywhere quickly
       ("Q" (hot-expand "<s" "sqlite :colnames yes") "sqlite")
       ("g" (hot-expand "<s" "go :imports '\(\"fmt\"\)") "golang"))
      "Misc"
-     (("m" (hot-expand "<s" "mermaid :file chart.png") "mermaid")
-      ("u" (hot-expand "<s" "plantuml :file ./static/chart.png") "plantuml")
+     (
+      ;; ("m" (hot-expand "<s" "mermaid :file chart.png") "mermaid")
+      ;; ("u" (hot-expand "<s" "plantuml :file ./static/chart.png") "plantuml")
       ("Y" (hot-expand "<s" "ipython :session :exports both :results raw drawer\n$0") "ipython")
       ("P" (progn
             (insert "#+HEADERS: :results output :exports both :shebang \"#!/usr/bin/env perl\"\n")
