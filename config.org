@@ -71,7 +71,6 @@
 #+begin_src emacs-lisp
   ;;; init.el --- user-init-file                    -*- lexical-binding: t -*-
   ;;; Early birds
-
 #+end_src
 
 ** borg
@@ -188,6 +187,7 @@
       (setq indent-tabs-mode nil))
     (add-hook 'lisp-interaction-mode-hook 'indent-spaces-mode))
 
+
   (use-package magit
     :defer t
     :commands (magit-add-section-hook)
@@ -269,8 +269,8 @@
                                   user-emacs-directory)))
       (when (file-exists-p file)
         (load file))))
-
 #+end_src
+
 
 ** Require
 #+begin_src emacs-lisp
@@ -292,7 +292,7 @@
 
 
   ;; Now we only need many require command
-  ;;  (require 'init-base)
+   ;; (require 'init-base)
 
   ;; inside
   (require 'init-ui)
@@ -347,6 +347,7 @@
   (require 'init-ace-window)
 
   (require 'init-personal)
+
   (require 'init-test)
 
 #+end_src
@@ -1349,6 +1350,8 @@ jump to everywhere quickly
 
 *** basic
 #+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/lib/cond-let/")
+  (require 'cond-let)
   (require 'org-roam)
 
   (add-to-list 'load-path "~/.emacs.d/lib/org-roam/extensions/")
