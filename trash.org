@@ -854,3 +854,571 @@
   (define-key message-mode-map (kbd "C-c e t") 'kz/ebdb-set-mail-to-address)
 #+end_src
 
+* COMMENT wish list
+** desktop
+#+begin_src emacs-lisp
+  (setq desktop-load-locked-desktop t) ; don't popup dialog ask user, load anyway
+  (setq desktop-restore-frames nil)    ; don't restore any frame
+
+  (desktop-save-mode 1)
+#+end_src
+** web mode
+- typecript-mode
+- php-mode
+- prettier
+** ui
+
+#+begin_src emacs-lisp
+  (setq frame-inhibit-implied-resize t
+      frame-resize-pixelwise t)
+  (setq initial-frame-alist '((top . 0.5)
+                              (left . 0.5)
+                              (width . 0.7)
+                              (height . 0.85)
+                              (fullscreen)))
+#+end_src
+** TODO read-only-mode
+#+begin_src emacs-lisp :tangle no
+  (defvar easy-nav-mode-map
+    (let ((map (make-sparse-keymap)))
+      ;; 用 n 和 p 来导航
+      (define-key map (kbd "n") #'next-line)
+      (define-key map (kbd "p") #'previous-line)
+      (define-key map (kbd "b") #'backward-char)
+      (define-key map (kbd "f") #'forward-char)
+
+      (define-key map (kbd "M-f") #'forward-word)
+      (define-key map (kbd "M-b") #'backward-word)
+
+      (define-key map (kbd "a") #'beginning-of-line)
+      (define-key map (kbd "e") #'end-of-line)
+
+      (define-key map (kbd "y") #'yank)
+      (define-key map (kbd "w") #'kill-ring-save)
+
+      (define-key map (kbd "SPC") #'set-mark-command)
+
+      (define-key map (kbd "q") #'my/read-only-mode)
+      map)
+    "Keymap for `easy-nav-mode'.")
+
+
+  (define-minor-mode easy-nav-mode
+    "Minor mode for Vi-style navigation in read-only buffers."
+    :lighter " Easy-Nav"
+    :keymap easy-nav-mode-map
+    :global nil
+    ;; 使用 (if easy-nav-mode ...) 逻辑来决定如何处理
+    (if easy-nav-mode
+        (message "Easy-Nav mode enabled.")
+      (message "Easy-Nav mode disabled.")))
+
+  (defun my/read-only-mode (arg)
+    "Toggle read-only-mode, and sync it with `easy-nav-mode'."
+    (interactive)
+    ;; 直接检查 buffer-read-only 变量的值
+    (if buffer-read-only
+        ;; 如果当前是只读模式，则关闭它和 easy-nav-mode
+        (progn
+          (read-only-mode nil)
+          (easy-nav-mode nil))
+      ;; 否则，打开只读模式和 easy-nav-mode
+      (progn
+        (read-only-mode t)
+        (easy-nav-mode t))))
+
+  ;; 替换默认的 C-x C-q 绑定，使其调用你的函数
+  (global-set-key (kbd "C-x C-q") #'my/read-only-mode)
+#+end_src
+** latex
+https://abode.karthinks.com/org-latex-preview/
+
+** vertico
+#+begin_src elisp :tangle nil
+  (add-to-list 'load-path "~/.emacs.d/lib/vertico/extensions")
+  (require 'vertico)
+  (require 'vertico-buffer)
+  (require 'vertico-directory)
+  (require 'vertico-flat)
+  (require 'vertico-grid)
+  (require 'vertico-indexed)
+  (require 'vertico-mouse)
+  (require 'vertico-multiform)
+  (require 'vertico-quick)
+  (require 'vertico-repeat)
+  (require 'vertico-reverse)
+  (require 'vertico-sort)
+  (require 'vertico-suspend)
+  (require 'vertico-unobtrusive)
+  
+  (require 'vertico-posframe)
+
+  ;; (vertico-scroll-margin 0) ;; Different scroll margin
+  ;; (vertico-count 20) ;; Show more candidates
+  ;; (vertico-resize t) ;; Grow and shrink the Vertico minibuffer
+  ;; (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
+  (setq vertico-count 15)
+  (vertico-mode)
+  ;; (add-hook 'after-init-hook #'vertico-mode)
+  ;; (add-hook 'rfn-eshadow-update-overlay #'vertico-directory-tidy)
+
+  (setq vertico-multiform-commands
+        '((consult-line (:not posframe))
+          (t posframe)))
+  (setq vertico-posframe-poshandler
+        #'posframe-poshandler-frame-center-near-bottom)
+  (setq vertico-posframe-parameters
+        '((left-fringe . 8)
+          (right-fringe . 8)))
+  (add-hook 'vertico-mode-hook #'vertico-posframe-mode)
+
+  ;; ;; Persist history over Emacs restarts. Vertico sorts by history position.
+  ;; (use-package savehist
+  ;;   :init
+  ;;   (savehist-mode))
+
+  (setq context-menu-mode t
+        enable-recursive-minibuffers t
+        read-extended-command-predicate #'command-completion-default-include-p)
+  (setq minibuffer-prompt-properties
+        '(read-only t cursor-intangible t face minibuffer-prompt))
+#+end_src
+** consult
+#+begin_src elisp :tangle nil
+  (require 'consult)
+  (require 'consult-compile)
+  (require 'consult-flymake)
+  (require 'consult-imenu)
+  (require 'consult-info)
+  (require 'consult-kmacro)
+  (require 'consult-org)
+  (require 'consult-register)
+  (require 'consult-xref)
+
+
+
+  (setq register-preview-delay 0.5
+        register-preview-function #'consult-register-format)
+
+  (advice-add #'register-preview :override #'consult-register-window)
+
+  (with-eval-after-load 'xref
+    (setq xref-show-xrefs-function #'consult-xref
+          xref-show-definitions-function #'consult-xref))
+
+  ;; :config part of Consult (executed after package is loaded)
+  (setq consult-preview-key nil)
+  (consult-customize
+   consult-line consult-line-multi :preview-key 'any
+   consult-buffer consult-recent-file consult-theme :preview-key '(:debounce 1.0 any)
+   consult-goto-line :preview-key '(:debounce 0.5 any)
+   consult-ripgrep consult-git-grep consult-grep
+   :initial (selected-region-or-symbol-at-point)
+   :preview-key '(:debounce 0.5 any))
+
+  (setq consult-narrow-key "<") ;; "C-+"
+
+  (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'consult-narrow-help)
+
+
+  ;; CONSULT Keybindings (Global and Mode-Specific)
+  (global-set-key (kbd "C-c M-x") #'consult-mode-command)
+  (global-set-key (kbd "C-c h") #'consult-history)
+  (global-set-key (kbd "C-c k") #'consult-kmacro)
+  ;; (global-set-key (kbd "C-c m") #'consult-man)
+  (global-set-key (kbd "C-c i") #'consult-info)
+
+  (global-set-key (kbd "C-x M-:") #'consult-complex-command)
+  (global-set-key (kbd "C-x b") #'consult-buffer)
+  ;; (global-set-key (kbd "C-x 4 b") #'consult-buffer-other-window)
+  ;; (global-set-key (kbd "C-x 5 b") #'consult-buffer-other-frame)
+  (global-set-key (kbd "C-x t b") #'consult-buffer-other-tab)
+  (global-set-key (kbd "C-x r b") #'consult-bookmark)
+  (global-set-key (kbd "C-x p b") #'consult-project-buffer)
+
+  (global-set-key (kbd "M-#") #'consult-register-load)
+  (global-set-key (kbd "M-'") #'consult-register-store)
+  (global-set-key (kbd "C-M-#") #'consult-register)
+  (global-set-key (kbd "M-y") #'consult-yank-pop)
+
+  (global-set-key (kbd "M-g e") #'consult-compile-error)
+  (global-set-key (kbd "M-g f") #'consult-flymake)
+  (global-set-key (kbd "M-g g") #'consult-goto-line)
+  (global-set-key (kbd "M-g M-g") #'consult-goto-line)
+  (global-set-key (kbd "M-g o") #'consult-outline)
+  (global-set-key (kbd "M-g m") #'consult-mark)
+  (global-set-key (kbd "M-g k") #'consult-global-mark)
+  (global-set-key (kbd "M-g i") #'consult-imenu)
+  (global-set-key (kbd "M-g I") #'consult-imenu-multi)
+
+  (global-set-key (kbd "M-s d") #'consult-find)
+  (global-set-key (kbd "M-s c") #'consult-locate)
+  (global-set-key (kbd "M-s g") #'consult-grep)
+  (global-set-key (kbd "M-s G") #'consult-git-grep)
+  (global-set-key (kbd "M-s r") #'consult-ripgrep)
+  (global-set-key (kbd "M-s l") #'consult-line)
+  (global-set-key (kbd "M-s L") #'consult-line-multi)
+  (global-set-key (kbd "M-s k") #'consult-keep-lines)
+  (global-set-key (kbd "M-s u") #'consult-focus-lines)
+  (global-set-key (kbd "M-s e") #'consult-isearch-history)
+
+  ;; Remaps
+  (global-set-key [remap Info-search] #'consult-info)
+  (global-set-key [remap isearch-forward] #'consult-line)
+  (global-set-key [remap recentf-open-files] #'consult-recent-file)
+
+  ;; ;; Isearch integration
+  ;; (with-eval-after-load 'isearch
+  ;;   (define-key isearch-mode-map (kbd "M-e") #'consult-isearch-history)
+  ;;   (define-key isearch-mode-map (kbd "M-s e") #'consult-isearch-history)
+  ;;   (define-key isearch-mode-map (kbd "M-s l") #'consult-line)
+  ;;   (define-key isearch-mode-map (kbd "M-s L") #'consult-line-multi))
+
+  ;; ;; Minibuffer history
+  ;; (with-eval-after-load 'minibuffer
+  ;;   (define-key minibuffer-local-map (kbd "M-s") #'consult-history)
+  ;;   (define-key minibuffer-local-map (kbd "M-r") #'consult-history))
+
+  ;; Hook
+  (add-hook 'completion-list-mode #'consult-preview-at-point-mode)
+  ;; (global-set-key (kbd "M-g s") #'consult-flyspell)
+  ;; (global-set-key (kbd "M-g y") #'consult-yasnippet)
+
+#+end_src
+** embark
+#+begin_src elisp :tangle nil
+  (setq prefix-help-command #'embark-prefix-help-command)
+
+  ;; :config part of Embark
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none))))
+
+  (with-no-warnings
+    (with-eval-after-load 'which-key
+      (defun embark-which-key-indicator ()
+        "An embark indicator that displays keymaps using which-key.
+  The which-key help message will show the type and value of the
+  current target followed by an ellipsis if there are further
+  targets."
+        (lambda (&optional keymap targets prefix)
+          (if (null keymap)
+              (which-key--hide-popup-ignore-command)
+            (which-key--show-keymap
+             (if (eq (plist-get (car targets) :type) 'embark-become)
+                 "Become"
+               (format "Act on %s '%s'%s"
+                       (plist-get (car targets) :type)
+                       (embark--truncate-target (plist-get (car targets) :target))
+                       (if (cdr targets) "…" "")))
+             (if prefix
+                 (pcase (lookup-key keymap prefix 'accept-default)
+                   ((and (pred keymapp) km) km)
+                   (_ (key-binding prefix 'accept-default)))
+               keymap)
+             nil nil t (lambda (binding)
+                         (not (string-suffix-p "-argument" (cdr binding))))))))
+
+      (setq embark-indicators
+            '(embark-which-key-indicator
+              embark-highlight-indicator
+              embark-isearch-highlight-indicator))
+
+      (defun embark-hide-which-key-indicator (fn &rest args)
+        "Hide the which-key indicator immediately when using the completing-read prompter."
+        (which-key--hide-popup-ignore-command)
+        (let ((embark-indicators
+               (remq #'embark-which-key-indicator embark-indicators)))
+          (apply fn args)))
+
+      (advice-add #'embark-completing-read-prompter
+                  :around #'embark-hide-which-key-indicator)))
+
+  ;; EMBARK Keybindings
+  (global-set-key [remap describe-bindings] #'embark-bindings)
+  ;; (with-eval-after-load 'minibuffer
+  ;;   (define-key minibuffer-mode-map (kbd "C-c C-o") #'embark-export))
+  (add-hook 'embark-collect-mode #'consult-preview-at-point-mode)
+
+#+end_src
+** plantuml mode
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-plantuml-mode.el
+:END:
+
+#+begin_src emacs-lisp
+  (require 'plantuml-mode)
+
+  (setq plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
+  ;; Enable plantuml-mode for PlantUML files
+  (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+
+  (add-to-list
+    'org-src-lang-modes '("plantuml" . plantuml))
+
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((plantuml . t)))
+  (setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
+
+  (provide 'init-plantuml-mode)
+#+end_src
+
+** treemacs
+#+begin_src elisp :tangle no
+  (require 'treemacs-autoloads)
+  (add-to-list 'load-path (expand-file-name "lib/treemacs/src/elisp" user-emacs-directory))
+  (add-to-list 'load-path (expand-file-name "lib/treemacs/src/extra" user-emacs-directory))
+
+  (require 'treemacs-annotations)
+  (require 'treemacs-async)
+  (require 'treemacs-bookmarks)
+  (require 'treemacs-compatibility)
+  (require 'treemacs-core-utils)
+  (require 'treemacs-customization)
+  (require 'treemacs-dom)
+  (require 'treemacs)
+  (require 'treemacs-extensions)
+  (require 'treemacs-faces)
+  (require 'treemacs-file-management)
+  (require 'treemacs-filewatch-mode)
+  (require 'treemacs-follow-mode)
+  (require 'treemacs-fringe-indicator)
+  (require 'treemacs-git-commit-diff-mode)
+  (require 'treemacs-header-line)
+  (require 'treemacs-hydras)
+  (require 'treemacs-icons)
+  (require 'treemacs-interface)
+  (require 'treemacs-logging)
+  (require 'treemacs-macros)
+  (require 'treemacs-mode)
+  (require 'treemacs-mouse-interface)
+  (require 'treemacs-peek-mode)
+  (require 'treemacs-persistence)
+  (require 'treemacs-project-follow-mode)
+  (require 'treemacs-rendering)
+  (require 'treemacs-scope)
+  (require 'treemacs-tag-follow-mode)
+  (require 'treemacs-tags)
+  (require 'treemacs-themes)
+  (require 'treemacs-treelib)
+  (require 'treemacs-visuals)
+  (require 'treemacs-workspaces)
+  ;; (require 'treemacs-all-the-icons)
+  ;; (require 'treemacs-evil)
+  ;; (require 'treemacs-icons-dired)
+  (require 'treemacs-magit)
+  ;; (require 'treemacs-mu4e)
+  ;; (require 'treemacs-perspective)
+  ;; (require 'treemacs-persp)
+  (require 'treemacs-projectile)
+  (require 'treemacs-tab-bar)
+
+
+  (treemacs-git-mode 'deferred)
+
+  (setq treemacs-buffer-name-function            #'treemacs-default-buffer-name
+        treemacs-buffer-name-prefix              " *Treemacs-Buffer-"
+        treemacs-collapse-dirs                   (if treemacs-python-executable 3 0)
+        treemacs-deferred-git-apply-delay        0.5
+        treemacs-directory-name-transformer      #'identity
+        treemacs-display-in-side-window          t
+        treemacs-eldoc-display                   'simple
+        treemacs-file-event-delay                2000
+        treemacs-file-extension-regex            treemacs-last-period-regex-value
+        treemacs-file-follow-delay               0.2
+        treemacs-file-name-transformer           #'identity
+        treemacs-follow-after-init               t
+        treemacs-expand-after-init               t
+        treemacs-find-workspace-method           'find-for-file-or-pick-first
+        treemacs-git-command-pipe                ""
+        treemacs-goto-tag-strategy               'refetch-index
+        treemacs-header-scroll-indicators        '(nil . "^^^^^^")
+        treemacs-hide-dot-git-directory          t
+        treemacs-indentation                     1
+        treemacs-indentation-string              " "
+        treemacs-is-never-other-window           nil
+        treemacs-max-git-entries                 5000
+        treemacs-missing-project-action          'ask
+        treemacs-move-files-by-mouse-dragging    t
+        treemacs-move-forward-on-expand          nil
+        treemacs-no-png-images                   nil
+        treemacs-no-delete-other-windows         t
+        treemacs-project-follow-cleanup          nil
+        treemacs-persist-file                    (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
+        treemacs-position                        'left
+        treemacs-read-string-input               'from-child-frame
+        treemacs-recenter-distance               0.1
+        treemacs-recenter-after-file-follow      nil
+        treemacs-recenter-after-tag-follow       nil
+        treemacs-recenter-after-project-jump     'always
+        treemacs-recenter-after-project-expand   'on-distance
+        treemacs-litter-directories              '("/node_modules" "/.venv" "/.cask")
+        treemacs-project-follow-into-home        nil
+        treemacs-show-cursor                     nil
+        treemacs-show-hidden-files               t
+        treemacs-silent-filewatch                nil
+        treemacs-silent-refresh                  nil
+        treemacs-sorting                         'alphabetic-asc
+        treemacs-select-when-already-in-treemacs 'move-back
+        treemacs-space-between-root-nodes        t
+        treemacs-tag-follow-cleanup              t
+        treemacs-tag-follow-delay                1.5
+        treemacs-text-scale                      0.1
+        treemacs-user-mode-line-format           nil
+        treemacs-user-header-line-format         nil
+        treemacs-wide-toggle-width               70
+        treemacs-width                           25
+        treemacs-width-increment                 1
+        treemacs-width-is-initially-locked       t
+        treemacs-workspace-switch-cleanup        nil)
+
+  (treemacs-resize-icons 10)
+  (treemacs-follow-mode t)
+  (treemacs-filewatch-mode t)
+  (treemacs-fringe-indicator-mode 'always)
+  (when treemacs-python-executable
+    (treemacs-git-commit-diff-mode t))
+  (treemacs-hide-gitignored-files-mode nil)
+
+  (define-key global-map (kbd "C-c o s") 'treemacs-select-window)
+#+end_src
+
+** whitespace
+#+begin_src emacs-lisp :tangle no
+  (require 'whitespace-cleanup-mode)
+
+  (dolist (hook (list
+                 'prog-mode-hook
+                 'org-mode-hook))
+    (add-hook hook 'whitespace-cleanup-mode))
+
+  (dolist (hook (list
+                 'prog-mode-hook
+                 ))
+    (add-hook hook 'whitespace-mode))
+
+  (setq whitespace-style '(face trailing blanks))
+#+end_src
+** pdf-tools
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-pdf-tools.el
+:END:
+
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/lib/tablist")
+  (require 'tablist)
+  (require 'pdf-tools)
+
+  (require 'pdf-occur)
+  (require 'pdf-history)
+  (require 'pdf-links)
+  (require 'pdf-outline)
+  (require 'pdf-annot)
+  (require 'pdf-sync)
+
+  (require 'image-roll)
+  (require 'pdf-cache)
+  (require 'pdf-dev)
+  (require 'pdf-history)
+  (require 'pdf-info)
+  (require 'pdf-isearch)
+  (require 'pdf-loader)
+  (require 'pdf-macs)
+  (require 'pdf-misc)
+  (require 'pdf-occur)
+  (require 'pdf-outline)
+  (require 'pdf-roll)
+  (require 'pdf-util)
+  (require 'pdf-view)
+  (require 'pdf-virtual)
+
+  (pdf-tools-install)
+  (pdf-loader-install)
+
+  ;; (add-hook 'pdf-view-mode-hook 'pdf-view-fit-width-to-window)
+  (add-hook 'pdf-view-mode-hook 'pdf-view-roll-minor-mode)
+
+  (setq TeX-PDF-mode t)
+  (setq TeX-source-correlate-mode t)
+  (setq TeX-source-correlate-method 'synctex)
+  (setq TeX-source-correlate-start-server t)
+
+  (setq TeX-view-program-selection '((output-pdf "PDF Tools")))
+  (add-hook 'TeX-after-compilation-finished-functions
+            #'TeX-revert-document-buffer)
+
+  (define-key pdf-view-mode-map
+              "D" 'pdf-view-next-page-command)
+  (define-key pdf-view-mode-map
+              "A" 'pdf-view-previous-page-command)
+
+  ;; (define-key pdf-view-mode-map
+  ;;             "s" 'pdf-view-scroll-up-or-next-page)
+  ;; (define-key pdf-view-mode-map
+  ;;             "w" 'pdf-view-scroll-down-or-previous-page)
+  (define-key pdf-view-mode-map
+              "d" 'image-forward-hscroll)
+  (define-key pdf-view-mode-map
+              "a" 'image-backward-hscroll)
+
+  (define-key pdf-view-mode-map
+              "s" (lambda () (interactive) (pdf-roll-scroll-forward 25)))
+  (define-key pdf-view-mode-map
+              "w" (lambda () (interactive) (pdf-roll-scroll-backward 25)))
+
+  (define-key pdf-annot-minor-mode-map (kbd "C-a a") 'pdf-annot-add-highlight-markup-annotation)
+  (define-key pdf-annot-minor-mode-map (kbd "C-a s") 'pdf-annot-add-squiggly-markup-annotation)
+  (define-key pdf-annot-minor-mode-map (kbd "C-a u") 'pdf-annot-add-underline-markup-annotation)
+  (define-key pdf-annot-minor-mode-map (kbd "C-a d") 'pdf-annot-delete)
+
+  (define-key pdf-history-minor-mode-map "b" 'pdf-history-backward)
+
+  (define-key pdf-view-mode-map (kbd "t") #'fanyi-dwim)
+  (provide 'init-pdf-tools)
+#+end_src
+** pdf-view-restore
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-pdf-view-restore.el
+:END:
+
+#+begin_src emacs-lisp
+  (require 'pdf-view-restore)
+
+  (add-hook 'pdf-view-mode-hook 'pdf-view-restore-mode)
+#+end_src
+** org noter
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-org-noter.el
+:GPTEL_TOPIC: org-noter
+:END:
+
+#+begin_src emacs-lisp
+  (require 'org-noter)
+
+  (define-key global-map (kbd "C-c n n") 'org-noter)
+
+  (define-key org-noter-doc-mode-map (kbd "c") 'org-noter-insert-note)
+  (define-key org-noter-doc-mode-map (kbd "M-c") 'org-noter-insert-precise-note)
+
+  (defun kz/org-noter-insert-precise-note-and-id ()
+    (interactive)
+    (org-noter-insert-precise-note)
+    (org-id-get-create))
+  (defun kz/org-noter-insert-note-and-id ()
+    (interactive)
+    (org-noter-insert-note)
+    (org-id-get-create))
+  (define-key org-noter-doc-mode-map (kbd "e") 'kz/org-noter-insert-note-and-id)
+  (define-key org-noter-doc-mode-map (kbd "M-e") 'kz/org-noter-insert-precise-note-and-id)
+
+  (setq org-noter-auto-save-last-location t)
+  (setq org-noter-highlight-selected-text nil)
+  (setq org-noter-max-short-selected-text-length 80)
+
+  (setq org-noter-always-create-frame nil)
+  (setq org-noter-separate-notes-from-heading t)
+
+  (provide 'init-org-noter)
+#+end_src

@@ -142,9 +142,6 @@
 [submodule "hydra"]
 	path = lib/hydra
 	url = https://github.com/abo-abo/hydra
-[submodule "image-roll"]
-	path = lib/image-roll
-	url = https://github.com/dalanicolai/image-roll.el.git
 [submodule "instant-rename-tag"]
 	path = lib/instant-rename-tag
 	url = https://github.com/manateelazycat/instant-rename-tag.git
@@ -232,15 +229,6 @@
 [submodule "parsebib"]
 	path = lib/parsebib
 	url = https://github.com/joostkremers/parsebib
-[submodule "pdf-tools"]
-	path = lib/pdf-tools
-	url = https://github.com/aikrahguzar/pdf-tools.git
-[submodule "pdf-tools"]
-	path = lib/pdf-tools
-	url = https://github.com/vedang/pdf-tools
-[submodule "pdf-view-restore"]
-	path = lib/pdf-view-restore
-	url = https://github.com/007kevin/pdf-view-restore
 [submodule "pfuture"]
 	path = lib/pfuture
 	url = https://github.com/Alexander-Miller/pfuture
@@ -301,9 +289,6 @@
 [submodule "symbol-overlay"]
 	path = lib/symbol-overlay
 	url = https://github.com/wolray/symbol-overlay
-[submodule "tablist"]
-	path = lib/tablist
-	url = https://github.com/emacsorphanage/tablist
 [submodule "tomelr"]
 	path = lib/tomelr
 	url = https://github.com/kaushalmodi/tomelr
