@@ -1210,6 +1210,20 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (add-hook 'latex-mode-hook 'turn-on-reftex)
 #+end_src
+
+*** pdf
+#+begin_src elisp
+  (setq TeX-source-correlate-mode t)
+  (setq TeX-source-correlate-start-server t)
+  (setq TeX-view-program-list '(("Okular" "okular --unique %o#src:%n%b")
+                                ))
+  (setq TeX-view-program-selection
+        (quote
+         ((output-pdf "Zathura")
+          (output-dvi "Okular")
+          (output-html "xdg-open"))))
+#+end_src
+
 *** END
 #+begin_src emacs-lisp
   (provide 'init-latex)
