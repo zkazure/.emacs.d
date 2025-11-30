@@ -1411,31 +1411,31 @@ jump to everywhere quickly
           ("m" "Main" plain  "%?"
            :if-new
            (file+head "main/${slug}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n\n* Main\n")
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
            :immediate-finish t
            :unnarrowed t)
           ("r" "Reference" plain "%?"
            :if-new
            (file+head "reference/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n\n* Main\n")
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
            :immediate-finish t
            :unnarrowed t)
           ("a" "Article" plain "%?"
            :if-new
            (file+head "article/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: :article:\n\n* Main\n")
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: :article:\n")
            :immediate-finish t
            :unnarrowed t)
           ("c" "Coding" plain "%?"
            :if-new
            (file+head "coding/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n\n* Main\n")
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
            :immediate-finish t
            :unnarrowed t)
           ("i" "Idea" plain "%?"
            :if-new
            (file+head "idea/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n\n* Main\n")
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
            :immediate-finish t
            :unnarrowed t)
           ("R" "Reading" plain "%?"
@@ -1447,13 +1447,13 @@ jump to everywhere quickly
           ("w" "Web" plain "%?"
            :if-new
            (file+head "web/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n\n* Main\n")
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
            :immediate-finish t
            :unnarrowed t)
           ("s" "Stem" plain "%?"
            :if-new
            (file+head "stem/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n\n* Main\n")
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
            :immediate-finish t
            :unnarrowed t)
           ("b" "Blog" plain "%?"
@@ -1465,7 +1465,7 @@ jump to everywhere quickly
           ("p" "Personality" plain "%?"
            :if-new
            (file+head "psychology/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: :Psych: \n\n* Main\n")
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: :Psych: \n")
            :immediate-finish t
            :unnarrowed t)
           ))

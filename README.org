@@ -20,12 +20,9 @@ However, there is still a long way to go.
 - [X] ace-window
 - [X] link-hint
 - [X] doom-modeline
-- [X] org-superstar-mode
-- [ ] meow mode edit
+- [X] aggressive-indent
 - [ ] dape
 - [ ] magit forge
-- [ ] save tab-bar
-- [ ] aggressive-indent
 - [ ] present in Emacs
 
 * Acknowledgments
