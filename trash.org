@@ -1422,3 +1422,43 @@ https://abode.karthinks.com/org-latex-preview/
 
   (provide 'init-org-noter)
 #+end_src
+** quickrun
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-quickrun.el
+:END:
+
+#+begin_src emacs-lisp
+  (require 'quickrun)
+
+  (define-key global-map (kbd "C-c c r") 'quickrun)
+
+  (setq quickrun-focus-p t)
+  (setq quickrun-truncate-lines t)
+
+  ;; ;; Use this parameter as C++ default
+  ;; (quickrun-add-command "c++/c1z"
+  ;;   '((:command . "g++")
+  ;;     (:exec    . ("%c -std=c++1z %o -o %e %s"
+  ;;          "%e %a"))
+  ;;     (:remove  . ("%e")))
+  ;;   :default "c++")
+
+  ;; ;; Use this parameter in pod-mode
+  ;; (quickrun-add-command "pod"
+  ;;   '((:command . "perldoc")
+  ;;     (:exec    . "%c -T -F %s"))
+  ;;   :mode 'pod-mode)
+
+  ;; ;; You can override existing command
+  ;; (quickrun-add-command "c/gcc"
+  ;;   '((:exec . ("%c -std=c++1z %o -o %e %s"
+  ;;           "%e %a")))
+  ;;   :override t)
+
+  (quickrun-add-command "python" ; 这是 quickrun 识别的语言名称，对应 quickrun-mode-alist 中的 entry
+    '((:command . "python3")
+      (:exec . ("%s %a")))
+    :override t )
+
+  (provide 'init-quickrun)
+#+end_src
