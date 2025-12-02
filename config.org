@@ -3240,6 +3240,19 @@ jump to everywhere quickly
   (global-aggressive-indent-mode 1)
   (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
 #+end_src
+** expand-region
+#+begin_src elisp
+  (require 'expand-region)
+  (global-set-key (kbd "C-=") 'er/expand-region)
+
+  ;; er/mark-word
+  ;; er/mark-symbol
+  ;; er/mark-method-call
+  ;; er/mark-inside-quotes
+  ;; er/mark-outside-quotes
+  ;; er/mark-inside-pairs
+  ;; er/mark-outside-pairs
+#+end_src
 ** others
 #+begin_src elisp
   (setq-local multibyte-syntax-as-symbol nil)
