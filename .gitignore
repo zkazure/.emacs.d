@@ -20,6 +20,7 @@
 /amx-items
 /eclipse.jdt.ls/
 /workspace
+ielm-history.eld
 
 lisp/
 lib/lsp-bridge/
