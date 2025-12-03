@@ -804,11 +804,6 @@ only the language set here can be babeled.
   (add-hook 'org-mode-hook 'org-appear-mode)
 
 #+end_src
-*** COMMENT olivetti
-#+begin_src emacs-lisp
-  (require 'olivetti)
-  (define-key global-map (kbd "C-c o o") 'olivetti-mode)
-#+end_src
 *** latex
 
 **** highlight
@@ -1227,20 +1222,6 @@ jump to everywhere quickly
 *** END
 #+begin_src emacs-lisp
   (provide 'init-latex)
-#+end_src
-
-** COMMENT everywhere
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-emacs-everywhere.el
-:END:
-- [ ] how to remove the file store in the ~/tmp~
-
-#+begin_src emacs-lisp
-  (require 'emacs-everywhere)
-
-  (add-hook 'emacs-everywhere-mode-hook 'toggle-input-method)
-
-  (provide 'init-emacs-everywhere)
 #+end_src
 
 ** markdowm mode
