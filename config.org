@@ -46,7 +46,8 @@
   (setq inhibit-splash-screen t)
   (setq use-file-dialog nil)
 
-
+  (setenv "LSP_USE_PLISTS" "true")
+  (setq lsp-use-plists t)
 #+end_src
 
 ** END
@@ -70,7 +71,6 @@
 #+begin_src emacs-lisp
   ;;; init.el --- user-init-file                    -*- lexical-binding: t -*-
   ;;; Early birds
-
 #+end_src
 
 ** borg
@@ -187,6 +187,7 @@
       (setq indent-tabs-mode nil))
     (add-hook 'lisp-interaction-mode-hook 'indent-spaces-mode))
 
+
   (use-package magit
     :defer t
     :commands (magit-add-section-hook)
@@ -268,8 +269,8 @@
                                   user-emacs-directory)))
       (when (file-exists-p file)
         (load file))))
-
 #+end_src
+
 
 ** Require
 #+begin_src emacs-lisp
@@ -291,7 +292,7 @@
 
 
   ;; Now we only need many require command
-  ;;  (require 'init-base)
+   ;; (require 'init-base)
 
   ;; inside
   (require 'init-ui)
@@ -304,42 +305,38 @@
   (require 'init-which-key)
   (require 'init-ivy)
   (require 'init-yasnippet)
-  (require 'init-lsp-bridge)
-  (require 'init-avy)
+  ;; (require 'init-avy)
   (require 'init-dirvish)
   (require 'init-projectile)
   (require 'init-latex)
 
-  (require 'init-emacs-everywhere)
+  ;; (require 'init-emacs-everywhere)
   (require 'init-markdown-mode)
   (require 'init-jinx)
   (require 'init-orderless)
   (require 'init-font)
   (require 'init-visual-regexp)
-  (require 'init-plantuml-mode)
+  ;; (require 'init-plantuml-mode)
   (require 'init-org-roam)
-  (require 'init-pdf-tools)
-  (require 'init-org-noter)
+  ;; (require 'init-pdf-tools)
+  ;; (require 'init-org-noter)
   (require 'init-super-save)
   (require 'init-indent)
   (require 'init-electric-pair-mode)
-  ;; (require 'init-fingertip)
-  ;; (require 'init-modeline)
   (require 'init-tab-bar)
 
   (require 'init-csv-mode)
   (require 'init-org-download)
   (require 'init-emmet-mode)
   (require 'init-web-mode)
-  (require 'init-vterm)
   (require 'init-org-roam-ui)
   (require 'init-treesit)
   (require 'init-treesit-fold)
   (require 'init-yaml-mode)
-  (require 'init-citar)
-  (require 'init-ivy-posframe)
+  ;; (require 'init-citar)
+  ;; (require 'init-ivy-posframe)
   (require 'init-ox-hugo)
-  (require 'init-quickrun)
+  ;; (require 'init-quickrun)
   (require 'init-org-fragtog)
   (require 'init-hydra)
   (require 'init-sudo-edit)
@@ -347,10 +344,10 @@
   (require 'init-move-text)
   (require 'init-tag)
   (require 'init-ai)
-  (require 'init-mail)
   (require 'init-ace-window)
 
   (require 'init-personal)
+
   (require 'init-test)
 
 #+end_src
@@ -373,6 +370,8 @@
 #+begin_src emacs-lisp
   ;; (setq visible-bell t)
   (setq word-wrap-by-category t)
+  ;; 减少闪烁
+  (modify-frame-parameters nil '((inhibit-double-buffering . nil)))
 
   ;; display column number in the modeline
   (column-number-mode)
@@ -382,6 +381,11 @@
   (global-visual-line-mode t)
 
   (add-hook 'prog-mode-hook #'(lambda () (display-line-numbers-mode 1)))
+  (add-hook 'xml-mode-hook #'(lambda () (display-line-numbers-mode 1)))
+  (add-hook 'nxml-mode-hook #'(lambda () (display-line-numbers-mode 1)))
+  (add-hook 'toml-mode-hook #'(lambda () (display-line-numbers-mode 1)))
+  (add-hook 'csv-mode-hook #'(lambda () (display-line-numbers-mode 1)))
+
   (setq next-screen-context-lines 2)
   ;;FIXED the problem of pdf rolling problem,value can't larger than 21
 
@@ -393,20 +397,20 @@
   (setq ibuffer-show-empty-filter-groups t)
   (setq ibuffer-saved-filter-groups
         `(("default"
-           ("mail" (or
-                    (mode . message-mode)
-                    (mode . notmuch-hello-mode)
-                    (mode . notmuch-search-mode)
-                    (mode . notmuch-message-mode)
-                    (mode . notmuch-show-mode)
-                    (mode . notmuch-tree-mode)
-                    (mode . bbdb-mode)
-                    (mode . mail-mode)
-                    (mode . mu4e-main-mode)
-                    (mode . gnus-group-mode)
-                    (mode . gnus-summary-mode)
-                    (mode . gnus-article-mode)
-                    (name . "^\\..bdb$")))
+           ;; ("mail" (or
+           ;;          (mode . message-mode)
+           ;;          (mode . notmuch-hello-mode)
+           ;;          (mode . notmuch-search-mode)
+           ;;          (mode . notmuch-message-mode)
+           ;;          (mode . notmuch-show-mode)
+           ;;          (mode . notmuch-tree-mode)
+           ;;          (mode . bbdb-mode)
+           ;;          (mode . mail-mode)
+           ;;          (mode . mu4e-main-mode)
+           ;;          (mode . gnus-group-mode)
+           ;;          (mode . gnus-summary-mode)
+           ;;          (mode . gnus-article-mode)
+           ;;          (name . "^\\..bdb$")))
            ("org" (or
                    (mode . org-agenda-mode)
                    (mode . diary-mode)
@@ -463,19 +467,75 @@
 :HEADER-ARGS: :tangle lisp/init-theme.el
 :END:
 
+
+#+begin_src elisp
+  (setq modus-vivendi-tinted-palette-overrides
+        '(
+          (fg-main "gray80")
+          (bg-main "#181a26")
+          (cursor      "green")        ; 来自 (cursor ... :background "green")
+
+          (bg-region   "#103050")
+          ;; (fg-region "gray80")
+          
+          (comment     "gray50")       ; 来自 font-lock-comment-face
+          (constant    "DarkOliveGreen3") ; 来自 font-lock-constant-face
+          (keyword     "DeepSkyBlue1") ; 来自 font-lock-keyword-face
+          (preprocessor "gold")        ; 来自 font-lock-preprocessor-face
+          (string      "burlywood")    ; 来自 font-lock-string-face
+          (fnname "goldenrod")
+          (type        "CadetBlue1")   ; 来自 font-lock-type-face
+          (variable "SeaGreen2")  ; 来自 font-lock-variable-name-face
+          (builtin     "LightCoral")   ; 来自 font-lock-builtin-face
+          (docstring         "moccasin")     ; ??? 来自 font-lock-doc-face
+          
+          (err       "red")          ; 来自 error 和 compilation-error
+          (warning     "Yellow")       ; 来自 warning
+          (info        "LightSkyBlue") ; 来自 compilation-info
+
+          ;; --- deeper-blue: 括号匹配 ---
+          (bg-paren-match "dodgerblue1")
+          (fg-paren-match "white")
+          ))
+#+end_src
+
 #+begin_src emacs-lisp
+  ;; --- 自动主题切换 (init.el 版本) ---
+  (setq my-auto-theme-light-theme 'modus-operandi)
+  (setq my-auto-theme-dark-theme 'modus-vivendi-tinted)
+  (setq my-auto-theme-day-start 9)  ; 白天开始时间 (7 = 7:00)
+  (setq my-auto-theme-day-end 18) ; 白天结束时间 (19 = 19:00)
 
-  (defvar my-themes '(modus-operandi-tinted modus-operandi-deuteranopia modus-vivendi-tinted))
-
-  (defun load-random-theme ()
+  ;; 2. 定义一个函数来检查并应用主题
+  ;;    (我们把它命名为 'my/...' 来避免和其他插件冲突)
+  (defun my/auto-theme-switcher-apply-theme ()
     (interactive)
-    (load-theme (nth (random (length my-themes)) my-themes) t))
+    "根据时间检查并应用一次主题。"
+    (let* (
+           ;; 获取当前小时 (0-23)
+           (current-hour (nth 2 (decode-time (current-time))))
+           
+           ;; 决定目标主题
+           (target-theme
+            (if (and (>= current-hour my-auto-theme-day-start)
+                     (< current-hour my-auto-theme-day-end))
+                ;; 现在是白天
+                my-auto-theme-light-theme
+              ;; 现在是夜晚
+              my-auto-theme-dark-theme)))
+      (load-theme target-theme)
+      ;; 仅在目标主题尚未加载时才加载它
+      ;; (unless (memq target-theme custom-enabled-themes)
+      ;;   (message "AutoTheme: 正在根据时间应用 %s" target-theme)
+      ;;   (load-theme target-theme ))
+      )) ; 't' 表示不询问用户
 
-  (load-random-theme)
-  ;; (load-theme 'modus-operandi-tinted)
-
+  ;; (add-hook 'after-make-frame-functions #'my/auto-theme-switcher-apply-theme)
+  (my/auto-theme-switcher-apply-theme)
+  
   (provide 'init-theme)
 #+end_src
+
 
 ** org
 :PROPERTIES:
@@ -487,15 +547,15 @@
 
   (setq-default line-spacing .1)
   (setq org-imenu-depth 4
-        org-ellipsis " ┑")
-
-  (setq org-log-into-drawer t)
-
-  (setq org-tags-column 0
-        org-catch-invisible-edits 'smart
+        org-ellipsis nil
+        ;; org-ellipsis " ┑"
+        org-startup-folded 'show2levels
         org-startup-indented t
         org-hide-leading-stars nil
-        org-indent-mode-turns-on-hiding-stars nil)
+        org-log-into-drawer t
+        org-indent-mode-turns-on-hiding-stars nil
+        org-fold-catch-invisible-edits 'smart
+        )
 
   (with-eval-after-load 'org
     ;; Make verbatim with highlight text background.
@@ -512,25 +572,25 @@
                                :style released-button)))))
 
 
-  (setq org-todo-keywords
-        (quote ((sequence "TODO(t)" "NEXT(n)" "DOING(g)" "|" "DONE(d)" "HOLD(h)")
-                (sequence "LOOP(l)" "|" "DONE(d)")
-                (sequence "PROJECT(p)"))))
+  ;; (setq org-todo-keywords
+  ;;       (quote ((sequence "TODO(t)" "NEXT(n)" "DOING(g)" "|" "DONE(d)" "HOLD(h)")
+  ;;               (sequence "LOOP(l)" "|" "DONE(d)")
+  ;;               (sequence "PROJECT(p)"))))
 
-  (setq org-todo-keyword-faces
-        '(("TODO" . (:foreground "red1"  :weight bold))
-          ("NEXT" . (:foreground "DeepSkyBlue" :weight bold))
-          ("DOING" . (:foreground "DarkOrchid1"  :weight bold))
-          ("DONE" . (:foreground "lime green" :weight bold))
-          ("HOLD" . (:foreground "snow3" :weight bold))
-          ("LOOP" . (:foreground "tomato1"  :weight bold))
-          ("PROJECT" . (:foreground "firebrick"  :weight bold))))
+  ;; (setq org-todo-keyword-faces
+  ;;       '(("TODO" . (:foreground "red1"  :weight bold))
+  ;;         ("NEXT" . (:foreground "DeepSkyBlue" :weight bold))
+  ;;         ("DOING" . (:foreground "DarkOrchid1"  :weight bold))
+  ;;         ("DONE" . (:foreground "lime green" :weight bold))
+  ;;         ("HOLD" . (:foreground "snow3" :weight bold))
+  ;;         ("LOOP" . (:foreground "tomato1"  :weight bold))
+  ;;         ("PROJECT" . (:foreground "firebrick"  :weight bold))))
 
   (setq org-use-fast-todo-selection t) ;; C-c C-t KEY
 
-  (define-key org-mode-map (kbd "C-c n o") 'browse-url)
+  ;; (define-key org-mode-map (kbd "C-c n o") 'browse-url)
 #+END_SRC
-*** agenda
+*** COMMENT agenda
 #+begin_src emacs-lisp
   (define-key global-map (kbd "C-c A") 'org-agenda)
   (global-set-key (kbd "C-c o a") '(lambda () (interactive) (org-agenda nil "d")))
@@ -648,12 +708,12 @@
   ;;                ;; (ignore-current-tab . t)
   ;;                (tab-name . "Org Files")))
 
-  (add-hook 'emacs-startup-hook
-            (lambda ()
-              (org-agenda nil "d")))
+  ;; (add-hook 'emacs-startup-hook
+  ;;           (lambda ()
+  ;;             (org-agenda nil "d")))
 #+end_src
 
-*** capture
+*** COMMENT capture
 set the org capture template
 #+begin_src emacs-lisp
   (define-key global-map (kbd "C-c n c") 'org-capture)
@@ -695,13 +755,14 @@ only the language set here can be babeled.
       (lambda (pair)
         (locate-library (concat "ob-" (symbol-name (car pair)))))
       '((emacs-lisp . t)
-        (plantuml . t)
         (python . t)
         (shell . t)
         (C . t)
         (javascript . t)
         (go . t)
         (java . t)
+        (scheme . t)
+        (sqlite . t)
         ))))
 
   (with-eval-after-load 'org
@@ -743,11 +804,6 @@ only the language set here can be babeled.
   (add-hook 'org-mode-hook 'org-appear-mode)
 
 #+end_src
-*** olivetti
-#+begin_src emacs-lisp
-  (require 'olivetti)
-  (define-key global-map (kbd "C-c o o") 'olivetti-mode)
-#+end_src
 *** latex
 
 **** highlight
@@ -768,6 +824,11 @@ only the language set here can be babeled.
     (insert "\\( ") ;; 把 "\\(" 和 "\\)" 替换成 "$" 就能实现输入成对 "$" 的功能.
     (save-excursion (insert " \\)" )))
 
+  (defun my/insert-inline-parentheses2 ()
+    (interactive)
+    (insert "\\(") ;; 把 "\\(" 和 "\\)" 替换成 "$" 就能实现输入成对 "$" 的功能.
+    (save-excursion (insert "\\)" )))
+
   (defun my/insert-square-bra-OCDL ()
     (interactive)
     (insert "\\[ ")
@@ -779,6 +840,7 @@ only the language set here can be babeled.
     (save-excursion (insert " \\}" )))
 
   (define-key org-cdlatex-mode-map (kbd "C-M-9") 'my/insert-inline-parentheses)
+  (define-key global-map (kbd "C-M-(") 'my/insert-inline-parentheses2)
   (define-key org-cdlatex-mode-map (kbd "C-M-[") 'my/insert-square-bra-OCDL)
   (define-key org-cdlatex-mode-map (kbd "C-M-{") 'my/insert-inline-braces)
 #+end_src
@@ -810,12 +872,12 @@ only the language set here can be babeled.
   ;;   	  :foreground-color "#dcdcdc"
   ;;   	  :internal-border-width 5))
 
-  (setq rime-user-data-dir "~/.config/rime-pro")
-  ;; (setq default-input-method "rime")
+  (setq rime-user-data-dir "~/.config/rime-zrm/")
+  (setq default-input-method "rime")
 
-  (setq default-input-method "rime"
-        rime-show-candidate 'posframe)
-  (setq rime-posframe-style 'vertical)
+  ;; (setq default-input-method "rime"
+  ;;       rime-show-candidate 'posframe)
+  ;; (setq rime-posframe-style 'vertical)
 
   (provide 'init-rime)
 #+end_src
@@ -828,6 +890,7 @@ only the language set here can be babeled.
   (require 'rainbow-delimiters)
 
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+  ;; (add-hook 'java-mode-hook #'rainbow-delimiters-mode)
 
   (provide 'init-rainbow-delimiters)
 #+end_src
@@ -890,9 +953,10 @@ only the language set here can be babeled.
 :END:
 #+begin_src emacs-lisp
   (require 'yasnippet)
+  (require 'yasnippet-capf)
 
   (yas-global-mode 1)
-
+  (add-to-list 'completion-at-point-functions #'yasnippet-capf)
   (provide 'init-yasnippet)
 #+end_src
 
@@ -904,17 +968,22 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (require 'avy)
 
-  (with-eval-after-load 'org
-    (define-key org-mode-map (kbd "C-,") nil))
+  ;; (with-eval-after-load 'org
+  ;;   (define-key org-mode-map (kbd "C-,") nil))
 
-  (global-set-key (kbd "C-,") 'avy-goto-char-2)
-  (global-set-key (kbd "C-.") 'avy-goto-char)
-  (global-set-key (kbd "M-g f") 'avy-goto-line)
-  (global-set-key (kbd "M-g w") 'avy-goto-word-1)
-  (global-set-key (kbd "M-g e") 'avy-goto-word-0)
+  ;; (global-set-key (kbd "C-,") 'avy-goto-char-2)
+  ;; (global-set-key (kbd "C-.") 'avy-goto-char)
+  ;; (global-set-key (kbd "M-g g") 'avy-goto-line)
+  ;; (global-set-key (kbd "M-g w") 'avy-goto-word-2)
+  ;; (global-set-key (kbd "M-g e") 'avy-goto-word-1)
+  (global-set-key (kbd "M-g c") 'avy-goto-char)
+  (global-set-key (kbd "M-g w") 'avy-goto-char-2)
+  ;; (global-set-key (kbd "M-g e") 'avy-goto-char-2)
+  ;; (global-set-key (kbd "M-g n") 'avy-next)
+  ;; (global-set-key (kbd "M-g p") 'avy-prev)
+  ;; (global-set-key (kbd "M-g M-g") 'avy-resume)
 
   (avy-setup-default)
-  (global-set-key (kbd "C-c C-j") 'avy-resume)
 
   (setq avy-all-windows nil)
   (provide 'init-avy)
@@ -1136,24 +1205,23 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (add-hook 'latex-mode-hook 'turn-on-reftex)
 #+end_src
+
+*** pdf
+#+begin_src elisp
+  (setq TeX-source-correlate-mode t)
+  (setq TeX-source-correlate-start-server t)
+  (setq TeX-view-program-list '(("Okular" "okular --unique %o#src:%n%b")
+                                ))
+  (setq TeX-view-program-selection
+        (quote
+         ((output-pdf "Zathura")
+          (output-dvi "Okular")
+          (output-html "xdg-open"))))
+#+end_src
+
 *** END
 #+begin_src emacs-lisp
   (provide 'init-latex)
-#+end_src
-
-** everywhere
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-emacs-everywhere.el
-:END:
-- [ ] usability test
-- [ ] how to remove the file store in the ~/tmp~
-
-#+begin_src emacs-lisp
-  (require 'emacs-everywhere)
-
-  (add-hook 'emacs-everywhere-mode-hook 'toggle-input-method)
-
-  (provide 'init-emacs-everywhere)
 #+end_src
 
 ** markdowm mode
@@ -1181,8 +1249,7 @@ jump to everywhere quickly
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-jinx.el
 :END:
-- [X] ignore Chinese
-- [ ] ignore the code in the emphasis.
+
 #+begin_src emacs-lisp
   (require 'jinx)
 
@@ -1201,42 +1268,23 @@ jump to everywhere quickly
   (require 'orderless)
 
   (setq completion-styles '(orderless basic)
-        completion-category-overrides '((file (styles basic partial-completion))))
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles basic partial-completion)))
+        orderless-component-separator #'orderless-escapable-split-on-space)
 
-  ;; fuzzy match after ~
-  (defun flex-if-twiddle (pattern _index _total)
-    (when (string-suffix-p "~" pattern)
-      `(orderless-flex . ,(substring pattern 0 -1))))
-
-  ;; (defun first-initialism (pattern index _total)
-  ;;   (if (= index 0) 'orderless-initialism))
-
-  ;; ! exclude match
-  (defun not-if-bang (pattern _index _total)
-    (cond
-     ((equal "!" pattern)
-      #'ignore)
-     ((string-prefix-p "!" pattern)
-      `(orderless-not . ,(substring pattern 1)))))
-
-  (setq orderless-matching-styles '(orderless-regexp)
-        orderless-style-dispatchers '(; first-initialism
-                                      flex-if-twiddle
-                                      not-if-bang))
-
-
-  (orderless-define-completion-style orderless+initialism
-    (orderless-matching-styles '(orderless-initialism
-                                 orderless-literal
-                                 orderless-regexp)))
-  (setq completion-category-overrides
-        '((command (styles orderless+initialism))
-          (symbol (styles orderless+initialism))
-          (variable (styles orderless+initialism))))
-
-  ;; integrate with ivy
+  ;; ;; integrate with ivy
   (setq ivy-re-builders-alist '((t . orderless-ivy-re-builder)))
   (add-to-list 'ivy-highlight-functions-alist '(orderless-ivy-re-builder . orderless-ivy-highlight))
+
+  (defun just-one-face (fn &rest args)
+    (let ((orderless-match-faces [completions-common-part]))
+      (apply fn args)))
+  (advice-add 'company-capf--candidates :around #'just-one-face)
+
+  (defun company-completion-styles (capf-fn &rest args)
+    (let ((completion-styles '(basic partial-completion)))
+      (apply capf-fn args)))
+  (advice-add 'company-capf :around #'company-completion-styles)
 
   (provide 'init-orderless)
 #+end_src
@@ -1282,35 +1330,12 @@ jump to everywhere quickly
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-visual-regexp.el
 :END:
-- [ ] test
 
   #+begin_src emacs-lisp
     (require 'visual-regexp)
     (define-key global-map (kbd "C-c r") 'vr/replace)
     (define-key global-map (kbd "C-c q") 'vr/query-replace)
     (provide 'init-visual-regexp)
-#+end_src
-** plantuml mode
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-plantuml-mode.el
-:END:
-
-#+begin_src emacs-lisp
-  (require 'plantuml-mode)
-
-  (setq plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
-  ;; Enable plantuml-mode for PlantUML files
-  (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
-
-  (add-to-list
-    'org-src-lang-modes '("plantuml" . plantuml))
-
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((plantuml . t)))
-  (setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
-
-  (provide 'init-plantuml-mode)
 #+end_src
 
 ** org roam
@@ -1320,6 +1345,8 @@ jump to everywhere quickly
 
 *** basic
 #+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/lib/cond-let/")
+  (require 'cond-let)
   (require 'org-roam)
 
   (add-to-list 'load-path "~/.emacs.d/lib/org-roam/extensions/")
@@ -1371,54 +1398,76 @@ jump to everywhere quickly
 
   (setq org-roam-capture-templates
         '(
-          ("g" "Game" plain "%?"
-           :if-new (file+head "game/%<%Y%m%d%H%M%S>-${slug}.org"
-                              "#+title: ${title}\n#+filetags:\n")`
-  	     :immediate-finish t
-  	     :unnarrowed t)
+          ;; ("g" "Game" plain "%?"
+          ;;  :if-new (file+head "game/%<%Y%m%d%H%M%S>-${slug}.org"
+          ;;                     "#+title: ${title}\n#+filetags:\n")`
+  	    ;;  :immediate-finish t
+  	    ;;  :unnarrowed t)
           ("m" "Main" plain  "%?"
-           :if-new (file+head "main/${slug}.org"
-                              "#+title: ${title}\n#+filetags: \n")
+           :if-new
+           (file+head "main/${slug}.org"
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
            :immediate-finish t
            :unnarrowed t)
           ("r" "Reference" plain "%?"
            :if-new
-           (file+head "reference/${title}.org" "#+title: ${title}\n#+filetags: \n")
+           (file+head "reference/${title}.org"
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
            :immediate-finish t
            :unnarrowed t)
           ("a" "Article" plain "%?"
            :if-new
-           (file+head "article/${title}.org" "#+title: ${title}\n#+filetags: :article:\n")
+           (file+head "article/${title}.org"
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: :article:\n")
            :immediate-finish t
            :unnarrowed t)
           ("c" "Coding" plain "%?"
            :if-new
-           (file+head "coding/${title}.org" "#+title: ${title}\n#+filetags: \n")
+           (file+head "coding/${title}.org"
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
            :immediate-finish t
            :unnarrowed t)
           ("i" "Idea" plain "%?"
            :if-new
-           (file+head "idea/${title}.org" "#+title: ${title}\n#+filetags: \n")
+           (file+head "idea/${title}.org"
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
            :immediate-finish t
            :unnarrowed t)
           ("R" "Reading" plain "%?"
-           :if-new (file+head "reading/${title}.org"
-                              "#+title: ${title}\n#+filetags: \n* ${title}\n:PROPERTIES:\n:NOTER_DOCUMENT: ~/Documents/calibre_library\n:NOTER_PAGE:\n:END:")
+           :if-new
+           (file+head "reading/${title}.org"
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
            :immediate-finish t
            :unnarrowed t)
           ("w" "Web" plain "%?"
            :if-new
-           (file+head "web/${title}.org" "#+title: ${title}\n#+filetags: \n")
+           (file+head "web/${title}.org"
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
            :immediate-finish t
            :unnarrowed t)
           ("s" "Stem" plain "%?"
            :if-new
-           (file+head "stem/${title}.org" "#+title: ${title}\n#+filetags: \n")
+           (file+head "stem/${title}.org"
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
+           :immediate-finish t
+           :unnarrowed t)
+          ("b" "Blog" plain "%?"
+           :if-new
+           (file+head "blog/inbox/${title}.org"
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
+           :immediate-finish t
+           :unnarrowed t)     
+          ("p" "Personality" plain "%?"
+           :if-new
+           (file+head "psychology/${title}.org"
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: :Psych: \n")
            :immediate-finish t
            :unnarrowed t)
           ))
 
-
+  (setq org-roam-dailies-capture-templates
+        '(("d" "default" entry "* %<%I:%M %p>: %?" 
+           :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n#+filetags: :diary:draft:\n\n*  Main\n"))))
 #+end_src
 
 
@@ -1585,129 +1634,25 @@ jump to everywhere quickly
   (provide 'init-org-roam)
 #+end_src
 
-
-** pdf-tools
+** org-roam-ui
 :PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-pdf-tools.el
+:HEADER-ARGS: :tangle lisp/init-org-roam-ui.el
 :END:
 
 #+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/lib/tablist")
-  (require 'tablist)
-  (require 'pdf-tools)
+  (require 'org-roam-ui)
+  (require 'websocket)
 
-  (require 'pdf-occur)
-  (require 'pdf-history)
-  (require 'pdf-links)
-  (require 'pdf-outline)
-  (require 'pdf-annot)
-  (require 'pdf-sync)
+  ;; (with-eval-after-load 'org-roam
+  ;;   (setq org-roam-ui-open-on-start nil
+  ;;         org-roam-ui-update-on-save t
+  ;;         org-roam-ui-sync-theme t)
+  ;;   (org-roam-ui-mode 1))
 
-  (require 'image-roll)
-  (require 'pdf-cache)
-  (require 'pdf-dev)
-  (require 'pdf-history)
-  (require 'pdf-info)
-  (require 'pdf-isearch)
-  (require 'pdf-loader)
-  (require 'pdf-macs)
-  (require 'pdf-misc)
-  (require 'pdf-occur)
-  (require 'pdf-outline)
-  (require 'pdf-roll)
-  (require 'pdf-util)
-  (require 'pdf-view)
-  (require 'pdf-virtual)
-
-  (pdf-tools-install)
-  (pdf-loader-install)
-
-  ;; (add-hook 'pdf-view-mode-hook 'pdf-view-fit-width-to-window)
-  (add-hook 'pdf-view-mode-hook 'pdf-view-roll-minor-mode)
-
-  (setq TeX-PDF-mode t)
-  (setq TeX-source-correlate-mode t)
-  (setq TeX-source-correlate-method 'synctex)
-  (setq TeX-source-correlate-start-server t)
-
-  (setq TeX-view-program-selection '((output-pdf "PDF Tools")))
-  (add-hook 'TeX-after-compilation-finished-functions
-            #'TeX-revert-document-buffer)
-
-  (define-key pdf-view-mode-map
-              "D" 'pdf-view-next-page-command)
-  (define-key pdf-view-mode-map
-              "A" 'pdf-view-previous-page-command)
-
-  ;; (define-key pdf-view-mode-map
-  ;;             "s" 'pdf-view-scroll-up-or-next-page)
-  ;; (define-key pdf-view-mode-map
-  ;;             "w" 'pdf-view-scroll-down-or-previous-page)
-  (define-key pdf-view-mode-map
-              "d" 'image-forward-hscroll)
-  (define-key pdf-view-mode-map
-              "a" 'image-backward-hscroll)
-
-  (define-key pdf-view-mode-map
-              "s" (lambda () (interactive) (pdf-roll-scroll-forward 25)))
-  (define-key pdf-view-mode-map
-              "w" (lambda () (interactive) (pdf-roll-scroll-backward 25)))
-
-  (define-key pdf-annot-minor-mode-map (kbd "C-a a") 'pdf-annot-add-highlight-markup-annotation)
-  (define-key pdf-annot-minor-mode-map (kbd "C-a s") 'pdf-annot-add-squiggly-markup-annotation)
-  (define-key pdf-annot-minor-mode-map (kbd "C-a u") 'pdf-annot-add-underline-markup-annotation)
-  (define-key pdf-annot-minor-mode-map (kbd "C-a d") 'pdf-annot-delete)
-
-  (define-key pdf-history-minor-mode-map "b" 'pdf-history-backward)
-
-  (define-key pdf-view-mode-map (kbd "t") #'fanyi-dwim)
-  (provide 'init-pdf-tools)
-#+end_src
-** pdf-view-restore
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-pdf-view-restore.el
-:END:
-
-#+begin_src emacs-lisp
-  (require 'pdf-view-restore)
-
-  (add-hook 'pdf-view-mode-hook 'pdf-view-restore-mode)
+  (provide 'init-org-roam-ui)
 #+end_src
 
-** org noter
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-org-noter.el
-:GPTEL_TOPIC: org-noter
-:END:
 
-#+begin_src emacs-lisp
-  (require 'org-noter)
-
-  (define-key global-map (kbd "C-c n n") 'org-noter)
-
-  (define-key org-noter-doc-mode-map (kbd "c") 'org-noter-insert-note)
-  (define-key org-noter-doc-mode-map (kbd "M-c") 'org-noter-insert-precise-note)
-
-  (defun kz/org-noter-insert-precise-note-and-id ()
-    (interactive)
-    (org-noter-insert-precise-note)
-    (org-id-get-create))
-  (defun kz/org-noter-insert-note-and-id ()
-    (interactive)
-    (org-noter-insert-note)
-    (org-id-get-create))
-  (define-key org-noter-doc-mode-map (kbd "e") 'kz/org-noter-insert-note-and-id)
-  (define-key org-noter-doc-mode-map (kbd "M-e") 'kz/org-noter-insert-precise-note-and-id)
-
-  (setq org-noter-auto-save-last-location t)
-  (setq org-noter-highlight-selected-text nil)
-  (setq org-noter-max-short-selected-text-length 80)
-
-  (setq org-noter-always-create-frame nil)
-  (setq org-noter-separate-notes-from-heading t)
-
-  (provide 'init-org-noter)
-#+end_src
 ** super-save
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-super-save.el
@@ -1787,12 +1732,20 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (require 'emmet-mode)
 
+  (with-eval-after-load 'emmet-mode
+    (define-key emmet-mode-keymap (kbd "M-RET") 'emmet-expand-line))
+  
   (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
   (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
   (add-hook 'html-mode-hook  'emmet-mode) ;; enable html
-  (add-hook 'js-ts-mode-hook 'emmet-mode)
-  (add-hook 'tsx-ts-mode-hook 'emmet-mode)
-  (add-hook 'typescript-ts-mode-hook 'emmet-mode)
+  (add-hook 'js-mode-hook 'emmet-mode)
+  ;; (add-to-list 'emmet-jsx-major-modes 'js-mode)
+  (add-to-list 'emmet-jsx-major-modes 'js-jsx-mode)
+  (add-to-list 'emmet-jsx-major-modes 'js2-jsx-mode)
+
+  ;; (add-hook 'js-ts-mode-hook 'emmet-mode)
+  ;; (add-hook 'tsx-ts-mode-hook 'emmet-mode)
+  ;; (add-hook 'typescript-ts-mode-hook 'emmet-mode)
 
   (setq emmet-self-closing-tag-style " /") ;; default "/"
   ;; only " /", "/" and "" are valid.
@@ -1827,41 +1780,6 @@ jump to everywhere quickly
   ;; (add-to-list 'auto-mode-alist '("\\.css?\\'" . web-mode))
 
   (provide 'init-web-mode)
-#+end_src
-** vterm
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-vterm.el
-:END:
-
-#+begin_src emacs-lisp
-  (require 'vterm)
-
-  (setq vterm-shell "bash")
-  (setq vterm-always-compile-mode t)
-  (setq vterm-always-do-resize t)
-
-  (define-key vterm-mode-map (kbd "C-q") #'vterm-send-next-key)
-
-  (define-key global-map (kbd "C-c c t") 'vterm)
-
-  (provide 'init-vterm)
-#+end_src
-** org-roam-ui
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-org-roam-ui.el
-:END:
-
-#+begin_src emacs-lisp
-  (require 'org-roam-ui)
-  (require 'websocket)
-
-  ;; (with-eval-after-load 'org-roam
-  ;;   (setq org-roam-ui-open-on-start nil
-  ;;         org-roam-ui-update-on-save t
-  ;;         org-roam-ui-sync-theme t)
-  ;;   (org-roam-ui-mode 1))
-
-  (provide 'init-org-roam-ui)
 #+end_src
 
 ** treesit
@@ -1907,41 +1825,45 @@ jump to everywhere quickly
           (clojure . ("https://github.com/sogaiu/tree-sitter-clojure"))
           ))
 
+
   (setq major-mode-remap-alist
         '((c-mode . c-ts-mode)
           (c++-mode . c++-ts-mode)
+          (clojure-mode . clojure-ts-mode)
           (conf-toml-mode . toml-ts-mode)
           (css-mode . css-ts-mode)
+          (go-mode . go-ts-mode)
           (js-mode . js-ts-mode)
           (js2-mode . js-ts-mode)
-          (python-mode . python-ts-mode)
           (java-mode . java-ts-mode)
-          (clojure-mode . clojure-ts-mode)
-          (yaml-mode . yaml-ts-mode)
-          (typescript-mode . typescript-ts-mode)
           (json-mode . json-ts-mode)
+          (js-json-mode . js-ts-mode)
+          (python-mode . python-ts-mode)
+          (rust-mode . rust-ts-mode)
           (sh-mode . bash-ts-mode)
+          (typescript-mode . typescript-ts-mode)
+          (toml-mode . toml-ts-mode)
+          (yaml-mode . yaml-ts-mode)
           ;; (markdown-mode . markdown-ts-mode)
           ))
 
-  (add-hook 'markdown-ts-mode-hook (lambda () (treesit-parser-create 'markdown)))
-  (add-hook 'zig-mode-hook (lambda () (treesit-parser-create 'zig)))
-  (add-hook 'mojo-mode-hook (lambda () (treesit-parser-create 'mojo)))
+  ;; (add-hook 'markdown-ts-mode-hook (lambda () (treesit-parser-create 'markdown)))
+  ;; (add-hook 'zig-mode-hook (lambda () (treesit-parser-create 'zig)))
+  ;; (add-hook 'mojo-mode-hook (lambda () (treesit-parser-create 'mojo)))
   (add-hook 'emacs-lisp-mode-hook (lambda () (treesit-parser-create 'elisp)))
   (add-hook 'ielm-mode-hook (lambda () (treesit-parser-create 'elisp)))
-  (add-hook 'json-mode-hook (lambda () (treesit-parser-create 'json)))
-  (add-hook 'go-mode-hook (lambda () (treesit-parser-create 'go)))
-  (add-hook 'java-mode-hook (lambda () (treesit-parser-create 'java)))
-  (add-hook 'java-ts-mode-hook (lambda () (treesit-parser-create 'java)))
-  (add-hook 'clojure-mode-hook (lambda () (treesit-parser-create 'clojure)))
-  (add-hook 'clojure-ts-mode-hook (lambda () (treesit-parser-create 'clojure)))
-  (add-hook 'cider-repl-mode-hook (lambda () (treesit-parser-create 'clojure)))
-  (add-hook 'php-mode-hook (lambda () (treesit-parser-create 'php)))
-  (add-hook 'php-ts-mode-hook (lambda () (treesit-parser-create 'php)))
-  (add-hook 'java-ts-mode-hook (lambda () (treesit-parser-create 'java)))
-  (add-hook 'haskell-mode-hook (lambda () (treesit-parser-create 'haskell)))
-  (add-hook 'kotlin-mode-hook (lambda () (treesit-parser-create 'kotlin)))
-  (add-hook 'ruby-mode-hook (lambda () (treesit-parser-create 'ruby)))
+  ;; (add-hook 'json-mode-hook (lambda () (treesit-parser-create 'json)))
+  ;; (add-hook 'go-mode-hook (lambda () (treesit-parser-create 'go)))
+  ;; (add-hook 'java-mode-hook (lambda () (treesit-parser-create 'java)))
+  ;; (add-hook 'java-ts-mode-hook (lambda () (treesit-parser-create 'java)))
+  ;; (add-hook 'clojure-mode-hook (lambda () (treesit-parser-create 'clojure)))
+  ;; (add-hook 'clojure-ts-mode-hook (lambda () (treesit-parser-create 'clojure)))
+  ;; (add-hook 'cider-repl-mode-hook (lambda () (treesit-parser-create 'clojure)))
+  ;; (add-hook 'php-mode-hook (lambda () (treesit-parser-create 'php)))
+  ;; (add-hook 'php-ts-mode-hook (lambda () (treesit-parser-create 'php)))
+  ;; (add-hook 'haskell-mode-hook (lambda () (treesit-parser-create 'haskell)))
+  ;; (add-hook 'kotlin-mode-hook (lambda () (treesit-parser-create 'kotlin)))
+  ;; (add-hook 'ruby-mode-hook (lambda () (treesit-parser-create 'ruby)))
   ;; (add-hook 'org-mode-hook (lambda () (treesit-parser-create 'org)))
 
   (add-hook 'web-mode-hook #'(lambda ()
@@ -1962,7 +1884,6 @@ jump to everywhere quickly
 
   (provide 'init-treesit)
 #+end_src
-
 
 ** treesit-fold
 :PROPERTIES:
@@ -2059,151 +1980,6 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (provide 'init-citar)
 #+end_src
-
-** ivy-posframe
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-ivy-posframe.el
-:END:
-
-#+begin_src emacs-lisp
-  (require 'ivy-posframe)
-  ;; display at `ivy-posframe-style'
-  ;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display)))
-  ;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
-  ;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-bottom-left)))
-  ;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-bottom-left)))
-  ;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-bottom-left)))
-  ;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center)))
-
-
-  (setq ivy-posframe-display-functions-alist
-        '((swiper          . ivy-display-function-fallback)
-         (org-roam-node-find . ivy-posframe-display-at-frame-center)
-          (t               . ivy-posframe-display-at-window-bottom-left)))
-  ;; (ivy-posframe-mode 1)
-
-
-  (setq ivy-posframe-height-alist '(
-                                    (t . 12)
-                                    ;; (swiper . 30)
-                                    ))
-
-  (setq ivy-posframe-width 90)
-
-  (setq ivy-posframe-parameters
-        '((left-fringe . 20)
-          (right-fringe . 8)))
-
-  (ivy-posframe-mode 1)
-
-  (provide 'init-ivy-posframe)
-#+end_src
-
-** ox-hugo
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-ox-hugo.el
-:END:
-
-#+begin_src emacs-lisp
-  (with-eval-after-load 'ox
-    (require 'ox-hugo))
-
-
-
-  (defun my-hugo-push ()
-    (interactive) ; 这使得函数可以通过 M-x 调用
-      (message "正在运行 Hugo 构建命令...")
-      (async-shell-command "cd ~/Documents/blog &&  hugo --minify && cd ~/Documents/blog/public && git add . &&  git commit -m \"Update with Emacs: $(date +\"%Y-%m-%d %H:%M\")\" && git push" "*Hugo Build Output*") ;命令，输出缓冲区
-
-      (message "Hugo 命令序列已触发。")
-      ;; 你也可以打开一个shell缓冲区来查看输出
-      ;; (display-buffer (get-buffer "*Hugo Build Output*"))
-      ;; (display-buffer (get-buffer "*Hugo Deploy Output*"))
-      )
-
-  (defun my-hugo-preview ()
-    (interactive)
-    ;; 这是一个非常重要的步骤，避免重复启动服务器导致端口冲突
-    (message "正在检查并停止可能正在运行的 Hugo server 进程...")
-    (let ((process-name "hugo-server-process"))
-      (when (get-process process-name)
-        (message "发现正在运行的 Hugo server 进程，正在停止...")
-        (delete-process process-name)
-        (sit-for 0.5)
-        (message "Hugo server 进程已停止。")))
-
-    (message "正在启动 Hugo 本地预览服务器 (hugo server -D)...")
-    (async-shell-command "cd ~/Documents/blog && hugo server -D" "*Hugo Deploy Output*")
-
-    (message "等待 Hugo 服务器启动...")
-    (sit-for 0.5)
-
-    (browse-url "http://localhost:1313/")
-    (message "Hugo 本地预览已启动并在浏览器中打开。")) ;; <-- Added closing parenthesis
-
-
-  ;; (defun my-hugo-stop ()
-  ;;   (interactive)
-  ;;   ;; 这是一个非常重要的步骤，避免重复启动服务器导致端口冲突
-  ;;   (message "正在检查并停止可能正在运行的 Hugo server 进程...")
-  ;;   (let ((process-name "hugo-server-process"))
-  ;;     (when (get-process process-name)
-  ;;       (message "发现正在运行的 Hugo server 进程，正在停止...")
-  ;;       (delete-process process-name)
-  ;;       (sit-for 0.5)
-  ;;       (message "Hugo server 进程已停止。"))
-  ;;     (unless (get-process process-name)
-  ;;             (message "did not find hugo server process running"))))
-  ;; (define-key global-map (kbd "C-c b s") 'my-hugo-stop)
-
-  (define-key global-map (kbd "C-c b l") 'my-hugo-preview)
-  (define-key global-map (kbd "C-c b p") 'my-hugo-push)
-
-
-  (provide 'init-ox-hugo)
-#+end_src
-
-** quickrun
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-quickrun.el
-:END:
-
-#+begin_src emacs-lisp
-  (require 'quickrun)
-
-  (define-key global-map (kbd "C-c c r") 'quickrun)
-
-  (setq quickrun-focus-p t)
-  (setq quickrun-truncate-lines t)
-
-  ;; ;; Use this parameter as C++ default
-  ;; (quickrun-add-command "c++/c1z"
-  ;;   '((:command . "g++")
-  ;;     (:exec    . ("%c -std=c++1z %o -o %e %s"
-  ;;          "%e %a"))
-  ;;     (:remove  . ("%e")))
-  ;;   :default "c++")
-
-  ;; ;; Use this parameter in pod-mode
-  ;; (quickrun-add-command "pod"
-  ;;   '((:command . "perldoc")
-  ;;     (:exec    . "%c -T -F %s"))
-  ;;   :mode 'pod-mode)
-
-  ;; ;; You can override existing command
-  ;; (quickrun-add-command "c/gcc"
-  ;;   '((:exec . ("%c -std=c++1z %o -o %e %s"
-  ;;           "%e %a")))
-  ;;   :override t)
-
-  (quickrun-add-command "python" ; 这是 quickrun 识别的语言名称，对应 quickrun-mode-alist 中的 entry
-    '((:command . "python3")
-      (:exec . ("%s %a")))
-    :override t )
-
-  (provide 'init-quickrun)
-#+end_src
-
 
 ** org-fragtog
 :PROPERTIES:
@@ -2374,11 +2150,14 @@ jump to everywhere quickly
       ("j" (hot-expand "<s" "javascript") "javascript")
       ("w" (hot-expand "<s" "powershell") "powershell")
       ("r" (hot-expand "<s" "ruby") "ruby")
-      ("S" (hot-expand "<s" "sh") "sh")
+      ;; ("S" (hot-expand "<s" "sh") "sh")
+      ("S" (hot-expand "<s" "scheme :results output") "scheme")
+      ("Q" (hot-expand "<s" "sqlite :colnames yes") "sqlite")
       ("g" (hot-expand "<s" "go :imports '\(\"fmt\"\)") "golang"))
      "Misc"
-     (("m" (hot-expand "<s" "mermaid :file chart.png") "mermaid")
-      ("u" (hot-expand "<s" "plantuml :file chart.png") "plantuml")
+     (
+      ;; ("m" (hot-expand "<s" "mermaid :file chart.png") "mermaid")
+      ;; ("u" (hot-expand "<s" "plantuml :file ./static/chart.png") "plantuml")
       ("Y" (hot-expand "<s" "ipython :session :exports both :results raw drawer\n$0") "ipython")
       ("P" (progn
             (insert "#+HEADERS: :results output :exports both :shebang \"#!/usr/bin/env perl\"\n")
@@ -2432,7 +2211,7 @@ jump to everywhere quickly
 
   ;; (setq leetcode-prefer-tag-display nil)
 
-  (global-set-key (kbd "C-c c l") 'leetcode)
+  (global-set-key (kbd "C-c o c") 'leetcode)
 
   (add-hook 'leetcode--problems-mode-hook
             (lambda () (display-line-numbers-mode -1)))
@@ -2487,7 +2266,7 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (require 'gptel)
   (require 'gptel-magit)
-  (global-set-key (kbd "C-c o g") 'gptel)
+  (global-set-key (kbd "C-c o a") 'gptel)
   ;; (gptel-make-ollama "Ollama"             ;Any name of your choosing
   ;;   :host "localhost:11434"               ;Where it's running
   ;;   :stream t                             ;Stream responses
@@ -2556,137 +2335,6 @@ jump to everywhere quickly
   (provide 'init-ai)
 
 #+end_src
-** mail
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-mail.el
-:END:
-
-*** account
-#+begin_src elisp
-  ;; (require 'private)
-
-  (setq smtpmail-smtp-server "smtppro.zoho.com"
-        smtpmail-smtp-service 465
-        smtpmail-stream-type 'ssl
-        ;; smtpmail-stream-type 'starttls
-        )
-
-  (setq send-mail-function 'smtpmail-send-it)
-  ;; (setq mail-user-agent 'sendmail-user-agent)
-  (setq mail-user-agent 'mu4e-user-agent)
-  (setq mu4e-compose-in-reply-to-function #'mu4e-compose-in-reply-to-function)
-#+end_src
-
-*** mu4e
-#+begin_src elisp
-  ;; (add-to-list 'load-path "~/.emacs.d/lib/mu4e/mu4e")
-  (require 'mu4e)
-
-  (setq mu4e-notification-support t)
-  (setq mu4e-eldoc-support t)
-
-  (global-set-key (kbd "C-c n C") 'mu4e-org-store-and-capture)
-  ;; Show images
-  (setq mu4e-show-images t)
-
-  ;; Use fancy chars
-  (setq mu4e-use-fancy-chars t)
-
-  ;; This is set to 't' to avoid mail syncing issues when using mbsync
-  (setq mu4e-change-filenames-when-moving t)
-
-  ;; Refresh mail using isync every 10 minutes
-  (setq mu4e-update-interval (* 10 60))
-  (setq mu4e-get-mail-command "mbsync -a")
-  (setq mu4e-maildir "~/Mail")
-
-  (setq mu4e-drafts-folder "/Drafts")
-  (setq mu4e-sent-folder   "/Sent")
-  (setq mu4e-refile-folder "/Archive")
-  (setq mu4e-trash-folder  "/Trash")
-
-  ;; (setq mu4e-maildir-shortcuts
-  ;;       '(("/Inbox"             . ?i)
-  ;;         ("/[Gmail]/Sent Mail" . ?s)
-  ;;         ("/[Gmail]/Trash"     . ?t)
-  ;;         ("/[Gmail]/Drafts"    . ?d)
-  ;;         ("/[Gmail]/All Mail"  . ?a)))
-
-  (setq mu4e-get-mail-command "mbsync -a")  ; or offlineimap, isync, etc.
-  (setq mu4e-update-interval 300)  ; Update every 5 minutes
-  (global-set-key  (kbd "C-c o m") 'mu4e)
-#+end_src
-*** edbd
-#+begin_src emacs-lisp
-  ;; (add-hook 'message-mode-hook
-  ;;           '(lambda ()
-  ;;              (flyspell-mode t)
-  ;;              (local-set-key (kbd "TAB") 'bbdb-complete-name)))
-
-  ;; (add-to-list 'load-path "/where/you/place/bbdb/")
-  ;; (require 'bbdb)
-  ;; (bbdb-initialize 'message 'gnus 'sendmail)
-  ;; (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
-  ;; (setq bbdb/mail-auto-create-p t
-  ;;       bbdb/news-auto-create-p t)
-
-  (require 'ebdb)
-  (require 'ebdb-mu4e)
-  (require 'ebdb-complete)
-
-  (ebdb-complete-enable)
-
-  (defun kz/ebdb-set-mail-from-address (&optional records arg kill)
-    (interactive (list (ebdb-prompt-for-record)
-  		     current-prefix-arg))
-    (let ((recs (if (listp records) records (list records)))
-  	(style (if arg 'list 'inline))
-  	usable str m)
-      (dolist (r recs)
-        (when (setq m (ebdb-record-mail r))
-  	(push (cons r (or (object-assoc 'primary 'priority m)
-  			  (car m)))
-  	      usable)))
-      (setq str (ebdb-records-cite style usable))
-      (if kill
-  	(progn
-  	  (kill-new str)
-  	  (message "Citation added to kill ring"))
-        (save-excursion
-          (goto-char (point-min))
-          (when (re-search-forward "^From:.*" nil t)
-            (replace-match (format "From: %s" str)))))))
-
-  (defun kz/ebdb-set-mail-to-address (&optional records arg kill)
-    (interactive (list (ebdb-prompt-for-record)
-  		     current-prefix-arg))
-    (let ((recs (if (listp records) records (list records)))
-  	(style (if arg 'list 'inline))
-  	usable str m)
-      (dolist (r recs)
-        (when (setq m (ebdb-record-mail r))
-  	(push (cons r (or (object-assoc 'primary 'priority m)
-  			  (car m)))
-  	      usable)))
-      (setq str (ebdb-records-cite style usable))
-      (if kill
-  	(progn
-  	  (kill-new str)
-  	  (message "Citation added to kill ring"))
-        (save-excursion
-          (goto-char (point-min))
-          (when (re-search-forward "^To:.*" nil t)
-            (replace-match (format "To: %s" str)))))))
-
-  (define-key message-mode-map (kbd "C-c e f") 'kz/ebdb-set-mail-from-address)
-  (define-key message-mode-map (kbd "C-c e t") 'kz/ebdb-set-mail-to-address)
-#+end_src
-
-*** END
-#+begin_src elisp
-
-  (provide 'init-mail)
-#+end_src
 ** ace-window
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-ace-window.el
@@ -2740,68 +2388,6 @@ jump to everywhere quickly
 
   (provide 'init-ace-window)
 #+end_src
-* clone
-** lsp bridge
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-lsp-bridge.el
-:END:
-#+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/lib/lsp-bridge/")
-  (require 'lsp-bridge)
-  (require 'lsp-bridge-jdtls)
-  
-  ;;; Code:
-  ;; (add-hook 'find-file-hook #'lsp-bridge-restart-process)
-  ;; (add-hook 'org-edit-special-hook #'lsp-bridge-restart-process)
-
-  (setq lsp-bridge-enable-completion-in-minibuffer t)
-  ;; (setq lsp-bridge-python-command "uv run python3")
-  (setq lsp-bridge-python-command (expand-file-name "~/.emacs.d/lsp-bridge-env/.venv/bin/python3"))
-  ;; (setq lsp-pyright-langserver-command "~/.emacs.d/lsp-bridge-env/.venv/bin/python3 -m basedpyright")
-  (setq lsp-bridge-enable-auto-import t)
-  (setq lsp-bridge-signature-show-function 'lsp-bridge-signature-show-with-frame)
-  (setq lsp-bridge-enable-with-tramp t)
-  (setq lsp-bridge-enable-org-babel nil)
-  (setq acm-enable-capf t)
-  (setq acm-enable-quick-access t)
-  (setq acm-backend-yas-match-by-trigger-keyword t)
-  (setq acm-enable-tabnine nil)
-  (setq acm-enable-codeium nil)
-  (setq acm-enable-lsp-workspace-symbol t)
-  (setq lsp-bridge-enable-inlay-hint t)
-  (setq lsp-bridge-semantic-tokens t)
-  (setq-default lsp-bridge-semantic-tokens-ignore-modifier-limit-types ["variable"])
-
-  (global-lsp-bridge-mode)
-
-  (add-to-list 'lsp-bridge-multi-lang-server-extension-list '(("html") . "html_tailwindcss"))
-  (add-to-list 'lsp-bridge-multi-lang-server-extension-list '(("css") . "css_tailwindcss"))
-
-  (setq lsp-bridge-csharp-lsp-server "csharp-ls")
-  (setq lsp-bridge-nix-lsp-server "nil")
-
-  ;; 打开日志，开发者才需要
-  ;; (setq lsp-bridge-enable-log t)
-
-  (setq lsp-bridge-get-multi-lang-server-by-project
-        (lambda (project-path filepath)
-          ;; If typescript file include deno.land url, then use Deno LSP server.
-          (save-excursion
-            (when (string-equal (file-name-extension filepath) "ts")
-              (dolist (buf (buffer-list))
-                (when (string-equal (buffer-file-name buf) filepath)
-                  (with-current-buffer buf
-                    (goto-char (point-min))
-                    (when (search-forward-regexp (regexp-quote "from \"https://deno.land") nil t)
-                      (return "deno")))))))))
-
-  (global-set-key (kbd "C-c l f") 'lsp-bridge-find-def)
-  (global-set-key (kbd "C-c l F") 'lsp-bridge-find-def-other-window)
-  (global-set-key (kbd "C-c l r") 'lsp-bridge-find-def-return)
-  (global-set-key (kbd "C-c l R") 'lsp-bridge-find-find-references)
-
-  (provide 'init-lsp-bridge)
-#+end_src
 
 * munual clone
 
@@ -2838,6 +2424,8 @@ jump to everywhere quickly
   (dolist (hook (list
                  'c-mode-hook
                  'c++-mode-hook
+                 'c++-ts-mode-hook ;; ???
+                 'c-ts-mode-hook
                  'java-mode-hook
                  'haskell-mode-hook
                  'asm-mode-hook
@@ -2857,7 +2445,7 @@ jump to everywhere quickly
   (dolist (hook (list
                  'web-mode-hook
                  'js-mode-hook
-                 'js-ts-mode-hook
+                 ;; 'js-ts-mode-hook
                  'typescript-mode-hook
                  ))
     (add-hook hook #'(lambda ()
@@ -2884,57 +2472,6 @@ jump to everywhere quickly
                        (electric-pair-mode 1))))
 
   (provide 'init-electric-pair-mode)
-#+end_src
-** modeline
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-modeline.el
-:END:
-#+begin_src emacs-lisp
-  (setq-default mode-line-format
-                (list
-                 ;; Note: The original 'evil-state' check and icons are removed here.
-                 ;; If you want a different fixed icon, you can add it back here.
-
-
-                 '(:eval (when buffer-read-only
-                           (propertize " " 'face 'error)))
-
-                 (propertize " %b"
-                             'face 'mode-line-buffer-id 'help-echo (buffer-file-name))
-                 '(:eval (if (buffer-modified-p) "*" " ")) ; 如果缓冲区已修改，显示 "*"
-
-                 (propertize " %l:%c " 'face 'font-lock-builtin-face)
-                 (propertize " %p " 'face 'font-lock-constant-face)
-
-
-                 ;; Spaces to align right
-                 '(:eval (propertize
-                          " " 'display
-                          `((space :align-to (- (+ right right-fringe right-margin)
-                                                ,(+ 3 (string-width mode-name)
-                                                    (string-width (format-mode-line vc-mode))))))))
-                 ;; VC/Git info
-                 '(:eval (when-let (vc vc-mode)
-                           (list " "
-                                 (propertize (substring vc 5)
-                                             'face 'font-lock-comment-face)
-                                 " ")))
-                 ;; The current major mode
-                 (propertize " %m " 'face 'font-lock-string-face)))
-
-  (add-hook 'pdf-view-mode-hook (lambda ()
-                                  (setq-local mode-line-format
-                                              (list
-                                               (propertize " %P " 'face 'font-lock-string-face)))))
-
-
-  ;; 将模式行的内容复制到标题行
-  ;; (setq-default header-line-format mode-line-format)
-
-  ;; 禁用底部的模式行
-  ;; (setq-default mode-line-format nil)
-
-  (provide 'init-modeline)
 #+end_src
 ** tab-bar
 :PROPERTIES:
@@ -3098,11 +2635,24 @@ jump to everywhere quickly
   (define-key global-map (kbd "C-c o f") 'my-open-current-dir-in-thunar)
 #+end_src
 
+** open outer terminal
+#+begin_src emacs-lisp
+  (defun my-open-current-dir-in-terminal ()
+    "Open the current directory in the Alacritty terminal."
+    (interactive)
+    (let ((dir default-directory))
+      ;; Arguments for Alacritty to set the working directory
+      (start-process "alacritty-process" nil "alacritty" "--working-directory" dir)
+      (message "Opened directory: %s in Alacritty" dir)))
+
+  (global-set-key (kbd "C-c o t") 'my-open-current-dir-in-terminal)
+#+end_src
+
 ** pixel scrool
 
 #+begin_src emacs-lisp
   (pixel-scroll-precision-mode t)
-  (setq scroll-preserve-screen-position t)
+  (setq scroll-preserve-screen-position 'always)
 
   (setq scroll-margin 3
         scroll-conservatively 100
@@ -3111,17 +2661,6 @@ jump to everywhere quickly
   (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
   (setq mouse-wheel-progressive-speed nil)
   (setq mouse-wheel-follow-mouse 't)
-#+end_src
-
-** other window
-#+begin_src emacs-lisp
-  ;; (global-set-key (kbd "M-o") 'other-window)
-  ;; (global-set-key (kbd "M-O") (lambda () (interactive) (other-window -1)))
-#+end_src
-
-** babel
-#+begin_src emacs-lisp
-  (global-set-key (kbd "C-c C-'") 'org-edit-special)
 #+end_src
 
 ** IDE
@@ -3218,10 +2757,10 @@ jump to everywhere quickly
 
 ** javascript
 #+begin_src emacs-lisp
-  (add-to-list 'auto-mode-alist '("\\.js\\'\\'" . js-ts-mode))
-  (add-to-list 'auto-mode-alist '("\\.jsx\\'\\'" . tsx-ts-mode)) ; 如果有 JSX
-  (add-to-list 'auto-mode-alist '("\\.ts\\'\\'" . typescript-ts-mode))
-  (add-to-list 'auto-mode-alist '("\\.tsx\\'\\'" . tsx-ts-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.js\\'\\'" . js-ts-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.jsx\\'\\'" . tsx-ts-mode)) ; 如果有 JSX
+  ;; (add-to-list 'auto-mode-alist '("\\.ts\\'\\'" . typescript-ts-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.tsx\\'\\'" . tsx-ts-mode))
 #+end_src
 
 ** subword-mode
@@ -3230,111 +2769,33 @@ jump to everywhere quickly
   (global-subword-mode 1)
 #+end_src
 
-** jump and back
-
-~C-u C-SPC~ will take you back to last mark. Many operation in Emacs will auto create a mark.
-
-** dictionary
-
-#+begin_src emacs-lisp
-  ;; (require 'fanyi)
-
-  ;; (customize-set-variable 'fanyi-providers
-  ;;                        '(fanyi-longman-provider
-  ;;                          fanyi-etymon-provider
-  ;;                          ))
-  ;; (setq fanyi-auto-select nil)
-  ;; (global-set-key (kbd "C-c n t") #'fanyi-dwim2)
-  ;; (global-set-key (kbd "C-c n T") #'fanyi-dwim)
-
-  (defun +dict-word-at-point ()
-    "Search word in goldendict"
-    (interactive)
-    (call-process-shell-command (concat "goldendict " (current-word) " &") nil 0)
-    )
-
-  (global-set-key (kbd "C-c n t") '+dict-word-at-point)
-#+end_src
-
-** RSS
-#+begin_src emacs-lisp
-  (global-set-key (kbd "C-c o e") 'elfeed)
-
-  ;; Somewhere in your .emacs file
-  '(setq elfeed-feeds
-        '(("http://nullprogram.com/feed/" blog emacs
-           "https://planet.emacslife.com/atom.xml")
-          "http://www.50ply.com/atom.xml"  ; no autotagging
-          "https://www.debian.org/News/news"
-          ("http://nedroid.com/feed/" webcomic)
-          ))
-#+end_src
-
-** eaf
-#+begin_src elisp :tangle no
-  (require 'eaf)
-  (require 'eaf-browser)
-  (require 'eaf-jupyter)
-  ;; (require 'eaf-pdf-viewer)
-  (require 'eaf-video-player)
-
-  (setq eaf-webengine-default-zoom 1.25)
-  (global-set-key (kbd "C-c o b") 'eaf-open-browser-with-history)
-  (global-set-key (kbd "C-c o j") 'eaf-open-jupyter)
-  (global-set-key (kbd "C-c o r") 'eaf-open-rss-reader)
-
-  (setq eaf-browser-chrome-browser-name "Chromium")
-  (setq eaf-browser-auto-import-chrome-cookies t)
-  (setq eaf-chrome-bookmark-file "~/.config/chromium/Default/Bookmarks")
-
-  (setq eaf-python-command "~/.emacs.d/eaf-env/.venv/bin/python")
-#+end_src
 
 ** highlight-indent-guides
 #+begin_src emacs-lisp
   (require 'highlight-indent-guides)
 
   (setq highlight-indent-guides-method 'character)
-  (set-face-background 'highlight-indent-guides-odd-face "tomato")
-  (set-face-background 'highlight-indent-guides-even-face "red3")
-  (set-face-foreground 'highlight-indent-guides-character-face "red3")
+  (setq highlight-indent-guides-auto-character-face-perc 40)
+  (setq highlight-indent-guides-auto-enabled t)
+
+  ;; (set-face-background 'highlight-indent-guides-odd-face "darkgray")
+  ;; (set-face-background 'highlight-indent-guides-even-face "dimgray")
+  ;; (set-face-foreground 'highlight-indent-guides-character-face "gray20")
 
   (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
 #+end_src
 
-** whitespace
-#+begin_src emacs-lisp :tangle no
-  (require 'whitespace-cleanup-mode)
-
-  (dolist (hook (list
-                 'prog-mode-hook
-                 'org-mode-hook))
-    (add-hook hook 'whitespace-cleanup-mode))
-
-  (dolist (hook (list
-                 'prog-mode-hook
-                 ))
-    (add-hook hook 'whitespace-mode))
-
-  (setq whitespace-style '(face trailing blanks))
-#+end_src
 
 ** colorful-mode
 #+begin_src elisp
   (require 'colorful-mode)
-  (setq global-colorful-mode t)
-  (add-to-list 'global-colorful-modes 'helpful-mode)
-#+end_src
 
-** symbol-overlay
+  (setq global-colorful-mode t
+        colorful-use-prefix t
+        colorful-only-strings 'only-prog
+        css-fontify-colors nil)
 
-#+begin_src emacs-lisp
-  (require 'symbol-overlay)
-  (global-set-key (kbd "M-i") 'symbol-overlay-put)
-  (global-set-key (kbd "M-n") 'symbol-overlay-switch-forward)
-  (global-set-key (kbd "M-p") 'symbol-overlay-switch-backward)
-  ;; (global-set-key (kbd "<f7>") 'symbol-overlay-mode)
-  ;; (global-set-key (kbd "<f8>") 'symbol-overlay-remove-all)
+  ;; (add-to-list 'global-colorful-modes 'helpful-mode)
 #+end_src
 
 ** link-hint
@@ -3349,26 +2810,6 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (require 'doom-modeline)
   (doom-modeline-mode 1)
-#+end_src
-** org-superstar-mode
-#+begin_src emacs-lisp
-  (require 'org-superstar)
-  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
-
-  ;; (with-eval-after-load 'org-superstar
-  ;;   (setq org-superstar-headline-bullets-list '("☰" "☱" "☲" "☳" "☴" "☵" "☶" "☷" ))
-  ;;   (setq org-superstar-item-bullet-alist '((?- . ?•) (?+ . ?➤)))
-  ;;   (setq org-superstar-special-todo-items t))
-
-  (with-eval-after-load 'org-superstar
-    (setq org-superstar-leading-bullet ?\s)
-    (setq org-superstar-special-todo-items nil)
-    (setq org-superstar-item-bullet-alist '((43 . "⬧") (45 . "⬨")))
-    (setq org-superstar-headline-bullets-list '("☰" "☱" "☲" "☳" "☴" "☵" "☶" "☷"))
-    )
-
-  (custom-set-faces
-   '(org-superstar-header-bullet ((t (:weight normal :height 1.2)))))
 #+end_src
 ** keycast
 #+begin_src elisp
@@ -3423,11 +2864,354 @@ jump to everywhere quickly
 
   ;;; End of file
 #+end_src
+** exec-path-from-shell
+#+begin_src elisp
+  (require 'exec-path-from-shell)
+  (when (daemonp)
+    (exec-path-from-shell-initialize))
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize))
+#+end_src
+** amx
+#+begin_src elisp
+  (require 'amx)
+  (add-hook 'after-init-hook 'amx-mode)
+#+end_src
 ** go-mode
 #+begin_src elisp
   (require 'go-mode)
   (autoload 'go-mode "go-mode" nil t)
   (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
+#+end_src
+** no backup
+#+begin_src elisp
+  (setq make-backup-files nil)
+#+end_src
+** debug
+#+begin_src elisp
+  ;; (defun my-smart-compile ()
+  ;;   "Compile with 'make -k' and fall back to 'g++' if make fails."
+  ;;   (interactive)
+  ;;   ;; Get the current file's name without the directory
+  ;;   (let* ((file-name (file-name-nondirectory buffer-file-name))
+  ;;          (output-file "test") ;; Default executable name
+  ;;          (g++-command (format "g++ %s -o %s -g" file-name output-file)))
+
+  ;;     ;; Run 'make -k' and capture the result
+  ;;     (let ((make-result (shell-command "make -k" "*compilation*")))
+  ;;       (if (= 0 make-result)
+  ;;           (message "Compilation with make succeeded.")
+  ;;         (progn
+  ;;           (message "Compilation with make failed. Trying g++...")
+  ;;           (shell-command g++-command "*compilation*"))))))
+
+  ;; ;; Set this function as the compile-command
+  ;; (setq compile-command (list 'my-smart-compile))
+  (setq compile-command "g++ -o test -g ")
+#+end_src
+** blog
+#+begin_src elisp
+  (require 'ox-publish)
+
+  (setq org-publish-project-alist
+          `(("content"
+             :base-directory "~/Documents/roam/blog/"
+             :base-extension "org"
+             :exclude: "ltximg/*"
+             :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"/style.css\" />"
+             :html-preamble
+             "<nav id=\"main-nav\">
+               <ul>
+                 <li><a href=\"/\">Main</a></li>
+                 <li><a href=\"/about.html\">About</a></li>
+                 <li><a href=\"archives.html\">Articles</a></li>
+               </ul>
+             </nav>"
+             :html-postamble
+             "<div id=\"blog-footer\">
+             <hr>
+             <p>
+               Content licensed under 
+               <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc-sa/4.0/\" target=\"_blank\">
+                 Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+               </a>
+               <br>
+               &copy; 2025 Kazure Zheng. All Rights Reserved.
+             </p>
+             </div>"
+             :recursive t
+             :publishing-directory "~/Developments/blog/"
+             :with-tags t
+             :auto-sitemap t
+             :sitemap-filename "sitemap.org"
+             :sitemap-title ""
+             :publishing-function org-html-publish-to-html)
+            ("static"
+             :base-directory "~/Documents/roam/blog/"
+             :base-extension "js\\|css\\|txt\\|jpg\\|gif\\|png"
+             :exclude: "ltximg/*"
+             :recursive t
+             :publishing-directory  "~/Developments/blog/"
+             :publishing-function org-publish-attachment)
+
+            ("blog" :components ("content" "static"))))
+#+end_src
+** rust-mode
+#+begin_src elisp
+  (require 'rust-mode)
+  (autoload 'rust-mode "rust-mode" nil t)
+  (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+  (add-hook 'rust-mode-hook #'lsp)
+#+end_src
+** eglot
+#+begin_src elisp
+  (require 'eglot)
+
+  (with-eval-after-load 'eglot
+    ;; Start Eglot automatically in Python, C++, and Rust buffers
+    (add-hook 'prog-mode-hook 'eglot-ensure)
+    ;; (add-hook 'python-ts-mode 'eglot-ensure)
+    ;; (add-hook 'python-mode 'eglot-ensure)
+    )
+
+  (with-eval-after-load 'eglot
+    (setq eglot-autoshutdown t
+          eglot-send-changes-idle-time 0.5)
+    (setf (plist-get eglot-events-buffer-config :size) 0)
+    )
+
+  (with-eval-after-load 'eglot
+    (add-to-list 'eglot-server-programs
+                 '(c++-mode . ("clangd" "--header-insertion=never")))
+    ;; (add-to-list 'eglot-server-programs
+    ;;              '(c++-ts-mode . ("clangd" "--header-insertion=never")))
+    (add-to-list 'eglot-server-programs
+                 '(c-mode . ("clangd" "--header-insertion=never")))
+    ;; (add-to-list 'eglot-server-programs
+    ;;              '(c-ts-mode . ("clangd" "--header-insertion=never")))
+    (add-to-list 'eglot-server-programs
+                 '(python-mode . ("pyright-langserver")) t)
+    (add-to-list 'eglot-server-programs
+                 '(python-ts-mode . ("pyright-langserver")) t)
+    (add-to-list 'eglot-server-programs
+                 '(java-mode . ("/home/kazure/.emacs.d/.cache/lsp/eclipse.jdt.ls/bin/jdtls")))
+    (add-to-list 'eglot-server-programs
+                 '(java-ts-mode . ("/home/kazure/.emacs.d/.cache/lsp/eclipse.jdt.ls/bin/jdtls")))
+    (add-to-list 'eglot-server-programs
+                 '(scheme-mode . ("racket" "-l" "racket-langserver")))
+    (add-to-list 'eglot-server-programs
+                 '(asm-mode . ("asm-lsp")))
+    (add-to-list 'eglot-server-programs
+                 '(emacs-lisp-mode . ("ellsp")))
+    )
+
+  (setq eglot-ignored-server-capabilities
+        '(:documentOnTypeFormattingProvider
+          :documentFormattingProvider
+          :documentRangeFormattingProvider
+          :renameProvider
+          :documentHighlightProvider
+          :foldingRangeProvider))
+
+  ;; ;; use .eglot-root as project root
+  ;; (defun rc/find-root-for-eglot-for-clj
+  ;;     (di)r
+  ;;   (when (bound-and-true-p eglot-lsp-context)
+  ;;     (let ((root (locate-dominating-file dir ".eglot-root")))
+  ;; 	  (when root (cons 'transient root)))))
+  ;; (add-hook 'project-find-functions #'rc/find-root-for-eglot-for-clj)
+#+end_src
+** corfu
+#+begin_src elisp
+  (add-to-list 'load-path "~/.emacs.d/lib/corfu/extensions/")
+  (require 'corfu)
+  ;; (require 'corfu-echo)
+  (require 'corfu-history)
+  (require 'corfu-indexed)
+  ;; (require 'corfu-info)
+  (require 'corfu-popupinfo)
+
+  (setq tab-always-indent 'complete)
+  (setq completion-styles '(orderless basic))
+  (setq completion-category-defaults nil
+        completion-category-overrides nil)
+  (setq completion-cycle-threshold 4)
+  (setq text-mode-ispell-word-completion nil)
+
+  (setq corfu-auto t
+        corfu-auto-prefix 2
+        corfu-count 10
+        corfu-preview-current nil
+        corfu-on-exact-match nil
+        corfu-auto-delay 0.3
+        corfu-popupinfo-delay '(0.4 . 0.2)
+        corfu-quit-at-boundary t
+        global-corfu-modes '((not erc-mode
+                                  circe-mode
+                                  help-mode
+                                  gud-mode
+                                  eat-mode)
+                             t))
+
+  ;; (setq corfu-popupinfo-delay '(0.4 . 0.2))
+
+  (setq-default corfu-quit-no-match 'separator)
+  (add-hook 'after-init-hook #'global-corfu-mode)
+
+  (with-eval-after-load 'corfu
+    (corfu-indexed-mode)
+    (corfu-popupinfo-mode)
+    (corfu-history-mode))
+
+  (dotimes (i 10)
+    (define-key corfu-mode-map
+                      (kbd (format "M-%s" i))
+                      (kbd (format "C-%s <tab>" i))))
+
+  ;; ;; Move completions to minibuffer
+  ;; (defun corfu-move-to-minibuffer ()
+  ;;   (interactive)
+  ;;   (pcase completion-in-region--data
+  ;;     (`(,beg ,end ,table ,pred ,extras)
+  ;;      (let ((completion-extra-properties extras)
+  ;;            completion-cycle-threshold completion-cycling)
+  ;;        (consult-completion-in-region beg end table pred)))))
+  ;; (keymap-set corfu-map "M-m" #'corfu-move-to-minibuffer)
+  ;; (add-to-list 'corfu-continue-commands #'corfu-move-to-minibuffer)
+#+end_src
+
+*** icon
+#+begin_src elisp
+  (require 'nerd-icons-corfu)
+  (with-eval-after-load 'corfu
+    (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+#+end_src
+** geiser
+#+begin_src elisp
+  (require 'geiser)
+  (require 'geiser-racket)
+  (add-hook 'scheme-mode-hook 'geiser-mode)
+  (setq geiser-default-implementation 'racket)
+#+end_src
+** eat
+#+begin_src elisp
+  (require 'eat)
+  (define-key global-map (kbd "C-c c t") 'eat)
+#+end_src
+** multiple-cursor
+#+begin_src elisp
+  (require 'multiple-cursors)
+
+  (define-key global-map (kbd "C-c m l l") 'mc/edit-lines)
+  (define-key global-map (kbd "C-c m l e") 'mc/edit-ends-of-lines)
+  (define-key global-map (kbd "C-c m l a") 'mc/edit-beginnings-of-lines)
+  ;; (mc/mark-all-like-this)
+  ;; (mc/mark-all-words-like-this)
+  ;; (mc/mark-all-symbols-like-this)
+  ;; (mc/mark-all-in-region)
+  ;; (mc/mark-all-like-this-in-defun)
+  ;; (mc/mark-all-words-like-this-in-defun)
+  ;; (mc/mark-all-symbols-like-this-in-defun)
+  ;; (mc/mark-all-dwim)
+
+  ;; (mc/mark-next-like-this)
+  ;; (mc/mark-next-like-this-word)
+  ;; (mc/mark-next-word-like-this)
+  ;; (mc/mark-next-like-this-symbol)
+  ;; (mc/mark-next-symbol-like-this)
+
+  ;; (mc/mark-previous-like-this)
+  ;; (mc/mark-previous-like-this-word)
+  ;; (mc/mark-previous-word-like-this)
+  ;; (mc/mark-previous-like-this-symbol)
+  ;; (mc/mark-previous-symbol-like-this)
+
+  ;; (mc/mark-more-like-this-extended)
+  ;; (mc/add-cursor-on-click)
+  ;; (mc/mark-pop)
+
+  ;; (mc/unmark-next-like-this)
+  ;; (mc/unmark-previous-like-this)
+  ;; (mc/skip-to-next-like-this)
+  ;; (mc/skip-to-previous-like-this)
+
+  ;; (set-rectangular-region-anchor)
+  ;; (mc/mark-sgml-tag-pair)
+  ;; (mc/insert-numbers)
+  ;; (mc/insert-letters)
+  ;; (mc/reverse-regions)
+  ;; (mc/vertical-align)
+  ;; (mc/vertical-align-with-space)
+#+end_src
+** marginalia
+#+begin_src elisp
+  (require 'marginalia)
+  (require 'nerd-icons-completion)
+  (add-hook 'after-init-hook 'marginalia-mode)
+  (add-hook 'marginalia-mode #'nerd-icons-completion-marginalia-setup)
+  (nerd-icons-completion-mode)
+#+end_src
+** breadcrumb
+#+begin_src elisp
+  (require 'breadcrumb)
+  (breadcrumb-mode 1)
+#+end_src
+** symbol-overlay
+#+begin_src elisp
+  (require 'symbol-overlay)
+  (global-set-key (kbd "M-i") 'symbol-overlay-put)
+  (global-set-key (kbd "M-n") 'symbol-overlay-switch-forward)
+  (global-set-key (kbd "M-p") 'symbol-overlay-switch-backward)
+  (global-set-key (kbd "C-c o s") 'symbol-overlay-mode)
+  (global-set-key (kbd "C-c o S") 'symbol-overlay-remove-all)
+#+end_src
+** aggressive-indent
+#+begin_src elisp
+  (require 'aggressive-indent)
+  (global-aggressive-indent-mode 1)
+  (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
+#+end_src
+** expand-region
+#+begin_src elisp
+  (require 'expand-region)
+  (global-set-key (kbd "C-=") 'er/expand-region)
+
+  ;; er/mark-word
+  ;; er/mark-symbol
+  ;; er/mark-method-call
+  ;; er/mark-inside-quotes
+  ;; er/mark-outside-quotes
+  ;; er/mark-inside-pairs
+  ;; er/mark-outside-pairs
+#+end_src
+** helpful
+#+begin_src elisp
+  (require 'helpful)
+  ;; Note that the built-in `describe-function' includes both functions
+  ;; and macros. `helpful-function' is functions only, so we provide
+  ;; `helpful-callable' as a drop-in replacement.
+  (global-set-key (kbd "C-h f") #'helpful-callable)
+
+  (global-set-key (kbd "C-h v") #'helpful-variable)
+  (global-set-key (kbd "C-h k") #'helpful-key)
+  (global-set-key (kbd "C-h x") #'helpful-command)
+
+  ;; Lookup the current symbol at point. C-c C-d is a common keybinding
+  ;; for this in lisp modes.
+  (global-set-key (kbd "C-c C-d") #'helpful-at-point)
+
+  ;; Look up *F*unctions (excludes macros).
+  ;;
+  ;; By default, C-h F is bound to `Info-goto-emacs-command-node'. Helpful
+  ;; already links to the manual, if a function is referenced there.
+  (global-set-key (kbd "C-h F") #'helpful-function)
+
+  (setq counsel-describe-function-function #'helpful-callable)
+  (setq counsel-describe-variable-function #'helpful-variable)
+#+end_src
+** others
+#+begin_src elisp
+  (setq-local multibyte-syntax-as-symbol nil)
 #+end_src
 ** END
 
@@ -3435,88 +3219,4 @@ jump to everywhere quickly
   (provide 'init-personal)
 #+end_src
 
-* test
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-test.el
-:END:
 
-#+begin_src emacs-lisp
-  (provide 'init-test)
-#+end_src
-
-* COMMENT wish list
-** desktop
-#+begin_src emacs-lisp
-  (setq desktop-load-locked-desktop t) ; don't popup dialog ask user, load anyway
-  (setq desktop-restore-frames nil)    ; don't restore any frame
-
-  (desktop-save-mode 1)
-#+end_src
-** web mode
-- typecript-mode
-- php-mode
-- prettier
-** ui
-
-#+begin_src emacs-lisp
-  (setq frame-inhibit-implied-resize t
-      frame-resize-pixelwise t)
-  (setq initial-frame-alist '((top . 0.5)
-                              (left . 0.5)
-                              (width . 0.7)
-                              (height . 0.85)
-                              (fullscreen)))
-#+end_src
-** TODO read-only-mode
-#+begin_src emacs-lisp :tangle no
-  (defvar easy-nav-mode-map
-    (let ((map (make-sparse-keymap)))
-      ;; 用 n 和 p 来导航
-      (define-key map (kbd "n") #'next-line)
-      (define-key map (kbd "p") #'previous-line)
-      (define-key map (kbd "b") #'backward-char)
-      (define-key map (kbd "f") #'forward-char)
-
-      (define-key map (kbd "M-f") #'forward-word)
-      (define-key map (kbd "M-b") #'backward-word)
-
-      (define-key map (kbd "a") #'beginning-of-line)
-      (define-key map (kbd "e") #'end-of-line)
-
-      (define-key map (kbd "y") #'yank)
-      (define-key map (kbd "w") #'kill-ring-save)
-
-      (define-key map (kbd "SPC") #'set-mark-command)
-
-      (define-key map (kbd "q") #'my/read-only-mode)
-      map)
-    "Keymap for `easy-nav-mode'.")
-
-
-  (define-minor-mode easy-nav-mode
-    "Minor mode for Vi-style navigation in read-only buffers."
-    :lighter " Easy-Nav"
-    :keymap easy-nav-mode-map
-    :global nil
-    ;; 使用 (if easy-nav-mode ...) 逻辑来决定如何处理
-    (if easy-nav-mode
-        (message "Easy-Nav mode enabled.")
-      (message "Easy-Nav mode disabled.")))
-
-  (defun my/read-only-mode (arg)
-    "Toggle read-only-mode, and sync it with `easy-nav-mode'."
-    (interactive)
-    ;; 直接检查 buffer-read-only 变量的值
-    (if buffer-read-only
-        ;; 如果当前是只读模式，则关闭它和 easy-nav-mode
-        (progn
-          (read-only-mode nil)
-          (easy-nav-mode nil))
-      ;; 否则，打开只读模式和 easy-nav-mode
-      (progn
-        (read-only-mode t)
-        (easy-nav-mode t))))
-
-  ;; 替换默认的 C-x C-q 绑定，使其调用你的函数
-  (global-set-key (kbd "C-x C-q") #'my/read-only-mode)
-#+end_src
