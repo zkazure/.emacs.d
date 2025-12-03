@@ -232,9 +232,6 @@
 [submodule "org-roam-ui"]
 	path = lib/org-roam-ui
 	url = https://github.com/org-roam/org-roam-ui
-[submodule "ox-hugo"]
-	path = lib/ox-hugo
-	url = https://github.com/kaushalmodi/ox-hugo
 [submodule "parsebib"]
 	path = lib/parsebib
 	url = https://github.com/joostkremers/parsebib

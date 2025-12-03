@@ -1462,3 +1462,52 @@ https://abode.karthinks.com/org-latex-preview/
 
   (provide 'init-quickrun)
 #+end_src
+** COMMENT ivy-posframe
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-ivy-posframe.el
+:END:
+
+#+begin_src emacs-lisp
+  (require 'ivy-posframe)
+  ;; display at `ivy-posframe-style'
+  ;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display)))
+  ;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
+  ;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-bottom-left)))
+  ;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-bottom-left)))
+  ;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-bottom-left)))
+  ;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center)))
+
+
+  ;; (setq ivy-posframe-display-functions-alist
+  ;;       '(
+  ;;         ;; (swiper          . ivy-display-function-fallback)
+  ;;         ;; (org-roam-node-find . ivy-posframe-display-at-frame-center)
+  ;;         ;; (t               . ivy-posframe-display-at-window-bottom-left)
+  ;;         (t . ivy-posframe-display-at-frame-center))
+  ;;       )
+  ;; (setq ivy-posframe-height-alist '((swiper . 10)
+  ;;                                   (t      . 10)))
+
+  (setq ivy-posframe-width nil)
+
+  (setq ivy-posframe-parameters
+        '((left-fringe . 8)
+          (right-fringe . 8)))
+
+  (setq ivy-posframe-display-functions-alist
+        '((t . ivy-posframe-display-at-frame-top-center)))
+
+  (ivy-posframe-mode 1)
+  (provide 'init-ivy-posframe)
+#+end_src
+** ox-hugo
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-ox-hugo.el
+:END:
+
+#+begin_src emacs-lisp
+  (with-eval-after-load 'ox
+    (require 'ox-hugo))
+
+  (provide 'init-ox-hugo)
+#+end_src
