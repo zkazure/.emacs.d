@@ -2281,7 +2281,7 @@ jump to everywhere quickly
 
   ;; (setq leetcode-prefer-tag-display nil)
 
-  (global-set-key (kbd "C-c c l") 'leetcode)
+  (global-set-key (kbd "C-c o c") 'leetcode)
 
   (add-hook 'leetcode--problems-mode-hook
             (lambda () (display-line-numbers-mode -1)))
@@ -2336,7 +2336,7 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (require 'gptel)
   (require 'gptel-magit)
-  (global-set-key (kbd "C-c o g") 'gptel)
+  (global-set-key (kbd "C-c o a") 'gptel)
   ;; (gptel-make-ollama "Ollama"             ;Any name of your choosing
   ;;   :host "localhost:11434"               ;Where it's running
   ;;   :stream t                             ;Stream responses
