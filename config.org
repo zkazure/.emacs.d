@@ -316,10 +316,7 @@
   (require 'init-orderless)
   (require 'init-font)
   (require 'init-visual-regexp)
-  ;; (require 'init-plantuml-mode)
   (require 'init-org-roam)
-  ;; (require 'init-pdf-tools)
-  ;; (require 'init-org-noter)
   (require 'init-super-save)
   (require 'init-indent)
   (require 'init-electric-pair-mode)
@@ -334,9 +331,6 @@
   (require 'init-treesit-fold)
   (require 'init-yaml-mode)
   ;; (require 'init-citar)
-  ;; (require 'init-ivy-posframe)
-  (require 'init-ox-hugo)
-  ;; (require 'init-quickrun)
   (require 'init-org-fragtog)
   (require 'init-hydra)
   (require 'init-sudo-edit)
@@ -2887,28 +2881,6 @@ jump to everywhere quickly
 #+begin_src elisp
   (setq make-backup-files nil)
 #+end_src
-** debug
-#+begin_src elisp
-  ;; (defun my-smart-compile ()
-  ;;   "Compile with 'make -k' and fall back to 'g++' if make fails."
-  ;;   (interactive)
-  ;;   ;; Get the current file's name without the directory
-  ;;   (let* ((file-name (file-name-nondirectory buffer-file-name))
-  ;;          (output-file "test") ;; Default executable name
-  ;;          (g++-command (format "g++ %s -o %s -g" file-name output-file)))
-
-  ;;     ;; Run 'make -k' and capture the result
-  ;;     (let ((make-result (shell-command "make -k" "*compilation*")))
-  ;;       (if (= 0 make-result)
-  ;;           (message "Compilation with make succeeded.")
-  ;;         (progn
-  ;;           (message "Compilation with make failed. Trying g++...")
-  ;;           (shell-command g++-command "*compilation*"))))))
-
-  ;; ;; Set this function as the compile-command
-  ;; (setq compile-command (list 'my-smart-compile))
-  (setq compile-command "g++ -o test -g ")
-#+end_src
 ** blog
 #+begin_src elisp
   (require 'ox-publish)
@@ -3011,7 +2983,10 @@ jump to everywhere quickly
           :documentRangeFormattingProvider
           :renameProvider
           :documentHighlightProvider
-          :foldingRangeProvider))
+          :foldingRangeProvider
+          :inlayHintProvider
+          :hoverProvider
+          ))
 
   ;; ;; use .eglot-root as project root
   ;; (defun rc/find-root-for-eglot-for-clj
@@ -3183,31 +3158,6 @@ jump to everywhere quickly
   ;; er/mark-outside-quotes
   ;; er/mark-inside-pairs
   ;; er/mark-outside-pairs
-#+end_src
-** helpful
-#+begin_src elisp
-  (require 'helpful)
-  ;; Note that the built-in `describe-function' includes both functions
-  ;; and macros. `helpful-function' is functions only, so we provide
-  ;; `helpful-callable' as a drop-in replacement.
-  (global-set-key (kbd "C-h f") #'helpful-callable)
-
-  (global-set-key (kbd "C-h v") #'helpful-variable)
-  (global-set-key (kbd "C-h k") #'helpful-key)
-  (global-set-key (kbd "C-h x") #'helpful-command)
-
-  ;; Lookup the current symbol at point. C-c C-d is a common keybinding
-  ;; for this in lisp modes.
-  (global-set-key (kbd "C-c C-d") #'helpful-at-point)
-
-  ;; Look up *F*unctions (excludes macros).
-  ;;
-  ;; By default, C-h F is bound to `Info-goto-emacs-command-node'. Helpful
-  ;; already links to the manual, if a function is referenced there.
-  (global-set-key (kbd "C-h F") #'helpful-function)
-
-  (setq counsel-describe-function-function #'helpful-callable)
-  (setq counsel-describe-variable-function #'helpful-variable)
 #+end_src
 ** others
 #+begin_src elisp
