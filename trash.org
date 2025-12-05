@@ -1529,3 +1529,8 @@ https://abode.karthinks.com/org-latex-preview/
 
   (provide 'init-emacs-everywhere)
 #+end_src
+** keycast
+#+begin_src elisp
+  (require 'keycast)
+  (setq keycast-tab-bar-mode t)
+#+end_src
