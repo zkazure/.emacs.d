@@ -2720,11 +2720,7 @@ jump to everywhere quickly
   (require 'doom-modeline)
   (doom-modeline-mode 1)
 #+end_src
-** keycast
-#+begin_src elisp
-  (require 'keycast)
-  (setq keycast-tab-bar-mode t)
-#+end_src
+
 ** org-id-all-file
 #+begin_src elisp
   ;;; org-id-all-headlines.el --- Add IDs to all headlines in a buffer

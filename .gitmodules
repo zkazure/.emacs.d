@@ -157,9 +157,6 @@
 [submodule "js2-mode"]
 	path = lib/js2-mode
 	url = https://github.com/mooz/js2-mode
-[submodule "keycast"]
-	path = lib/keycast
-	url = https://github.com/tarsius/keycast
 [submodule "leetcode"]
 	path = lib/leetcode
 	url = https://github.com/kaiwk/leetcode.el
