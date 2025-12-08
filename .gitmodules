@@ -85,6 +85,9 @@
 [submodule "ebdb"]
 	path = lib/ebdb
 	url = git@github.com:emacsmirror/ebdb.git
+[submodule "elisp-refs"]
+	path = lib/elisp-refs
+	url = https://github.com/Wilfred/elisp-refs
 [submodule "emacsql"]
 	path = lib/emacsql
 	url = https://github.com/magit/emacsql.git
@@ -130,6 +133,9 @@
 [submodule "gptel-magit"]
 	path = lib/gptel-magit
 	url = https://github.com/ragnard/gptel-magit
+[submodule "helpful"]
+	path = lib/helpful
+	url = https://github.com/Wilfred/helpful
 [submodule "highlight-indent-guides"]
 	path = lib/highlight-indent-guides
 	url = https://github.com/DarthFennec/highlight-indent-guides
