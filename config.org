@@ -296,7 +296,7 @@
 
   ;; inside
   (require 'init-ui)
-  (require 'init-theme)
+  ;; (require 'init-theme)
   (require 'init-org)
 
   ;; outside
@@ -361,7 +361,21 @@
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-ui.el
 :END:
+*** base
 #+begin_src emacs-lisp
+  (setq-local multibyte-syntax-as-symbol nil)
+  (save-place-mode 1)
+  (setq fill-column 80)
+  (setq y-or-n-p-as-yes-or-no t)
+
+  (setq system-time-locale "en_US.utf8")
+
+  (prefer-coding-system       'utf-8)
+  (set-default-coding-systems 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-language-environment   'utf-8)
+
   ;; (setq visible-bell t)
   (setq word-wrap-by-category t)
   ;; 减少闪烁
@@ -386,82 +400,8 @@
   (setq enable-recursive-minibuffers +1)
   (setq cursor-in-non-selected-windows nil)
 
-  ;; ibuffer
-  (global-set-key (kbd "C-x C-b") 'ibuffer-other-window)
-  (setq ibuffer-show-empty-filter-groups t)
-  (setq ibuffer-saved-filter-groups
-        `(("default"
-           ;; ("mail" (or
-           ;;          (mode . message-mode)
-           ;;          (mode . notmuch-hello-mode)
-           ;;          (mode . notmuch-search-mode)
-           ;;          (mode . notmuch-message-mode)
-           ;;          (mode . notmuch-show-mode)
-           ;;          (mode . notmuch-tree-mode)
-           ;;          (mode . bbdb-mode)
-           ;;          (mode . mail-mode)
-           ;;          (mode . mu4e-main-mode)
-           ;;          (mode . gnus-group-mode)
-           ;;          (mode . gnus-summary-mode)
-           ;;          (mode . gnus-article-mode)
-           ;;          (name . "^\\..bdb$")))
-           ("org" (or
-                   (mode . org-agenda-mode)
-                   (mode . diary-mode)
-                   (name . "^\\*Calendar\\*$")
-                   (name . "^diary$")
-                   (filename . "Pending/org/")))
-           ("dired" (mode . dired-mode))
-           ("emacs" (or
-                     (name . "^\\*package.*results\\*$")
-                     (name . "^\\*Shell.*Output\\*$")
-                     (name . "^\\*Compile-Log\\*$")
-                     (name . "^\\*Completions\\*$")
-                     (name . "^\\*Backtrace\\*$")
-                     (name . "^\\*dashboard\\*$")
-                     (name . "^\\*Messages\\*$")
-                     (name . "^\\*scratch\\*$")
-                     (name . "^\\*Appointment Alert\\*$")
-                     (name . "^\\*info\\*$")
-                     (name . "^\\*Help\\*$")))
-           )))
-  (defun ct/ibuffer-enable-saved-filter-groups ()
-    (ibuffer-switch-to-saved-filter-groups "default"))
-
-  (add-hook 'ibuffer-mode-hook #'ct/ibuffer-enable-saved-filter-groups)
-  (setq ibuffer-formats
-        '((mark modified read-only locked " "
-    	          (name 20 20 :left :elide)
-    	          " "
-    	          (mode 16 16 :left :elide)
-    	          " "
-    	          filename-and-process)
-    	    (mark " "
-    	          (name 16 -1)
-    	          " " filename)))
-
-  ;; other
-  (save-place-mode 1)
-  (setq fill-column 80)
-  (setq y-or-n-p-as-yes-or-no nil)
-
-  (setq system-time-locale "en_US.utf8")
-
-  (prefer-coding-system       'utf-8)
-  (set-default-coding-systems 'utf-8)
-  (set-terminal-coding-system 'utf-8)
-  (set-keyboard-coding-system 'utf-8)
-  (set-language-environment   'utf-8)
-
-  (provide 'init-ui)
 #+end_src
-
-** theme
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-theme.el
-:END:
-
-
+*** theme
 #+begin_src elisp
   (setq modus-vivendi-tinted-palette-overrides
         '(
@@ -526,10 +466,67 @@
 
   ;; (add-hook 'after-make-frame-functions #'my/auto-theme-switcher-apply-theme)
   (my/auto-theme-switcher-apply-theme)
-  
-  (provide 'init-theme)
 #+end_src
 
+*** ibuffer
+#+begin_src elisp
+  (global-set-key (kbd "C-x C-b") 'ibuffer-other-window)
+  (setq ibuffer-show-empty-filter-groups t)
+  (setq ibuffer-saved-filter-groups
+        `(("default"
+           ;; ("mail" (or
+           ;;          (mode . message-mode)
+           ;;          (mode . notmuch-hello-mode)
+           ;;          (mode . notmuch-search-mode)
+           ;;          (mode . notmuch-message-mode)
+           ;;          (mode . notmuch-show-mode)
+           ;;          (mode . notmuch-tree-mode)
+           ;;          (mode . bbdb-mode)
+           ;;          (mode . mail-mode)
+           ;;          (mode . mu4e-main-mode)
+           ;;          (mode . gnus-group-mode)
+           ;;          (mode . gnus-summary-mode)
+           ;;          (mode . gnus-article-mode)
+           ;;          (name . "^\\..bdb$")))
+           ("org" (or
+                   (mode . org-agenda-mode)
+                   (mode . diary-mode)
+                   (name . "^\\*Calendar\\*$")
+                   (name . "^diary$")
+                   (filename . "Pending/org/")))
+           ("dired" (mode . dired-mode))
+           ("emacs" (or
+                     (name . "^\\*package.*results\\*$")
+                     (name . "^\\*Shell.*Output\\*$")
+                     (name . "^\\*Compile-Log\\*$")
+                     (name . "^\\*Completions\\*$")
+                     (name . "^\\*Backtrace\\*$")
+                     (name . "^\\*dashboard\\*$")
+                     (name . "^\\*Messages\\*$")
+                     (name . "^\\*scratch\\*$")
+                     (name . "^\\*Appointment Alert\\*$")
+                     (name . "^\\*info\\*$")
+                     (name . "^\\*Help\\*$")))
+           )))
+  (defun ct/ibuffer-enable-saved-filter-groups ()
+    (ibuffer-switch-to-saved-filter-groups "default"))
+
+  (add-hook 'ibuffer-mode-hook #'ct/ibuffer-enable-saved-filter-groups)
+  (setq ibuffer-formats
+        '((mark modified read-only locked " "
+    	          (name 20 20 :left :elide)
+    	          " "
+    	          (mode 16 16 :left :elide)
+    	          " "
+    	          filename-and-process)
+    	    (mark " "
+    	          (name 16 -1)
+    	          " " filename)))
+#+end_src
+*** end
+#+begin_src elisp
+  (provide 'init-ui)
+#+end_src
 
 ** org
 :PROPERTIES:
@@ -558,31 +555,14 @@
     ;; Make deletion (obsolete) text foreground with dark gray.
     (add-to-list 'org-emphasis-alist
                  '("+" (:foreground "dark gray"
-                       :strike-through t)))
+                                    :strike-through t)))
     ;; Make code style around with box.
     (add-to-list 'org-emphasis-alist
                  '("~" (:box (:line-width 2
-                               :color "grey75"
-                               :style released-button)))))
-
-
-  ;; (setq org-todo-keywords
-  ;;       (quote ((sequence "TODO(t)" "NEXT(n)" "DOING(g)" "|" "DONE(d)" "HOLD(h)")
-  ;;               (sequence "LOOP(l)" "|" "DONE(d)")
-  ;;               (sequence "PROJECT(p)"))))
-
-  ;; (setq org-todo-keyword-faces
-  ;;       '(("TODO" . (:foreground "red1"  :weight bold))
-  ;;         ("NEXT" . (:foreground "DeepSkyBlue" :weight bold))
-  ;;         ("DOING" . (:foreground "DarkOrchid1"  :weight bold))
-  ;;         ("DONE" . (:foreground "lime green" :weight bold))
-  ;;         ("HOLD" . (:foreground "snow3" :weight bold))
-  ;;         ("LOOP" . (:foreground "tomato1"  :weight bold))
-  ;;         ("PROJECT" . (:foreground "firebrick"  :weight bold))))
+                                          :color "grey75"
+                                          :style released-button)))))
 
   (setq org-use-fast-todo-selection t) ;; C-c C-t KEY
-
-  ;; (define-key org-mode-map (kbd "C-c n o") 'browse-url)
 #+END_SRC
 *** COMMENT agenda
 #+begin_src emacs-lisp
@@ -788,13 +768,15 @@ only the language set here can be babeled.
 
 *** appear
 #+begin_src emacs-lisp
+  (require 'org-appear)
+
   (setq org-hide-emphasis-markers t)
   (setq org-appear-autolinks t)
   (setq org-appear-autosubmarkers t)
   (setq org-appear-autoentities t)
   (setq org-appear-autokeywords t)
+  (setq org-appear-delay 0.3)
 
-  (require 'org-appear)
   (add-hook 'org-mode-hook 'org-appear-mode)
 
 #+end_src
@@ -1288,21 +1270,20 @@ jump to everywhere quickly
 :HEADER-ARGS: :tangle lisp/init-font.el
 :END:
 
-- [ ] fell it
 #+begin_src emacs-lisp
     ;; Set the default font for the Emacs frame.
     ;; This will be your primary monospace font for English text and code.
     ;; Adjust the size as needed.
     (setq initial-frame-alist
-          (append (list (cons 'font "Maple Mono NF-11"))
+          (append (list (cons 'font "Maple Mono NF-12"))
                   initial-frame-alist))
     (setq default-frame-alist
-          (append (list (cons 'font "Maple Mono NF-11"))
+          (append (list (cons 'font "Maple Mono NF-12"))
                   default-frame-alist))
 
     ;; Optionally, set the font immediately if Emacs is already running with a GUI
     (when (display-graphic-p)
-      (set-frame-font "Maple Mono NF-11" t t))
+      (set-frame-font "Maple Mono NF-12" t t))
 
     ;; --- CJK Font Fallback using Fontsets ---
     ;; This is crucial for Chinese character display.
@@ -2183,7 +2164,7 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (require 'sudo-edit)
 
-  (define-key global-map (kbd "C-c s") 'sudo-edit)
+  (define-key global-map (kbd "C-c o e") 'sudo-edit)
 
   (provide 'init-sudo-edit)
 #+end_src
@@ -2489,36 +2470,17 @@ jump to everywhere quickly
   	 'face (if current-p 'tab-bar-tab-group-current 'tab-bar-tab-group-inactive)))
 
   (add-to-list 'display-buffer-alist
-  			   '("\\*scratch\\*"
-  				 (display-buffer-in-tab display-buffer-full-frame)
-  				 (tab-group . "[EMACS]")))
-
-  ;; (defun ct/modus-themes-tab-bar-colors ()
-  ;;   "Override tab faces to have even less variety"
-  ;;   (modus-themes-with-colors
-  ;;       (custom-set-faces
-  ;;        `(tab-bar ((,c
-  ;;                    :height 0.8
-  ;;                    :background ,bg-main
-  ;;                    :box nil)))
-  ;;        `(tab-bar-tab ((,c
-  ;;                        :background ,bg-main
-  ;;                        :underline (:color ,blue-intense :style line)
-  ;;                        :box (:line-width 2 :style flat-button))))
-  ;;       `(tab-bar-tab-inactive ((,c
-  ;;                                :background ,bg-main
-  ;;                                :box (:line-width 2 :style flat-button)))))))
-
-  ;; (add-hook 'modus-themes-after-load-theme-hook #'ct/modus-themes-tab-bar-colors)
-
+  			 '("\\*scratch\\*"
+  			   (display-buffer-in-tab display-buffer-full-frame)
+  			   (tab-group . "[EMACS]")))
 
   (defun emacs-solo/tab-group-from-project ()
-  	"Call `tab-group` with the current project name as the group."
-  	(interactive)
-  	(when-let* ((proj (project-current))
-  				(name (file-name-nondirectory
-  					   (directory-file-name (project-root proj)))))
-  	  (tab-group (format "[%s]" name))))
+    "Call `tab-group` with the current project name as the group."
+    (interactive)
+    (when-let* ((proj (project-current))
+  			  (name (file-name-nondirectory
+  					 (directory-file-name (project-root proj)))))
+  	(tab-group (format "[%s]" name))))
 
   (global-set-key (kbd "C-x t P") #'emacs-solo/tab-group-from-project)
 
@@ -2543,53 +2505,6 @@ jump to everywhere quickly
   		  (setq i (1+ i)))))))
 
   (global-set-key (kbd "C-x t g") #'emacs-solo/tab-switch-to-group)
-
-  ;; (use-package emacs
-  ;;   :config
-  ;;   (defface ct/tab-bar-numbers
-  ;;     '((t
-  ;;        :inherit tab-bar
-  ;;        :family "SF Compact"
-  ;;        :weight light))
-  ;;     "Face for tab numbers in both active and inactive tabs.")
-  ;;   (defvar kz/yi-numbers-alist
-  ;;     '((0 . "☰")
-  ;;       (1 . "☱")
-  ;;       (2 . "☲")
-  ;;       (3 . "☳")
-  ;;       (4 . "☴")
-  ;;       (5 . "☵")
-  ;;       (6 . "☶")
-  ;;       (7 . "☷"))
-
-  ;;     "Alist of integers to strings of circled unicode numbers.")
-  ;;   (defun ct/tab-bar-tab-name-format-default (tab i)
-  ;;     (let ((current-p (eq (car tab) 'current-tab)))
-  ;;       (concat
-  ;;        (propertize
-  ;;         (when (and tab-bar-tab-hints (< i 8)) (alist-get i kz/yi-numbers-alist))
-  ;;         'face 'ct/tab-bar-numbers)
-  ;;        " "
-  ;;        (propertize
-  ;;         (concat (alist-get 'name tab)
-  ;; 	            (or (and tab-bar-close-button-show
-  ;; 			             (not (eq tab-bar-close-button-show
-  ;; 				                  (if current-p 'non-selected 'selected)))
-  ;; 			             tab-bar-close-button)
-  ;; 		            ""))
-  ;;         'face (funcall tab-bar-tab-face-function tab))
-  ;;        " ")))
-
-  ;;   (setq tab-bar-tab-name-format-function #'ct/tab-bar-tab-name-format-default
-  ;;         tab-bar-tab-hints t)
-  ;;   (setq tab-bar-format
-  ;; 	    '(;;tab-bar-format-history ;; forward/back buttons
-  ;; 	      tab-bar-format-tabs-groups
-  ;; 	      tab-bar-separator
-  ;;           ;; tab-bar-format-add-tab ;; new tab button
-  ;; 	      tab-bar-format-align-right
-  ;; 	      tab-bar-format-global))
-  ;;   )
 
   (provide 'init-tab-bar)
 #+end_src
@@ -3158,10 +3073,6 @@ jump to everywhere quickly
   ;; er/mark-outside-quotes
   ;; er/mark-inside-pairs
   ;; er/mark-outside-pairs
-#+end_src
-** others
-#+begin_src elisp
-  (setq-local multibyte-syntax-as-symbol nil)
 #+end_src
 ** END
 
