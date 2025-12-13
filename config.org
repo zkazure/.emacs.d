@@ -921,6 +921,11 @@ only the language set here can be babeled.
         completion-category-overrides '((file (styles basic partial-completion)))
         orderless-component-separator #'orderless-escapable-split-on-space)
 
+  (setq completion-category-overrides
+        '((file (styles basic partial-completion))
+          (buffer (styles orderless))
+          (command (styles orderless basic))))
+
   (provide 'init-orderless)
 #+end_src
 
@@ -931,7 +936,14 @@ only the language set here can be babeled.
 
 #+begin_src elisp
   (require 'vertico)
+  (add-to-list 'load-path "~/.emacs.d/lib/vertico/extensions/")
+  (require 'vertico-directory)
+
   (vertico-mode)
+
+  (keymap-set vertico-map "DEL" #'vertico-directory-delete-char)
+  (keymap-set vertico-map "M-DEL" #'vertico-directory-delete-word)
+
   (provide 'init-vertico)
 #+end_src
 
@@ -941,8 +953,6 @@ only the language set here can be babeled.
 :END:
 
 #+begin_src elisp
-  (require 'consult)
-  ;;; init-consult.el
   (require 'consult)
 
   (global-set-key (kbd "C-s") #'consult-line)
@@ -975,8 +985,9 @@ only the language set here can be babeled.
 
 *** yasnippet
 #+begin_src elisp
-  (require 'consult-yasnippet)
-  (global-set-key (kbd "M-g y") 'consult-yasnippet)
+  (with-eval-after-load 'consult
+    (require 'consult-yasnippet)
+    (global-set-key (kbd "M-g y") #'consult-yasnippet))
 #+end_src
 
 ** corfu
@@ -3056,8 +3067,11 @@ jump to everywhere quickly
   (require 'marginalia)
   (require 'nerd-icons-completion)
   (add-hook 'after-init-hook 'marginalia-mode)
-  (add-hook 'marginalia-mode #'nerd-icons-completion-marginalia-setup)
+  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup)
   (nerd-icons-completion-mode)
+
+  (setq marginalia-align 'right
+        marginalia-field-width 40)
 #+end_src
 ** breadcrumb
 #+begin_src elisp
