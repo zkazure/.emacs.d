@@ -941,8 +941,10 @@ only the language set here can be babeled.
 
   (vertico-mode)
 
+  (keymap-set vertico-map "RET" #'vertico-directory-enter)
   (keymap-set vertico-map "DEL" #'vertico-directory-delete-char)
   (keymap-set vertico-map "M-DEL" #'vertico-directory-delete-word)
+  (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
 
   (provide 'init-vertico)
 #+end_src
