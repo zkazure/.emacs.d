@@ -304,6 +304,8 @@
   (require 'init-rainbow-delimiters)
   (require 'init-which-key)
   (require 'init-ivy)
+  (require 'init-orderless)
+  (require 'init-corfu)
   (require 'init-yasnippet)
   ;; (require 'init-avy)
   (require 'init-dirvish)
@@ -313,7 +315,6 @@
   ;; (require 'init-emacs-everywhere)
   (require 'init-markdown-mode)
   (require 'init-jinx)
-  (require 'init-orderless)
   (require 'init-font)
   (require 'init-visual-regexp)
   (require 'init-org-roam)
@@ -959,19 +960,6 @@ only the language set here can be babeled.
   (provide 'init-orderless)
 #+end_src
 
-** yasnippet
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-yasnippet.el
-:END:
-#+begin_src emacs-lisp
-  (require 'yasnippet)
-  (require 'yasnippet-capf)
-
-  (yas-global-mode 1)
-  (add-to-list 'completion-at-point-functions #'yasnippet-capf)
-  (provide 'init-yasnippet)
-#+end_src
-
 ** corfu
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-corfu.el
@@ -1044,6 +1032,19 @@ only the language set here can be babeled.
 *** End
 #+begin_src elisp
   (provide 'init-corfu)
+#+end_src
+
+** yasnippet
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-yasnippet.el
+:END:
+#+begin_src emacs-lisp
+  (require 'yasnippet)
+  (require 'yasnippet-capf)
+
+  (yas-global-mode 1)
+  (add-to-list 'completion-at-point-functions #'yasnippet-capf)
+  (provide 'init-yasnippet)
 #+end_src
 
 ** eglot
