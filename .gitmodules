@@ -163,9 +163,6 @@
 [submodule "instant-rename-tag"]
 	path = lib/instant-rename-tag
 	url = https://github.com/manateelazycat/instant-rename-tag.git
-[submodule "ivy"]
-	path = lib/ivy
-	url = https://github.com/abo-abo/swiper
 [submodule "jinx"]
 	path = lib/jinx
 	url = https://github.com/minad/jinx
@@ -313,6 +310,9 @@
 [submodule "treesit-fold"]
 	path = lib/treesit-fold
 	url = https://github.com/emacs-tree-sitter/treesit-fold
+[submodule "vertico"]
+	path = lib/vertico
+	url = https://github.com/minad/vertico
 [submodule "visual-regexp"]
 	path = lib/visual-regexp
 	url = https://github.com/benma/visual-regexp.el
