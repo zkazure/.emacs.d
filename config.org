@@ -929,6 +929,36 @@ only the language set here can be babeled.
   (provide 'init-ivy)
 #+end_src
 
+** orderless
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-orderless.el
+:END:
+
+#+begin_src emacs-lisp
+  (require 'orderless)
+
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles basic partial-completion)))
+        orderless-component-separator #'orderless-escapable-split-on-space)
+
+  ;; ;; integrate with ivy
+  (setq ivy-re-builders-alist '((t . orderless-ivy-re-builder)))
+  (add-to-list 'ivy-highlight-functions-alist '(orderless-ivy-re-builder . orderless-ivy-highlight))
+
+  (defun just-one-face (fn &rest args)
+    (let ((orderless-match-faces [completions-common-part]))
+      (apply fn args)))
+  (advice-add 'company-capf--candidates :around #'just-one-face)
+
+  (defun company-completion-styles (capf-fn &rest args)
+    (let ((completion-styles '(basic partial-completion)))
+      (apply capf-fn args)))
+  (advice-add 'company-capf :around #'company-completion-styles)
+
+  (provide 'init-orderless)
+#+end_src
+
 ** yasnippet
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-yasnippet.el
@@ -940,6 +970,147 @@ only the language set here can be babeled.
   (yas-global-mode 1)
   (add-to-list 'completion-at-point-functions #'yasnippet-capf)
   (provide 'init-yasnippet)
+#+end_src
+
+** corfu
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-corfu.el
+:END:
+#+begin_src elisp
+  (add-to-list 'load-path "~/.emacs.d/lib/corfu/extensions/")
+  (require 'corfu)
+  ;; (require 'corfu-echo)
+  (require 'corfu-history)
+  (require 'corfu-indexed)
+  ;; (require 'corfu-info)
+  (require 'corfu-popupinfo)
+
+  (setq tab-always-indent 'complete)
+  (setq completion-styles '(orderless basic))
+  (setq completion-category-defaults nil
+        completion-category-overrides nil)
+  (setq completion-cycle-threshold 4)
+  (setq text-mode-ispell-word-completion nil)
+
+  (setq corfu-auto t
+        corfu-auto-prefix 2
+        corfu-count 10
+        corfu-preview-current nil
+        corfu-on-exact-match nil
+        corfu-auto-delay 0.3
+        corfu-popupinfo-delay '(0.4 . 0.2)
+        corfu-quit-at-boundary t
+        global-corfu-modes '((not erc-mode
+                                  circe-mode
+                                  help-mode
+                                  gud-mode
+                                  eat-mode)
+                             t))
+
+  ;; (setq corfu-popupinfo-delay '(0.4 . 0.2))
+
+  (setq-default corfu-quit-no-match 'separator)
+  (add-hook 'after-init-hook #'global-corfu-mode)
+
+  (with-eval-after-load 'corfu
+    (corfu-indexed-mode)
+    (corfu-popupinfo-mode)
+    (corfu-history-mode))
+
+  (dotimes (i 10)
+    (define-key corfu-mode-map
+                      (kbd (format "M-%s" i))
+                      (kbd (format "C-%s <tab>" i))))
+
+  ;; ;; Move completions to minibuffer
+  ;; (defun corfu-move-to-minibuffer ()
+  ;;   (interactive)
+  ;;   (pcase completion-in-region--data
+  ;;     (`(,beg ,end ,table ,pred ,extras)
+  ;;      (let ((completion-extra-properties extras)
+  ;;            completion-cycle-threshold completion-cycling)
+  ;;        (consult-completion-in-region beg end table pred)))))
+  ;; (keymap-set corfu-map "M-m" #'corfu-move-to-minibuffer)
+  ;; (add-to-list 'corfu-continue-commands #'corfu-move-to-minibuffer)
+#+end_src
+
+*** icon
+#+begin_src elisp
+  (require 'nerd-icons-corfu)
+  (with-eval-after-load 'corfu
+    (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+#+end_src
+
+*** End
+#+begin_src elisp
+  (provide 'init-corfu)
+#+end_src
+
+** eglot
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-eglot.el
+:END:
+#+begin_src elisp
+  (require 'eglot)
+
+  (with-eval-after-load 'eglot
+    ;; Start Eglot automatically in Python, C++, and Rust buffers
+    (add-hook 'prog-mode-hook 'eglot-ensure)
+    ;; (add-hook 'python-ts-mode 'eglot-ensure)
+    ;; (add-hook 'python-mode 'eglot-ensure)
+    )
+
+  (with-eval-after-load 'eglot
+    (setq eglot-autoshutdown t
+          eglot-send-changes-idle-time 0.5)
+    (setf (plist-get eglot-events-buffer-config :size) 0)
+    )
+
+  (with-eval-after-load 'eglot
+    (add-to-list 'eglot-server-programs
+                 '(c++-mode . ("clangd" "--header-insertion=never")))
+    ;; (add-to-list 'eglot-server-programs
+    ;;              '(c++-ts-mode . ("clangd" "--header-insertion=never")))
+    (add-to-list 'eglot-server-programs
+                 '(c-mode . ("clangd" "--header-insertion=never")))
+    ;; (add-to-list 'eglot-server-programs
+    ;;              '(c-ts-mode . ("clangd" "--header-insertion=never")))
+    (add-to-list 'eglot-server-programs
+                 '(python-mode . ("pyright-langserver")) t)
+    (add-to-list 'eglot-server-programs
+                 '(python-ts-mode . ("pyright-langserver")) t)
+    (add-to-list 'eglot-server-programs
+                 '(java-mode . ("/home/kazure/.emacs.d/.cache/lsp/eclipse.jdt.ls/bin/jdtls")))
+    (add-to-list 'eglot-server-programs
+                 '(java-ts-mode . ("/home/kazure/.emacs.d/.cache/lsp/eclipse.jdt.ls/bin/jdtls")))
+    (add-to-list 'eglot-server-programs
+                 '(scheme-mode . ("racket" "-l" "racket-langserver")))
+    (add-to-list 'eglot-server-programs
+                 '(asm-mode . ("asm-lsp")))
+    (add-to-list 'eglot-server-programs
+                 '(emacs-lisp-mode . ("ellsp")))
+    )
+
+  (setq eglot-ignored-server-capabilities
+        '(:documentOnTypeFormattingProvider
+          :documentFormattingProvider
+          :documentRangeFormattingProvider
+          :renameProvider
+          :documentHighlightProvider
+          :foldingRangeProvider
+          :inlayHintProvider
+          :hoverProvider
+          ))
+
+  ;; ;; use .eglot-root as project root
+  ;; (defun rc/find-root-for-eglot-for-clj
+  ;;     (di)r
+  ;;   (when (bound-and-true-p eglot-lsp-context)
+  ;;     (let ((root (locate-dominating-file dir ".eglot-root")))
+  ;; 	  (when root (cons 'transient root)))))
+  ;; (add-hook 'project-find-functions #'rc/find-root-for-eglot-for-clj)
+
+  (provide 'init-eglot)
 #+end_src
 
 ** avy
@@ -1239,36 +1410,6 @@ jump to everywhere quickly
   (add-to-list 'jinx-exclude-regexps '(t "\\cc")) ; 拼写检查忽略中文
 
   (provide 'init-jinx)
-#+end_src
-
-** orderless
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-orderless.el
-:END:
-
-#+begin_src emacs-lisp
-  (require 'orderless)
-
-  (setq completion-styles '(orderless basic)
-        completion-category-defaults nil
-        completion-category-overrides '((file (styles basic partial-completion)))
-        orderless-component-separator #'orderless-escapable-split-on-space)
-
-  ;; ;; integrate with ivy
-  (setq ivy-re-builders-alist '((t . orderless-ivy-re-builder)))
-  (add-to-list 'ivy-highlight-functions-alist '(orderless-ivy-re-builder . orderless-ivy-highlight))
-
-  (defun just-one-face (fn &rest args)
-    (let ((orderless-match-faces [completions-common-part]))
-      (apply fn args)))
-  (advice-add 'company-capf--candidates :around #'just-one-face)
-
-  (defun company-completion-styles (capf-fn &rest args)
-    (let ((completion-styles '(basic partial-completion)))
-      (apply capf-fn args)))
-  (advice-add 'company-capf :around #'company-completion-styles)
-
-  (provide 'init-orderless)
 #+end_src
 
 ** font
@@ -1631,7 +1772,6 @@ jump to everywhere quickly
   (provide 'init-org-roam-ui)
 #+end_src
 
-
 ** super-save
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-super-save.el
@@ -1701,7 +1841,6 @@ jump to everywhere quickly
 
   (provide 'init-org-download)
 #+end_src
-
 
 ** emmet-mode
 :PROPERTIES:
@@ -2850,132 +2989,6 @@ jump to everywhere quickly
   (autoload 'rust-mode "rust-mode" nil t)
   (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
   (add-hook 'rust-mode-hook #'lsp)
-#+end_src
-** eglot
-#+begin_src elisp
-  (require 'eglot)
-
-  (with-eval-after-load 'eglot
-    ;; Start Eglot automatically in Python, C++, and Rust buffers
-    (add-hook 'prog-mode-hook 'eglot-ensure)
-    ;; (add-hook 'python-ts-mode 'eglot-ensure)
-    ;; (add-hook 'python-mode 'eglot-ensure)
-    )
-
-  (with-eval-after-load 'eglot
-    (setq eglot-autoshutdown t
-          eglot-send-changes-idle-time 0.5)
-    (setf (plist-get eglot-events-buffer-config :size) 0)
-    )
-
-  (with-eval-after-load 'eglot
-    (add-to-list 'eglot-server-programs
-                 '(c++-mode . ("clangd" "--header-insertion=never")))
-    ;; (add-to-list 'eglot-server-programs
-    ;;              '(c++-ts-mode . ("clangd" "--header-insertion=never")))
-    (add-to-list 'eglot-server-programs
-                 '(c-mode . ("clangd" "--header-insertion=never")))
-    ;; (add-to-list 'eglot-server-programs
-    ;;              '(c-ts-mode . ("clangd" "--header-insertion=never")))
-    (add-to-list 'eglot-server-programs
-                 '(python-mode . ("pyright-langserver")) t)
-    (add-to-list 'eglot-server-programs
-                 '(python-ts-mode . ("pyright-langserver")) t)
-    (add-to-list 'eglot-server-programs
-                 '(java-mode . ("/home/kazure/.emacs.d/.cache/lsp/eclipse.jdt.ls/bin/jdtls")))
-    (add-to-list 'eglot-server-programs
-                 '(java-ts-mode . ("/home/kazure/.emacs.d/.cache/lsp/eclipse.jdt.ls/bin/jdtls")))
-    (add-to-list 'eglot-server-programs
-                 '(scheme-mode . ("racket" "-l" "racket-langserver")))
-    (add-to-list 'eglot-server-programs
-                 '(asm-mode . ("asm-lsp")))
-    (add-to-list 'eglot-server-programs
-                 '(emacs-lisp-mode . ("ellsp")))
-    )
-
-  (setq eglot-ignored-server-capabilities
-        '(:documentOnTypeFormattingProvider
-          :documentFormattingProvider
-          :documentRangeFormattingProvider
-          :renameProvider
-          :documentHighlightProvider
-          :foldingRangeProvider
-          :inlayHintProvider
-          :hoverProvider
-          ))
-
-  ;; ;; use .eglot-root as project root
-  ;; (defun rc/find-root-for-eglot-for-clj
-  ;;     (di)r
-  ;;   (when (bound-and-true-p eglot-lsp-context)
-  ;;     (let ((root (locate-dominating-file dir ".eglot-root")))
-  ;; 	  (when root (cons 'transient root)))))
-  ;; (add-hook 'project-find-functions #'rc/find-root-for-eglot-for-clj)
-#+end_src
-** corfu
-#+begin_src elisp
-  (add-to-list 'load-path "~/.emacs.d/lib/corfu/extensions/")
-  (require 'corfu)
-  ;; (require 'corfu-echo)
-  (require 'corfu-history)
-  (require 'corfu-indexed)
-  ;; (require 'corfu-info)
-  (require 'corfu-popupinfo)
-
-  (setq tab-always-indent 'complete)
-  (setq completion-styles '(orderless basic))
-  (setq completion-category-defaults nil
-        completion-category-overrides nil)
-  (setq completion-cycle-threshold 4)
-  (setq text-mode-ispell-word-completion nil)
-
-  (setq corfu-auto t
-        corfu-auto-prefix 2
-        corfu-count 10
-        corfu-preview-current nil
-        corfu-on-exact-match nil
-        corfu-auto-delay 0.3
-        corfu-popupinfo-delay '(0.4 . 0.2)
-        corfu-quit-at-boundary t
-        global-corfu-modes '((not erc-mode
-                                  circe-mode
-                                  help-mode
-                                  gud-mode
-                                  eat-mode)
-                             t))
-
-  ;; (setq corfu-popupinfo-delay '(0.4 . 0.2))
-
-  (setq-default corfu-quit-no-match 'separator)
-  (add-hook 'after-init-hook #'global-corfu-mode)
-
-  (with-eval-after-load 'corfu
-    (corfu-indexed-mode)
-    (corfu-popupinfo-mode)
-    (corfu-history-mode))
-
-  (dotimes (i 10)
-    (define-key corfu-mode-map
-                      (kbd (format "M-%s" i))
-                      (kbd (format "C-%s <tab>" i))))
-
-  ;; ;; Move completions to minibuffer
-  ;; (defun corfu-move-to-minibuffer ()
-  ;;   (interactive)
-  ;;   (pcase completion-in-region--data
-  ;;     (`(,beg ,end ,table ,pred ,extras)
-  ;;      (let ((completion-extra-properties extras)
-  ;;            completion-cycle-threshold completion-cycling)
-  ;;        (consult-completion-in-region beg end table pred)))))
-  ;; (keymap-set corfu-map "M-m" #'corfu-move-to-minibuffer)
-  ;; (add-to-list 'corfu-continue-commands #'corfu-move-to-minibuffer)
-#+end_src
-
-*** icon
-#+begin_src elisp
-  (require 'nerd-icons-corfu)
-  (with-eval-after-load 'corfu
-    (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 #+end_src
 ** geiser
 #+begin_src elisp
