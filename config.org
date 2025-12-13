@@ -523,6 +523,12 @@
     	          (name 16 -1)
     	          " " filename)))
 #+end_src
+
+*** code
+#+begin_src elisp
+  (setq c-default-style "linux")
+#+end_src
+
 *** end
 #+begin_src elisp
   (provide 'init-ui)
@@ -548,29 +554,29 @@
         org-fold-catch-invisible-edits 'smart
         )
 
-  (with-eval-after-load 'org
-    ;; Make verbatim with highlight text background.
-    (add-to-list 'org-emphasis-alist
-                 '("=" (:background "#ffee11")))
-    ;; Make deletion (obsolete) text foreground with dark gray.
-    (add-to-list 'org-emphasis-alist
-                 '("+" (:foreground "dark gray"
-                                    :strike-through t)))
-    ;; Make code style around with box.
-    (add-to-list 'org-emphasis-alist
-                 '("~" (:box (:line-width 2
-                                          :color "grey75"
-                                          :style released-button)))))
+  ;; (with-eval-after-load 'org
+  ;;   ;; Make verbatim with highlight text background.
+  ;;   (add-to-list 'org-emphasis-alist
+  ;;                '("=" (:background "#ffee11")))
+  ;;   ;; Make deletion (obsolete) text foreground with dark gray.
+  ;;   (add-to-list 'org-emphasis-alist
+  ;;                '("+" (:foreground "dark gray"
+  ;;                                   :strike-through t)))
+  ;;   ;; Make code style around with box.
+  ;;   (add-to-list 'org-emphasis-alist
+  ;;                '("~" (:box (:line-width 2
+  ;;                                         :color "grey75"
+  ;;                                         :style released-button)))))
 
   (setq org-use-fast-todo-selection t) ;; C-c C-t KEY
 #+END_SRC
-*** COMMENT agenda
+*** agenda
 #+begin_src emacs-lisp
-  (define-key global-map (kbd "C-c A") 'org-agenda)
-  (global-set-key (kbd "C-c o a") '(lambda () (interactive) (org-agenda nil "d")))
+  (global-set-key (kbd "C-c o a") '(lambda () (interactive (org-agenda nil "a"))))
+  ;; (global-set-key (kbd "C-c o a") '(lambda () (interactive) (org-agenda nil "d")))
 
   (setq org-agenda-span 'week
-        org-agenda-window-setup 'current-window
+        org-agenda-window-setup 'reorganize-frame
         org-tags-column 0
         ;; org-agenda-compact-blocks nil
         )
@@ -584,69 +590,6 @@
         org-agenda-current-time-string
         "⭠ now  ────────")
 
-  (setq org-agenda-custom-commands
-        (quote
-         ;; `C-a d` is my main Agenda
-         (("d" "Daily Action List"
-           (
-
-            (agenda "" ((org-agenda-overriding-header "\nOverdue")
-                        (org-agenda-time-grid nil)
-                        (org-agenda-start-on-weekday nil)
-                        (org-agenda-show-all-dates nil)
-                        (org-agenda-format-date "")  ;; Skip the date
-                        (org-agenda-span 1)
-                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                        (org-agenda-entry-types '(:deadline :scheduled))
-                        (org-scheduled-past-days 999)
-                        (org-deadline-past-days 999)
-                        (org-deadline-warning-days 0)))
-            (agenda "" ((org-agenda-overriding-header " ") ;; Non-empty string
-                        (org-agenda-span 'day)
-                        (org-agenda-ndays 1)
-                        (org-agenda-sorting-strategy (quote ((agenda time-up priority-down tag-up))))
-
-                        ;; Do not include scheduled, due or overdue items here
-                        (org-deadline-warning-days 0)
-                        (org-scheduled-past-days 0)
-                        (org-deadline-past-days 0)
-
-                        (org-agenda-skip-scheduled-if-done t)
-                        (org-agenda-skip-timestamp-if-done t)
-                        (org-agenda-skip-deadline-if-done t)))
-
-            (agenda "" ((org-agenda-overriding-header "\nNext three days\n")
-                        (org-agenda-start-on-weekday nil)
-                        (org-agenda-start-day "+1d")
-                        (org-agenda-span 3)
-                        (org-deadline-warning-days 0)
-                        (org-agenda-block-separator nil)
-                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))))
-            (agenda "" ((org-agenda-overriding-header "\nUpcoming deadlines (+14d)\n")
-                        (org-agenda-time-grid nil)
-                        (org-agenda-start-on-weekday nil)
-                        ;; We don't want to replicate the previous section's
-                        ;; three days, so we start counting from the day after.
-                        (org-agenda-start-day "+3d")
-                        (org-agenda-span 14)
-                        (org-agenda-show-all-dates nil)
-                        (org-agenda-time-grid nil)
-                        (org-deadline-warning-days 0)
-                        (org-agenda-block-separator nil)
-                        (org-agenda-entry-types '(:deadline))
-                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))))
-            (tags "+focus"
-                  (
-                   (org-tags-match-list-sublevels nil)
-                   (org-agenda-todo-ignore-scheduled 'future)))
-            )))))
-
-
-  ;; (setq org-agenda-custom-commands
-  ;;       '(("A" "Agenda and All todos"
-  ;;          ((agenda "" ((org-agenda-span 'week)))
-  ;;           (alltodo "")))
-  ;;         ))
 
   (setq org-directory "~/Documents/org/")
   (setq org-agenda-files '("~/Documents/org/agenda.org" "~/Documents/org/todo.org"))
@@ -658,6 +601,69 @@
   ;; ??? what is this
   (setq org-agenda-start-with-log-mode t)
 
+  ;; (setq org-agenda-custom-commands
+  ;;       (quote
+  ;;        ;; `C-a d` is my main Agenda
+  ;;        (("d" "Daily Action List"
+  ;;          (
+
+  ;;           (agenda "" ((org-agenda-overriding-header "\nOverdue")
+  ;;                       (org-agenda-time-grid nil)
+  ;;                       (org-agenda-start-on-weekday nil)
+  ;;                       (org-agenda-show-all-dates nil)
+  ;;                       (org-agenda-format-date "")  ;; Skip the date
+  ;;                       (org-agenda-span 1)
+  ;;                       (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+  ;;                       (org-agenda-entry-types '(:deadline :scheduled))
+  ;;                       (org-scheduled-past-days 999)
+  ;;                       (org-deadline-past-days 999)
+  ;;                       (org-deadline-warning-days 0)))
+  ;;           (agenda "" ((org-agenda-overriding-header " ") ;; Non-empty string
+  ;;                       (org-agenda-span 'day)
+  ;;                       (org-agenda-ndays 1)
+  ;;                       (org-agenda-sorting-strategy (quote ((agenda time-up priority-down tag-up))))
+
+  ;;                       ;; Do not include scheduled, due or overdue items here
+  ;;                       (org-deadline-warning-days 0)
+  ;;                       (org-scheduled-past-days 0)
+  ;;                       (org-deadline-past-days 0)
+
+  ;;                       (org-agenda-skip-scheduled-if-done t)
+  ;;                       (org-agenda-skip-timestamp-if-done t)
+  ;;                       (org-agenda-skip-deadline-if-done t)))
+
+  ;;           (agenda "" ((org-agenda-overriding-header "\nNext three days\n")
+  ;;                       (org-agenda-start-on-weekday nil)
+  ;;                       (org-agenda-start-day "+1d")
+  ;;                       (org-agenda-span 3)
+  ;;                       (org-deadline-warning-days 0)
+  ;;                       (org-agenda-block-separator nil)
+  ;;                       (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))))
+  ;;           (agenda "" ((org-agenda-overriding-header "\nUpcoming deadlines (+14d)\n")
+  ;;                       (org-agenda-time-grid nil)
+  ;;                       (org-agenda-start-on-weekday nil)
+  ;;                       ;; We don't want to replicate the previous section's
+  ;;                       ;; three days, so we start counting from the day after.
+  ;;                       (org-agenda-start-day "+3d")
+  ;;                       (org-agenda-span 14)
+  ;;                       (org-agenda-show-all-dates nil)
+  ;;                       (org-agenda-time-grid nil)
+  ;;                       (org-deadline-warning-days 0)
+  ;;                       (org-agenda-block-separator nil)
+  ;;                       (org-agenda-entry-types '(:deadline))
+  ;;                       (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))))
+  ;;           (tags "+focus"
+  ;;                 (
+  ;;                  (org-tags-match-list-sublevels nil)
+  ;;                  (org-agenda-todo-ignore-scheduled 'future)))
+  ;;           )))))
+
+
+  ;; (setq org-agenda-custom-commands
+  ;;       '(("A" "Agenda and All todos"
+  ;;          ((agenda "" ((org-agenda-span 'week)))
+  ;;           (alltodo "")))
+  ;;         ))
 
 
   ;; (defun ct/display-buffer-org-agenda-managed-p (buffer-name action)
@@ -770,7 +776,7 @@ only the language set here can be babeled.
 #+begin_src emacs-lisp
   (require 'org-appear)
 
-  (setq org-hide-emphasis-markers t)
+  (setq org-hide-emphasis-markers nil)
   (setq org-appear-autolinks t)
   (setq org-appear-autosubmarkers t)
   (setq org-appear-autoentities t)
@@ -1442,7 +1448,7 @@ jump to everywhere quickly
 
   (setq org-roam-dailies-capture-templates
         '(("d" "default" entry "* %<%I:%M %p>: %?" 
-           :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n#+filetags: :diary:draft:\n\n*  Main\n"))))
+           :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n#+filetags: :diary:draft:\n\n* Main\n"))))
 #+end_src
 
 
@@ -2241,7 +2247,7 @@ jump to everywhere quickly
 #+begin_src emacs-lisp
   (require 'gptel)
   (require 'gptel-magit)
-  (global-set-key (kbd "C-c o a") 'gptel)
+  (global-set-key (kbd "C-c o g") 'gptel)
   ;; (gptel-make-ollama "Ollama"             ;Any name of your choosing
   ;;   :host "localhost:11434"               ;Where it's running
   ;;   :stream t                             ;Stream responses
