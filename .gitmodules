@@ -55,6 +55,9 @@
 [submodule "compat"]
 	path = lib/compat
 	url = https://github.com/emacs-compat/compat.git
+[submodule "cond-let"]
+	path = lib/cond-let
+	url = https://github.com/tarsius/cond-let.git
 [submodule "consult"]
 	path = lib/consult
 	url = https://github.com/minad/consult
@@ -136,6 +139,9 @@
 [submodule "gptel-magit"]
 	path = lib/gptel-magit
 	url = https://github.com/ragnard/gptel-magit
+[submodule "gt"]
+	path = lib/gt
+	url = https://github.com/lorniu/gt.el.git
 [submodule "helpful"]
 	path = lib/helpful
 	url = https://github.com/Wilfred/helpful
@@ -169,9 +175,6 @@
 [submodule "leetcode"]
 	path = lib/leetcode
 	url = https://github.com/kaiwk/leetcode.el
-[submodule "lib/cond-let"]
-	path = lib/cond-let
-	url = https://github.com/tarsius/cond-let.git
 [submodule "link-hint"]
 	path = lib/link-hint
 	url = https://github.com/noctuid/link-hint.el
@@ -235,6 +238,9 @@
 [submodule "parsebib"]
 	path = lib/parsebib
 	url = https://github.com/joostkremers/parsebib
+[submodule "pdd"]
+	path = lib/pdd
+	url = https://github.com/lorniu/pdd.el
 [submodule "pfuture"]
 	path = lib/pfuture
 	url = https://github.com/Alexander-Miller/pfuture

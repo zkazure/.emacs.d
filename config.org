@@ -1326,8 +1326,6 @@ jump to everywhere quickly
 
 *** basic
 #+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/lib/cond-let/")
-  (require 'cond-let)
   (require 'org-roam)
 
   (add-to-list 'load-path "~/.emacs.d/lib/org-roam/extensions/")
@@ -3112,6 +3110,16 @@ jump to everywhere quickly
   (define-key org-mode-map (kbd "C-c n a u") 'anki-helper-entry-update-all)
   (define-key org-mode-map (kbd "C-c n a d") 'anki-helper-entry-delete)
   (define-key org-mode-map (kbd "C-c n a b") 'anki-helper-entry-browse)
+#+end_src
+** gt
+#+begin_src elisp
+  (require 'gt)
+  (setq gt-langs '(en zh))
+  (setq gt-default-translator (gt-translator :engines (gt-google-engine)
+                                             :render (list
+                                                      (gt-posframe-pop-render :if 'word)
+                                                      (gt-buffer-render))))
+  (define-key global-map (kbd "C-c l") 'gt-translate)
 #+end_src
 ** END
 
