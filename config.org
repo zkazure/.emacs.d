@@ -3103,6 +3103,16 @@ jump to everywhere quickly
   (setq counsel-describe-function-function #'helpful-callable)
   (setq counsel-describe-variable-function #'helpful-variable)
 #+end_src
+** anki-helper
+#+begin_src elisp
+  (require 'anki-helper)
+  (setq anki-helper-cloze-use-emphasis 'bold)
+
+  (define-key org-mode-map (kbd "C-c n a s") 'anki-helper-entry-sync-all)
+  (define-key org-mode-map (kbd "C-c n a u") 'anki-helper-entry-update-all)
+  (define-key org-mode-map (kbd "C-c n a d") 'anki-helper-entry-delete)
+  (define-key org-mode-map (kbd "C-c n a b") 'anki-helper-entry-browse)
+#+end_src
 ** END
 
 #+begin_src emacs-lisp
