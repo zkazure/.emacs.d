@@ -1,0 +1,9 @@
+#+title: Elfeed
+
+* Media :elfeed:
+** [[https://www.daemonology.net/hn-daily/index.rss][HN Daily]] :tech:
+** [[https://www.theatlantic.com/feed/all/][The Atlantic]] :lit:
+** Finance :fin:
+*** [[https://www.ft.com/business-education?format=rss][Financial Times]]
+*** [[https://feeds.content.dowjones.io/public/rss/socialeconomyfeed][WSJ-Finance]]
+*** [[https://feeds.content.dowjones.io/public/rss/RSSPersonalFinance][WSJ-PersonalFinance]]

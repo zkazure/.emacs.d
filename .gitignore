@@ -23,7 +23,6 @@
 ielm-history.eld
 
 lisp/
-lib/lsp-bridge/
 
 /history
 /url/
@@ -36,5 +35,11 @@ lib/lsp-bridge/
 /eaf/
 /ebdb
 /network-security.data
-lsp-bridge/
 dirvish/
+/.agent-shell/
+/lib/lsp-bridge/
+/forge-database.sqlite
+/rime/
+/pyim/
+/games/
+*.elc

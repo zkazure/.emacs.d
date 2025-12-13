@@ -1,6 +1,6 @@
 #+title: Emacs Configuration
 
-From now on my Emacs configuration will be stable and reliable. 
+From now on my Emacs configuration will be stable and reliable.
 
 However, there is still a long way to go.
 
@@ -11,7 +11,7 @@ However, there is still a long way to go.
    - [[https://github.com/seagle0128/.emacs.d][Centaur Emacs]]
    - [[https://github.com/jwiegley/dot-emacs/tree/master][jwiegley]]: the author of *use-package*
    - [[https://github.com/karthink/.emacs.d][karthink]]: the author of *gptel*
-     
+
 * Todo List
 
 - [X] auto tangle.
@@ -19,15 +19,12 @@ However, there is still a long way to go.
 - [X] symbol overlay
 - [X] ace-window
 - [X] link-hint
-- [X] doom-modeline
-- [X] aggressive-indent
-- [ ] dape
 - [ ] magit forge
 - [ ] present in Emacs
 
 * Acknowledgments
 
-Special thanks to 
+Special thanks to
 - [[https://github.com/manateelazycat][ManateeLazyCat]]: author of *lsp-bridge*
 - [[https://emacs-china.org/][Emacs China]]
 - [[https://codeberg.org/daviwil][David Wilson]]

@@ -4,18 +4,21 @@
 [submodule "ace-window"]
 	path = lib/ace-window
 	url = https://github.com/abo-abo/ace-window
-[submodule "aggressive-indent"]
-	path = lib/aggressive-indent
-	url = https://github.com/Malabarba/aggressive-indent-mode
+[submodule "acp"]
+	path = lib/acp
+	url = https://github.com/xenodium/acp.el.git
+[submodule "agent-shell"]
+	path = lib/agent-shell
+	url = https://github.com/xenodium/agent-shell.git
 [submodule "aio"]
 	path = lib/aio
 	url = https://github.com/skeeto/emacs-aio
-[submodule "amx"]
-	path = lib/amx
-	url = https://github.com/DarwinAwardWinner/amx
 [submodule "anki-helper"]
 	path = lib/anki-helper
 	url = https://github.com/Elilif/emacs-anki-helper.git
+[submodule "apheleia"]
+	path = lib/apheleia
+	url = https://github.com/radian-software/apheleia
 [submodule "async"]
 	path = lib/async
 	url = https://github.com/jwiegley/emacs-async
@@ -28,6 +31,9 @@
 [submodule "avy"]
 	path = lib/avy
 	url = https://github.com/abo-abo/avy
+[submodule "beacon"]
+	path = lib/beacon
+	url = https://github.com/Malabarba/beacon
 [submodule "borg"]
 	path = lib/borg
 	url = https://github.com/emacscollective/borg.git
@@ -40,9 +46,6 @@
 [submodule "cdlatex"]
 	path = lib/cdlatex
 	url = https://github.com/cdominik/cdlatex
-[submodule "citar"]
-	path = lib/citar
-	url = https://github.com/emacs-citar/citar
 [submodule "citeproc"]
 	path = lib/citeproc
 	url = https://github.com/andras-simonyi/citeproc-el
@@ -61,6 +64,9 @@
 [submodule "consult"]
 	path = lib/consult
 	url = https://github.com/minad/consult
+[submodule "consult-yasnippet"]
+	path = lib/consult-yasnippet
+	url = https://github.com/mohkale/consult-yasnippet
 [submodule "corfu"]
 	path = lib/corfu
 	url = https://github.com/minad/corfu
@@ -82,15 +88,18 @@
 [submodule "dirvish"]
 	path = lib/dirvish
 	url = https://github.com/alexluigit/dirvish
-[submodule "doom-modeline"]
-	path = lib/doom-modeline
-	url = https://github.com/seagle0128/doom-modeline
 [submodule "eat"]
 	path = lib/eat
 	url = https://codeberg.org/akib/emacs-eat
-[submodule "ebdb"]
-	path = lib/ebdb
-	url = git@github.com:emacsmirror/ebdb.git
+[submodule "edit-indirect"]
+	path = lib/edit-indirect
+	url = https://github.com/Fanael/edit-indirect
+[submodule "elfeed"]
+	path = lib/elfeed
+	url = https://github.com/skeeto/elfeed
+[submodule "elfeed-org"]
+	path = lib/elfeed-org
+	url = https://github.com/remyhonig/elfeed-org
 [submodule "elisp-refs"]
 	path = lib/elisp-refs
 	url = https://github.com/Wilfred/elisp-refs
@@ -103,6 +112,9 @@
 [submodule "emmet-mode"]
 	path = lib/emmet-mode
 	url = https://github.com/smihica/emmet-mode
+[submodule "envrc"]
+	path = lib/envrc
+	url = https://github.com/purcell/envrc
 [submodule "epkg"]
 	path = lib/epkg
 	url = https://github.com/emacscollective/epkg.git
@@ -118,6 +130,9 @@
 [submodule "flycheck"]
 	path = lib/flycheck
 	url = https://github.com/flycheck/flycheck
+[submodule "forge"]
+	path = lib/forge
+	url = https://github.com/magit/forge
 [submodule "geiser"]
 	path = lib/geiser
 	url = https://gitlab.com/emacs-geiser/geiser
@@ -133,6 +148,9 @@
 [submodule "go-mode"]
 	path = lib/go-mode
 	url = https://github.com/dominikh/go-mode.el
+[submodule "god-mode"]
+	path = lib/god-mode
+	url = https://github.com/emacsorphanage/god-mode
 [submodule "gptel"]
 	path = lib/gptel
 	url = https://github.com/karthink/gptel
@@ -145,9 +163,6 @@
 [submodule "helpful"]
 	path = lib/helpful
 	url = https://github.com/Wilfred/helpful
-[submodule "highlight-indent-guides"]
-	path = lib/highlight-indent-guides
-	url = https://github.com/DarthFennec/highlight-indent-guides
 [submodule "highlight-matching-tag"]
 	path = lib/highlight-matching-tag
 	url = https://github.com/manateelazycat/highlight-matching-tag.git
@@ -160,21 +175,18 @@
 [submodule "hydra"]
 	path = lib/hydra
 	url = https://github.com/abo-abo/hydra
+[submodule "inheritenv"]
+	path = lib/inheritenv
+	url = https://github.com/purcell/inheritenv
 [submodule "instant-rename-tag"]
 	path = lib/instant-rename-tag
 	url = https://github.com/manateelazycat/instant-rename-tag.git
-[submodule "ivy"]
-	path = lib/ivy
-	url = https://github.com/abo-abo/swiper
 [submodule "jinx"]
 	path = lib/jinx
 	url = https://github.com/minad/jinx
-[submodule "js2-mode"]
-	path = lib/js2-mode
-	url = https://github.com/mooz/js2-mode
-[submodule "leetcode"]
-	path = lib/leetcode
-	url = https://github.com/kaiwk/leetcode.el
+[submodule "kindle-mate"]
+	path = lib/kindle-mate
+	url = https://github.com/zkazure/kindle-mate.git
 [submodule "link-hint"]
 	path = lib/link-hint
 	url = https://github.com/noctuid/link-hint.el
@@ -190,9 +202,6 @@
 [submodule "major-mode-hydra"]
 	path = lib/major-mode-hydra
 	url = https://github.com/jerrypnz/major-mode-hydra.el
-[submodule "marginalia"]
-	path = lib/marginalia
-	url = https://github.com/minad/marginalia
 [submodule "markdown-mode"]
 	path = lib/markdown-mode
 	url = https://github.com/jrblevin/markdown-mode
@@ -208,18 +217,21 @@
 [submodule "nerd-icons"]
 	path = lib/nerd-icons
 	url = https://github.com/rainstormstudio/nerd-icons.el
-[submodule "nerd-icons-completion"]
-	path = lib/nerd-icons-completion
-	url = https://github.com/rainstormstudio/nerd-icons-completion
 [submodule "nerd-icons-corfu"]
 	path = lib/nerd-icons-corfu
 	url = https://github.com/LuigiPiucco/nerd-icons-corfu
+[submodule "olivetti"]
+	path = lib/olivetti
+	url = https://github.com/rnkn/olivetti
 [submodule "orderless"]
 	path = lib/orderless
 	url = https://github.com/oantolin/orderless
 [submodule "org-appear"]
 	path = lib/org-appear
 	url = https://github.com/awth13/org-appear
+[submodule "org-count-words"]
+	path = lib/org-count-words
+	url = git@github.com:zkazure/org-count-words.git
 [submodule "org-download"]
 	path = lib/org-download
 	url = https://github.com/abo-abo/org-download
@@ -235,6 +247,15 @@
 [submodule "org-roam-ui"]
 	path = lib/org-roam-ui
 	url = https://github.com/org-roam/org-roam-ui
+[submodule "org-super-agenda"]
+	path = lib/org-super-agenda
+	url = https://github.com/alphapapa/org-super-agenda
+[submodule "ox-gfm"]
+	path = lib/ox-gfm
+	url = https://github.com/larstvei/ox-gfm
+[submodule "ox-pandoc"]
+	path = lib/ox-pandoc
+	url = https://github.com/emacsorphanage/ox-pandoc
 [submodule "parsebib"]
 	path = lib/parsebib
 	url = https://github.com/joostkremers/parsebib
@@ -253,6 +274,9 @@
 [submodule "projectile"]
 	path = lib/projectile
 	url = https://github.com/bbatsov/projectile
+[submodule "pyim"]
+	path = lib/pyim
+	url = https://github.com/tumashu/pyim
 [submodule "queue"]
 	path = lib/queue
 	url = git@github.com:emacsmirror/queue.git
@@ -271,9 +295,18 @@
 [submodule "s"]
 	path = lib/s
 	url = https://github.com/magnars/s.el
+[submodule "shell-maker"]
+	path = lib/shell-maker
+	url = https://github.com/xenodium/shell-maker
 [submodule "shrink-path"]
 	path = lib/shrink-path
 	url = https://gitlab.com/bennya/shrink-path.el
+[submodule "sideline"]
+	path = lib/sideline
+	url = https://github.com/emacs-sideline/sideline
+[submodule "sideline-flymake"]
+	path = lib/sideline-flymake
+	url = https://github.com/emacs-sideline/sideline-flymake
 [submodule "simple-httpd"]
 	path = lib/simple-httpd
 	url = https://github.com/skeeto/emacs-web-server
@@ -313,9 +346,24 @@
 [submodule "treesit-fold"]
 	path = lib/treesit-fold
 	url = https://github.com/emacs-tree-sitter/treesit-fold
+[submodule "ts"]
+	path = lib/ts
+	url = https://github.com/alphapapa/ts.el
+[submodule "typescript-mode"]
+	path = lib/typescript-mode
+	url = https://github.com/emacs-typescript/typescript.el
+[submodule "vertico"]
+	path = lib/vertico
+	url = https://github.com/minad/vertico
+[submodule "vertico-posframe"]
+	path = lib/vertico-posframe
+	url = https://github.com/tumashu/vertico-posframe
 [submodule "visual-regexp"]
 	path = lib/visual-regexp
 	url = https://github.com/benma/visual-regexp.el
+[submodule "visual-regexp-steroids"]
+	path = lib/visual-regexp-steroids
+	url = https://github.com/benma/visual-regexp-steroids.el
 [submodule "vundo"]
 	path = lib/vundo
 	url = https://github.com/casouri/vundo
@@ -334,6 +382,9 @@
 [submodule "with-editor"]
 	path = lib/with-editor
 	url = https://github.com/magit/with-editor.git
+[submodule "xr"]
+	path = lib/xr
+	url = https://github.com/mattiase/xr
 [submodule "yaml"]
 	path = lib/yaml
 	url = https://github.com/zkry/yaml.el
@@ -343,6 +394,3 @@
 [submodule "yasnippet"]
 	path = lib/yasnippet
 	url = https://github.com/joaotavora/yasnippet
-[submodule "yasnippet-capf"]
-	path = lib/yasnippet-capf
-	url = https://github.com/elken/yasnippet-capf
