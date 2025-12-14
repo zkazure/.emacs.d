@@ -889,7 +889,7 @@ only the language set here can be babeled.
   (require 'which-key)
   (require 'which-key-posframe)
 
-  (setq which-key-max-description-length 30
+  (setq which-key-max-description-length 40
         which-key-lighter nil
         which-key-show-remaining-keys t
         which-key-idle-delay 0.5)
@@ -965,11 +965,19 @@ only the language set here can be babeled.
 #+begin_src elisp
   (require 'consult)
 
+  (with-eval-after-load 'consult
+    (define-key global-map
+                [remap isearch-forward] #'consult-line)
+    (define-key global-map
+                [remap Info-search] #'consult-info)
+    (define-key global-map
+                [remap recentf-open-files] #'consult-recent-file))
+
   (global-set-key (kbd "C-c M-x") 'consult-mode-command)
   (global-set-key (kbd "C-c h") 'consult-history)
-  (global-set-key (kbd "C-c k") 'consult-kmacro)
+  (global-set-key (kbd "C-c K") 'consult-kmacro)
   (global-set-key (kbd "C-c M") 'consult-man)
-  (global-set-key (kbd "C-c i") 'consult-info)
+  ;; (global-set-key (kbd "C-c i") 'consult-info)
   (global-set-key (kbd "C-x M-:") 'consult-complex-command)     ;; orig. repeat-complex-command
   (global-set-key (kbd "C-x b") 'consult-buffer)                ;; orig. switch-to-buffer
   (global-set-key (kbd "C-x 4 b") 'consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
@@ -1050,8 +1058,6 @@ only the language set here can be babeled.
   (global-set-key (kbd "C-;") #'embark-dwim)
 
   (add-hook 'embark-collect-mode-hook #'consult-preview-at-point-mode)
-
-
 #+end_src
 
 *** which-key
