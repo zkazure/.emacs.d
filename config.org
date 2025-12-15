@@ -946,14 +946,18 @@ only the language set here can be babeled.
   (require 'vertico)
   (add-to-list 'load-path "~/.emacs.d/lib/vertico/extensions/")
   (require 'vertico-directory)
+  (require 'vertico-multiform)
+  (require 'vertico-repeat)
 
   (vertico-mode)
+  (vertico-multiform-mode)
 
   (keymap-set vertico-map "RET" #'vertico-directory-enter)
   (keymap-set vertico-map "DEL" #'vertico-directory-delete-char)
   (keymap-set vertico-map "M-DEL" #'vertico-directory-delete-word)
   (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
 
+  (add-hook 'minibuffer-setup-hook #'vertico-repeat-save)
   (provide 'init-vertico)
 #+end_src
 
@@ -977,7 +981,7 @@ only the language set here can be babeled.
   (global-set-key (kbd "C-c h") 'consult-history)
   (global-set-key (kbd "C-c K") 'consult-kmacro)
   (global-set-key (kbd "C-c M") 'consult-man)
-  ;; (global-set-key (kbd "C-c i") 'consult-info)
+  (global-set-key (kbd "C-c i") 'consult-info)
   (global-set-key (kbd "C-x M-:") 'consult-complex-command)     ;; orig. repeat-complex-command
   (global-set-key (kbd "C-x b") 'consult-buffer)                ;; orig. switch-to-buffer
   (global-set-key (kbd "C-x 4 b") 'consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
@@ -1127,6 +1131,7 @@ only the language set here can be babeled.
   (setq corfu-auto t
         corfu-auto-prefix 2
         corfu-count 10
+        corfu-cycle t
         corfu-preview-current nil
         corfu-on-exact-match nil
         corfu-auto-delay 0.3
@@ -1151,8 +1156,8 @@ only the language set here can be babeled.
 
   (dotimes (i 10)
     (define-key corfu-mode-map
-                      (kbd (format "M-%s" i))
-                      (kbd (format "C-%s <tab>" i))))
+                (kbd (format "M-%s" i))
+                (kbd (format "C-%s <tab>" i))))
 
   ;; ;; Move completions to minibuffer
   ;; (defun corfu-move-to-minibuffer ()
@@ -1164,6 +1169,12 @@ only the language set here can be babeled.
   ;;        (consult-completion-in-region beg end table pred)))))
   ;; (keymap-set corfu-map "M-m" #'corfu-move-to-minibuffer)
   ;; (add-to-list 'corfu-continue-commands #'corfu-move-to-minibuffer)
+
+  (with-eval-after-load 'corfu
+    ;; 取消 C-n / C-p 在补全状态下的绑定，让它们始终向下/向上移动光标
+    (define-key corfu-map (kbd "C-n") nil)
+    (define-key corfu-map (kbd "C-p") nil))
+
 #+end_src
 
 *** icon
@@ -1539,7 +1550,12 @@ jump to everywhere quickly
   (require 'jinx)
 
   (add-hook 'emacs-startup-hook #'global-jinx-mode)
-  (add-to-list 'jinx-exclude-regexps '(t "\\cc")) ; 拼写检查忽略中文
+  ;; (add-to-list 'jinx-exclude-regexps '(t "\\cc")) ; 拼写检查忽略中文
+  (add-to-list 'jinx-exclude-regexps '(t "\\p{Han}"))
+
+  (with-eval-after-load 'vertico-multiform
+    (add-to-list 'vertico-multiform-categories
+                 '(jinx grid (vertico-grid-annotate . 20) (vertico-count . 4))))
 
   (provide 'init-jinx)
 #+end_src
