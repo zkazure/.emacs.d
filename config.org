@@ -335,7 +335,7 @@
   (require 'init-leetcode)
   (require 'init-move-text)
   (require 'init-tag)
-  '(require 'init-ai)
+  (require 'init-ai)
   (require 'init-ace-window)
 
   (require 'init-personal)
@@ -884,16 +884,7 @@ only the language set here can be babeled.
   (require 'which-key)
   (require 'which-key-posframe)
 
-  (setq which-key-max-description-length 40
-        which-key-lighter nil
-        which-key-show-remaining-keys t
-        which-key-idle-delay 0.5)
-
-  (setq which-key-posframe-parameters '((left-fringe . 8)
-                                        (right-fringe . 8)))
-
   (which-key-mode)
-
   (which-key-posframe-mode)
 
   (provide 'init-which-key)
@@ -2439,46 +2430,46 @@ only the language set here can be babeled.
 
   (add-hook 'embark-collect-mode-hook #'consult-preview-at-point-mode)
 
-  ;; which-key for embark
-  (with-no-warnings
-    (with-eval-after-load 'which-key
-      (defun embark-which-key-indicator ()
-        "An embark indicator that displays keymaps using which-key.
-  The which-key help message will show the type and value of the
-  current target followed by an ellipsis if there are further
-  targets."
-        (lambda (&optional keymap targets prefix)
-          (if (null keymap)
-              (which-key--hide-popup-ignore-command)
-            (which-key--show-keymap
-             (if (eq (plist-get (car targets) :type) 'embark-become)
-                 "Become"
-               (format "Act on %s '%s'%s"
-                       (plist-get (car targets) :type)
-                       (embark--truncate-target (plist-get (car targets) :target))
-                       (if (cdr targets) "…" "")))
-             (if prefix
-                 (pcase (lookup-key keymap prefix 'accept-default)
-                   ((and (pred keymapp) km) km)
-                   (_ (key-binding prefix 'accept-default)))
-               keymap)
-             nil nil t (lambda (binding)
-                         (not (string-suffix-p "-argument" (cdr binding))))))))
+  ;; ;; which-key for embark
+  ;; (with-no-warnings
+  ;;   (with-eval-after-load 'which-key
+  ;;     (defun embark-which-key-indicator ()
+  ;;       "An embark indicator that displays keymaps using which-key.
+  ;; The which-key help message will show the type and value of the
+  ;; current target followed by an ellipsis if there are further
+  ;; targets."
+  ;;       (lambda (&optional keymap targets prefix)
+  ;;         (if (null keymap)
+  ;;             (which-key--hide-popup-ignore-command)
+  ;;           (which-key--show-keymap
+  ;;            (if (eq (plist-get (car targets) :type) 'embark-become)
+  ;;                "Become"
+  ;;              (format "Act on %s '%s'%s"
+  ;;                      (plist-get (car targets) :type)
+  ;;                      (embark--truncate-target (plist-get (car targets) :target))
+  ;;                      (if (cdr targets) "…" "")))
+  ;;            (if prefix
+  ;;                (pcase (lookup-key keymap prefix 'accept-default)
+  ;;                  ((and (pred keymapp) km) km)
+  ;;                  (_ (key-binding prefix 'accept-default)))
+  ;;              keymap)
+  ;;            nil nil t (lambda (binding)
+  ;;                        (not (string-suffix-p "-argument" (cdr binding))))))))
 
-      (setq embark-indicators
-            '(embark-which-key-indicator
-              embark-highlight-indicator
-              embark-isearch-highlight-indicator))
+  ;;     (setq embark-indicators
+  ;;           '(embark-which-key-indicator
+  ;;             embark-highlight-indicator
+  ;;             embark-isearch-highlight-indicator))
 
-      (defun embark-hide-which-key-indicator (fn &rest args)
-        "Hide the which-key indicator immediately when using the completing-read prompter."
-        (which-key--hide-popup-ignore-command)
-        (let ((embark-indicators
-               (remq #'embark-which-key-indicator embark-indicators)))
-          (apply fn args)))
+  ;;     (defun embark-hide-which-key-indicator (fn &rest args)
+  ;;       "Hide the which-key indicator immediately when using the completing-read prompter."
+  ;;       (which-key--hide-popup-ignore-command)
+  ;;       (let ((embark-indicators
+  ;;              (remq #'embark-which-key-indicator embark-indicators)))
+  ;;         (apply fn args)))
 
-      (advice-add #'embark-completing-read-prompter
-                  :around #'embark-hide-which-key-indicator)))
+  ;;     (advice-add #'embark-completing-read-prompter
+  ;;                 :around #'embark-hide-which-key-indicator)))
 #+end_src
 
 *** corfu
@@ -2877,26 +2868,26 @@ only the language set here can be babeled.
 ** modeline
 #+begin_src elisp
   (setq minor-mode-alist nil)
-  (setq mode-line-mule-info nil)
+  (setq mode-line-mule-info t)
 
-  (setq-default
-   mode-line-format
-   '(
-     "%e"
-     mode-line-front-space
-     (:eval
-      (format "%s%s"
-              (buffer-name)
-              (if (buffer-modified-p) "*" "")))
+  ;; (setq-default
+  ;;  mode-line-format
+  ;;  '(
+  ;;    "%e"
+  ;;    mode-line-front-space
+  ;;    (:eval
+  ;;     (format "%s%s"
+  ;;             (buffer-name)
+  ;;             (if (buffer-modified-p) "*" "")))
 
-     " "
-     mode-name
-     " "
-     mode-line-position
-     " "
-     vc-mode
-     mode-line-end-spaces
-     ))
+  ;;    " "
+  ;;    mode-name
+  ;;    " "
+  ;;    mode-line-position
+  ;;    " "
+  ;;    vc-mode
+  ;;    mode-line-end-spaces
+  ;;    ))
 #+end_src
 ** org-id-all-file
 #+begin_src elisp
