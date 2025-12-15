@@ -2290,15 +2290,17 @@ only the language set here can be babeled.
   (add-hook 'emacs-startup-hook #'global-jinx-mode)
   (add-to-list 'jinx-exclude-regexps '(t "\\cc")) ; 拼写检查忽略中文
 
-  (keymap-global-set "M-$" #'check-correct)
-  (keymap-global-set "C-M-$" #'check-languages)
+  (keymap-global-set "M-$" #'jinx-correct)
+  (keymap-global-set "C-M-$" #'jinx-languages)
 
   (setq check-languages "en_GB en_US")
 #+end_src
 *** flymake
 #+begin_src elisp
-  (setq flymake-no-changes-timeout 0.5
-        flymake-show-diagnostics-at-end-of-line t)
+  (setq flymake-no-changes-timeout nil
+        flymake-fringe-indicator-position 'right-fringe
+        flymake-margin-indicator-position 'right-margin
+        flymake-show-diagnostics-at-end-of-line 'short)
 
 #+end_src
 
@@ -2729,7 +2731,7 @@ only the language set here can be babeled.
   (global-set-key (kbd "C-c o t") 'my-open-current-dir-in-terminal)
 #+end_src
 
-** pixel scrool
+** pixel scroll
 
 #+begin_src emacs-lisp
   (pixel-scroll-precision-mode t)
@@ -2851,22 +2853,6 @@ only the language set here can be babeled.
 #+end_src
 
 
-** highlight-indent-guides
-#+begin_src emacs-lisp
-  (require 'highlight-indent-guides)
-
-  (setq highlight-indent-guides-method 'character)
-  (setq highlight-indent-guides-auto-character-face-perc 40)
-  (setq highlight-indent-guides-auto-enabled t)
-
-  ;; (set-face-background 'highlight-indent-guides-odd-face "darkgray")
-  ;; (set-face-background 'highlight-indent-guides-even-face "dimgray")
-  ;; (set-face-foreground 'highlight-indent-guides-character-face "gray20")
-
-  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-#+end_src
-
-
 ** colorful-mode
 #+begin_src elisp
   (require 'colorful-mode)
@@ -2888,12 +2874,30 @@ only the language set here can be babeled.
   (global-set-key (kbd "C-c o L") 'link-hint-copy-link)
 #+end_src
 
-** doom-modeline
-#+begin_src emacs-lisp
-  (require 'doom-modeline)
-  (doom-modeline-mode 1)
-#+end_src
+** modeline
+#+begin_src elisp
+  (setq minor-mode-alist nil)
+  (setq mode-line-mule-info nil)
 
+  (setq-default
+   mode-line-format
+   '(
+     "%e"
+     mode-line-front-space
+     (:eval
+      (format "%s%s"
+              (buffer-name)
+              (if (buffer-modified-p) "*" "")))
+
+     " "
+     mode-name
+     " "
+     mode-line-position
+     " "
+     vc-mode
+     mode-line-end-spaces
+     ))
+#+end_src
 ** org-id-all-file
 #+begin_src elisp
   ;;; org-id-all-headlines.el --- Add IDs to all headlines in a buffer
@@ -3097,7 +3101,23 @@ only the language set here can be babeled.
   (global-set-key (kbd "C-c o s") 'symbol-overlay-mode)
   (global-set-key (kbd "C-c o S") 'symbol-overlay-remove-all)
 #+end_src
-** aggressive-indent
+** COMMENT highlight-indent-guides
+#+begin_src emacs-lisp
+  (require 'highlight-indent-guides)
+
+  (setq highlight-indent-guides-method 'character)
+  (setq highlight-indent-guides-auto-character-face-perc 40)
+  (setq highlight-indent-guides-auto-enabled t)
+
+  ;; (set-face-background 'highlight-indent-guides-odd-face "darkgray")
+  ;; (set-face-background 'highlight-indent-guides-even-face "dimgray")
+  ;; (set-face-foreground 'highlight-indent-guides-character-face "gray20")
+
+  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+#+end_src
+
+
+** COMMENT aggressive-indent
 #+begin_src elisp
   (require 'aggressive-indent)
   (global-aggressive-indent-mode 1)

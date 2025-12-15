@@ -79,9 +79,6 @@
 [submodule "dirvish"]
 	path = lib/dirvish
 	url = https://github.com/alexluigit/dirvish
-[submodule "doom-modeline"]
-	path = lib/doom-modeline
-	url = https://github.com/seagle0128/doom-modeline
 [submodule "eat"]
 	path = lib/eat
 	url = https://codeberg.org/akib/emacs-eat
