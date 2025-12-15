@@ -3069,11 +3069,7 @@ jump to everywhere quickly
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize))
 #+end_src
-** amx
-#+begin_src elisp
-  (require 'amx)
-  (add-hook 'after-init-hook 'amx-mode)
-#+end_src
+
 ** go-mode
 #+begin_src elisp
   (require 'go-mode)

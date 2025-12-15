@@ -10,9 +10,6 @@
 [submodule "aio"]
 	path = lib/aio
 	url = https://github.com/skeeto/emacs-aio
-[submodule "amx"]
-	path = lib/amx
-	url = https://github.com/DarwinAwardWinner/amx
 [submodule "anki-helper"]
 	path = lib/anki-helper
 	url = https://github.com/Elilif/emacs-anki-helper.git

@@ -1570,3 +1570,8 @@ https://abode.karthinks.com/org-latex-preview/
   (provide 'init-ivy)
 #+end_src
 
+** amx
+#+begin_src elisp
+  (require 'amx)
+  (add-hook 'after-init-hook 'amx-mode)
+#+end_src
