@@ -292,7 +292,7 @@
 
 
   ;; Now we only need many require command
-   ;; (require 'init-base)
+  ;; (require 'init-base)
 
   ;; inside
   (require 'init-ui)
@@ -335,10 +335,11 @@
   (require 'init-leetcode)
   (require 'init-move-text)
   (require 'init-tag)
-  (require 'init-ai)
+  '(require 'init-ai)
   (require 'init-ace-window)
 
   (require 'init-personal)
+
 
   (require 'init-test)
 
@@ -2283,14 +2284,22 @@ only the language set here can be babeled.
 :HEADER-ARGS: :tangle lisp/init-check.el
 :END:
 *** jinx
+
 #+begin_src emacs-lisp
   (require 'jinx)
-  (add-hook 'emacs-startup-hook #'global-check-mode)
-  (add-to-list 'check-exclude-regexps '(t "\\cc")) ; 拼写检查忽略中文
+  (add-hook 'emacs-startup-hook #'global-jinx-mode)
+  (add-to-list 'jinx-exclude-regexps '(t "\\cc")) ; 拼写检查忽略中文
+
   (keymap-global-set "M-$" #'check-correct)
   (keymap-global-set "C-M-$" #'check-languages)
 
   (setq check-languages "en_GB en_US")
+#+end_src
+*** flymake
+#+begin_src elisp
+  (setq flymake-no-changes-timeout nil
+        flymake-fringe-indicator-position 'right-fringe
+        flymake-margin-indicator-position 'right-margin)
 #+end_src
 *** other checker
 #+begin_src elisp
@@ -2359,7 +2368,6 @@ only the language set here can be babeled.
   (keymap-set vertico-map "DEL" #'vertico-directory-delete-char)
   (keymap-set vertico-map "M-DEL" #'vertico-directory-delete-word)
   (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
-
 #+end_src
 
 *** consult 
@@ -2502,8 +2510,8 @@ only the language set here can be babeled.
 *** corfu
 
 #+begin_src elisp
-  (add-to-list 'load-path "~/.emacs.d/lib/corfu/extensions/")
   (require 'corfu)
+  (add-to-list 'load-path "~/.emacs.d/lib/corfu/extensions/")
   ;; (require 'corfu-echo)
   (require 'corfu-history)
   (require 'corfu-indexed)
