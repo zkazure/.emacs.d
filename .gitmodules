@@ -13,6 +13,9 @@
 [submodule "anki-helper"]
 	path = lib/anki-helper
 	url = https://github.com/Elilif/emacs-anki-helper.git
+[submodule "apheleia"]
+	path = lib/apheleia
+	url = https://github.com/radian-software/apheleia
 [submodule "async"]
 	path = lib/async
 	url = https://github.com/jwiegley/emacs-async

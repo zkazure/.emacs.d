@@ -2211,8 +2211,8 @@ only the language set here can be babeled.
           (chat
            . "You are a large language model and a conversation partner. Respond concisely.")))
 
-  (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
-  ;; (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
+  ;; (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
+  (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
 
   (provide 'init-ai)
 
@@ -2284,7 +2284,7 @@ only the language set here can be babeled.
   (keymap-global-set "M-$" #'jinx-correct)
   (keymap-global-set "C-M-$" #'jinx-languages)
 
-  (setq check-languages "en_GB en_US")
+  (setq jinx-languages "en_GB en_US")
 #+end_src
 *** flymake
 #+begin_src elisp
@@ -2562,10 +2562,10 @@ only the language set here can be babeled.
     )
 
   (dolist (hook (list
-                 'c-mode-hook
-                 'c++-mode-hook
-                 'c++-ts-mode-hook ;; ???
-                 'c-ts-mode-hook
+                 ;; 'c-mode-hook
+                 ;; 'c++-mode-hook
+                 ;; 'c++-ts-mode-hook ;; ???
+                 ;; 'c-ts-mode-hook
                  'java-mode-hook
                  'haskell-mode-hook
                  'asm-mode-hook
@@ -2587,6 +2587,8 @@ only the language set here can be babeled.
                  'js-mode-hook
                  ;; 'js-ts-mode-hook
                  'typescript-mode-hook
+                 'c-mode-hook
+                 'c++-mode-hook
                  ))
     (add-hook hook #'(lambda ()
                        (setq indent-tabs-mode nil)
@@ -3172,6 +3174,28 @@ only the language set here can be babeled.
                                                       (gt-posframe-pop-render :if 'word)
                                                       (gt-buffer-render))))
   (define-key global-map (kbd "C-c l") 'gt-translate)
+#+end_src
+** borg
+#+begin_src elisp
+  (global-set-key (kbd "C-c o b d") 'epkg-describe-package)
+  (global-set-key (kbd "C-c o b a") 'borg-assimilate)
+  (global-set-key (kbd "C-c o b b") 'borg-build)
+  (global-set-key (kbd "C-c o b r") 'borg-remove)
+  (global-set-key (kbd "C-c o b c") 'borg-clone)
+#+end_src
+** apheleia
+#+begin_src elisp
+  (require 'apheleia)
+  (add-hook 'prog-mode-hook #'apheleia-mode)
+  (add-to-list 'apheleia-mode-alist '(markdown-mode . nil))
+  (add-to-list 'apheleia-mode-alist '(org-mode . nil))
+
+  (setf (alist-get 'c-mode apheleia-mode-alist) '(clang-format))
+  (setf (alist-get 'c++-mode apheleia-mode-alist) '(clang-format))
+  (setf (alist-get 'python-mode apheleia-mode-alist) '(black))
+  ;; (setf (alist-get 'go-mode apheleia-mode-alist) '(gofmt))
+  ;; (setf (alist-get 'js-mode apheleia-mode-alist) '(prettier))
+  ;; (setf (alist-get 'rust-mode apheleia-mode-alist) '(rustfmt))
 #+end_src
 ** END
 
