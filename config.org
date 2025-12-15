@@ -2297,39 +2297,11 @@ only the language set here can be babeled.
 #+end_src
 *** flymake
 #+begin_src elisp
-  (setq flymake-no-changes-timeout nil
-        flymake-fringe-indicator-position 'right-fringe
-        flymake-margin-indicator-position 'right-margin)
-#+end_src
-*** other checker
-#+begin_src elisp
-  ;; (use-package flymake
-  ;;   :diminish
-  ;;   :functions my-elisp-flymake-byte-compile
-  ;;   :bind ("C-c f" . flymake-show-buffer-diagnostics)
-  ;;   :hook prog-mode
-  ;;   :custom
-  ;;   (flymake-no-changes-timeout nil)
-  ;;   (flymake-fringe-indicator-position 'right-fringe)
-  ;;   (flymake-margin-indicator-position 'right-margin)
-  ;;   :config
-  ;;   ;; Check elisp with `load-path'
-  ;;   (defun my-elisp-flymake-byte-compile (fn &rest args)
-  ;;     "Wrapper for `elisp-flymake-byte-compile'."
-  ;;     (let ((elisp-flymake-byte-compile-load-path
-  ;;            (append elisp-flymake-byte-compile-load-path load-path)))
-  ;;       (apply fn args)))
-  ;;   (advice-add 'elisp-flymake-byte-compile :around #'my-elisp-flymake-byte-compile))
-
-  ;; ;; Display Flymake errors with overlays
-  ;; (use-package flyover
-  ;;   :diminish
-  ;;   :hook flymake-mode
-  ;;   :custom (flyover-checkers '(flymake)))
-
-  ;; (provide 'init-check)
+  (setq flymake-no-changes-timeout 0.5
+        flymake-show-diagnostics-at-end-of-line t)
 
 #+end_src
+
 *** End
 #+begin_src elisp
   (provide 'init-check)
