@@ -1575,3 +1575,52 @@ https://abode.karthinks.com/org-latex-preview/
   (require 'amx)
   (add-hook 'after-init-hook 'amx-mode)
 #+end_src
+** citar
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-citar.el
+:END:
+
+*** basic
+#+begin_src emacs-lisp
+  (require 'citar)
+
+  (setq org-cite-global-bibliography '("~/Documents/roam/biblio.bib"))
+  (setq org-cite-insert-processor 'citar
+        org-cite-follow-processor 'citar
+        org-cite-activate-processor 'citar)
+  (setq citar-bibliography org-cite-global-bibliography)
+#+end_src
+*** org roam
+#+begin_src emacs-lisp
+  (defun jethro/org-roam-node-from-cite (keys-entries)
+    (interactive (list (citar-select-ref :multiple nil :rebuild-cache t)))
+    (let ((title (citar--format-entry-no-widths (cdr keys-entries)
+                                                "${author editor} :: ${title}")))
+      (org-roam-capture- :templates
+                         '(("r" "reference" plain "%?" :if-new
+                            (file+head "reference/${citekey}.org"
+                                       ":PROPERTIES:\n:ROAM_REFS: [cite:@${citekey}]\n:END:\n#+title: ${title}\n")
+                            :immediate-finish t
+                            :unnarrowed t))
+                         :info (list :citekey (car keys-entries))
+                         :node (org-roam-node-create :title title)
+                         :props '(:finalize find-file))))
+#+end_src
+
+*** template
+#+begin_src emacs-lisp
+
+  (setq citar-templates
+        '((main . "${author editor:30%sn}     ${date year issued:4}     ${title:48}")
+          (suffix . "          ${=key= id:15}    ${=type=:12}    ${tags keywords:*}")
+          (preview . "${author editor:%etal} (${year issued date}) ${title}, ${journal journaltitle publisher container-title collection-title}.\n")
+          (note . "Notes on ${author editor:%etal}, ${title}")))
+
+
+#+end_src
+
+
+*** END
+#+begin_src emacs-lisp
+  (provide 'init-citar)
+#+end_src
