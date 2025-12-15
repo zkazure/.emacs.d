@@ -946,7 +946,6 @@ only the language set here can be babeled.
   (require 'vertico)
   (add-to-list 'load-path "~/.emacs.d/lib/vertico/extensions/")
   (require 'vertico-directory)
-  (require 'vertico-multiform)
   (require 'vertico-repeat)
 
   (vertico-mode)
@@ -958,6 +957,7 @@ only the language set here can be babeled.
   (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
 
   (add-hook 'minibuffer-setup-hook #'vertico-repeat-save)
+
   (provide 'init-vertico)
 #+end_src
 
@@ -1550,12 +1550,7 @@ jump to everywhere quickly
   (require 'jinx)
 
   (add-hook 'emacs-startup-hook #'global-jinx-mode)
-  ;; (add-to-list 'jinx-exclude-regexps '(t "\\cc")) ; 拼写检查忽略中文
-  (add-to-list 'jinx-exclude-regexps '(t "\\p{Han}"))
-
-  (with-eval-after-load 'vertico-multiform
-    (add-to-list 'vertico-multiform-categories
-                 '(jinx grid (vertico-grid-annotate . 20) (vertico-count . 4))))
+  (add-to-list 'jinx-exclude-regexps '(t "\\cc")) ; 拼写检查忽略中文
 
   (provide 'init-jinx)
 #+end_src
