@@ -1624,3 +1624,22 @@ https://abode.karthinks.com/org-latex-preview/
 #+begin_src emacs-lisp
   (provide 'init-citar)
 #+end_src
+** super-save
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-super-save.el
+:END:
+
+#+begin_src emacs-lisp
+  (require 'super-save)
+
+  (setq super-save-auto-save-when-idle t)
+  (setq auto-save-default nil)
+  (setq super-save-silent t)
+
+  (add-to-list 'super-save-triggers 'other-window)
+  (add-to-list 'super-save-hook-triggers 'find-file-hook)
+
+  (super-save-mode +1)
+
+  (provide 'init-super-save)
+#+end_src

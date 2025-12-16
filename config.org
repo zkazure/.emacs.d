@@ -316,7 +316,6 @@
   (require 'init-font)
   (require 'init-visual-regexp)
   (require 'init-org-roam)
-  (require 'init-super-save)
   (require 'init-indent)
   (require 'init-electric-pair-mode)
   (require 'init-tab-bar)
@@ -1586,25 +1585,7 @@ only the language set here can be babeled.
   (provide 'init-org-roam-ui)
 #+end_src
 
-** super-save
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-super-save.el
-:END:
 
-#+begin_src emacs-lisp
-  (require 'super-save)
-
-  (setq super-save-auto-save-when-idle t)
-  (setq auto-save-default nil)
-  (setq super-save-silent t)
-
-  (add-to-list 'super-save-triggers 'other-window)
-  (add-to-list 'super-save-hook-triggers 'find-file-hook)
-
-  (super-save-mode +1)
-
-  (provide 'init-super-save)
-#+end_src
 ** csv-mode
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-csv-mode.el
@@ -2746,90 +2727,72 @@ only the language set here can be babeled.
   (global-set-key (kbd "C-c c g") 'gdb)
 
   (setq gdb-many-windows t)
-  (setq gud-gdb-enable-debuginfod t)
+  ;; (setq gud-gdb-enable-debuginfod t)
 
-  ;; invoke
-  ;; (global-set-key [f8] 'gdb)
-
-  ;; ;; GDB layout
-  ;; (defadvice gdb-setup-windows (after activate)
-  ;;   (gdb-setup-my-windows)
-  ;; )
-
-  ;; (defun gdb-setup-my-windows ()
+  ;; https://github.com/emacs-mirror/emacs/blob/emacs-29.1/lisp/progmodes/gdb-mi.el#L4986
+  ;; (defun my-gdb-setup-windows ()
+  ;;   (gdb-get-buffer-create 'gdb-locals-values-buffer)
+  ;;   (gdb-get-buffer-create 'gdb-locals-buffer)
+  ;;   (gdb-get-buffer-create 'gdb-stack-buffer)
+  ;;   (gdb-get-buffer-create 'gdb-breakpoints-buffer)
   ;;   (set-window-dedicated-p (selected-window) nil)
   ;;   (switch-to-buffer gud-comint-buffer)
   ;;   (delete-other-windows)
-  ;;   (let
-  ;;     ((win0 (selected-window))             ; source
-  ;;      (win1 (split-window-horizontally
-  ;;              (floor (* 0.5 (window-width)))))   ; gdb
-  ;;      (win2 (split-window-vertically
-  ;;              (floor (* 0.7 (window-body-height))))) ; bp
-  ;;     )
-  ;;     ;; set source buffer
-  ;;     (set-window-buffer
-  ;;      win0
-  ;;      (if gud-last-last-frame
-  ;;          (gud-find-file (car gud-last-last-frame))
-  ;;        (if gdb-main-file
-  ;;            (gud-find-file gdb-main-file)
-  ;;          (list-buffers-noselect))))
-  ;;     (setq gdb-source-window win0)
-
-  ;;     (select-window win1)
-  ;;     (split-window-vertically (floor (* 0.7 (window-body-height))))
-  ;;     (split-window-horizontally (floor (* 0.7 (window-body-width))))
-  ;;     (split-window-vertically (floor (* 0.4 (window-body-height))))
-
-  ;;     ;; set locals window
-  ;;     (gdb-set-window-buffer (gdb-get-buffer-create 'gdb-locals-buffer))
-  ;;     ;; set assembly window
-  ;;     (other-window 1)
+  ;;   (let* ((win11 (selected-window))
+  ;;          (win31 (split-window nil (/ (* (window-height) 3) 4)))
+  ;;          (win21 (split-window nil (/ (window-height) 3))))
+  ;;     ;; 1
+  ;;     (let* ((win13 (split-window-right nil win11))
+  ;;            (win12 (split-window-right (/ (* (window-width) 2) 3) win11)))
+  ;;       (gdb-set-window-buffer (gdb-get-buffer-create 'gdb-inferior-io) nil win12)
+  ;;       (gdb-set-window-buffer (gdb-locals-buffer-name) nil win13))
+  ;;     ;; 2
+  ;;     (select-window win21)
+  ;;     (set-window-buffer win21 (or (gdb-get-source-buffer) (list-buffers-noselect)))
+  ;;     (setq gdb-source-window-list (list (selected-window)))
+  ;;     (let* ((win22 (split-window-right nil win21))
+  ;;            (win23 (split-window-right (/ (* (window-width) 3) 4) win22)))
+  ;;       (gdb-set-window-buffer (gdb-get-buffer-create 'gdb-disassembly-buffer) nil win22)
+  ;;       (gdb-set-window-buffer (gdb-get-buffer-create 'gdb-registers-buffer) nil win23))
+  ;;     ;; 3
+  ;;     (select-window win31)
   ;;     (gdb-set-window-buffer (gdb-stack-buffer-name))
-  ;;     (other-window 1)
-  ;;     (gdb-set-window-buffer (gdb-get-buffer-create 'gdb-registers-buffer))
-  ;;     ;; set breakpoint buffer
-  ;;     (other-window 1)
-  ;;     (gdb-set-window-buffer (gdb-breakpoints-buffer-name))
-  ;;     ;; set focus on gdb buffer
-  ;;     (select-window win2)
-  ;;   ))
+  ;;     (let ((win32 (split-window-right)))
+  ;;       (gdb-set-window-buffer (gdb-get-buffer-create 'gdb-memory-buffer) nil win32))
+  ;;     ;;
+  ;;     (select-window win11)))
 
-  (advice-add 'gdb-setup-windows :around (lambda (orig-fun &rest args) (my-gdb-setup-windows)))
-  ;; https://github.com/emacs-mirror/emacs/blob/emacs-29.1/lisp/progmodes/gdb-mi.el#L4986
   (defun my-gdb-setup-windows ()
-    (gdb-get-buffer-create 'gdb-locals-values-buffer)
     (gdb-get-buffer-create 'gdb-locals-buffer)
-    (gdb-get-buffer-create 'gdb-stack-buffer)
     (gdb-get-buffer-create 'gdb-breakpoints-buffer)
+    (gdb-get-buffer-create 'gdb-inferior-io-buffer)
     (set-window-dedicated-p (selected-window) nil)
     (switch-to-buffer gud-comint-buffer)
     (delete-other-windows)
-    (let* ((win11 (selected-window))
-          (win31 (split-window nil (/ (* (window-height) 3) 4)))
-          (win21 (split-window nil (/ (window-height) 3))))
-      ;; 1
-      (let* ((win13 (split-window-right nil win11))
-            (win12 (split-window-right (/ (* (window-width) 2) 3) win11)))
-        (gdb-set-window-buffer (gdb-get-buffer-create 'gdb-inferior-io) nil win12)
-        (gdb-set-window-buffer (gdb-locals-buffer-name) nil win13))
-      ;; 2
-      (select-window win21)
-      (set-window-buffer win21 (or (gdb-get-source-buffer) (list-buffers-noselect)))
-      (setq gdb-source-window-list (list (selected-window)))
-      (let* ((win22 (split-window-right nil win21))
-            (win23 (split-window-right (/ (* (window-width) 3) 4) win22)))
-        (gdb-set-window-buffer (gdb-get-buffer-create 'gdb-disassembly-buffer) nil win22)
-        (gdb-set-window-buffer (gdb-get-buffer-create 'gdb-registers-buffer) nil win23))
-      ;; 3
-      (select-window win31)
-      (gdb-set-window-buffer (gdb-stack-buffer-name))
-      (let ((win32 (split-window-right)))
-        (gdb-set-window-buffer (gdb-get-buffer-create 'gdb-memory-buffer) nil win32))
-      ;;
-      (select-window win21)))
+
+    (let* ( (win11 (selected-window))
+            (win21 (split-window-below (/ (* (window-height) 5) 6) win11)))
+      (let* ( (win22 (split-window-right (/ (* (window-width) 3) 8) win21))
+              (win23 (split-window-right (/ (* (window-width) 1) 6) win22)))
+        (let* ( (win12 (split-window-right (/ (* (window-width) 3) 8) win11))
+                (win13 (split-window-below (/ (* (window-height) 5) 6) win11)))
+          (gdb-set-window-buffer (gdb-locals-buffer-name) nil win11)
+          (gdb-set-window-buffer (gdb-get-buffer-create 'gdb-stack-buffer) nil win13)
+          (set-window-buffer win12 (or (gdb-get-source-buffer) (list-buffers-noselect)))
+          )
+        (gdb-set-window-buffer (gdb-breakpoints-buffer-name) nil win21)
+        (gdb-set-window-buffer (gdb-get-buffer-create 'gdb-inferior-io) nil win22)
+        (select-window win11)
+        (toggle-truncate-lines)
+        (toggle-truncate-lines)
+        (select-window win23)
+        )
+      )
+    )
+  (advice-add 'gdb-setup-windows :around (lambda (orig-fun &rest args) (my-gdb-setup-windows)))
 #+end_src
+
+#+RESULTS:
 
 ** javascript
 #+begin_src emacs-lisp
@@ -3196,6 +3159,18 @@ only the language set here can be babeled.
   ;; (setf (alist-get 'go-mode apheleia-mode-alist) '(gofmt))
   ;; (setf (alist-get 'js-mode apheleia-mode-alist) '(prettier))
   ;; (setf (alist-get 'rust-mode apheleia-mode-alist) '(rustfmt))
+#+end_src
+** auto save
+#+begin_src elisp
+  ;; (auto-save-mode +1)
+  (auto-save-visited-mode +1)
+
+  (defun my/save-all-unsaved ()
+    (interactive)
+    (save-some-buffers t))
+  (setq after-focus-change-function 'my/save-all-unsaved)
+  (add-hook 'find-file-hook 'my/save-all-unsaved)
+
 #+end_src
 ** END
 
