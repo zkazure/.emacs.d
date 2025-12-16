@@ -3158,7 +3158,11 @@ only the language set here can be babeled.
   ;; (setf (alist-get 'js-mode apheleia-mode-alist) '(prettier))
   ;; (setf (alist-get 'rust-mode apheleia-mode-alist) '(rustfmt))
 #+end_src
-
+** amx
+#+begin_src elisp
+  (require 'amx)
+  (add-hook 'after-init-hook 'amx-mode)
+#+end_src
 ** END
 
 #+begin_src emacs-lisp
