@@ -311,7 +311,7 @@
 
   (require 'init-check)
   (require 'init-completion)
-
+  (require 'init-super-save)
   (require 'init-markdown-mode)
   (require 'init-font)
   (require 'init-visual-regexp)
@@ -1853,6 +1853,7 @@ only the language set here can be babeled.
   (require 'org-fragtog)
 
   (add-hook 'org-mode-hook 'org-fragtog-mode)
+  (setq org-fragtog-preview-delay 0.2)
 
   (provide 'init-org-fragtog)
 #+end_src
@@ -2212,7 +2213,7 @@ only the language set here can be babeled.
   (setq aw-background nil)
   (setq aw-scope 'frame)
   (setq aw-dispatch-always nil)
-
+  (setq aw-minibuffer-flag nil)
 
   (with-eval-after-load 'ace-window
     (setq aw-dispatch-alist
@@ -2272,7 +2273,7 @@ only the language set here can be babeled.
   (setq flymake-no-changes-timeout nil
         flymake-fringe-indicator-position 'right-fringe
         flymake-margin-indicator-position 'right-margin
-        flymake-show-diagnostics-at-end-of-line 'short)
+        flymake-show-diagnostics-at-end-of-line nil)
 
 #+end_src
 
@@ -2747,8 +2748,37 @@ only the language set here can be babeled.
   (global-set-key (kbd "C-c c g") 'gdb)
 
   (setq gdb-many-windows t)
-  ;; (setq gud-gdb-enable-debuginfod t)
 
+  (advice-add 'gdb-setup-windows :around (lambda (orig-fun &rest args) (my-gdb-setup-windows)))
+  (defun my-gdb-setup-windows ()
+    (gdb-get-buffer-create 'gdb-locals-buffer)
+    (gdb-get-buffer-create 'gdb-breakpoints-buffer)
+    (gdb-get-buffer-create 'gdb-inferior-io-buffer)
+    (set-window-dedicated-p (selected-window) nil)
+    (switch-to-buffer gud-comint-buffer)
+    (delete-other-windows)
+
+    (let* ( (win11 (selected-window))
+            (win21 (split-window-below (/ (* (window-height) 5) 6) win11)))
+      (let* ( (win22 (split-window-right (/ (* (window-width) 3) 8) win21))
+              (win23 (split-window-right (/ (* (window-width) 1) 6) win22)))
+        (let* ( (win12 (split-window-right (/ (* (window-width) 3) 8) win11))
+                (win13 (split-window-below (/ (* (window-height) 5) 6) win11)))
+          (gdb-set-window-buffer (gdb-locals-buffer-name) nil win11)
+          (gdb-set-window-buffer (gdb-get-buffer-create 'gdb-stack-buffer) nil win13)
+          (set-window-buffer win12 (or (gdb-get-source-buffer) (list-buffers-noselect)))
+          )
+        (gdb-set-window-buffer (gdb-breakpoints-buffer-name) nil win21)
+        (gdb-set-window-buffer (gdb-get-buffer-create 'gdb-inferior-io) nil win22)
+        (select-window win11)
+        (toggle-truncate-lines)
+        (toggle-truncate-lines)
+        (select-window win23)
+        )
+      )
+    )
+
+  ;; (setq gud-gdb-enable-debuginfod t)
   ;; https://github.com/emacs-mirror/emacs/blob/emacs-29.1/lisp/progmodes/gdb-mi.el#L4986
   ;; (defun my-gdb-setup-windows ()
   ;;   (gdb-get-buffer-create 'gdb-locals-values-buffer)
@@ -2782,34 +2812,6 @@ only the language set here can be babeled.
   ;;     ;;
   ;;     (select-window win11)))
 
-  (defun my-gdb-setup-windows ()
-    (gdb-get-buffer-create 'gdb-locals-buffer)
-    (gdb-get-buffer-create 'gdb-breakpoints-buffer)
-    (gdb-get-buffer-create 'gdb-inferior-io-buffer)
-    (set-window-dedicated-p (selected-window) nil)
-    (switch-to-buffer gud-comint-buffer)
-    (delete-other-windows)
-
-    (let* ( (win11 (selected-window))
-            (win21 (split-window-below (/ (* (window-height) 5) 6) win11)))
-      (let* ( (win22 (split-window-right (/ (* (window-width) 3) 8) win21))
-              (win23 (split-window-right (/ (* (window-width) 1) 6) win22)))
-        (let* ( (win12 (split-window-right (/ (* (window-width) 3) 8) win11))
-                (win13 (split-window-below (/ (* (window-height) 5) 6) win11)))
-          (gdb-set-window-buffer (gdb-locals-buffer-name) nil win11)
-          (gdb-set-window-buffer (gdb-get-buffer-create 'gdb-stack-buffer) nil win13)
-          (set-window-buffer win12 (or (gdb-get-source-buffer) (list-buffers-noselect)))
-          )
-        (gdb-set-window-buffer (gdb-breakpoints-buffer-name) nil win21)
-        (gdb-set-window-buffer (gdb-get-buffer-create 'gdb-inferior-io) nil win22)
-        (select-window win11)
-        (toggle-truncate-lines)
-        (toggle-truncate-lines)
-        (select-window win23)
-        )
-      )
-    )
-  (advice-add 'gdb-setup-windows :around (lambda (orig-fun &rest args) (my-gdb-setup-windows)))
 #+end_src
 
 #+RESULTS:
