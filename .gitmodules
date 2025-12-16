@@ -4,9 +4,6 @@
 [submodule "ace-window"]
 	path = lib/ace-window
 	url = https://github.com/abo-abo/ace-window
-[submodule "aggressive-indent"]
-	path = lib/aggressive-indent
-	url = https://github.com/Malabarba/aggressive-indent-mode
 [submodule "aio"]
 	path = lib/aio
 	url = https://github.com/skeeto/emacs-aio
@@ -142,9 +139,6 @@
 [submodule "helpful"]
 	path = lib/helpful
 	url = https://github.com/Wilfred/helpful
-[submodule "highlight-indent-guides"]
-	path = lib/highlight-indent-guides
-	url = https://github.com/DarthFennec/highlight-indent-guides
 [submodule "highlight-matching-tag"]
 	path = lib/highlight-matching-tag
 	url = https://github.com/manateelazycat/highlight-matching-tag.git

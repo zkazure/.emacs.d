@@ -3057,28 +3057,6 @@ only the language set here can be babeled.
   (global-set-key (kbd "C-c o s") 'symbol-overlay-mode)
   (global-set-key (kbd "C-c o S") 'symbol-overlay-remove-all)
 #+end_src
-** COMMENT highlight-indent-guides
-#+begin_src emacs-lisp
-  (require 'highlight-indent-guides)
-
-  (setq highlight-indent-guides-method 'character)
-  (setq highlight-indent-guides-auto-character-face-perc 40)
-  (setq highlight-indent-guides-auto-enabled t)
-
-  ;; (set-face-background 'highlight-indent-guides-odd-face "darkgray")
-  ;; (set-face-background 'highlight-indent-guides-even-face "dimgray")
-  ;; (set-face-foreground 'highlight-indent-guides-character-face "gray20")
-
-  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-#+end_src
-
-
-** COMMENT aggressive-indent
-#+begin_src elisp
-  (require 'aggressive-indent)
-  (global-aggressive-indent-mode 1)
-  (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
-#+end_src
 ** expand-region
 #+begin_src elisp
   (require 'expand-region)
