@@ -1624,25 +1624,7 @@ https://abode.karthinks.com/org-latex-preview/
 #+begin_src emacs-lisp
   (provide 'init-citar)
 #+end_src
-** super-save
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-super-save.el
-:END:
 
-#+begin_src emacs-lisp
-  (require 'super-save)
-
-  (setq super-save-auto-save-when-idle t)
-  (setq auto-save-default nil)
-  (setq super-save-silent t)
-
-  (add-to-list 'super-save-triggers 'other-window)
-  (add-to-list 'super-save-hook-triggers 'find-file-hook)
-
-  (super-save-mode +1)
-
-  (provide 'init-super-save)
-#+end_src
 ** COMMENT highlight-indent-guides
 #+begin_src emacs-lisp
   (require 'highlight-indent-guides)
@@ -1663,4 +1645,17 @@ https://abode.karthinks.com/org-latex-preview/
   (require 'aggressive-indent)
   (global-aggressive-indent-mode 1)
   (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
+#+end_src
+** auto save
+#+begin_src elisp
+  ;; (auto-save-mode +1)
+  (setq auto-save-default nil)
+  (auto-save-visited-mode +1)
+
+  (defun my/save-all-unsaved ()
+    (interactive)
+    (save-some-buffers t))
+  (setq after-focus-change-function 'my/save-all-unsaved)
+  (add-hook 'find-file-hook 'my/save-all-unsaved)
+
 #+end_src

@@ -280,6 +280,9 @@
 [submodule "sudo-edit"]
 	path = lib/sudo-edit
 	url = https://github.com/nflath/sudo-edit
+[submodule "super-save"]
+	path = lib/super-save
+	url = https://github.com/bbatsov/super-save
 [submodule "symbol-overlay"]
 	path = lib/symbol-overlay
 	url = https://github.com/wolray/symbol-overlay

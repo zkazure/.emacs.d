@@ -2510,6 +2510,26 @@ only the language set here can be babeled.
 #+begin_src elisp
   (provide 'init-completion)
 #+end_src
+** super-save
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-super-save.el
+:END:
+
+#+begin_src emacs-lisp
+  (require 'super-save)
+
+  (setq super-save-auto-save-when-idle t)
+  (setq auto-save-default nil)
+  (setq super-save-silent t)
+  (setq super-save-remote-files nil)
+
+  (add-to-list 'super-save-triggers 'ace-window)
+  (add-to-list 'super-save-hook-triggers 'find-file-hook)
+
+  (super-save-mode +1)
+
+  (provide 'init-super-save)
+#+end_src
 * munual clone
 
 ** indent
@@ -3138,18 +3158,7 @@ only the language set here can be babeled.
   ;; (setf (alist-get 'js-mode apheleia-mode-alist) '(prettier))
   ;; (setf (alist-get 'rust-mode apheleia-mode-alist) '(rustfmt))
 #+end_src
-** auto save
-#+begin_src elisp
-  ;; (auto-save-mode +1)
-  (auto-save-visited-mode +1)
 
-  (defun my/save-all-unsaved ()
-    (interactive)
-    (save-some-buffers t))
-  (setq after-focus-change-function 'my/save-all-unsaved)
-  (add-hook 'find-file-hook 'my/save-all-unsaved)
-
-#+end_src
 ** END
 
 #+begin_src emacs-lisp
