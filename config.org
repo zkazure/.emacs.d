@@ -379,12 +379,13 @@
   ;; 减少闪烁
   (modify-frame-parameters nil '((inhibit-double-buffering . nil)))
 
-  ;; display column number in the modeline
-  (column-number-mode)
+  (setq-default display-fill-column-indicator-column 80)
 
-  ;; display line numbers and disable in some mode
-  ;; (setq-default display-line-numbers-width 4)
-  (global-visual-line-mode t)
+  (add-hook 'prog-mode-hook (lambda () (setq fill-column 80)))
+  (add-hook 'text-mode-hook (lambda () (setq fill-column 70)))
+  (add-hook 'text-mode-hook 'visual-line-mode)
+  ;; (add-hook 'text-mode-hook 'visual-wrap-prefix-mode)
+  (add-hook 'after-init-hook 'global-display-fill-column-indicator-mode)
 
   (add-hook 'prog-mode-hook #'(lambda () (display-line-numbers-mode 1)))
   (add-hook 'xml-mode-hook #'(lambda () (display-line-numbers-mode 1)))
@@ -2862,8 +2863,8 @@ only the language set here can be babeled.
                  "%e"
                  ;; '(:eval (propertize " %@" 'face 'font-lock-constant-face))
                  '(:eval (propertize " %t%Z"))
-                 '(:eval (propertize "%*%+" 'face 'font-lock-warning-face))
-                 ;; '(:eval (propertize "%@" 'face 'font-lock-constant-face))
+                 '(:eval (propertize "%*%+"))
+                 '(:eval (propertize "%@"))
                  '(:eval (propertize " %b" 'face '(:weight bold)))
 
                  ;; '(:eval (propertize " %b" 'face 'font-lock-string-face))
@@ -2872,22 +2873,14 @@ only the language set here can be babeled.
                  ;; '(:eval (propertize "%c" 'face 'font-lock-type-face)) ") "
 
                  'mode-line-format-right-align
+                 '(:eval (when (and (boundp 'rime-mode) rime-mode)
+                           (propertize (format " %s " rime-title)
+                                       'face '(:height 0.9)))) " "
                  '(:eval (when vc-mode
-                           (propertize (substring vc-mode 5) ; 去掉前缀 " Git:" 留出分支名
-                                       'face 'font-lock-type-face))) "  "
-                 ;; vc-mode " | "
+                           (propertize (substring vc-mode 5)))) "  "
+
                  mode-name "  "
                  ))
-
-  ;; ;; 去掉 Mode-line 的立体边框感，让它看起来像一层背景文字
-  ;; (set-face-attribute 'mode-line nil
-  ;;                     :background "unspecified" ; 或者设为你背景的颜色
-  ;;                     :foreground "#839496"     ; 柔和的字体颜色
-  ;;                     :box nil)                 ; 彻底移除边框
-
-  ;; (set-face-attribute 'mode-line-inactive nil
-  ;;                     :background "unspecified"
-  ;;                     :box nil)
 #+end_src
 ** org-id-all-file
 #+begin_src elisp
