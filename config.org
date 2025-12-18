@@ -2857,24 +2857,37 @@ only the language set here can be babeled.
   (setq minor-mode-alist nil)
   (setq mode-line-mule-info t)
 
-  ;; (setq-default
-  ;;  mode-line-format
-  ;;  '(
-  ;;    "%e"
-  ;;    mode-line-front-space
-  ;;    (:eval
-  ;;     (format "%s%s"
-  ;;             (buffer-name)
-  ;;             (if (buffer-modified-p) "*" "")))
+  (setq-default mode-line-format
+                (list
+                 "%e"
+                 ;; '(:eval (propertize " %@" 'face 'font-lock-constant-face))
+                 '(:eval (propertize " %t%Z"))
+                 '(:eval (propertize "%*%+" 'face 'font-lock-warning-face))
+                 ;; '(:eval (propertize "%@" 'face 'font-lock-constant-face))
+                 '(:eval (propertize " %b" 'face '(:weight bold)))
 
-  ;;    " "
-  ;;    mode-name
-  ;;    " "
-  ;;    mode-line-position
-  ;;    " "
-  ;;    vc-mode
-  ;;    mode-line-end-spaces
-  ;;    ))
+                 ;; '(:eval (propertize " %b" 'face 'font-lock-string-face))
+                 ;; '(:eval (propertize "%p" 'face 'font-lock-type-face)) " ("
+                 ;; '(:eval (propertize "%l" 'face 'font-lock-type-face)) ","
+                 ;; '(:eval (propertize "%c" 'face 'font-lock-type-face)) ") "
+
+                 'mode-line-format-right-align
+                 '(:eval (when vc-mode
+                           (propertize (substring vc-mode 5) ; 去掉前缀 " Git:" 留出分支名
+                                       'face 'font-lock-type-face))) "  "
+                 ;; vc-mode " | "
+                 mode-name "  "
+                 ))
+
+  ;; ;; 去掉 Mode-line 的立体边框感，让它看起来像一层背景文字
+  ;; (set-face-attribute 'mode-line nil
+  ;;                     :background "unspecified" ; 或者设为你背景的颜色
+  ;;                     :foreground "#839496"     ; 柔和的字体颜色
+  ;;                     :box nil)                 ; 彻底移除边框
+
+  ;; (set-face-attribute 'mode-line-inactive nil
+  ;;                     :background "unspecified"
+  ;;                     :box nil)
 #+end_src
 ** org-id-all-file
 #+begin_src elisp
