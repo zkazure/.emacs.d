@@ -380,12 +380,15 @@
   (modify-frame-parameters nil '((inhibit-double-buffering . nil)))
 
   (setq-default display-fill-column-indicator-column 80)
-
   (add-hook 'prog-mode-hook (lambda () (setq fill-column 80)))
   (add-hook 'text-mode-hook (lambda () (setq fill-column 70)))
   (add-hook 'text-mode-hook 'visual-line-mode)
   ;; (add-hook 'text-mode-hook 'visual-wrap-prefix-mode)
-  (add-hook 'after-init-hook 'global-display-fill-column-indicator-mode)
+  ;; (setq global-display-fill-column-indicator-mode
+  ;;       '( (not help-mode
+  ;;               eat-mode)
+  ;;          t))
+  (add-hook 'after-init-hook #'global-display-fill-column-indicator-mode)
 
   (add-hook 'prog-mode-hook #'(lambda () (display-line-numbers-mode 1)))
   (add-hook 'xml-mode-hook #'(lambda () (display-line-numbers-mode 1)))
@@ -820,8 +823,13 @@ only the language set here can be babeled.
     (insert "\\{ ")
     (save-excursion (insert " \\}" )))
 
-  (define-key org-cdlatex-mode-map (kbd "C-M-9") 'my/insert-inline-parentheses)
-  (define-key global-map (kbd "C-M-(") 'my/insert-inline-parentheses2)
+  (defun my/insert-number-regex ()
+    (interactive)
+    (insert "[0-9]"))
+
+  ;; (define-key org-cdlatex-mode-map (kbd "C-M-9") 'my/insert-inline-parentheses)
+  (define-key global-map (kbd "C-M-9") 'my/insert-inline-parentheses2)
+  (define-key global-map (kbd "C-M-0") 'my/insert-number-regex)
   (define-key org-cdlatex-mode-map (kbd "C-M-[") 'my/insert-square-bra-OCDL)
   (define-key org-cdlatex-mode-map (kbd "C-M-{") 'my/insert-inline-braces)
 #+end_src
@@ -1401,7 +1409,7 @@ only the language set here can be babeled.
 
   (setq org-roam-dailies-capture-templates
         '(("d" "default" entry "* %<%I:%M %p>: %?" 
-           :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n#+filetags: :diary:draft:\n\n* Main\n"))))
+           :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n#+filetags: :diary:draft:\n\n* Main\n\n* To-do List\n"))))
 #+end_src
 
 
@@ -2308,10 +2316,11 @@ only the language set here can be babeled.
 #+begin_src elisp
   (require 'vertico)
   (add-to-list 'load-path "~/.emacs.d/lib/vertico/extensions/")
-  (require 'vertico-directory)
 
   (vertico-mode)
 
+
+  (require 'vertico-directory)
   (keymap-set vertico-map "RET" #'vertico-directory-enter)
   (keymap-set vertico-map "DEL" #'vertico-directory-delete-char)
   (keymap-set vertico-map "M-DEL" #'vertico-directory-delete-word)
@@ -2877,9 +2886,10 @@ only the language set here can be babeled.
                            (propertize (format " %s " rime-title)
                                        'face '(:height 0.9)))) " "
                  '(:eval (when vc-mode
-                           (propertize (substring vc-mode 5)))) "  "
+                           (propertize (substring vc-mode 5)
+                                       'face 'font-lock-type-face))) "  "
 
-                 mode-name "  "
+                 mode-line-modes "  "
                  ))
 #+end_src
 ** org-id-all-file
@@ -3170,6 +3180,12 @@ only the language set here can be babeled.
 #+begin_src elisp
   (require 'amx)
   (add-hook 'after-init-hook 'amx-mode)
+#+end_src
+** avy
+#+begin_src elisp
+  (require 'avy)
+  (define-key org-mode-map (kbd "C-,") nil)
+  (global-set-key (kbd "C-,") 'avy-goto-char-2)
 #+end_src
 ** END
 
