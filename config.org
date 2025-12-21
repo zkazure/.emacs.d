@@ -1273,7 +1273,7 @@ only the language set here can be babeled.
   (define-key global-map (kbd "C-c n i") 'org-roam-node-insert)
   ;; (define-key global-map (kbd "C-c n c") 'org-roam-capture)
   (define-key global-map (kbd "C-c n d") 'org-roam-dailies-map)
-  (define-key global-map (kbd "C-c n h") 'org-id-get-create)
+  (define-key global-map (kbd "C-c n n") 'org-id-get-create)
   (define-key global-map (kbd "C-c n j") 'org-roam-dailies-capture-today)
 
   (org-roam-db-autosync-mode 1)
@@ -1313,68 +1313,68 @@ only the language set here can be babeled.
           ("m" "Main" plain  "%?"
            :if-new
            (file+head "main/${slug}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n* Main\n")
            :immediate-finish t
            :unnarrowed t)
           ("r" "Reference" plain "%?"
            :if-new
            (file+head "reference/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n* Main\n")
            :immediate-finish t
            :unnarrowed t)
           ("a" "Article" plain "%?"
            :if-new
            (file+head "article/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: :article:\n")
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: :article:\n* Main\n")
            :immediate-finish t
            :unnarrowed t)
           ("c" "Coding" plain "%?"
            :if-new
            (file+head "coding/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n* Main\n")
            :immediate-finish t
            :unnarrowed t)
           ("i" "Idea" plain "%?"
            :if-new
            (file+head "idea/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n* Main\n")
            :immediate-finish t
            :unnarrowed t)
           ("R" "Reading" plain "%?"
            :if-new
            (file+head "reading/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n* Main\n")
            :immediate-finish t
            :unnarrowed t)
           ("w" "Web" plain "%?"
            :if-new
            (file+head "web/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n* Main\n")
            :immediate-finish t
            :unnarrowed t)
           ("s" "Stem" plain "%?"
            :if-new
            (file+head "stem/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n* Main\n")
            :immediate-finish t
            :unnarrowed t)
           ("b" "Blog" plain "%?"
            :if-new
            (file+head "blog/inbox/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n")
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n* Main\n")
            :immediate-finish t
            :unnarrowed t)     
           ("p" "Personality" plain "%?"
            :if-new
            (file+head "psychology/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: :Psych: \n")
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: :Psych: \n* Main\n")
            :immediate-finish t
            :unnarrowed t)
           ))
 
   (setq org-roam-dailies-capture-templates
         '(("d" "default" entry "* %<%I:%M %p>: %?" 
-           :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n#+filetags: :diary:draft:\n\n* Main\n\n* To-do List\n"))))
+           :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n#+filetags: :diary:draft:\n\n* Main\n"))))
 #+end_src
 
 
