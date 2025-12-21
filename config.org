@@ -574,9 +574,8 @@
 #+END_SRC
 *** agenda
 #+begin_src emacs-lisp
-  (global-set-key (kbd "C-c o a") '(lambda () (interactive (org-agenda nil "a"))))
-  ;; (global-set-key (kbd "C-c o a") '(lambda () (interactive) (org-agenda nil "d")))
-
+  (global-set-key (kbd "C-c o a") '(lambda () (interactive (org-agenda nil "d"))))
+  (global-set-key (kbd "C-c a") 'org-agenda)
   (setq org-agenda-span 'week
         org-agenda-window-setup 'reorganize-frame
         org-tags-column 0
@@ -584,17 +583,13 @@
         )
 
   ;; ui
-  (setq org-agenda-block-separator ?─
-        org-agenda-time-grid
-        '((daily today require-timed)
-          (800 1000 1200 1400 1600 1800 2000)
-          " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
-        org-agenda-current-time-string
-        "⭠ now  ────────")
+  (customize-set-variable 'org-agenda-time-grid
+                          '((today require-timed remove-match)
+                            (0700 1200 2400)
+                            ":  " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))
+  (customize-set-variable 'org-agenda-current-time-string "ᐊ┈┈┈┈┈┈┈┈ now")
 
-
-  (setq org-directory "~/Documents/org/")
-  (setq org-agenda-files '("~/Documents/org/agenda.org" "~/Documents/org/todo.org"))
+  (setq org-agenda-files '("~/Documents/org/"))
 
   (setq org-agenda-skip-scheduled-if-done nil)
   (setq org-agenda-skip-deadline-if-done nil)
@@ -602,70 +597,44 @@
 
   ;; ??? what is this
   (setq org-agenda-start-with-log-mode t)
-
-  ;; (setq org-agenda-custom-commands
-  ;;       (quote
-  ;;        ;; `C-a d` is my main Agenda
-  ;;        (("d" "Daily Action List"
-  ;;          (
-
-  ;;           (agenda "" ((org-agenda-overriding-header "\nOverdue")
-  ;;                       (org-agenda-time-grid nil)
-  ;;                       (org-agenda-start-on-weekday nil)
-  ;;                       (org-agenda-show-all-dates nil)
-  ;;                       (org-agenda-format-date "")  ;; Skip the date
-  ;;                       (org-agenda-span 1)
-  ;;                       (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-  ;;                       (org-agenda-entry-types '(:deadline :scheduled))
-  ;;                       (org-scheduled-past-days 999)
-  ;;                       (org-deadline-past-days 999)
-  ;;                       (org-deadline-warning-days 0)))
-  ;;           (agenda "" ((org-agenda-overriding-header " ") ;; Non-empty string
-  ;;                       (org-agenda-span 'day)
-  ;;                       (org-agenda-ndays 1)
-  ;;                       (org-agenda-sorting-strategy (quote ((agenda time-up priority-down tag-up))))
-
-  ;;                       ;; Do not include scheduled, due or overdue items here
-  ;;                       (org-deadline-warning-days 0)
-  ;;                       (org-scheduled-past-days 0)
-  ;;                       (org-deadline-past-days 0)
-
-  ;;                       (org-agenda-skip-scheduled-if-done t)
-  ;;                       (org-agenda-skip-timestamp-if-done t)
-  ;;                       (org-agenda-skip-deadline-if-done t)))
-
-  ;;           (agenda "" ((org-agenda-overriding-header "\nNext three days\n")
-  ;;                       (org-agenda-start-on-weekday nil)
-  ;;                       (org-agenda-start-day "+1d")
-  ;;                       (org-agenda-span 3)
-  ;;                       (org-deadline-warning-days 0)
-  ;;                       (org-agenda-block-separator nil)
-  ;;                       (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))))
-  ;;           (agenda "" ((org-agenda-overriding-header "\nUpcoming deadlines (+14d)\n")
-  ;;                       (org-agenda-time-grid nil)
-  ;;                       (org-agenda-start-on-weekday nil)
-  ;;                       ;; We don't want to replicate the previous section's
-  ;;                       ;; three days, so we start counting from the day after.
-  ;;                       (org-agenda-start-day "+3d")
-  ;;                       (org-agenda-span 14)
-  ;;                       (org-agenda-show-all-dates nil)
-  ;;                       (org-agenda-time-grid nil)
-  ;;                       (org-deadline-warning-days 0)
-  ;;                       (org-agenda-block-separator nil)
-  ;;                       (org-agenda-entry-types '(:deadline))
-  ;;                       (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))))
-  ;;           (tags "+focus"
-  ;;                 (
-  ;;                  (org-tags-match-list-sublevels nil)
-  ;;                  (org-agenda-todo-ignore-scheduled 'future)))
-  ;;           )))))
-
-
-  ;; (setq org-agenda-custom-commands
-  ;;       '(("A" "Agenda and All todos"
-  ;;          ((agenda "" ((org-agenda-span 'week)))
-  ;;           (alltodo "")))
-  ;;         ))
+  (add-to-list
+   'org-agenda-custom-commands
+   '("d" "Daily Action"
+     (
+      (agenda ""
+              ((org-agenda-overriding-header
+                (concat "TODAY (W" (format-time-string "%V") ")"))
+               (org-agenda-span 'day)
+               (org-agenda-sorting-strategy
+                '((agenda time-up priority-down category-keep)))
+               (org-agenda-show-log t)
+               (org-agenda-log-mode-items '(clock))))
+      (agenda ""
+              ((org-agenda-overriding-header
+                (concat "FOLLOWING DAYS (W" (format-time-string "%V") ")"))
+               (org-agenda-skip-function
+                '(org-agenda-skip-entry-if 'unscheduled))
+               (org-agenda-span 6)
+               (org-agenda-start-day "+1d")
+               (org-agenda-start-on-weekday nil)))
+      ;; (tags-todo "+private"
+      ;;            ((org-agenda-overriding-header "PRIVATE TASKS")
+      ;;             (org-agenda-skip-function
+      ;;              '(org-agenda-skip-entry-if 'unscheduled))))
+      (tags "CLOSED>=\"<-7d>\"|DONE>=\"<-7d>\"|CANCELLED>=\"<-7d>\""
+            ((org-agenda-overriding-header "Completed in the Last 7 Days\n")))
+      (alltodo ""
+               ((org-agenda-overriding-header "ALL TODO ITEMS")
+                (org-agenda-skip-function
+                 '(org-agenda-skip-entry-if 'scheduled 'deadline))
+                (org-agenda-sorting-strategy
+                 '(priority-down todo-state-up category-keep))
+                ;; (org-agenda-show-outline-path t)
+                ;; (org-outline-path-complete-in-steps t)
+                (org-agenda-prefix-format "%l%i %s")
+                (org-agenda-show-inherited-tags nil)
+                ))
+      )))
 
 
   ;; (defun ct/display-buffer-org-agenda-managed-p (buffer-name action)
@@ -689,10 +658,6 @@
   ;;                 display-buffer-in-tab)            ;; over switching to the Org tab.
   ;;                ;; (ignore-current-tab . t)
   ;;                (tab-name . "Org Files")))
-
-  ;; (add-hook 'emacs-startup-hook
-  ;;           (lambda ()
-  ;;             (org-agenda nil "d")))
 #+end_src
 
 *** COMMENT capture
@@ -1473,7 +1438,7 @@ only the language set here can be babeled.
   (defun vulpea-agenda-files-update (&rest _)
     "Update `org-agenda-files' by merging with current files.
     This function accepts any number of arguments, as required by advice."
-    (let ((custom-agenda-files '("~/Documents/org/agenda.org")))
+    (let ((custom-agenda-files '("~/Documents/org/")))
       (setq org-agenda-files
             (seq-uniq
              (append custom-agenda-files
@@ -2173,13 +2138,13 @@ only the language set here can be babeled.
   (setq-default gptel-default-mode 'org-mode)
   (add-hook 'gptel-mode-hook '(lambda () (org-num-mode -1)) )
 
-  (global-set-key (kbd "C-c a g") 'gptel)
-  (global-set-key (kbd "C-c a s") 'gptel-send)
-  (global-set-key (kbd "C-c a r") 'gptel-rewrite)
-  (global-set-key (kbd "C-c a m") 'gptel-menu)
-  (global-set-key (kbd "C-c a a") 'gptel-add-file)
-  (global-set-key (kbd "C-c a A") 'gptel-add)
-  (global-set-key (kbd "C-c a t") 'gptel-org-set-topic)
+  (global-set-key (kbd "C-c g g") 'gptel)
+  (global-set-key (kbd "C-c g s") 'gptel-send)
+  (global-set-key (kbd "C-c g r") 'gptel-rewrite)
+  (global-set-key (kbd "C-c g m") 'gptel-menu)
+  (global-set-key (kbd "C-c g a") 'gptel-add-file)
+  (global-set-key (kbd "C-c g A") 'gptel-add)
+  (global-set-key (kbd "C-c g t") 'gptel-org-set-topic)
 
   ;; set property under each heading
   ;; :PROPERTIES:
