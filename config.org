@@ -613,8 +613,8 @@
       (agenda ""
               ((org-agenda-overriding-header
                 (concat "FOLLOWING DAYS (W" (format-time-string "%V") ")"))
-               (org-agenda-skip-function
-                '(org-agenda-skip-entry-if 'unscheduled))
+               ;; (org-agenda-skip-function
+               ;;  '(org-agenda-skip-entry-if 'unscheduled))
                (org-agenda-span 6)
                (org-agenda-start-day "+1d")
                (org-agenda-start-on-weekday nil)))
@@ -626,8 +626,8 @@
             ((org-agenda-overriding-header "Completed in the Last 7 Days\n")))
       (alltodo ""
                ((org-agenda-overriding-header "ALL TODO ITEMS")
-                (org-agenda-skip-function
-                 '(org-agenda-skip-entry-if 'scheduled 'deadline))
+                ;; (org-agenda-skip-function
+                ;;  '(org-agenda-skip-entry-if 'scheduled 'deadline))
                 (org-agenda-sorting-strategy
                  '(priority-down todo-state-up category-keep))
                 ;; (org-agenda-show-outline-path t)
