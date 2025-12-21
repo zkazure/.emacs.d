@@ -631,9 +631,12 @@
                  '(priority-down todo-state-up category-keep))
                 ;; (org-agenda-show-outline-path t)
                 ;; (org-outline-path-complete-in-steps t)
-                (org-agenda-prefix-format "%l%i %s")
+                ;; (org-agenda-prefix-format "%c%l%i %s")
+                (org-agenda-prefix-format
+                 "%(let ((c (or (org-get-category) \"\"))) (if (> (length c) 10) (concat (substring c 0 7) \"…\") c))%l%i %s")
                 (org-agenda-show-inherited-tags nil)
                 ))
+
       )))
 
 
