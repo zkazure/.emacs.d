@@ -3145,6 +3145,13 @@ only the language set here can be babeled.
   (define-key org-mode-map (kbd "C-,") nil)
   (global-set-key (kbd "C-,") 'avy-goto-char-2)
 #+end_src
+** visual-fill-column
+#+begin_src elisp
+  (require 'visual-fill-column)
+  (setq diff-hl-side 'right)
+  (setq visual-fill-column-center-text t)
+  (global-set-key (kbd "C-c o w") 'visual-fill-column-mode)
+#+end_src
 ** END
 
 #+begin_src emacs-lisp
