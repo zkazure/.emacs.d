@@ -3171,7 +3171,7 @@ only the language set here can be babeled.
 #+begin_src elisp
   (require 'visual-fill-column)
   (setq diff-hl-side 'right)
-  (setq visual-fill-column-center-text t)
+  (setq-default visual-fill-column-center-text t)
   (global-set-key (kbd "C-c o w") 'visual-fill-column-mode)
 #+end_src
 ** END
