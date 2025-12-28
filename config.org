@@ -622,8 +622,8 @@
       ;;            ((org-agenda-overriding-header "PRIVATE TASKS")
       ;;             (org-agenda-skip-function
       ;;              '(org-agenda-skip-entry-if 'unscheduled))))
-      (tags "CLOSED>=\"<-7d>\"|DONE>=\"<-7d>\"|CANCELLED>=\"<-7d>\""
-            ((org-agenda-overriding-header "Completed in the Last 7 Days\n")))
+      ;; (tags "CLOSED>=\"<-7d>\"|DONE>=\"<-7d>\"|CANCELLED>=\"<-7d>\""
+      ;;       ((org-agenda-overriding-header "Completed in the Last 7 Days\n")))
       (alltodo ""
                ((org-agenda-overriding-header "ALL TODO ITEMS")
                 ;; (org-agenda-skip-function
@@ -741,7 +741,7 @@ only the language set here can be babeled.
   (setq org-appear-autosubmarkers t)
   (setq org-appear-autoentities t)
   (setq org-appear-autokeywords t)
-  (setq org-appear-delay 0.3)
+  (setq org-appear-delay 0.5)
 
   (add-hook 'org-mode-hook 'org-appear-mode)
 
@@ -785,11 +785,16 @@ only the language set here can be babeled.
     (interactive)
     (insert "[0-9]"))
 
-  ;; (define-key org-cdlatex-mode-map (kbd "C-M-9") 'my/insert-inline-parentheses)
+  (define-key org-cdlatex-mode-map (kbd "C-M-9") 'my/insert-inline-parentheses)
   (define-key global-map (kbd "C-M-9") 'my/insert-inline-parentheses2)
   (define-key global-map (kbd "C-M-0") 'my/insert-number-regex)
   (define-key org-cdlatex-mode-map (kbd "C-M-[") 'my/insert-square-bra-OCDL)
   (define-key org-cdlatex-mode-map (kbd "C-M-{") 'my/insert-inline-braces)
+
+
+  (with-eval-after-load 'org-cdlatex
+    (add-to-list 'org-cdlatex-math-modify-alist
+                 '(?| "\\lvert" "\\rvert" t nil nil)))
 #+end_src
 
 **** preview
@@ -872,6 +877,7 @@ only the language set here can be babeled.
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-eglot.el
 :END:
+
 #+begin_src elisp
   (require 'eglot)
 
@@ -1266,8 +1272,9 @@ only the language set here can be babeled.
   (define-key global-map (kbd "C-c n i") 'org-roam-node-insert)
   ;; (define-key global-map (kbd "C-c n c") 'org-roam-capture)
   (define-key global-map (kbd "C-c n d") 'org-roam-dailies-map)
-  (define-key global-map (kbd "C-c n n") 'org-id-get-create)
+  (define-key org-mode-map (kbd "C-c n n") 'org-id-get-create)
   (define-key global-map (kbd "C-c n j") 'org-roam-dailies-capture-today)
+  (define-key global-map (kbd "C-c n r") 'org-roam-node-random)
 
   (org-roam-db-autosync-mode 1)
 #+end_src
@@ -2042,7 +2049,7 @@ only the language set here can be babeled.
 
   ;; (setq leetcode-prefer-tag-display nil)
 
-  (global-set-key (kbd "C-c o c") 'leetcode)
+  ;; (global-set-key (kbd "C-c o c") 'leetcode)
 
   (add-hook 'leetcode--problems-mode-hook
             (lambda () (display-line-numbers-mode -1)))
@@ -2380,46 +2387,46 @@ only the language set here can be babeled.
 
   (add-hook 'embark-collect-mode-hook #'consult-preview-at-point-mode)
 
-  ;; ;; which-key for embark
-  ;; (with-no-warnings
-  ;;   (with-eval-after-load 'which-key
-  ;;     (defun embark-which-key-indicator ()
-  ;;       "An embark indicator that displays keymaps using which-key.
-  ;; The which-key help message will show the type and value of the
-  ;; current target followed by an ellipsis if there are further
-  ;; targets."
-  ;;       (lambda (&optional keymap targets prefix)
-  ;;         (if (null keymap)
-  ;;             (which-key--hide-popup-ignore-command)
-  ;;           (which-key--show-keymap
-  ;;            (if (eq (plist-get (car targets) :type) 'embark-become)
-  ;;                "Become"
-  ;;              (format "Act on %s '%s'%s"
-  ;;                      (plist-get (car targets) :type)
-  ;;                      (embark--truncate-target (plist-get (car targets) :target))
-  ;;                      (if (cdr targets) "…" "")))
-  ;;            (if prefix
-  ;;                (pcase (lookup-key keymap prefix 'accept-default)
-  ;;                  ((and (pred keymapp) km) km)
-  ;;                  (_ (key-binding prefix 'accept-default)))
-  ;;              keymap)
-  ;;            nil nil t (lambda (binding)
-  ;;                        (not (string-suffix-p "-argument" (cdr binding))))))))
+  ;; which-key for embark
+  (with-no-warnings
+    (with-eval-after-load 'which-key
+      (defun embark-which-key-indicator ()
+        "An embark indicator that displays keymaps using which-key.
+  The which-key help message will show the type and value of the
+  current target followed by an ellipsis if there are further
+  targets."
+        (lambda (&optional keymap targets prefix)
+          (if (null keymap)
+              (which-key--hide-popup-ignore-command)
+            (which-key--show-keymap
+             (if (eq (plist-get (car targets) :type) 'embark-become)
+                 "Become"
+               (format "Act on %s '%s'%s"
+                       (plist-get (car targets) :type)
+                       (embark--truncate-target (plist-get (car targets) :target))
+                       (if (cdr targets) "…" "")))
+             (if prefix
+                 (pcase (lookup-key keymap prefix 'accept-default)
+                   ((and (pred keymapp) km) km)
+                   (_ (key-binding prefix 'accept-default)))
+               keymap)
+             nil nil t (lambda (binding)
+                         (not (string-suffix-p "-argument" (cdr binding))))))))
 
-  ;;     (setq embark-indicators
-  ;;           '(embark-which-key-indicator
-  ;;             embark-highlight-indicator
-  ;;             embark-isearch-highlight-indicator))
+      (setq embark-indicators
+            '(embark-which-key-indicator
+              embark-highlight-indicator
+              embark-isearch-highlight-indicator))
 
-  ;;     (defun embark-hide-which-key-indicator (fn &rest args)
-  ;;       "Hide the which-key indicator immediately when using the completing-read prompter."
-  ;;       (which-key--hide-popup-ignore-command)
-  ;;       (let ((embark-indicators
-  ;;              (remq #'embark-which-key-indicator embark-indicators)))
-  ;;         (apply fn args)))
+      (defun embark-hide-which-key-indicator (fn &rest args)
+        "Hide the which-key indicator immediately when using the completing-read prompter."
+        (which-key--hide-popup-ignore-command)
+        (let ((embark-indicators
+               (remq #'embark-which-key-indicator embark-indicators)))
+          (apply fn args)))
 
-  ;;     (advice-add #'embark-completing-read-prompter
-  ;;                 :around #'embark-hide-which-key-indicator)))
+      (advice-add #'embark-completing-read-prompter
+                  :around #'embark-hide-which-key-indicator)))
 #+end_src
 
 *** corfu
@@ -2557,8 +2564,8 @@ only the language set here can be babeled.
                  'js-mode-hook
                  ;; 'js-ts-mode-hook
                  'typescript-mode-hook
-                 'c-mode-hook
-                 'c++-mode-hook
+                 ;; 'c-mode-hook
+                 ;; 'c++-mode-hook
                  ))
     (add-hook hook #'(lambda ()
                        (setq indent-tabs-mode nil)
@@ -2780,9 +2787,19 @@ only the language set here can be babeled.
   ;;     ;;
   ;;     (select-window win11)))
 
-#+end_src
 
-#+RESULTS:
+  (add-hook 'c-ts-mode-hook
+            (lambda () (setq-local compile-command
+                              (format "gcc -g %s" (buffer-name)))))
+
+  (add-hook 'c++-ts-mode-hook
+            (lambda () (setq-local compile-command
+                              (format "g++ -g %s" (buffer-name)))))
+
+  (add-hook 'python-ts-mode-hook
+            (lambda () (setq-local compile-command
+                              (format "python3 %s" (buffer-name)))))
+#+end_src
 
 ** javascript
 #+begin_src emacs-lisp
@@ -2797,7 +2814,6 @@ only the language set here can be babeled.
   ;; use to handle camel name
   (global-subword-mode 1)
 #+end_src
-
 
 ** colorful-mode
 #+begin_src elisp
@@ -3102,14 +3118,20 @@ only the language set here can be babeled.
   (define-key org-mode-map (kbd "C-c n a d") 'anki-helper-entry-delete)
   (define-key org-mode-map (kbd "C-c n a b") 'anki-helper-entry-browse)
 #+end_src
-** gt
+** fanyi
 #+begin_src elisp
   (require 'gt)
   (setq gt-langs '(en zh))
-  (setq gt-default-translator (gt-translator :engines (gt-google-engine)
-                                             :render (list
-                                                      (gt-posframe-pop-render :if 'word)
-                                                      (gt-buffer-render))))
+  ;; (setq gt-default-translator (gt-translator :engines (gt-google-engine)
+  ;;                                            :render (list
+  ;;                                                     (gt-posframe-pop-render :if 'word)
+  ;;                                                     (gt-buffer-render))))
+  (setq gt-default-translator
+        (gt-translator
+         :taker   (gt-taker)  ; config the Taker
+         :engines (gt-google-engine) ; specify the Engines
+         :render  (gt-posframe-pop-render))) 
+
   (define-key global-map (kbd "C-c l") 'gt-translate)
 #+end_src
 ** borg
