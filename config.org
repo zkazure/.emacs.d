@@ -1195,34 +1195,34 @@ only the language set here can be babeled.
 :END:
 
 #+begin_src emacs-lisp
-    ;; Set the default font for the Emacs frame.
-    ;; This will be your primary monospace font for English text and code.
-    ;; Adjust the size as needed.
-    (setq initial-frame-alist
-          (append (list (cons 'font "Maple Mono NF-12"))
-                  initial-frame-alist))
-    (setq default-frame-alist
-          (append (list (cons 'font "Maple Mono NF-12"))
-                  default-frame-alist))
+  ;; Set the default font for the Emacs frame.
+  ;; This will be your primary monospace font for English text and code.
+  ;; Adjust the size as needed.
+  (setq initial-frame-alist
+        (append (list (cons 'font "Maple Mono NF CN-12"))
+                initial-frame-alist))
+  (setq default-frame-alist
+        (append (list (cons 'font "Maple Mono NF CN-12"))
+                default-frame-alist))
 
-    ;; Optionally, set the font immediately if Emacs is already running with a GUI
-    (when (display-graphic-p)
-      (set-frame-font "Maple Mono NF-12" t t))
+  ;; Optionally, set the font immediately if Emacs is already running with a GUI
+  (when (display-graphic-p)
+    (set-frame-font "Maple Mono NF CN-12" t t))
 
-    ;; --- CJK Font Fallback using Fontsets ---
-    ;; This is crucial for Chinese character display.
-    ;; Emacs uses fontsets to determine which font to use for specific character ranges.
-    ;; We tell Emacs to use a specific Chinese font for CJK character sets.
+  ;; ;; --- CJK Font Fallback using Fontsets ---
+  ;; ;; This is crucial for Chinese character display.
+  ;; ;; Emacs uses fontsets to determine which font to use for specific character ranges.
+  ;; ;; We tell Emacs to use a specific Chinese font for CJK character sets.
 
-    (when (display-graphic-p)
-      (dolist (charset '(kana han cjk-misc bopomofo))
-        (set-fontset-font
-         (frame-parameter nil 'font) ; Apply to the default fontset of the current frame
-         charset
-         (font-spec :family "Dream Han Serif CN-extrabold" :size 13) ; Your chosen Chinese font
-         nil 'prepend))) ; 'prepend ensures it takes precedence over general fallbacks
+  ;; (when (display-graphic-p)
+  ;;   (dolist (charset '(kana han cjk-misc bopomofo))
+  ;;     (set-fontset-font
+  ;;      (frame-parameter nil 'font) ; Apply to the default fontset of the current frame
+  ;;      charset
+  ;;      (font-spec :family "Dream Han Serif CN-extrabold" :size 12) ; Your chosen Chinese font
+  ;;      nil 'prepend))) ; 'prepend ensures it takes precedence over general fallbacks
 
-    (provide 'init-font)
+  (provide 'init-font)
 #+end_src
 
 ** visual regexp
