@@ -364,7 +364,6 @@
   (setq-local multibyte-syntax-as-symbol nil)
   (save-place-mode 1)
   (setq fill-column 80)
-  (setq y-or-n-p-as-yes-or-no t)
 
   (setq system-time-locale "en_US.utf8")
 
@@ -556,21 +555,13 @@
         org-fold-catch-invisible-edits 'smart
         )
 
-  ;; (with-eval-after-load 'org
-  ;;   ;; Make verbatim with highlight text background.
-  ;;   (add-to-list 'org-emphasis-alist
-  ;;                '("=" (:background "#ffee11")))
-  ;;   ;; Make deletion (obsolete) text foreground with dark gray.
-  ;;   (add-to-list 'org-emphasis-alist
-  ;;                '("+" (:foreground "dark gray"
-  ;;                                   :strike-through t)))
-  ;;   ;; Make code style around with box.
-  ;;   (add-to-list 'org-emphasis-alist
-  ;;                '("~" (:box (:line-width 2
-  ;;                                         :color "grey75"
-  ;;                                         :style released-button)))))
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "WAIT(w)" "|" "DONE(d)")))
 
-  (setq org-use-fast-todo-selection t) ;; C-c C-t KEY
+  (setq org-todo-keyword-faces
+        '(("WAIT" . "#9f7efe")))
+
+  (setq org-use-fast-todo-selection nil)
 #+END_SRC
 *** agenda
 #+begin_src emacs-lisp
@@ -2248,7 +2239,6 @@ only the language set here can be babeled.
         flymake-fringe-indicator-position 'right-fringe
         flymake-margin-indicator-position 'right-margin
         flymake-show-diagnostics-at-end-of-line nil)
-
 #+end_src
 
 *** End
@@ -3170,9 +3160,17 @@ only the language set here can be babeled.
 ** visual-fill-column
 #+begin_src elisp
   (require 'visual-fill-column)
+  (set-fringe-mode '(8 . nil))
   (setq diff-hl-side 'right)
   (setq-default visual-fill-column-center-text t)
   (global-set-key (kbd "C-c o w") 'visual-fill-column-mode)
+#+end_src
+** other-config
+#+begin_src elisp
+  (setq kill-whole-line t)
+  (fset 'yes-or-no-p 'y-or-n-p)
+  ;; 将 M-z 绑定为“删除直到字符前”，而不是连字符一起删
+  (global-set-key (kbd "M-z") 'zap-up-to-char)
 #+end_src
 ** END
 
