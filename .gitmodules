@@ -211,6 +211,9 @@
 [submodule "org-appear"]
 	path = lib/org-appear
 	url = https://github.com/awth13/org-appear
+[submodule "org-count-words"]
+	path = lib/org-count-words
+	url = https://github.com/Elilif/org-count-words.git
 [submodule "org-download"]
 	path = lib/org-download
 	url = https://github.com/abo-abo/org-download

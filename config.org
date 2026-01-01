@@ -2846,6 +2846,8 @@ only the language set here can be babeled.
                  ;; '(:eval (propertize "%c" 'face 'font-lock-type-face)) ") "
 
                  'mode-line-format-right-align
+                 '(:eval mode-line-misc-info)               
+                 
                  '(:eval (when (and (boundp 'rime-mode) rime-mode)
                            (propertize (format " %s " rime-title)
                                        'face '(:height 0.9)))) " "
@@ -3164,6 +3166,14 @@ only the language set here can be babeled.
   (setq diff-hl-side 'right)
   (setq-default visual-fill-column-center-text t)
   (global-set-key (kbd "C-c o w") 'visual-fill-column-mode)
+#+end_src
+** org-count-words
+#+begin_src elisp
+  (require 'org-count-words)
+  (add-hook 'org-mode-hook #'org-count-words-mode)
+  (setq org-count-words-mode-line-format
+        '(" WC:%s"
+          " WC:%s(R:%s)"))
 #+end_src
 ** other-config
 #+begin_src elisp
