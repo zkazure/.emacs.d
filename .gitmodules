@@ -187,6 +187,9 @@
 [submodule "kindle-mate"]
 	path = lib/kindle-mate
 	url = https://github.com/zkazure/kindle-mate.git
+[submodule "leetcode"]
+	path = lib/leetcode
+	url = https://github.com/kaiwk/leetcode.el
 [submodule "link-hint"]
 	path = lib/link-hint
 	url = https://github.com/noctuid/link-hint.el
