@@ -382,6 +382,9 @@
 [submodule "whitespace-cleanup-mode"]
 	path = lib/whitespace-cleanup-mode
 	url = https://github.com/purcell/whitespace-cleanup-mode
+[submodule "whole-line-or-region"]
+	path = lib/whole-line-or-region
+	url = https://github.com/purcell/whole-line-or-region
 [submodule "with-editor"]
 	path = lib/with-editor
 	url = https://github.com/magit/with-editor.git

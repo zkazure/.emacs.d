@@ -19,7 +19,7 @@ However, there is still a long way to go.
 - [X] symbol overlay
 - [X] ace-window
 - [X] link-hint
-- [ ] magit forge
+- [X] magit forge
 - [ ] present in Emacs
 
 * Acknowledgments

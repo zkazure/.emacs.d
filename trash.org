@@ -1724,3 +1724,51 @@ https://abode.karthinks.com/org-latex-preview/
   (setq osm-copyright t)
   (setq osm-home (list 23.103674 113.298612 14))
 #+end_src
+** other config
+*** new line
+#+begin_src elisp
+
+  (defun open-line-and-indent-both (n)
+    (interactive "p")
+    ;; 缩进当前行（旧行）
+    (indent-according-to-mode)
+    ;; 插入新行
+    (open-line n)
+    ;; 缩进新行
+    (save-excursion
+      (forward-line 1)
+      (indent-according-to-mode)))
+  (global-set-key (kbd "C-o") #'open-line-and-indent-both)
+
+#+end_src
+
+*** copy, cut and paste
+#+begin_src elisp
+
+  (defun smart-cut-line-or-region ()
+    (interactive)
+    (if (use-region-p)
+        (kill-region (region-beginning) (region-end))
+      (kill-region (line-beginning-position)
+                   (line-beginning-position 2))))
+
+  (defun smart-copy-line-or-region ()
+    "有选区则复制选区；无选区则复制当前行，并在开头插入换行符。"
+    (interactive)
+    (if (use-region-p)
+        (kill-ring-save (region-beginning) (region-end))
+      (let ((text (buffer-substring-no-properties
+                   (line-beginning-position)
+                   (line-end-position))))
+        (kill-new (concat "\n" text))
+        (message "Copied line with leading newline"))))
+
+  (global-set-key (kbd "C-w") #'smart-cut-line-or-region)
+  (global-set-key (kbd "M-w") #'smart-copy-line-or-region)
+
+#+end_src
+
+*** kill line
+#+begin_src elisp
+  (setq kill-whole-line t)
+#+end_src
