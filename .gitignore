@@ -43,3 +43,4 @@ dirvish/
 /pyim/
 /games/
 *.elc
+/agent/

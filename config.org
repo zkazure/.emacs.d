@@ -2024,15 +2024,17 @@ Emacs 的 snippet 设置。
 
   (setq
    agent-shell-thought-process-expand-by-default t
-   agent-shell-tool-use-expand-by-default t
+   agent-shell-tool-use-expand-by-default nil
    agent-shell-user-message-expand-by-default t
    )
 
   (global-set-key (kbd "C-c o c") #'agent-shell-opencode-start-agent)
 
   (define-key agent-shell-mode-map (kbd "C-c <return>") #'agent-shell-submit)
+  (define-key agent-shell-mode-map (kbd "C-c C-<return>") #'agent-shell-set-session-mode)
   (define-key agent-shell-mode-map (kbd "C-c s") #'agent-shell-send-file)
   (define-key agent-shell-mode-map (kbd "RET") #'newline)
+
 #+end_src
 *** END
 #+begin_src elisp
@@ -3591,6 +3593,7 @@ Emacs 的 snippet 设置。
 
   (setq auto-save-default nil)
   (setq super-save-auto-save-when-idle t
+        super-save-idle-duration 5
         super-save-silent t
         super-save-remote-files nil
         super-save-delete-trailing-whitespace 'except-current-line)
