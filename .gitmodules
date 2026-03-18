@@ -52,6 +52,9 @@
 [submodule "closql"]
 	path = lib/closql
 	url = https://github.com/magit/closql.git
+[submodule "cmake-mode"]
+	path = lib/cmake-mode
+	url = https://github.com/emacsmirror/cmake-mode
 [submodule "colorful-mode"]
 	path = lib/colorful-mode
 	url = https://github.com/DevelopmentCool2449/colorful-mode

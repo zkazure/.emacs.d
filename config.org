@@ -3715,6 +3715,10 @@ Emacs 的 snippet 设置。
                 (alist-get 'whole-line-or-region-delete-region
                            embark-around-action-hooks)))
 #+end_src
+** cmake-mode
+#+begin_src elisp
+  (require 'cmake-mode)
+#+end_src
 ** END
 
 #+begin_src emacs-lisp
