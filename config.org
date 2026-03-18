@@ -3508,6 +3508,11 @@ Emacs 的 snippet 设置。
   (define-key org-mode-map (kbd "M-Q") #'my/newline-after-punctuation)
 
   (setq diff-hl-side 'right)
+
+
+  ;; ansi color
+  (require 'ansi-color)
+  (add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
 #+end_src
 ** god-mode
 #+begin_src elisp
