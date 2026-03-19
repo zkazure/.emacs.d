@@ -1768,7 +1768,41 @@ https://abode.karthinks.com/org-latex-preview/
 
 #+end_src
 
+*** window
+#+begin_src elisp
+  (defun my/split-window-right ()
+    "Split window right, right window takes 30% of frame width."
+    (interactive)
+    (let* ((total (window-total-width))
+           (right (floor (* total 0.48))))
+      (split-window-right (- total right))))
+  (global-set-key (kbd "C-x 3") #'my/split-window-right)
+#+end_src
+
 *** kill line
 #+begin_src elisp
   (setq kill-whole-line t)
+#+end_src
+** elfeed
+#+begin_src elisp
+  (require 'elfeed)
+  (require 'elfeed-org)
+
+  (elfeed-org)
+  (setq rmh-elfeed-org-files (list "~/.emacs.d/elfeed.org"))
+
+  (global-set-key (kbd "C-c o e") 'elfeed)
+
+  (add-hook 'elfeed-show-mode-hook 'olivetti-mode)
+  (add-hook 'elfeed-search-mode-hook 'olivetti-mode)
+
+  (with-eval-after-load 'god-mode
+    (add-to-list 'god-exempt-major-modes 'elfeed-search-mode)
+    (add-to-list 'god-exempt-major-modes 'elfeed-show-mode)
+  )
+
+#+end_src
+** kindle-mate
+#+begin_src elisp
+  (require 'kindle-mate)
 #+end_src

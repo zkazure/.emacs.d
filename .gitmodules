@@ -97,15 +97,15 @@
 [submodule "edit-indirect"]
 	path = lib/edit-indirect
 	url = https://github.com/Fanael/edit-indirect
-[submodule "elfeed"]
-	path = lib/elfeed
-	url = https://github.com/skeeto/elfeed
-[submodule "elfeed-org"]
-	path = lib/elfeed-org
-	url = https://github.com/remyhonig/elfeed-org
 [submodule "elisp-refs"]
 	path = lib/elisp-refs
 	url = https://github.com/Wilfred/elisp-refs
+[submodule "emacs-atcoder-tools"]
+	path = lib/emacs-atcoder-tools
+	url = git@github.com:zkazure/emacs-atcoder-tools.git
+[submodule "emacs-uva-tool"]
+	path = lib/emacs-uva-tool
+	url = git@github.com:zkazure/emacs-uva-tool.git
 [submodule "emacsql"]
 	path = lib/emacsql
 	url = https://github.com/magit/emacsql.git
@@ -187,9 +187,6 @@
 [submodule "jinx"]
 	path = lib/jinx
 	url = https://github.com/minad/jinx
-[submodule "kindle-mate"]
-	path = lib/kindle-mate
-	url = https://github.com/zkazure/kindle-mate.git
 [submodule "leetcode"]
 	path = lib/leetcode
 	url = https://github.com/kaiwk/leetcode.el
