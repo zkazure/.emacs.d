@@ -1806,3 +1806,70 @@ https://abode.karthinks.com/org-latex-preview/
 #+begin_src elisp
   (require 'kindle-mate)
 #+end_src
+** theme
+*** COMMENT dark theme
+对 modus-vivendi-tinted 主题做了一些调整，让我的眼睛看得更舒服。
+#+begin_src elisp
+  (setq modus-vivendi-tinted-palette-overrides
+        '(
+          (fg-main "gray80")
+          (bg-main "#181a26")
+          (cursor "green")
+
+          (bg-region "#103050")
+          (comment     "gray50")
+          (constant    "DarkOliveGreen3")
+          (keyword     "DeepSkyBlue1")
+          (preprocessor "gold")
+          (string      "burlywood")
+          (fnname "goldenrod")
+          (type        "CadetBlue1")
+          (variable "SeaGreen2")
+          (builtin     "LightCoral")
+          (docstring         "moccasin")
+
+          (err       "red")
+          (warning     "Yellow")
+          (info        "LightSkyBlue")
+
+          (bg-paren-match "dodgerblue1")
+          (fg-paren-match "white")
+          ))
+#+end_src
+
+*** COMMENT auto dark and light mode
+根据  Emacs 启动的时间自动切换明暗主题
+#+begin_src emacs-lisp
+  (setq my-auto-theme-light-theme 'modus-operandi-tinted)
+  (setq my-auto-theme-dark-theme 'modus-vivendi)
+  (setq my-auto-theme-day-start 8)  ; 白天开始时间 (7 = 7:00)
+  (setq my-auto-theme-day-end 21) ; 白天结束时间 (19 = 19:00)
+
+  (defun my/auto-theme-switcher-apply-theme ()
+    (interactive)
+    "根据时间检查并应用一次主题。"
+    (let* (
+           ;; 获取当前小时 (0-23)
+           (current-hour (nth 2 (decode-time (current-time))))
+
+           ;; 决定目标主题
+           (target-theme
+            (if (and (>= current-hour my-auto-theme-day-start)
+                     (< current-hour my-auto-theme-day-end))
+                ;; 现在是白天
+                my-auto-theme-light-theme
+              ;; 现在是夜晚
+              my-auto-theme-dark-theme)))
+      (load-theme target-theme)
+      ))
+
+  ;; (add-hook 'after-make-frame-functions #'my/auto-theme-switcher-apply-theme)
+  (my/auto-theme-switcher-apply-theme)
+#+end_src
+
+
+*** doric-themes
+#+begin_src elisp
+  (require 'doric-themes)
+  (doric-themes-select 'doric-dark)
+#+end_src
