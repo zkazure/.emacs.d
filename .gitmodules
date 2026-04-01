@@ -43,6 +43,9 @@
 [submodule "bui"]
 	path = lib/bui
 	url = https://github.com/alezost/bui.el
+[submodule "catppuccin-theme"]
+	path = lib/catppuccin-theme
+	url = https://github.com/catppuccin/emacs
 [submodule "cdlatex"]
 	path = lib/cdlatex
 	url = https://github.com/cdominik/cdlatex
