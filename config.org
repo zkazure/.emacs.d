@@ -3679,6 +3679,21 @@ Emacs 的 snippet 设置。
                      super-save-mode
                      emmet-mode))
 #+end_src
+** indent-bars
+#+begin_src elisp
+  (require 'indent-bars)
+  ;; (add-hook 'prog-mode-hook #'indent-bars-mode)
+#+end_src
+** mermaid-mode
+#+begin_src elisp
+  (require 'mermaid-mode)
+
+
+  (setenv "PUPPETEER_EXECUTABLE_PATH" "/usr/bin/chromium")
+  (setq mermaid-flags "-b transparent")
+  (setq mermaid-output-format ".png")
+
+#+end_src
 ** END
 
 #+begin_src emacs-lisp

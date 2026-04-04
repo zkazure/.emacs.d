@@ -184,6 +184,9 @@
 [submodule "hydra"]
 	path = lib/hydra
 	url = https://github.com/abo-abo/hydra
+[submodule "indent-bars"]
+	path = lib/indent-bars
+	url = https://github.com/jdtsmith/indent-bars
 [submodule "inheritenv"]
 	path = lib/inheritenv
 	url = https://github.com/purcell/inheritenv
@@ -217,6 +220,9 @@
 [submodule "mcp"]
 	path = lib/mcp
 	url = https://github.com/lizqwerscott/mcp.el
+[submodule "mermaid-mode"]
+	path = lib/mermaid-mode
+	url = https://github.com/abrochard/mermaid-mode
 [submodule "move-text"]
 	path = lib/move-text
 	url = https://github.com/emacsfodder/move-text
