@@ -2436,6 +2436,7 @@ Emacs 的 snippet 设置。
           lsp-bridge-enable-completion-in-string t
           lsp-bridge-enable-org-babel t
           acm-enable-capf t
+          acm-enable-doc 'nil
           acm-enable-quick-access t
           lsp-bridge-enable-in-minibuffer t
           ;; acm-backend-lsp-enable-auto-import nil
@@ -3075,7 +3076,7 @@ Emacs 的 snippet 设置。
   (setf (alist-get 'c-mode apheleia-mode-alist) '(clang-format))
   (setf (alist-get 'c++-mode apheleia-mode-alist) '(clang-format))
   (setf (alist-get 'python-mode apheleia-mode-alist) '(black))
-  ;; (setf (alist-get 'go-mode apheleia-mode-alist) '(gofmt))
+  (setf (alist-get 'go-mode apheleia-mode-alist) '(gofmt))
   ;; (setf (alist-get 'js-mode apheleia-mode-alist) '(prettier))
   ;; (setf (alist-get 'rust-mode apheleia-mode-alist) '(rustfmt))
 #+end_src
@@ -3500,8 +3501,8 @@ Emacs 的 snippet 设置。
 
   ;; (global-set-key (kbd "<escape>") #'god-local-mode)
   ;; (define-key god-local-mode-map (kbd "i") #'god-local-mode)
-  (define-key god-local-mode-map (kbd "C-[") #'backward-paragraph)
-  (define-key god-local-mode-map (kbd "C-]") #'forward-paragraph)
+  (define-key god-local-mode-map (kbd "M-[") #'backward-paragraph)
+  (define-key god-local-mode-map (kbd "M-]") #'forward-paragraph)
 
   (with-eval-after-load 'god-mode
     (defun my/god-mode-wrap-or-translate ()
