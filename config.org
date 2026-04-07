@@ -3500,8 +3500,26 @@ Emacs 的 snippet 设置。
 
   ;; (global-set-key (kbd "<escape>") #'god-local-mode)
   ;; (define-key god-local-mode-map (kbd "i") #'god-local-mode)
-  (define-key god-local-mode-map (kbd "[") #'backward-paragraph)
-  (define-key god-local-mode-map (kbd "]") #'forward-paragraph)
+  (define-key god-local-mode-map (kbd "C-[") #'backward-paragraph)
+  (define-key god-local-mode-map (kbd "C-]") #'forward-paragraph)
+
+  (with-eval-after-load 'god-mode
+    (defun my/god-mode-wrap-or-translate ()
+      "当存在活跃选区时，调用原生 self-insert-command 触发包围；否则走 god-mode 默认转换。"
+      (interactive)
+      (if (use-region-p)
+          ;; 核心技巧：通过 let 临时禁用 god-local-mode，
+          ;; 使 god-mode-map 里的 <remap> 暂时失效，从而安全调用原生的 self-insert-command
+          (let ((god-local-mode nil))
+            (call-interactively #'self-insert-command))
+        ;; 无选区时，将按键交还给 god-mode 去解析（例如把 ( 解析为 C-( ）
+        (call-interactively #'god-mode-self-insert)))
+
+    ;; 将需要触发包围的符号绑定到自定义命令上
+    (dolist (key '("\"" "<" ">" "(" ")" "[" "]" "{" "}"))
+      (define-key god-local-mode-map (kbd key) #'my/god-mode-wrap-or-translate)))
+
+
 
   (define-key god-local-mode-map (kbd "z") #'repeat)
   ;; (define-key god-local-mode-map (kbd "g") #'keyboard-quit)
