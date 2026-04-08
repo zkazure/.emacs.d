@@ -933,56 +933,6 @@
 ** latex
 https://abode.karthinks.com/org-latex-preview/
 
-** vertico
-#+begin_src elisp :tangle nil
-  (add-to-list 'load-path "~/.emacs.d/lib/vertico/extensions")
-  (require 'vertico)
-  (require 'vertico-buffer)
-  (require 'vertico-directory)
-  (require 'vertico-flat)
-  (require 'vertico-grid)
-  (require 'vertico-indexed)
-  (require 'vertico-mouse)
-  (require 'vertico-multiform)
-  (require 'vertico-quick)
-  (require 'vertico-repeat)
-  (require 'vertico-reverse)
-  (require 'vertico-sort)
-  (require 'vertico-suspend)
-  (require 'vertico-unobtrusive)
-
-  (require 'vertico-posframe)
-
-  ;; (vertico-scroll-margin 0) ;; Different scroll margin
-  ;; (vertico-count 20) ;; Show more candidates
-  ;; (vertico-resize t) ;; Grow and shrink the Vertico minibuffer
-  ;; (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
-  (setq vertico-count 15)
-  (vertico-mode)
-  ;; (add-hook 'after-init-hook #'vertico-mode)
-  ;; (add-hook 'rfn-eshadow-update-overlay #'vertico-directory-tidy)
-
-  (setq vertico-multiform-commands
-        '((consult-line (:not posframe))
-          (t posframe)))
-  (setq vertico-posframe-poshandler
-        #'posframe-poshandler-frame-center-near-bottom)
-  (setq vertico-posframe-parameters
-        '((left-fringe . 8)
-          (right-fringe . 8)))
-  (add-hook 'vertico-mode-hook #'vertico-posframe-mode)
-
-  ;; ;; Persist history over Emacs restarts. Vertico sorts by history position.
-  ;; (use-package savehist
-  ;;   :init
-  ;;   (savehist-mode))
-
-  (setq context-menu-mode t
-        enable-recursive-minibuffers t
-        read-extended-command-predicate #'command-completion-default-include-p)
-  (setq minibuffer-prompt-properties
-        '(read-only t cursor-intangible t face minibuffer-prompt))
-#+end_src
 ** consult
 #+begin_src elisp :tangle nil
   (require 'consult)
@@ -1551,23 +1501,6 @@ https://abode.karthinks.com/org-latex-preview/
   ;;                                         :color "grey75"
   ;;                                         :style released-button)))))
 #+end_src
-** marginalia
-#+begin_src elisp
-  (require 'marginalia)
-  (require 'nerd-icons-completion)
-  (add-hook 'after-init-hook 'marginalia-mode)
-  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup)
-  (nerd-icons-completion-mode)
-
-  (setq marginalia-align 'right
-        marginalia-field-width 1000)
-#+end_src
-** beacon
-#+begin_src elisp
-  (require 'beacon)
-  (beacon-mode 1)
-#+end_src
-
 ** tab-bar
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-tab-bar.el
@@ -1649,32 +1582,6 @@ https://abode.karthinks.com/org-latex-preview/
   (setq auto-save-silent t
         auto-save-delete-trailing-whitespace t
         auto-save-idle 5)
-#+end_src
-
-** emacs rime
-:PROPERTIES:
-:HEADER-ARGS: :tangle lisp/init-rime.el
-:END:
-#+begin_src emacs-lisp
-  (require 'rime)
-
-  (setq rime-translate-keybindings
-    '("C-n" "C-p" "C-g"))
-  (setq rime-user-data-dir "~/.config/rime-flypy")
-
-  (setq default-input-method "rime"
-        rime-show-candidate 'posframe
-        rime-posframe-style 'simple
-        rime-show-preedit 'inline)
-  (setq rime-posframe-properties
-        (list
-         :internal-border-width 2
-         ;; :background-color "#1e1e2e"
-         ;; :foreground-color "#cdd6f4"
-         ))
-
-
-  (provide 'init-rime)
 #+end_src
 
 ** visual-fill-column

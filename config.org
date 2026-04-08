@@ -2169,23 +2169,31 @@ Emacs 的 snippet 设置。
   ;; (vertico-flat-mode)
   ;; (vertico-posframe-mode 1)
 
-  (setq vertico-posframe-poshandler #'posframe-poshandler-frame-center
+  (setq vertico-posframe-poshandler
+        #'posframe-poshandler-frame-top-left-or-right-other-corner
+
         vertico-posframe-fallback-mode 'vertico-flat-mode
+        vertico-posframe-min-width 80
+        vertico-posframe-min-height 5
+        vertico-posframe-border-width 1
         vertico-posframe-parameters '((left-fringe . 8)
                                       (right-fringe . 8))
         vertico-multiform-commands
-        '((org-roam-node-find   posframe)
-          (org-roam-node-insert posframe)
-          (t flat))
-        ;; vertico-posframe-border-width 1
-        ;; vertico-posframe-width  120
-        ;; vertico-posframe-height 18
+        '((org-roam-node-find posframe
+                              (vertico-posframe-poshandler
+                               . posframe-poshandler-frame-center))
+          (org-roam-node-insert posframe
+                              (vertico-posframe-poshandler
+                               . posframe-poshandler-frame-center))
+          (t posframe)
+          )
         )
 
   (vertico-multiform-mode 1)
 
 
 #+end_src
+
 *** consult
 
 #+begin_src elisp
@@ -3749,6 +3757,15 @@ Emacs 的 snippet 设置。
   (setq x86-lookup-pdf "~/.emacs.d/x86-lookup/sdm.pdf")
   (global-set-key (kbd "C-h x") #'x86-lookup)
 #+end_src
+** marginalia
+#+begin_src elisp
+  (require 'marginalia)
+  (require 'nerd-icons-completion)
+  (add-hook 'after-init-hook 'marginalia-mode)
+  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup)
+  (nerd-icons-completion-mode)
+#+end_src
+
 ** END
 
 #+begin_src emacs-lisp
