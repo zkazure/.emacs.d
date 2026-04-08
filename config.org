@@ -271,8 +271,11 @@ Set up the *borg* configuration.
         (load file))))
 #+end_src
 
-** Require
-#+begin_src emacs-lisp
+** performance tweak
+#+begin_src elisp
+  ;; mainly come from
+  ;; https://emacsredux.com/blog/2026/04/07/stealing-from-the-best-emacs-configs/
+
   ;; garbage collection
   (setq gc-cons-threshold (* 128 1024 1024))
 
@@ -280,6 +283,43 @@ Set up the *borg* configuration.
   (setq read-process-output-max (* 4 1024 1024))
   (setq process-adaptive-read-buffering nil)
 
+  ;; skip delay
+  (setq redisplay-skip-fontification-on-input t)
+
+  ;; 禁止双向显示文字
+  (setq-default bidi-display-reordering 'left-to-right
+                bidi-paragraph-direction 'left-to-right)
+  (setq bidi-inhibit-bpa t
+        long-line-threshold 1000
+        large-hscroll-threshold 1000
+        syntax-wholeline-max 1000)
+
+  ;; avoid rendering cursor in other windows
+  (setq-default cursor-in-non-selected-windows nil)
+  (setq highlight-nonselected-windows nil)
+
+  ;; save pasteboard before killing
+  (setq save-interprogram-paste-before-kill t)
+  (setq kill-do-not-save-duplicates t)
+
+  (setq reb-re-syntax 'string)
+
+  ;; (setq window-combination-resize t)
+
+  ;; be able to C-SPC to keep jump back to last position
+  ;; instead of C-u C-SPC every time
+  (setq set-mark-command-repeat-pop t)
+
+  (save-place-mode 1)
+  (advice-add 'save-place-find-file-hook :after
+              (lambda (&rest _)
+                (when buffer-file-name (ignore-errors (recenter)))))
+
+  (setq help-window-select t)
+#+end_src
+** Require
+
+#+begin_src emacs-lisp
   (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
   ;; add you personal config
   ;; (dolist (dir '("lisp"))
@@ -371,18 +411,6 @@ Set up the *borg* configuration.
 #+begin_src elisp
   (setq initial-major-mode 'org-mode)
 #+end_src
-*** bidi
-Emacs 里面为了增加对于多语言的支持，尤其是从右向左排序的语言，
-牺牲了一定的性能。
-
-进行下面的设置，可以大大加速对长文本文件的处理。
-#+begin_src elisp
-  (setq-default bidi-display-reordering nil)
-  (setq bidi-inhibit-bpa t
-        long-line-threshold 1000
-        large-hscroll-threshold 1000
-        syntax-wholeline-max 1000)
-#+end_src
 *** envrc
 设置基于项目文件夹地址的环境变量。
 #+begin_src elisp
@@ -408,8 +436,7 @@ Emacs 里面为了增加对于多语言的支持，尤其是从右向左排序�
 *** base
 #+begin_src emacs-lisp
   (setq multibyte-syntax-as-symbol t)
-  (save-place-mode 1)
-  (setq-default line-spacing .1)
+  ;; (setq-default line-spacing .1)
 
   ;; 减少闪烁
   (modify-frame-parameters nil '((inhibit-double-buffering . nil)))
@@ -669,6 +696,7 @@ only the language set here can be babeled.
         (java . t)
         (scheme . t)
         (sqlite . t)
+        (mermaid . t)
         ))))
 
   (with-eval-after-load 'org
@@ -3706,12 +3734,20 @@ Emacs 的 snippet 设置。
 ** mermaid-mode
 #+begin_src elisp
   (require 'mermaid-mode)
-
+  (require 'ob-mermaid)
 
   (setenv "PUPPETEER_EXECUTABLE_PATH" "/usr/bin/chromium")
   (setq mermaid-flags "-b transparent")
   (setq mermaid-output-format ".png")
 
+#+end_src
+** gas-mode
+#+begin_src elisp
+  ;; (require 'gas-mode)
+  (require 'x86-lookup)
+  ;; (add-to-list 'auto-mode-alist '("\\.s\\'" . gas-mode))
+  (setq x86-lookup-pdf "~/.emacs.d/x86-lookup/sdm.pdf")
+  (global-set-key (kbd "C-h x") #'x86-lookup)
 #+end_src
 ** END
 

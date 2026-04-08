@@ -235,6 +235,9 @@
 [submodule "nerd-icons-corfu"]
 	path = lib/nerd-icons-corfu
 	url = https://github.com/LuigiPiucco/nerd-icons-corfu
+[submodule "ob-mermaid"]
+	path = lib/ob-mermaid
+	url = https://github.com/arnm/ob-mermaid
 [submodule "olivetti"]
 	path = lib/olivetti
 	url = https://github.com/rnkn/olivetti
@@ -400,6 +403,9 @@
 [submodule "with-editor"]
 	path = lib/with-editor
 	url = https://github.com/magit/with-editor.git
+[submodule "x86-lookup"]
+	path = lib/x86-lookup
+	url = https://github.com/skeeto/x86-lookup
 [submodule "xr"]
 	path = lib/xr
 	url = https://github.com/mattiase/xr
