@@ -196,6 +196,9 @@
 [submodule "jinx"]
 	path = lib/jinx
 	url = https://github.com/minad/jinx
+[submodule "kdl-mode"]
+	path = lib/kdl-mode
+	url = https://github.com/taquangtrung/emacs-kdl-mode
 [submodule "leetcode"]
 	path = lib/leetcode
 	url = https://github.com/kaiwk/leetcode.el

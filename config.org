@@ -3766,7 +3766,10 @@ Emacs 的 snippet 设置。
   (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup)
   (nerd-icons-completion-mode)
 #+end_src
-
+** kdl-mode
+#+begin_src elisp
+  (require 'kdl-mode)
+#+end_src
 ** END
 
 #+begin_src emacs-lisp
