@@ -2891,38 +2891,48 @@ Emacs 的 snippet 设置。
 #+begin_src elisp
   (require 'ox-publish)
 
+  (setq org-html-validation-link nil
+        org-html-head-include-scripts nil
+        org-html-head-include-default-style nil
+        org-html-head "<link rel=\"stylesheet\" href=\"https://cdn.simplecss.org/simple.min.css\" />")
+
   (setq org-publish-project-alist
           `(("content"
              :base-directory "~/Documents/roam/blog/"
              :base-extension "org"
              :exclude: "ltximg/*"
-             :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"/style.css\" />"
-             :html-preamble
-             "<nav id=\"main-nav\">
-               <ul>
-                 <li><a href=\"/\">Main</a></li>
-                 <li><a href=\"/about.html\">About</a></li>
-                 <li><a href=\"archives.html\">Articles</a></li>
-               </ul>
-             </nav>"
-             :html-postamble
-             "<div id=\"blog-footer\">
-             <hr>
-             <p>
-               Content licensed under
-               <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc-sa/4.0/\" target=\"_blank\">
-                 Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
-               </a>
-               <br>
-               &copy; 2025 Kazure Zheng. All Rights Reserved.
-             </p>
-             </div>"
+             :auto-preamble t
+             :html-postamble nil
+             :section-numbers nil
+             :time-stamp-file nil
+             ;; :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"/style.css\" />"
+             ;; :html-preamble
+             ;; "<nav id=\"main-nav\">
+             ;;   <ul>
+             ;;     <li><a href=\"/\">Main</a></li>
+             ;;     <li><a href=\"/about.html\">About</a></li>
+             ;;     <li><a href=\"archives.html\">Articles</a></li>
+             ;;   </ul>
+             ;; </nav>"
+             ;; :html-postamble
+             ;; "<div id=\"blog-footer\">
+             ;; <hr>
+             ;; <p>
+             ;;   Content licensed under
+             ;;   <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc-sa/4.0/\" target=\"_blank\">
+             ;;     Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+             ;;   </a>
+             ;;   <br>
+             ;;   &copy; 2025 Kazure Zheng. All Rights Reserved.
+             ;; </p>
+             ;; </div>"
              :recursive t
              :publishing-directory "~/Developments/blog/"
              :with-tags t
              :auto-sitemap t
              :sitemap-filename "sitemap.org"
              :sitemap-title ""
+             :sitemap-sort-files anti-chronologically
              :publishing-function org-html-publish-to-html)
             ("static"
              :base-directory "~/Documents/roam/blog/"
