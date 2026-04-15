@@ -2541,12 +2541,13 @@ Emacs 的 snippet 设置。
 :END:
 
 #+begin_src emacs-lisp
-    (setq-default indent-tabs-mode nil
-                  tab-width 8)
+  (setq-default indent-tabs-mode nil
+                tab-width 4)
 
-    (defun adjust-languages-indent (n)
-      (setq-local c-basic-offset n)
-      (setq-local c-ts-mode-indent-offset n)
+  (defun adjust-languages-indent (n)
+    (setq-local c-basic-offset n)
+    (setq-local c-ts-mode-indent-offset n)
+    (setq-local go-ts-mode-indent-offset n)
 
       (setq-local coffee-tab-width n)
       (setq-local javascript-indent-level n)
@@ -2563,24 +2564,26 @@ Emacs 的 snippet 设置。
       (setq-local typescript-indent-level n)
       )
 
-    (dolist (hook (list
-                   'c++-ts-mode-hook
-                   'c-ts-mode-hook
-                   'java-mode-hook
-                   'haskell-mode-hook
-                   'asm-mode-hook
-                   'sh-mode-hook
-                   'haskell-cabal-mode-hook
-                   'ruby-mode-hook
-                   'qml-mode-hook
-                   ;; 'scss-mode-hook
-                   'coffee-mode-hook
-                   'rust-mode-hook
-                   ))
-      (add-hook hook #'(lambda ()
-                         (setq indent-tabs-mode nil)
-                         (adjust-languages-indent 4)
-                         )))
+  (dolist (hook (list
+                 'c++-ts-mode-hook
+                 'c-ts-mode-hook
+                 'java-mode-hook
+                 'haskell-mode-hook
+                 'asm-mode-hook
+                 'sh-mode-hook
+                 'haskell-cabal-mode-hook
+                 'ruby-mode-hook
+                 'qml-mode-hook
+                 ;; 'scss-mode-hook
+                 'go-mode-hook
+                 'go-ts-mode-hook
+                 'coffee-mode-hook
+                 'rust-mode-hook
+                 ))
+    (add-hook hook #'(lambda ()
+                       (setq indent-tabs-mode nil)
+                       (adjust-languages-indent 4)
+                       )))
 
     (dolist (hook (list
                    'web-mode-hook
@@ -2594,7 +2597,17 @@ Emacs 的 snippet 设置。
                          (adjust-languages-indent 2)
                          )))
 
-    (provide 'init-indent)
+  (dolist (hook (list
+                 'yaml-mode-hook
+                 'yaml-ts-mode-hook
+                 ))
+    (add-hook 'hook #'(lambda ()
+                        (setq indent-tabs-mode nil)
+                        (setq-local yaml-indent 2)
+                        (setq-local tab-width 2))))
+
+
+  (provide 'init-indent)
 #+end_src
 ** electric-pair-mode
 :PROPERTIES:
