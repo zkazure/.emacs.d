@@ -211,6 +211,9 @@
 [submodule "log4e"]
 	path = lib/log4e
 	url = https://github.com/aki2o/log4e
+[submodule "lsp-bridge"]
+	path = lib/lsp-bridge
+	url = https://github.com/manateelazycat/lsp-bridge
 [submodule "magit"]
 	path = lib/magit
 	url = https://github.com/magit/magit.git
@@ -328,12 +331,6 @@
 [submodule "shrink-path"]
 	path = lib/shrink-path
 	url = https://gitlab.com/bennya/shrink-path.el
-[submodule "sideline"]
-	path = lib/sideline
-	url = https://github.com/emacs-sideline/sideline
-[submodule "sideline-flymake"]
-	path = lib/sideline-flymake
-	url = https://github.com/emacs-sideline/sideline-flymake
 [submodule "simple-httpd"]
 	path = lib/simple-httpd
 	url = https://github.com/skeeto/emacs-web-server

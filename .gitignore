@@ -37,7 +37,6 @@ lisp/
 /network-security.data
 dirvish/
 /.agent-shell/
-/lib/lsp-bridge/
 /forge-database.sqlite
 /rime/
 /pyim/

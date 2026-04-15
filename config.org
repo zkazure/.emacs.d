@@ -308,7 +308,7 @@ Set up the *borg* configuration.
 
   ;; be able to C-SPC to keep jump back to last position
   ;; instead of C-u C-SPC every time
-  (setq set-mark-command-repeat-pop t)
+  ;; (setq set-mark-command-repeat-pop t)
 
   (save-place-mode 1)
   (advice-add 'save-place-find-file-hook :after
@@ -2095,22 +2095,7 @@ Emacs 的 snippet 设置。
         flymake-fringe-indicator-position 'right-fringe
         flymake-margin-indicator-position 'right-margin
         flymake-show-diagnostics-at-end-of-line nil)
-#+end_src
-*** sideline
-#+begin_src elisp
-  (require 'sideline)
-  (require 'sideline-flymake)
-  (setq sideline-backends-right
-        `(((when (featurep 'flymake) 'sideline-flymake) . down)))
-  (setq sideline-backend-delays '((sideline-flymake . 1)))
-  (setq sideline-truncate t)
-  (add-hook 'ts-fold-on-fold-hook #'sideline-render-this)
 
-  (setq sideline-flymake-display-mode 'line
-        sideline-flymake-max-lines 2
-        sideline-flymake-show-backend-name nil)
-
-  (add-hook 'flymake-mode-hook #'sideline-mode)
 #+end_src
 *** End
 #+begin_src elisp
@@ -2448,6 +2433,7 @@ Emacs 的 snippet 设置。
 
 
 *** lsp-bridge
+must recompile when updated
 #+begin_src elisp
   (require 'yasnippet)
   (yas-global-mode 1)
@@ -2806,7 +2792,7 @@ Emacs 的 snippet 设置。
   (setq minor-mode-alist nil)
   (setq mode-line-mule-info t)
 
-  (set-face-attribute 'mode-line-inactive nil :box nil)
+  ;; (set-face-attribute 'mode-line-inactive nil :box nil)
 
   (setq-default mode-line-format
                 (list
@@ -2831,6 +2817,12 @@ Emacs 的 snippet 设置。
                  ;; '(:eval (propertize "%c" 'face 'font-lock-type-face))
 
                  'mode-line-format-right-align
+                 '(:eval (when (bound-and-true-p flymake-mode)
+                           (list " "
+                                 flymake-mode-line-error-counter
+                                 flymake-mode-line-warning-counter
+                                 flymake-mode-line-note-counter
+                                 " ")))
                  '(:eval (when (and (boundp 'rime-mode) rime-mode)
                            (propertize (format "%s" rime-title)))) " "
                  '(:eval mode-line-misc-info) " "
@@ -3782,11 +3774,11 @@ Emacs 的 snippet 设置。
   (setq mermaid-output-format ".png")
 
 #+end_src
-** gas-mode
+** asm-mode
 #+begin_src elisp
-  ;; (require 'gas-mode)
+  ;; (setq asm-comment-char ?#)
+
   (require 'x86-lookup)
-  ;; (add-to-list 'auto-mode-alist '("\\.s\\'" . gas-mode))
   (setq x86-lookup-pdf "~/.emacs.d/x86-lookup/sdm.pdf")
   (global-set-key (kbd "C-h x") #'x86-lookup)
 #+end_src
