@@ -3530,6 +3530,15 @@ Emacs 的 snippet 设置。
 
   (global-display-fill-column-indicator-mode 1)
 #+end_src
+*** makefile-mode
+#+begin_src elisp
+  ;; if auto yas-indent will call indent-according-to-mode which use
+  ;; indent-line-function to make indentation
+  ;; and that function in makefile-mode is indent-to-left-margin
+  (add-hook 'makefile-mode-hook
+            (lambda ()
+              (setq-local yas-indent-line 'fixed)))
+#+end_src
 ** god-mode
 #+begin_src elisp
   (setq god-mode-enable-function-key-translation nil)
