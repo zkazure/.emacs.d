@@ -406,11 +406,6 @@ Set up the *borg* configuration.
   (set-keyboard-coding-system 'utf-8)
   (set-language-environment   'utf-8)
 #+end_src
-*** Scratch
-把 Scratch 的默认模式变成 org-mode，方便写一些草稿。
-#+begin_src elisp
-  (setq initial-major-mode 'org-mode)
-#+end_src
 *** envrc
 设置基于项目文件夹地址的环境变量。
 #+begin_src elisp
