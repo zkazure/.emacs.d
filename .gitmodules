@@ -361,9 +361,6 @@
 [submodule "transient"]
 	path = lib/transient
 	url = https://github.com/magit/transient.git
-[submodule "treemacs"]
-	path = lib/treemacs
-	url = https://github.com/Alexander-Miller/treemacs
 [submodule "treepy"]
 	path = lib/treepy
 	url = https://github.com/volrath/treepy.el.git
