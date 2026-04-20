@@ -943,6 +943,8 @@ Emacs 的 snippet 设置。
   (setopt dirvish-quick-access-entries ; It's a custom option, `setq' won't work
           '(("h" "~/"                          "Home")
             ("d" "~/Downloads/"                "Downloads")
+            ("s" "~/Documents/sysu/"           "Sysu")
+            ("c" "~/Documents/cs_learning/"    "CS")
             ;; ("m" "/mnt/"                       "Drives")
             ;; ("s" "/ssh:my-remote-server")      "SSH server"
             ;; ("e" "/sudo:root@localhost:/etc")  "Modify program settings"
@@ -2055,12 +2057,12 @@ Emacs 的 snippet 设置。
    )
 
   (global-set-key (kbd "C-c o c") #'agent-shell-opencode-start-agent)
+  (global-set-key (kbd "C-c c a") #'agent-shell-send-region)
 
   (define-key agent-shell-mode-map (kbd "C-c <return>") #'agent-shell-submit)
   (define-key agent-shell-mode-map (kbd "C-c C-<return>") #'agent-shell-set-session-mode)
   (define-key agent-shell-mode-map (kbd "C-c s") #'agent-shell-send-file)
   (define-key agent-shell-mode-map (kbd "RET") #'newline)
-
 #+end_src
 *** END
 #+begin_src elisp
@@ -3352,6 +3354,7 @@ must recompile when updated
   ;; 将 M-z 绑定为“删除直到字符前”，而不是连字符一起删
   (global-set-key (kbd "M-z") 'zap-up-to-char)
   (global-set-key (kbd "C-z") 'repeat)
+  (global-set-key (kbd "C-Z") #'suspend-frame)
 
   (winner-mode 1)
   (global-set-key (kbd "C-c w") 'winner-undo)
