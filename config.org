@@ -3624,14 +3624,6 @@ must recompile when updated
 #+begin_src elisp
   (require 'atcoder-tools)
 #+end_src
-** uva-tools
-#+begin_src elisp
-  (require 'uva-tool)
-  (setq uva-tool-username "kazure")
-  (setq uva-tool-language 5)
-  (global-set-key (kbd "C-c u h") 'uva-tool-hunt-myself)
-  (global-set-key (kbd "C-c u s") 'uva-tool-submit-current-file)
-#+end_src
 ** diminish
 #+begin_src elisp
   (require 'diminish)

@@ -109,9 +109,6 @@
 [submodule "emacs-atcoder-tools"]
 	path = lib/emacs-atcoder-tools
 	url = git@github.com:zkazure/emacs-atcoder-tools.git
-[submodule "emacs-uva-tool"]
-	path = lib/emacs-uva-tool
-	url = git@github.com:zkazure/emacs-uva-tool.git
 [submodule "emacsql"]
 	path = lib/emacsql
 	url = https://github.com/magit/emacsql.git

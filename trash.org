@@ -1974,3 +1974,11 @@ https://abode.karthinks.com/org-latex-preview/
   ;;; End of file
 #+end_src
 
+** uva-tools
+#+begin_src elisp
+  (require 'uva-tool)
+  (setq uva-tool-username "kazure")
+  (setq uva-tool-language 5)
+  (global-set-key (kbd "C-c u h") 'uva-tool-hunt-myself)
+  (global-set-key (kbd "C-c u s") 'uva-tool-submit-current-file)
+#+end_src
