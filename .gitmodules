@@ -43,6 +43,9 @@
 [submodule "bui"]
 	path = lib/bui
 	url = https://github.com/alezost/bui.el
+[submodule "cape"]
+	path = lib/cape
+	url = https://github.com/minad/cape
 [submodule "catppuccin-theme"]
 	path = lib/catppuccin-theme
 	url = https://github.com/catppuccin/emacs
@@ -103,6 +106,9 @@
 [submodule "edit-indirect"]
 	path = lib/edit-indirect
 	url = https://github.com/Fanael/edit-indirect
+[submodule "eglot-booster"]
+	path = lib/eglot-booster
+	url = https://github.com/jdtsmith/eglot-booster.git
 [submodule "elisp-refs"]
 	path = lib/elisp-refs
 	url = https://github.com/Wilfred/elisp-refs

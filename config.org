@@ -2146,7 +2146,6 @@ Emacs 的 snippet 设置。
         flymake-fringe-indicator-position 'right-fringe
         flymake-margin-indicator-position 'right-margin
         flymake-show-diagnostics-at-end-of-line nil)
-
 #+end_src
 *** End
 #+begin_src elisp
@@ -2162,15 +2161,15 @@ Emacs 的 snippet 设置。
   (require 'orderless)
 
   (setq orderless-component-separator #'orderless-escapable-split-on-space
-        completion-styles '(orderless basic)
+        completion-styles '(orderless flex)
         completion-category-defaults nil
         ;; completion-pcm-leading-wildcard t ; emacs 31
         )
 
   (setq completion-category-overrides
-        '((file    (styles orderless partial-completion basic))
+        '((file    (styles partial-completion basic))
           (buffer  (styles orderless))
-          (eglot   (styles orderless))
+          (eglot   (styles . (orderless flex)))
           ))
 #+end_src
 
@@ -2367,7 +2366,7 @@ Emacs 的 snippet 设置。
                   :around #'embark-hide-which-key-indicator)))
 #+end_src
 
-*** COMMENT corfu
+*** corfu
 
 #+begin_src elisp
   (require 'corfu)
@@ -2415,18 +2414,19 @@ Emacs 的 snippet 设置。
   (require 'nerd-icons-corfu)
   (with-eval-after-load 'corfu
     (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+
+  ;; (keymap-unset corfu-map "RET")
 #+end_src
 
-
-*** COMMENT eglot
+*** eglot
 
 #+begin_src elisp
   (require 'eglot)
+  (require 'eglot-booster)
   (with-eval-after-load 'eglot
-    ;; Start Eglot automatically in Python, C++, and Rust buffers
     (add-hook 'prog-mode-hook 'eglot-ensure)
-    ;; (add-hook 'python-ts-mode 'eglot-ensure)
-    ;; (add-hook 'python-mode 'eglot-ensure)
+    (setq eglot-booster-io-only t)
+    (eglot-booster-mode 1)
     )
 
   (with-eval-after-load 'eglot
@@ -2445,9 +2445,9 @@ Emacs 的 snippet 设置。
     ;; (add-to-list 'eglot-server-programs
     ;;              '(c-ts-mode . ("clangd" "--header-insertion=never")))
     (add-to-list 'eglot-server-programs
-                 '(python-mode . ("pyright-langserver")) t)
+                 '(python-mode . ("basedpyright-langserver")) t)
     (add-to-list 'eglot-server-programs
-                 '(python-ts-mode . ("pyright-langserver")) t)
+                 '(python-ts-mode . ("basedpyright-langserver")) t)
     (add-to-list 'eglot-server-programs
                  '(java-mode . ("/home/kazure/.emacs.d/.cache/lsp/eclipse.jdt.ls/bin/jdtls")))
     (add-to-list 'eglot-server-programs
@@ -2482,6 +2482,15 @@ Emacs 的 snippet 设置。
   (provide 'init-eglot)
 #+end_src
 
+*** cape
+#+begin_src elisp
+  (require 'cape)
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (with-eval-after-load 'org
+    (add-hook 'org-mode-hook
+              (lambda ()
+                (add-to-list 'completion-at-point-functions #'cape-dabbrev t))))
+#+end_src
 
 *** lsp-bridge
 must recompile when updated
@@ -2494,12 +2503,12 @@ must recompile when updated
   (require 'lsp-bridge-jdtls)
   (setq lsp-bridge-enable-auto-import t)
 
-  (global-set-key (kbd "M-.") #'lsp-bridge-find-def)
-  (global-set-key (kbd "M-,") #'lsp-bridge-find-def-return)
-  (global-set-key (kbd "M-?") #'lsp-bridge-find-references)
-  (global-set-key (kbd "M-R") #'lsp-bridge-rename)
+  (define-key lsp-bridge-mode-map (kbd "M-.") #'lsp-bridge-find-def)
+  (define-key lsp-bridge-mode-map (kbd "M-,") #'lsp-bridge-find-def-return)
+  (define-key lsp-bridge-mode-map (kbd "M-?") #'lsp-bridge-find-references)
+  (define-key lsp-bridge-mode-map (kbd "M-R") #'lsp-bridge-rename)
 
-  (global-lsp-bridge-mode)
+  ;; (global-lsp-bridge-mode)
 
   (setq alter-fullscreen-frames nil)
 

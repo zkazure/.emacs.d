@@ -1781,20 +1781,17 @@ https://abode.karthinks.com/org-latex-preview/
   (doric-themes-select 'doric-dark)
 #+end_src
 
-** flymake-bridge
-#+begin_src elisp
-  (require 'flymake-bridge)
-  (add-hook 'lsp-bridge-mode-hook #'flymake-bridge-setup)
-  ;; (setq lsp-bridge-diagnostic-enable-overlays nil)
-#+end_src
-
 ** sideline
 #+begin_src elisp
   (require 'sideline)
   (require 'sideline-flymake)
+  (require 'sideline-eglot)
+
   (setq sideline-backends-right
-        `(((when (featurep 'flymake) 'sideline-flymake) . down)))
-  (setq sideline-backend-delays '((sideline-flymake . 1)))
+        `(((when (featurep 'flymake) 'sideline-flymake) . down)
+          ((when (featurep 'eglot) 'sideline-eglot) . up)))
+  (setq sideline-backend-delays '((sideline-flymake . 1)
+                                  (sideline-eglot . 0.2)))
   (setq sideline-truncate t)
   (add-hook 'ts-fold-on-fold-hook #'sideline-render-this)
 
@@ -1804,6 +1801,14 @@ https://abode.karthinks.com/org-latex-preview/
 
   (add-hook 'flymake-mode-hook #'sideline-mode)
 #+end_src
+
+** flymake-bridge
+#+begin_src elisp
+  (require 'flymake-bridge)
+  (add-hook 'lsp-bridge-mode-hook #'flymake-bridge-setup)
+  ;; (setq lsp-bridge-diagnostic-enable-overlays nil)
+#+end_src
+
 ** treemacs
 #+begin_src elisp
   (require 'treemacs-autoloads)
