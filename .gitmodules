@@ -184,9 +184,6 @@
 [submodule "htmlize"]
 	path = lib/htmlize
 	url = https://github.com/hniksic/emacs-htmlize
-[submodule "hydra"]
-	path = lib/hydra
-	url = https://github.com/abo-abo/hydra
 [submodule "indent-bars"]
 	path = lib/indent-bars
 	url = https://github.com/jdtsmith/indent-bars
@@ -220,9 +217,6 @@
 [submodule "magit"]
 	path = lib/magit
 	url = https://github.com/magit/magit.git
-[submodule "major-mode-hydra"]
-	path = lib/major-mode-hydra
-	url = https://github.com/jerrypnz/major-mode-hydra.el
 [submodule "marginalia"]
 	path = lib/marginalia
 	url = https://github.com/minad/marginalia
