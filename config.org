@@ -3228,8 +3228,8 @@ must recompile when updated
   (fset 'yes-or-no-p 'y-or-n-p)
   ;; 将 M-z 绑定为“删除直到字符前”，而不是连字符一起删
   (global-set-key (kbd "M-z") 'zap-up-to-char)
-  (global-set-key (kbd "C-z") 'repeat)
-  (global-set-key (kbd "C-Z") #'suspend-frame)
+  (global-set-key (kbd "C-z") #'repeat)
+  (global-set-key (kbd "C-S-Z") #'suspend-frame)
 
   (winner-mode 1)
   (global-set-key (kbd "C-c w") 'winner-undo)
