@@ -415,6 +415,22 @@ Set up the *borg* configuration.
 让 Emacs 能够继承终端的环境变量。
 #+begin_src elisp
   (require 'exec-path-from-shell)
+  (dolist
+      (var
+       '(
+         "ANTHROPIC_BASE_URL"
+         "ANTHROPIC_API_KEY"
+         "ANTHROPIC_DEFAULT_SONNET_MODEL"
+         "ANTHROPIC_DEFAULT_OPUS_MODEL"
+         ;; "SSH_AGENT_PID"
+         ;; "GPG_AGENT_INFO"
+         ;; "LANG"
+         ;; "LC_CTYPE"
+         ;; "NIX_SSL_CERT_FILE"
+         ;; "NIX_PATH"
+         ))
+    (add-to-list 'exec-path-from-shell-variables var))
+
   (when (or (daemonp) (memq window-system '(mac ns x)))
     (exec-path-from-shell-initialize))
 #+end_src
@@ -437,11 +453,12 @@ Set up the *borg* configuration.
 
   (customize-set-variable 'fill-column 80)
   (add-hook 'text-mode-hook 'visual-line-mode)
-  ;; (setq global-display-fill-column-indicator-mode
-  ;;       '((not help-mode
-  ;;              eat-mode)
-  ;;         t))
-  ;; (add-hook 'after-init-hook #'global-display-fill-column-indicator-mode)
+
+  (setq global-display-fill-column-indicator-mode
+        '((not help-mode
+               eat-mode)
+          t))
+  (add-hook 'after-init-hook #'global-display-fill-column-indicator-mode)
 
   (add-hook 'prog-mode-hook #'(lambda () (display-line-numbers-mode 1)))
   (setq display-line-numbers-type t)
@@ -1922,7 +1939,7 @@ Emacs 的 snippet 设置。
    agent-shell-user-message-expand-by-default t
    )
 
-  (global-set-key (kbd "C-c o c") #'agent-shell-opencode-start-agent)
+  (global-set-key (kbd "C-c o C") #'agent-shell-opencode-start-agent)
   (global-set-key (kbd "C-c c a") #'agent-shell-send-region)
 
   (define-key agent-shell-mode-map (kbd "C-c <return>") #'agent-shell-submit)
@@ -3275,9 +3292,6 @@ must recompile when updated
   ;; ansi color
   (require 'ansi-color)
   (add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
-
-
-  (global-display-fill-column-indicator-mode 1)
 #+end_src
 *** makefile-mode
 #+begin_src elisp
@@ -3542,6 +3556,16 @@ must recompile when updated
 ** kdl-mode
 #+begin_src elisp
   (require 'kdl-mode)
+#+end_src
+** claude-code-ide
+#+begin_src elisp
+  (require 'claude-code-ide)
+  (setq claude-code-ide-terminal-backend 'eat)
+  (claude-code-ide-emacs-tools-setup)
+  (setq claude-code-ide-use-side-window nil)
+  (setq claude-code-ide-no-flicker t)
+
+  (global-set-key (kbd "C-c o c") 'claude-code-ide-menu)
 #+end_src
 ** END
 
