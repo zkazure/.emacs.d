@@ -477,7 +477,7 @@ Set up the *borg* configuration.
   ;; (require 'catppuccin-theme)
   ;; (setq catppuccin-flavor 'macchiato) ;; or 'latte, 'macchiato, or 'mocha
   ;; (load-theme 'catppuccin :no-confirm)
-  ;; ;; (catppuccin-reload)
+  ;; (catppuccin-reload)
   (load-theme 'modus-operandi)
 #+end_src
 
@@ -771,7 +771,9 @@ only the language set here can be babeled.
      ("x" "example"      (lambda () (interactive) (hot-expand "<e")))
      ("q" "quote"        (lambda () (interactive) (hot-expand "<q")))]
     ["Programming"
+     ("s" ""             (lambda () (interactive) (hot-expand "<s" "")))
      ("c" "cpp"          (lambda () (interactive) (hot-expand "<s" "cpp")))
+     ("C" "C"            (lambda () (interactive) (hot-expand "<s" "C")))
      ("e" "emacs-lisp"   (lambda () (interactive) (hot-expand "<s" "elisp")))
      ("g" "golang"       (lambda () (interactive) (hot-expand "<s" "go :imports '(\"fmt\")")))]
     ["Data & Scripts"
@@ -2050,9 +2052,9 @@ Emacs 的 snippet 设置。
         )
 
   (setq completion-category-overrides
-        '((file    (styles partial-completion basic))
+        '((file    (styles orderless partial-completion basic))
           (buffer  (styles orderless))
-          (eglot   (styles . (orderless flex)))
+          (eglot   (styles . (orderless basic)))
           ))
 #+end_src
 
@@ -3454,8 +3456,9 @@ must recompile when updated
   (setq default-input-method "rime"
         rime-show-candidate 'posframe
         rime-posframe-style 'vertical
-        rime-show-preedit 'inline
-        rime-posframe-fixed-position nil)
+        ;; rime-show-preedit 'inline
+        ;; rime-posframe-fixed-position nil
+        )
   (setq rime-posframe-properties
         (list
          :internal-border-width 2
