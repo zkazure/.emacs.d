@@ -148,6 +148,9 @@
 [submodule "forge"]
 	path = lib/forge
 	url = https://github.com/magit/forge
+[submodule "gdscript-mode"]
+	path = lib/gdscript-mode
+	url = https://github.com/godotengine/emacs-gdscript-mode
 [submodule "geiser"]
 	path = lib/geiser
 	url = https://gitlab.com/emacs-geiser/geiser
@@ -187,6 +190,9 @@
 [submodule "htmlize"]
 	path = lib/htmlize
 	url = https://github.com/hniksic/emacs-htmlize
+[submodule "hydra"]
+	path = lib/hydra
+	url = https://github.com/abo-abo/hydra
 [submodule "indent-bars"]
 	path = lib/indent-bars
 	url = https://github.com/jdtsmith/indent-bars
