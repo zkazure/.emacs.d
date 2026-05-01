@@ -474,10 +474,6 @@ Set up the *borg* configuration.
 *** theme
 
 #+begin_src elisp
-  ;; (require 'catppuccin-theme)
-  ;; (setq catppuccin-flavor 'macchiato) ;; or 'latte, 'macchiato, or 'mocha
-  ;; (load-theme 'catppuccin :no-confirm)
-  ;; (catppuccin-reload)
   (load-theme 'modus-operandi)
 #+end_src
 

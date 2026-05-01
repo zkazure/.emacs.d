@@ -1781,6 +1781,14 @@ https://abode.karthinks.com/org-latex-preview/
   (doric-themes-select 'doric-dark)
 #+end_src
 
+*** catppuccin-theme
+#+begin_src elisp
+  (require 'catppuccin-theme)
+  (setq catppuccin-flavor 'macchiato) ;; or 'latte, 'macchiato, or 'mocha
+  (load-theme 'catppuccin :no-confirm)
+  (catppuccin-reload)
+#+end_src
+
 ** sideline
 #+begin_src elisp
   (require 'sideline)
