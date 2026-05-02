@@ -3576,6 +3576,13 @@ must recompile when updated
   (define-key gdscript-mode-map (kbd "C-c C-n") #'gdscript-debug-hydra)
   (define-key gdscript-mode-map (kbd "C-c C-r") #'gdscript-hydra-show)
 #+end_src
+** dumb-jump
+#+begin_src elisp
+  (require 'dumb-jump)
+  (setq dumb-jump-prefer-searcher 'rg
+        xref-show-definitions-function #'consult-xref)
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+#+end_src
 ** END
 
 #+begin_src emacs-lisp
