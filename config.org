@@ -3419,7 +3419,8 @@ must recompile when updated
   (setq auth-source '("~/.authinfo.gpg"))
 #+end_src
 
-** pyim
+** input method
+*** pyim
 #+begin_src elisp
   (require 'pyim)
   (setq pyim-cloudim nil)
@@ -3441,7 +3442,8 @@ must recompile when updated
 
   (advice-add 'orderless-regexp :around #'my-orderless-regexp)
 #+end_src
-** emacs-rime
+
+*** emacs-rime
 #+begin_src elisp
   (require 'rime)
 
