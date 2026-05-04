@@ -3585,6 +3585,10 @@ must recompile when updated
         xref-show-definitions-function #'consult-xref)
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
 #+end_src
+** rasi-mode
+#+begin_src elisp
+  (require 'rasi-mode)
+#+end_src
 ** END
 
 #+begin_src emacs-lisp
