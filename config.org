@@ -3723,13 +3723,13 @@ must recompile when updated
   (show-paren-mode 1)
   (delete-selection-mode 1)
   (global-auto-revert-mode 1)
-  (recentf-mode 1)
-  (when (fboundp 'savehist-mode)
-    (savehist-mode 1))
-  (if (fboundp 'save-place-mode)
-      (save-place-mode 1)
-    (require 'saveplace)
-    (setq-default save-place t))
+  ;; (recentf-mode 1)
+  ;; (when (fboundp 'savehist-mode)
+  ;;   (savehist-mode 1))
+  ;; (if (fboundp 'save-place-mode)
+  ;;     (save-place-mode 1)
+  ;;   (require 'saveplace)
+  ;; (setq-default save-place t))
 
   (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
   (electric-pair-mode 1)
@@ -3767,13 +3767,14 @@ must recompile when updated
             ido-create-new-buffer 'always
             ido-enable-flex-matching t)
 
-      (defun ido-recentf-open ()
-        "Use `ido-completing-read' to find a recent file."
-        (interactive)
-        (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-            (message "Opening file...")
-          (message "Aborting")))
-      (global-set-key (kbd "C-x C-r") 'ido-recentf-open)))
+      ;; (defun ido-recentf-open ()
+      ;;   "Use `ido-completing-read' to find a recent file."
+      ;;   (interactive)
+      ;;   (if (find-file (ido-completing-read "Find recent file: " recentf-list))
+      ;;       (message "Opening file...")
+      ;;     (message "Aborting")))
+      ;; (global-set-key (kbd "C-x C-r") 'ido-recentf-open))
+    )
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;;; Init-mini.el ends here
