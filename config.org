@@ -465,6 +465,10 @@ Set up the *borg* configuration.
   (setq enable-recursive-minibuffers +1)
   (setq cursor-in-non-selected-windows nil)
 
+  (setq hl-line-sticky-flag nil)
+  (setq hl-line-range-function
+        (lambda () (cons (line-end-position)
+                    (line-beginning-position 2))))
   (global-hl-line-mode 1)
 #+end_src
 *** theme
@@ -3437,7 +3441,6 @@ must recompile when updated
       (pyim-cregexp-build result)))
   (advice-add 'orderless-regexp :around #'my-orderless-regexp)
 #+end_src
-
 *** emacs-rime
 #+begin_src elisp
   (require 'rime)
@@ -3709,7 +3712,11 @@ must recompile when updated
   (when (fboundp 'horizontal-scroll-bar-mode)
     (horizontal-scroll-bar-mode -1))
 
-  ;; (global-hl-line-mode 1)
+  (setq hl-line-sticky-flag nil)
+  (setq hl-line-range-function
+        (lambda () (cons (line-end-position)
+                    (line-beginning-position 2))))
+  (global-hl-line-mode 1)
   (global-display-line-numbers-mode 1)
 
   ;; Basic modes
