@@ -949,7 +949,8 @@ Emacs 的 snippet 设置。
 改善 Emacs 原生的 dired 体验。
 #+begin_src emacs-lisp
   (require 'dirvish)
-  (add-to-list 'load-path "~/.emacs.d/lib/dirvish/extensions/")
+  (add-to-list 'load-path
+               (expand-file-name "lib/dirvish/extensions/" user-emacs-directory))
   (require 'dirvish-collapse)
   (require 'dirvish-subtree)
   (require 'dirvish-yank)
@@ -1286,7 +1287,8 @@ Emacs 的 snippet 设置。
 #+begin_src emacs-lisp
   (require 'org-roam)
 
-  (add-to-list 'load-path "~/.emacs.d/lib/org-roam/extensions/")
+  (add-to-list 'load-path
+               (expand-file-name "lib/org-roam/extensions/" user-emacs-directory))
   ;; (require 'org-roam-dailies)
   (require 'org-roam-export)
   (require 'org-roam-graph)
@@ -2055,7 +2057,8 @@ Emacs 的 snippet 设置。
 
 #+begin_src elisp
   (require 'vertico)
-  (add-to-list 'load-path "~/.emacs.d/lib/vertico/extensions/")
+  (add-to-list 'load-path
+               (expand-file-name "lib/vertico/extensions/" user-emacs-directory))
   (require 'vertico-buffer)
   (require 'vertico-directory)
   (require 'vertico-flat)
@@ -2248,7 +2251,8 @@ Emacs 的 snippet 设置。
 
 #+begin_src elisp
   (require 'corfu)
-  (add-to-list 'load-path "~/.emacs.d/lib/corfu/extensions/")
+  (add-to-list 'load-path
+               (expand-file-name "lib/corfu/extensions/" user-emacs-directory))
   ;; (require 'corfu-echo)
   (require 'corfu-history)
   (require 'corfu-indexed)
@@ -2376,7 +2380,6 @@ must recompile when updated
   (require 'yasnippet)
   (yas-global-mode 1)
 
-  (add-to-list 'load-path "~/.emacs.d/lib/lsp-bridge/")
   (require 'lsp-bridge)
   (require 'lsp-bridge-jdtls)
   (setq lsp-bridge-enable-auto-import t)
