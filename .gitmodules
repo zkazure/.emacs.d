@@ -211,6 +211,9 @@
 [submodule "leetcode"]
 	path = lib/leetcode
 	url = https://github.com/kaiwk/leetcode.el
+[submodule "lilypond"]
+	path = lib/lilypond
+	url = https://git.savannah.gnu.org/git/lilypond.git
 [submodule "link-hint"]
 	path = lib/link-hint
 	url = https://github.com/noctuid/link-hint.el
