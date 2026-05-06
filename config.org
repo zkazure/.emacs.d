@@ -301,10 +301,6 @@ Set up the *borg* configuration.
 
   ;; (setq window-combination-resize t)
 
-  ;; be able to C-SPC to keep jump back to last position
-  ;; instead of C-u C-SPC every time
-  ;; (setq set-mark-command-repeat-pop t)
-
   (save-place-mode 1)
   (advice-add 'save-place-find-file-hook :after
               (lambda (&rest _)
@@ -3243,8 +3239,6 @@ must recompile when updated
   (fset 'yes-or-no-p 'y-or-n-p)
   ;; 将 M-z 绑定为“删除直到字符前”，而不是连字符一起删
   (global-set-key (kbd "M-z") 'zap-up-to-char)
-  (global-set-key (kbd "C-z") #'repeat)
-  (global-set-key (kbd "C-S-Z") #'suspend-frame)
 
   (winner-mode 1)
   (global-set-key (kbd "C-c w") 'winner-undo)
@@ -3351,9 +3345,6 @@ must recompile when updated
       (define-key god-local-mode-map (kbd key) #'my/god-mode-wrap-or-translate)))
 
 
-
-  (define-key god-local-mode-map (kbd "z") #'repeat)
-  ;; (define-key god-local-mode-map (kbd "g") #'keyboard-quit)
   (with-eval-after-load 'god-mode
     (define-key god-local-mode-map (kbd "C-\\")
       #'(lambda () (interactive))))
@@ -3588,6 +3579,14 @@ must recompile when updated
 #+begin_src elisp
   (require 'rasi-mode)
 #+end_src
+** repeat-mode
+#+begin_src elisp
+  (repeat-mode 1)
+  (define-key undo-repeat-map (kbd "U") 'undo-redo)
+  ;; be able to C-SPC to keep jump back to last position
+  ;; instead of C-u C-SPC every time
+  (setq set-mark-command-repeat-pop t)
+#+end_src
 ** END
 
 #+begin_src emacs-lisp
@@ -3708,6 +3707,10 @@ must recompile when updated
   (add-hook 'prog-mode-hook #'subword-mode)
   (add-hook 'minibuffer-setup-hook #'subword-mode)
 
+  ;; repeat command easily
+  (repeat-mode 1)
+  (define-key undo-repeat-map (kbd "U") 'undo-redo)
+
   ;; Completion
   (when (fboundp 'global-completion-preview-mode)
     (global-completion-preview-mode 1))
@@ -3741,12 +3744,6 @@ must recompile when updated
             (message "Opening file...")
           (message "Aborting")))
       (global-set-key (kbd "C-x C-r") 'ido-recentf-open)))
-
-  ;; (add-hook 'emacs-lisp-mode-hook
-  ;;           (lambda ()
-  ;;             (local-set-key (kbd "C-c C-x") #'ielm)
-  ;;             (local-set-key (kbd "C-c C-c") #'eval-defun)
-  ;;             (local-set-key (kbd "C-c C-b") #'eval-buffer)))
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;;; Init-mini.el ends here
