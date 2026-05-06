@@ -26,10 +26,7 @@
     (add-to-list 'package-archives
                  (cons "melpa" "https://melpa.org/packages/")
                  t))
-
-
 #+end_src
-
 
 ** Personal
 #+begin_src emacs-lisp
@@ -49,7 +46,6 @@
   (setenv "LSP_USE_PLISTS" "true")
   (setq lsp-use-plists t)
 #+end_src
-
 ** END
 #+begin_src emacs-lisp
   (provide 'early-init)
@@ -72,7 +68,6 @@ Set up the *borg* configuration.
   ;;; init.el --- user-init-file                    -*- lexical-binding: t -*-
   ;;; Early birds
 #+end_src
-
 ** borg
 #+begin_src emacs-lisp
   (progn ;     startup
@@ -433,6 +428,11 @@ Set up the *borg* configuration.
 
   (when (or (daemonp) (memq window-system '(mac ns x)))
     (exec-path-from-shell-initialize))
+#+end_src
+*** others
+对于我设置的系统 default 内容，在用户目录下自动禁止启动会好一点。
+#+begin_src elisp
+  (setq inhibit-default-init t)
 #+end_src
 *** END
 #+begin_src elisp
@@ -3439,7 +3439,6 @@ must recompile when updated
   (defun my-orderless-regexp (orig-func component)
     (let ((result (funcall orig-func component)))
       (pyim-cregexp-build result)))
-
   (advice-add 'orderless-regexp :around #'my-orderless-regexp)
 #+end_src
 
@@ -3599,6 +3598,8 @@ must recompile when updated
 :PROPERTIES:
 :HEADER-ARGS: :tangle init-mini.el
 :END:
+这个配置文件可以放置在 =/usr/share/emacs/site-lisp/default.el= ，
+所有用户的 Emacs 都会在执行完 =init.el= 之后执行这个文件。
 
 #+begin_src elisp
   ;;; init-mini.el --- Centaur Emacs minimal configurations.	-*- lexical-binding: t no-byte-compile: t -*-
@@ -3673,7 +3674,7 @@ must recompile when updated
                 indent-tabs-mode nil)
 
   ;; UI
-  ;; (load-theme 'wombat t)
+  (load-theme 'leuven-dark t)
   (set-face-attribute 'default nil :height 120)
 
 
@@ -3686,7 +3687,7 @@ must recompile when updated
   (when (fboundp 'horizontal-scroll-bar-mode)
     (horizontal-scroll-bar-mode -1))
 
-  (global-hl-line-mode 1)
+  ;; (global-hl-line-mode 1)
   (global-display-line-numbers-mode 1)
 
   ;; Basic modes
@@ -3741,43 +3742,11 @@ must recompile when updated
           (message "Aborting")))
       (global-set-key (kbd "C-x C-r") 'ido-recentf-open)))
 
-  ;; Key Modifiers
-  (cond
-   ((eq system-type 'windows-nt)
-    ;; make PC keyboard's Win key or other to type Super or Hyper
-    ;; (setq w32-pass-lwindow-to-system nil)
-    (setq w32-lwindow-modifier 'super     ; Left Windows key
-          w32-apps-modifier 'hyper)       ; Menu/App key
-    (w32-register-hot-key [s-t]))
-   ((eq window-system 'mac)
-    ;; Compatible with Emacs Mac port
-    (setq mac-option-modifier 'meta
-          mac-command-modifier 'super)
-    (global-set-key [(super a)] #'mark-whole-buffer)
-    (global-set-key [(super v)] #'yank)
-    (global-set-key [(super c)] #'kill-ring-save)
-    (global-set-key [(super s)] #'save-buffer)
-    (global-set-key [(super l)] #'goto-line)
-    (global-set-key [(super w)] #'delete-frame)
-    (global-set-key [(super z)] #'undo)))
-
-  ;; Keybindings
-  (global-set-key (kbd "<C-return>") #'rectangle-mark-mode)
-
-  (defun revert-current-buffer ()
-    "Revert the current buffer."
-    (interactive)
-    (message "Revert this buffer")
-    (text-scale-set 0)
-    (widen)
-    (revert-buffer t t))
-  (global-set-key (kbd "<f5>") #'revert-current-buffer)
-
-  (add-hook 'emacs-lisp-mode-hook
-            (lambda ()
-              (local-set-key (kbd "C-c C-x") #'ielm)
-              (local-set-key (kbd "C-c C-c") #'eval-defun)
-              (local-set-key (kbd "C-c C-b") #'eval-buffer)))
+  ;; (add-hook 'emacs-lisp-mode-hook
+  ;;           (lambda ()
+  ;;             (local-set-key (kbd "C-c C-x") #'ielm)
+  ;;             (local-set-key (kbd "C-c C-c") #'eval-defun)
+  ;;             (local-set-key (kbd "C-c C-b") #'eval-buffer)))
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;;; Init-mini.el ends here
