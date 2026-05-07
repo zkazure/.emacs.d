@@ -3480,6 +3480,12 @@ must recompile when updated
         lilypond-ps-command "zathura"
         lilypond-midi-command "timidity")
 #+end_src
+** wgrep
+be able to edit in grep-mode buffer.
+
+#+begin_src elisp
+  (require 'wgrep)
+#+end_src
 ** END
 
 #+begin_src emacs-lisp
