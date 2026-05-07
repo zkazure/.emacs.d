@@ -3427,19 +3427,22 @@ must recompile when updated
   (setq pyim-candidates-search-buffer-p nil)
   (setq pyim-enable-shortcode nil)
 
-  ;; (setq-default pyim-punctuation-translate-p '(auto))
+  (setq pyim-default-scheme 'xiaohe-shuangpin
+        pyim-page-tooltip 'minibuffer
+        pyim-page-style 'one-line)
+  (setq-default pyim-punctuation-translate-p '(auto))
 
-  (setq pyim-default-scheme 'xiaohe-shuangpin)
   (with-eval-after-load 'avy
     (defun my-avy--regex-candidates (fun regex &optional beg end pred group)
       (let ((regex (pyim-cregexp-build regex)))
         (funcall fun regex beg end pred group)))
     (advice-add 'avy--regex-candidates :around #'my-avy--regex-candidates))
 
-  (defun my-orderless-regexp (orig-func component)
-    (let ((result (funcall orig-func component)))
-      (pyim-cregexp-build result)))
-  (advice-add 'orderless-regexp :around #'my-orderless-regexp)
+  (with-eval-after-load 'orderless
+    (defun my-orderless-regexp (orig-func component)
+      (let ((result (funcall orig-func component)))
+        (pyim-cregexp-build result)))
+    (advice-add 'orderless-regexp :around #'my-orderless-regexp))
 #+end_src
 *** emacs-rime
 #+begin_src elisp
@@ -3774,7 +3777,7 @@ must recompile when updated
       ;;       (message "Opening file...")
       ;;     (message "Aborting")))
       ;; (global-set-key (kbd "C-x C-r") 'ido-recentf-open))
-    )
+    ))
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;;; Init-mini.el ends here
