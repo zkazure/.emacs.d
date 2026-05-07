@@ -244,9 +244,6 @@
 [submodule "move-text"]
 	path = lib/move-text
 	url = https://github.com/emacsfodder/move-text
-[submodule "multiple-cursors"]
-	path = lib/multiple-cursors
-	url = https://github.com/magnars/multiple-cursors.el
 [submodule "nerd-icons"]
 	path = lib/nerd-icons
 	url = https://github.com/rainstormstudio/nerd-icons.el
