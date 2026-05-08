@@ -2247,6 +2247,11 @@ https://abode.karthinks.com/org-latex-preview/
   ;;     ;;
   ;;     (select-window win11)))
 #+end_src
+** indent-bars
+#+begin_src elisp
+  (require 'indent-bars)
+  ;; (add-hook 'prog-mode-hook #'indent-bars-mode)
+#+end_src
 
 ** multiple-cursor
 #+begin_src elisp

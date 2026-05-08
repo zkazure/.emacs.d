@@ -3392,11 +3392,6 @@ must recompile when updated
                      super-save-mode
                      emmet-mode))
 #+end_src
-** indent-bars
-#+begin_src elisp
-  (require 'indent-bars)
-  ;; (add-hook 'prog-mode-hook #'indent-bars-mode)
-#+end_src
 ** mermaid-mode
 #+begin_src elisp
   (require 'mermaid-mode)

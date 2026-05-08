@@ -193,9 +193,6 @@
 [submodule "hydra"]
 	path = lib/hydra
 	url = https://github.com/abo-abo/hydra
-[submodule "indent-bars"]
-	path = lib/indent-bars
-	url = https://github.com/jdtsmith/indent-bars
 [submodule "inheritenv"]
 	path = lib/inheritenv
 	url = https://github.com/purcell/inheritenv
