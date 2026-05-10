@@ -2066,7 +2066,7 @@ Emacs 的 snippet 设置。
   (require 'vertico-directory)
   (require 'vertico-flat)
   (require 'vertico-grid)
-  ;; (require 'vertico-indexed)
+  (require 'vertico-indexed)
   ;; (require 'vertico-mouse)
   (require 'vertico-multiform)
   ;; (require 'vertico-quick)
@@ -2074,7 +2074,7 @@ Emacs 的 snippet 设置。
   ;; (require 'vertico-reverse)
   (require 'vertico-sort)
   ;; (require 'vertico-suspend)
-  (require 'vertico-posframe)
+  ;; (require 'vertico-posframe)
 
   (vertico-mode)
 
@@ -2085,32 +2085,13 @@ Emacs 的 snippet 设置。
 
   (setq vertico-sort-function 'vertico-sort-history-length-alpha)
 
-  ;; (vertico-flat-mode)
-  ;; (vertico-posframe-mode 1)
+  (vertico-multiform-mode)
 
-  (setq vertico-posframe-poshandler
-        #'posframe-poshandler-frame-top-left-or-right-other-corner
-
-        vertico-posframe-fallback-mode 'vertico-flat-mode
-        vertico-posframe-min-width 80
-        vertico-posframe-min-height 5
-        vertico-posframe-border-width 1
-        vertico-posframe-parameters '((left-fringe . 8)
-                                      (right-fringe . 8))
-        vertico-multiform-commands
-        '((org-roam-node-find posframe
-                              (vertico-posframe-poshandler
-                               . posframe-poshandler-frame-center))
-          (org-roam-node-insert posframe
-                              (vertico-posframe-poshandler
-                               . posframe-poshandler-frame-center))
-          (t posframe)
-          )
-        )
-
-  (vertico-multiform-mode 1)
-
-
+  (vertico-indexed-mode)
+  (dotimes (i 10)
+    (define-key vertico-map
+                (kbd (format "M-%s" i))
+                (kbd (format "C-%s <tab>" i))))
 #+end_src
 
 *** consult
@@ -2738,7 +2719,7 @@ must recompile when updated
           `(("content"
              :base-directory "~/Documents/roam/blog/"
              :base-extension "org"
-             :exclude: "ltximg/*"
+             :exclude: "ltximg/"
              :auto-preamble t
              :html-postamble nil
              :section-numbers nil
@@ -2775,7 +2756,7 @@ must recompile when updated
             ("static"
              :base-directory "~/Documents/roam/blog/"
              :base-extension "js\\|css\\|txt\\|jpg\\|gif\\|png"
-             :exclude: "ltximg/*"
+             :exclude: "ltximg/"
              :recursive t
              :publishing-directory  "~/Developments/blog/"
              :publishing-function org-publish-attachment)
@@ -3318,7 +3299,8 @@ must recompile when updated
 
   (setq rime-translate-keybindings
     '("C-n" "C-p" "C-g" "shift"))
-  (setq rime-user-data-dir "~/.emacs.d/rime/")
+  ;; (setq rime-user-data-dir "~/.emacs.d/rime/")
+  (setq rime-user-data-dir "~/Developments/moqi-flypy-cj")
 
   (setq default-input-method "rime"
         rime-show-candidate 'posframe
@@ -3333,6 +3315,7 @@ must recompile when updated
          ;; :foreground-color "#cdd6f4"
          ))
 #+end_src
+
 ** olivetti
 #+begin_src elisp
   (require 'olivetti)
