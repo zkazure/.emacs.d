@@ -3357,6 +3357,8 @@ must recompile when updated
     (cl-pushnew 'embark--mark-target
                 (alist-get 'whole-line-or-region-delete-region
                            embark-around-action-hooks)))
+  (with-eval-after-load 'whole-line-or-region
+    (define-key whole-line-or-region-local-mode-map [remap comment-dwim] nil))
 #+end_src
 ** cmake-mode
 #+begin_src elisp
