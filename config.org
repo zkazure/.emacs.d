@@ -3468,6 +3468,10 @@ be able to edit in grep-mode buffer.
 #+begin_src elisp
   (require 'wgrep)
 #+end_src
+** lua-mode
+#+begin_src elisp
+  (require 'lua-mode)
+#+end_src
 ** END
 
 #+begin_src emacs-lisp
