@@ -686,7 +686,8 @@ Set up the *borg* configuration.
                  "* TODO %?"))
 
   (add-to-list 'org-capture-templates
-               '("j" "Journal Entry" entry (file+weektree "~/Documents/roam/journal.org")
+               '("j" "Journal Entry" entry (file+olp+datetree
+                                            "~/Documents/roam/journal.org")
                  "* [%<%Y-%m-%d %a %H:%M>] %?"
                  :empty-lines 1
                  :jump-to-captured t))
