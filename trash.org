@@ -2323,3 +2323,16 @@ https://abode.karthinks.com/org-latex-preview/
   (with-eval-after-load 'visual-regexp
     (define-key global-map (kbd "C-c M") 'vr/mc-mark))
 #+end_src
+** emms
+#+begin_src elisp
+  (require 'emms)
+  (require 'emms-setup)
+  (emms-all)
+  (setq emms-player-list '(emms-player-mpv)
+        emms-volume-change-function 'emms-volume-mpv-change
+        emms-info-functions '(emms-info-native)
+        emms-source-file-default-directory (expand-file-name "~/Music/")
+        emms-source-file-directory-tree-function 'emms-source-file-directory-tree-find)
+  (global-set-key (kbd "C-c o e") #'emms)
+
+#+end_src
