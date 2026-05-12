@@ -2365,59 +2365,6 @@ These commands I use most often except consult-line:
                 (add-to-list 'completion-at-point-functions #'cape-dabbrev t))))
 #+end_src
 
-*** lsp-bridge
-must recompile when updated
-#+begin_src elisp
-  (require 'yasnippet)
-  (yas-global-mode 1)
-
-  (require 'lsp-bridge)
-  (require 'lsp-bridge-jdtls)
-  (setq lsp-bridge-enable-auto-import t)
-
-  (define-key lsp-bridge-mode-map (kbd "M-.") #'lsp-bridge-find-def)
-  (define-key lsp-bridge-mode-map (kbd "M-,") #'lsp-bridge-find-def-return)
-  (define-key lsp-bridge-mode-map (kbd "M-?") #'lsp-bridge-find-references)
-  (define-key lsp-bridge-mode-map (kbd "M-R") #'lsp-bridge-rename)
-
-  ;; (global-lsp-bridge-mode)
-
-  (setq alter-fullscreen-frames nil)
-
-  (with-eval-after-load 'lsp-bridge
-    (setq lsp-bridge-enable-hover-diagnostic t
-          acm-backend-lsp-candidate-min-length 0
-          lsp-bridge-enable-completion-in-string t
-          lsp-bridge-enable-org-babel t
-          acm-enable-capf t
-          acm-enable-doc 'nil
-          acm-enable-quick-access t
-          lsp-bridge-enable-in-minibuffer t
-          ;; acm-backend-lsp-enable-auto-import nil
-          acm-enable-yas nil
-          )
-    (setq lsp-bridge-get-language-id
-        (lambda (project-path file-path server-name extension-name)
-          (when (string-equal server-name "tailwindcss")
-            (cond
-             ((or (string-equal extension-name "ts")
-                  (string-equal extension-name "tsx"))
-              "typescript")
-             ((string-equal extension-name "tsx")
-              "typescriptreact")
-             ((string-equal extension-name "jsx")
-              "javascriptreact")
-             ((string-equal extension-name "js")
-              "javascript")
-             (t extension-name)))))
-    (setq lsp-bridge-multi-lang-server-extension-list
-          '( (("tsx") . "tsx_eslint_tailwindcss")
-             (("jsx") . "jsx_eslint_tailwindcss")
-             (("ts")  . "typescript_eslint")
-             (("html"). "html_tailwindcss")
-             (("css") . "css_tailwindcss"))))
-#+end_src
-
 *** End
 #+begin_src elisp
   (provide 'init-completion)
