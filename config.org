@@ -2725,12 +2725,6 @@ These commands I use most often except consult-line:
   (add-hook 'scheme-mode-hook 'geiser-mode)
   (setq geiser-default-implementation 'racket)
 #+end_src
-** eat
-#+begin_src elisp
-  (require 'eat)
-  (define-key global-map (kbd "C-c c t") 'eat)
-  (add-hook 'eat-mode-hook #'(lambda () (setq-local global-hl-line-mode nil)))
-#+end_src
 ** breadcrumb
 #+begin_src elisp
   (require 'breadcrumb)
@@ -3338,6 +3332,11 @@ be able to edit in grep-mode buffer.
 ** lua-mode
 #+begin_src elisp
   (require 'lua-mode)
+#+end_src
+** ghostel
+#+begin_src elisp
+  (require 'ghostel)
+  (global-set-key (kbd "C-c c t") #'ghostel)
 #+end_src
 ** END
 

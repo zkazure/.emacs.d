@@ -103,9 +103,6 @@
 [submodule "dumb-jump"]
 	path = lib/dumb-jump
 	url = https://github.com/jacktasia/dumb-jump
-[submodule "eat"]
-	path = lib/eat
-	url = https://codeberg.org/akib/emacs-eat
 [submodule "edit-indirect"]
 	path = lib/edit-indirect
 	url = https://github.com/Fanael/edit-indirect
@@ -157,6 +154,9 @@
 [submodule "geiser-racket"]
 	path = lib/geiser-racket
 	url = https://gitlab.com/emacs-geiser/racket
+[submodule "ghostel"]
+	path = lib/ghostel
+	url = https://github.com/dakra/ghostel.git
 [submodule "ghub"]
 	path = lib/ghub
 	url = https://github.com/magit/ghub

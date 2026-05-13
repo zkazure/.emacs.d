@@ -2412,3 +2412,10 @@ must recompile when updated
     (add-hook 'god-mode-disabled-hook #'my/god-leave-command-state))
 #+end_src
 
+** eat
+#+begin_src elisp
+  (require 'eat)
+  (define-key global-map (kbd "C-c c t") 'eat)
+  (add-hook 'eat-mode-hook #'(lambda () (setq-local global-hl-line-mode nil)))
+#+end_src
+
