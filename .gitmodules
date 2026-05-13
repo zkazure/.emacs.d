@@ -54,7 +54,7 @@
 	url = https://github.com/andras-simonyi/citeproc-el
 [submodule "claude-code-ide"]
 	path = lib/claude-code-ide
-	url = https://github.com/manzaltu/claude-code-ide.el.git
+	url = https://github.com/parsnips/claude-code-ide.el.git
 [submodule "closql"]
 	path = lib/closql
 	url = https://github.com/magit/closql.git

@@ -3269,7 +3269,7 @@ These commands I use most often except consult-line:
 ** claude-code-ide
 #+begin_src elisp
   (require 'claude-code-ide)
-  (setq claude-code-ide-terminal-backend 'eat)
+  (setq claude-code-ide-terminal-backend 'ghostel)
   (claude-code-ide-emacs-tools-setup)
   (setq claude-code-ide-use-side-window nil)
   (setq claude-code-ide-no-flicker t)
