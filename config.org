@@ -3164,9 +3164,17 @@ These commands I use most often except consult-line:
   (setq default-input-method "rime"
         rime-show-candidate 'posframe
         rime-posframe-style 'vertical
-        ;; rime-show-preedit 'inline
+        rime-show-preedit 'inline
         ;; rime-posframe-fixed-position nil
-        )
+        rime-disable-predicates '(rime-predicate-prog-in-code-p
+                                  rime-predicate-after-alphabet-char-p
+                                  rime-predicate-punctuation-after-ascii-p
+                                  rime-predicate-punctuation-line-begin-p
+                                  rime-predicate-space-after-cc-p ; 感觉有些困扰
+                                  rime-predicate-current-uppercase-letter-p
+                                  rime-predicate-tex-math-or-command-p
+                                  ))
+
   (setq rime-posframe-properties
         (list
          :internal-border-width 2
