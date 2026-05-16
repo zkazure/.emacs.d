@@ -3081,8 +3081,8 @@ These commands I use most often except consult-line:
 
 ** magit-forge
 #+begin_src elisp
-  (with-eval-after-load 'magit
-    (require 'forge))
+  ;; (with-eval-after-load 'magit
+  ;;   (require 'forge))
   (setq auth-source '("~/.authinfo.gpg"))
 #+end_src
 
