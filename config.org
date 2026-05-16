@@ -740,56 +740,15 @@ only the language set here can be babeled.
 
 *** tempo
 #+begin_src elisp
-  (require 'org-tempo)
-  (require 'transient)
-
-  (defun hot-expand (str &optional mod)
-    "Expand org template.
-
-  STR is a structure template string recognised by org like <s. MOD is a
-  string with additional parameters to add the begin line of the
-  structure element. HEADER string includes more parameters that are
-  prepended to the element after the #+HEADER: tag."
-    (let (text)
-      (when (region-active-p)
-        (setq text (buffer-substring (region-beginning) (region-end)))
-        (delete-region (region-beginning) (region-end)))
-      (insert str)
-      (if (fboundp 'org-try-structure-completion)
-          (org-try-structure-completion) ; < org 9
-        (progn
-          (org-tempo-complete-tag)))
-      (when mod (insert mod) (forward-line))
-      (when text (insert text))))
-
-  (transient-define-prefix my-org-src-transient ()
-    "Org Source Blocks"
-    ["Basic"
-     ("a" "ascii"        (lambda () (interactive) (hot-expand "<a")))
-     ("x" "example"      (lambda () (interactive) (hot-expand "<e")))
-     ("q" "quote"        (lambda () (interactive) (hot-expand "<q")))]
-    ["Programming"
-     ("s" ""             (lambda () (interactive) (hot-expand "<s" "")))
-     ("c" "cpp"          (lambda () (interactive) (hot-expand "<s" "cpp")))
-     ("C" "C"            (lambda () (interactive) (hot-expand "<s" "C")))
-     ("e" "emacs-lisp"   (lambda () (interactive) (hot-expand "<s" "elisp")))
-     ("g" "golang"       (lambda () (interactive) (hot-expand "<s" "go :imports '(\"fmt\")")))]
-    ["Data & Scripts"
-     ("p" "python"       (lambda () (interactive) (hot-expand "<s" "python :results output")))
-     ("P" "python(plot)" (lambda () (interactive) (hot-expand "<s" "python :results file graphics :exports results :file ./img/plot.png")))
-     ("Q" "sqlite"       (lambda () (interactive) (hot-expand "<s" "sqlite :colnames yes")))]
-    ["Misc"
-     ("<" "self"         (lambda () (interactive) (insert "<")))])
-
-  (with-eval-after-load 'org
-    (define-key org-mode-map (kbd "<")
-      (lambda ()
-        (interactive)
-        (if (or (region-active-p) (looking-back "^\\s-*" 1))
-            (my-org-src-transient)
-          (self-insert-command 1)))))
+  (setq org-structure-template-alist
+        '(("c" . "src cpp")
+          ("C" . "src C")
+          ("e" . "src elisp")
+          ("g" . "src go :imports '(\"fmt\")")
+          ("p" . "src python")
+          ("P" . "src python :results file graphics :exports results :file ./img/plot.png")
+          ("Q" . "src sqlite :colnames yes")))
 #+end_src
-
 
 *** appear
 #+begin_src emacs-lisp
