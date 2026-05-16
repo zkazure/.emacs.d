@@ -689,6 +689,7 @@ Set up the *borg* configuration.
                '("j" "Journal Entry" entry (file+olp+datetree
                                             "~/Documents/roam/journal.org")
                  "* [%<%Y-%m-%d %a %H:%M>] %?"
+                 :tree-type week
                  :empty-lines 1
                  :jump-to-captured t))
 #+end_src
