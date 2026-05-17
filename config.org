@@ -739,16 +739,28 @@ only the language set here can be babeled.
   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
 #+end_src
 
-*** tempo
+*** template
 #+begin_src elisp
   (setq org-structure-template-alist
-        '(("c" . "src cpp")
+        '(("a" . "src asm")
+          ("c" . "src cpp")
           ("C" . "src C")
           ("e" . "src elisp")
+          ("f" . "src fundamental")
           ("g" . "src go :imports '(\"fmt\")")
+          ("h" . "src html")
+          ("j" . "src json")
+          ("J" . "src java")
+          ("l" . "src lua")
           ("p" . "src python")
           ("P" . "src python :results file graphics :exports results :file ./img/plot.png")
-          ("Q" . "src sqlite :colnames yes")))
+          ("Q" . "src sqlite :colnames yes")
+          ("r" . "src rust")
+          ("s" . "src")
+          ("S" . "src sh")
+          ("t" . "src typescript")
+          ("z" . "src zig")
+          ))
 #+end_src
 
 *** appear
