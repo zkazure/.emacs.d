@@ -2710,10 +2710,28 @@ These commands I use most often except consult-line:
 #+begin_src elisp
   (require 'symbol-overlay)
   (global-set-key (kbd "M-i") 'symbol-overlay-put)
-  (global-set-key (kbd "M-n") 'symbol-overlay-switch-forward)
-  (global-set-key (kbd "M-p") 'symbol-overlay-switch-backward)
   (global-set-key (kbd "C-c o s") 'symbol-overlay-mode)
   (global-set-key (kbd "C-c o S") 'symbol-overlay-remove-all)
+  (define-key symbol-overlay-map (kbd "M-n") 'symbol-overlay-switch-forward)
+  (define-key symbol-overlay-map (kbd "M-p") 'symbol-overlay-switch-backward)
+
+
+  (defun my/wgrep-safe-replace-all ()
+    "在全 buffer 范围内替换当前 symbol-overlay 符号，跳过 wgrep 只读区域，
+  且在输入框中预填待替换的原始文本供修改。"
+    (interactive)
+    (let* (;; 1. 获取用于精确搜索的正则表达式（如 \<symbol\>）
+           (symbol-regexp (symbol-overlay-get-symbol))
+           ;; 2. 获取光标下纯粹的符号明文，不带正则边界
+           (raw-symbol (thing-at-point 'symbol t))
+           ;; 3. 提示输入新名称，并将 raw-symbol 作为初始内容填入输入框
+           (replacement (read-string "Rename to: " raw-symbol)))
+      (save-excursion
+        (goto-char (point-min))
+        (perform-replace symbol-regexp replacement nil t nil)
+        )))
+  (with-eval-after-load 'wgrep
+    (define-key symbol-overlay-map (kbd "R") #'my/wgrep-safe-replace-all))
 #+end_src
 ** expand-region
 #+begin_src elisp
