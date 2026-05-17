@@ -2558,51 +2558,62 @@ These commands I use most often except consult-line:
   (global-set-key (kbd "C-c o L") 'link-hint-copy-link)
 #+end_src
 
-** modeline
+** mode-line
 #+begin_src elisp
-  (setq minor-mode-alist nil)
-  (setq mode-line-mule-info t)
-
-  ;; (set-face-attribute 'mode-line-inactive nil :box nil)
+  (let ((my/minor-mode-alist '((flycheck-mode flycheck-mode-line))))
+    (setq mode-line-modes
+          (mapcar (lambda (elem)
+                    (pcase elem
+                      (`(:propertize (,_ minor-mode-alist . ,_) . ,_)
+                       `(:propertize ("" ,my/minor-mode-alist)
+  			                       mouse-face mode-line-highlight
+  			                       local-map ,mode-line-minor-mode-keymap)
+                       )
+                      (_ elem)))
+                  mode-line-modes)
+          ))
 
   (setq-default mode-line-format
                 (list
-                 ;; "%e"
-                 ;; '(:eval (propertize " %@" 'face 'font-lock-constant-face))
-                 ;; '(:eval (propertize " %t%Z"))
-                 " ["
+                 "%e" mode-line-front-space
+
+                 "["
                  '(:eval
                    (let ((aw-path (window-parameter (selected-window) 'ace-window-path)))
-                     (when aw-path
-                       (propertize (format "%s" (substring-no-properties aw-path))
-                                   'face 'error))))
+                     (when (stringp aw-path)
+                       (propertize (substring-no-properties aw-path) 'face 'error))))
                  "] "
-                 '(:eval (propertize "%*%+"))
-                 '(:eval (propertize "%@"))
-                 '(:eval (propertize " %b" 'face '(:weight bold)))
 
-                 ;; '(:eval (propertize " %b" 'face 'font-lock-string-face))
+                 '(:propertize
+                   ("" mode-line-mule-info mode-line-client mode-line-modified mode-line-remote
+                    mode-line-auto-compile mode-line-window-dedicated)
+                   display (min-width (6.0)))
                  " "
-                 '(:eval (propertize "%p" 'face 'font-lock-type-face))
-                 ;; '(:eval (propertize "%l" 'face 'font-lock-type-face))
-                 ;; '(:eval (propertize "%c" 'face 'font-lock-type-face))
 
+                 '(:propertize "%b" face (:weight bold))
+
+                 " "
+                 mode-line-position
+
+                 ;; Emacs 30+ 右对齐特性
                  'mode-line-format-right-align
+
                  '(:eval (when (bound-and-true-p flymake-mode)
                            (list " "
                                  flymake-mode-line-error-counter
                                  flymake-mode-line-warning-counter
                                  flymake-mode-line-note-counter
                                  " ")))
-                 '(:eval (when (and (boundp 'rime-mode) rime-mode)
-                           (propertize (format "%s" rime-title)))) " "
-                 '(:eval mode-line-misc-info) " "
-                 '(:eval (when vc-mode
-                           (propertize (substring vc-mode 5)
-                                       'face 'font-lock-type-face))) " "
 
-                 mode-line-modes " "
-                 ))
+                 '(:eval (when (bound-and-true-p rime-mode)
+                           (concat rime-title " ")))
+
+                 '(vc-mode vc-mode)
+                 " "
+
+                 mode-line-modes
+                 mode-line-misc-info
+                 mode-line-end-spaces))
 #+end_src
 ** go-mode
 #+begin_src elisp
@@ -3194,15 +3205,6 @@ These commands I use most often except consult-line:
 ** atcoder-tools
 #+begin_src elisp
   (require 'atcoder-tools)
-#+end_src
-** diminish
-#+begin_src elisp
-  (require 'diminish)
-
-  (mapc #'diminish '(beacon-mode
-                     whole-line-or-region-local-mode
-                     super-save-mode
-                     emmet-mode))
 #+end_src
 ** mermaid-mode
 #+begin_src elisp
