@@ -2585,8 +2585,13 @@ These commands I use most often except consult-line:
                  "] "
 
                  '(:propertize
-                   ("" mode-line-mule-info mode-line-client mode-line-modified mode-line-remote
-                    mode-line-auto-compile mode-line-window-dedicated)
+                   (""
+                    ;; mode-line-mule-info
+                    mode-line-client
+                    mode-line-modified
+                    mode-line-remote
+                    mode-line-auto-compile
+                    mode-line-window-dedicated)
                    display (min-width (6.0)))
                  " "
 
