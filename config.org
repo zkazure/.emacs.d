@@ -2386,20 +2386,20 @@ These commands I use most often except consult-line:
     (setq-local c-ts-mode-indent-offset n)
     (setq-local go-ts-mode-indent-offset n)
 
-      (setq-local coffee-tab-width n)
-      (setq-local javascript-indent-level n)
-      (setq-local js-indent-level n)
+    (setq-local coffee-tab-width n)
+    (setq-local javascript-indent-level n)
+    (setq-local js-indent-level n)
 
-      (setq-local web-mode-attr-indent-offset n)
-      (setq-local web-mode-attr-value-indent-offset n)
-      (setq-local web-mode-code-indent-offset n)
-      (setq-local web-mode-css-indent-offset n)
-      (setq-local web-mode-markup-indent-offset n)
-      (setq-local web-mode-sql-indent-offset n)
+    (setq-local web-mode-attr-indent-offset n)
+    (setq-local web-mode-attr-value-indent-offset n)
+    (setq-local web-mode-code-indent-offset n)
+    (setq-local web-mode-css-indent-offset n)
+    (setq-local web-mode-markup-indent-offset n)
+    (setq-local web-mode-sql-indent-offset n)
 
-      (setq-local css-indent-offset n)
-      (setq-local typescript-indent-level n)
-      )
+    (setq-local css-indent-offset n)
+    (setq-local typescript-indent-level n)
+    )
 
   (dolist (hook (list
                  'c++-ts-mode-hook
@@ -2422,17 +2422,17 @@ These commands I use most often except consult-line:
                        (adjust-languages-indent 4)
                        )))
 
-    (dolist (hook (list
-                   'web-mode-hook
-                   'js-mode-hook
-                   'js-ts-mode-hook
-                   'typescript-mode-hook
-                   'css-ts-mode-hook
-                   ))
-      (add-hook hook #'(lambda ()
-                         (setq indent-tabs-mode nil)
-                         (adjust-languages-indent 2)
-                         )))
+  (dolist (hook (list
+                 'web-mode-hook
+                 'js-mode-hook
+                 'js-ts-mode-hook
+                 'typescript-mode-hook
+                 'css-ts-mode-hook
+                 ))
+    (add-hook hook #'(lambda ()
+                       (setq indent-tabs-mode nil)
+                       (adjust-languages-indent 2)
+                       )))
 
   (dolist (hook (list
                  'yaml-mode-hook
@@ -2594,11 +2594,12 @@ These commands I use most often except consult-line:
                    (let ((aw-path (window-parameter (selected-window) 'ace-window-path)))
                      (when (stringp aw-path)
                        (propertize (substring-no-properties aw-path) 'face 'error))))
-                 "] "
+                 "]"
+                 " "
 
                  '(:propertize
                    (""
-                    ;; mode-line-mule-info
+                    mode-line-mule-info
                     mode-line-client
                     mode-line-modified
                     mode-line-remote
@@ -2621,9 +2622,6 @@ These commands I use most often except consult-line:
                                  flymake-mode-line-warning-counter
                                  flymake-mode-line-note-counter
                                  " ")))
-
-                 '(:eval (when (bound-and-true-p rime-mode)
-                           (concat rime-title " ")))
 
                  '(vc-mode vc-mode)
                  " "
@@ -2946,67 +2944,67 @@ These commands I use most often except consult-line:
         (cons (match-string 1 s) (match-string 2 s))
       (cons s "")))
 
-  (defun my/tsx-toggle-jsx-comment-lines ()
-    "Toggle JSX comments `{/* ... */}` linewise.
+  ;; (defun my/tsx-toggle-jsx-comment-lines ()
+  ;;   "Toggle JSX comments `{/* ... */}` linewise.
 
-  Range semantics:
-  - If region active: from line containing region-beginning to line containing
-    region-end (inclusive), even if region-end is at BOL.
-  - Else: current line only.
+  ;; Range semantics:
+  ;; - If region active: from line containing region-beginning to line containing
+  ;;   region-end (inclusive), even if region-end is at BOL.
+  ;; - Else: current line only.
 
-  Per line:
-  - Keep indentation outside wrapper: `    X` <-> `    {/* X */}`.
+  ;; Per line:
+  ;; - Keep indentation outside wrapper: `    X` <-> `    {/* X */}`.
 
-  Uses an end marker so buffer growth won't truncate the loop."
-    (interactive)
-    (save-excursion
-      (let* ((use-reg (use-region-p))
-             (beg (if use-reg (region-beginning) (line-beginning-position)))
-             (end (if use-reg (region-end)        (line-end-position))))
-        (when (> beg end) (cl-rotatef beg end))
+  ;; Uses an end marker so buffer growth won't truncate the loop."
+  ;;   (interactive)
+  ;;   (save-excursion
+  ;;     (let* ((use-reg (use-region-p))
+  ;;            (beg (if use-reg (region-beginning) (line-beginning-position)))
+  ;;            (end (if use-reg (region-end)        (line-end-position))))
+  ;;       (when (> beg end) (cl-rotatef beg end))
 
-        (let* ((start (save-excursion (goto-char beg) (line-beginning-position)))
-               ;; End boundary: EOL of the *end endpoint line*, as a marker.
-               (end-marker (copy-marker
-                            (save-excursion (goto-char end) (line-end-position))
-                            t))
-               (action nil)) ;; 'wrap or 'unwrap
+  ;;       (let* ((start (save-excursion (goto-char beg) (line-beginning-position)))
+  ;;              ;; End boundary: EOL of the *end endpoint line*, as a marker.
+  ;;              (end-marker (copy-marker
+  ;;                           (save-excursion (goto-char end) (line-end-position))
+  ;;                           t))
+  ;;              (action nil)) ;; 'wrap or 'unwrap
 
-          ;; 1) Decide action using first nonblank line body in range
-          (goto-char start)
-          (while (and (not action) (<= (point) (marker-position end-marker)))
-            (let ((rng (my/tsx--line-body-range)))
-              (when rng
-                (let ((body (buffer-substring-no-properties (car rng) (cdr rng))))
-                  (setq action (if (my/tsx--jsx-wrapped-p body) 'unwrap 'wrap)))))
-            (forward-line 1))
+  ;;         ;; 1) Decide action using first nonblank line body in range
+  ;;         (goto-char start)
+  ;;         (while (and (not action) (<= (point) (marker-position end-marker)))
+  ;;           (let ((rng (my/tsx--line-body-range)))
+  ;;             (when rng
+  ;;               (let ((body (buffer-substring-no-properties (car rng) (cdr rng))))
+  ;;                 (setq action (if (my/tsx--jsx-wrapped-p body) 'unwrap 'wrap)))))
+  ;;           (forward-line 1))
 
-          ;; 2) Apply action to each involved line
-          (when action
-            (goto-char start)
-            (while (<= (point) (marker-position end-marker))
-              (let ((rng (my/tsx--line-body-range)))
-                (when rng
-                  (let* ((lb (car rng))
-                         (le (cdr rng))
-                         (body (buffer-substring-no-properties lb le)))
-                    ;; --- 修复开始 ---
-                    ;; 必须先移动光标到缩进之后 (lb)，否则 insert 会插在行首 (缩进之前)
-                    (goto-char lb)
-                    ;; --- 修复结束 ---
-                    (delete-region lb le)
-                    (insert
-                     (if (eq action 'unwrap)
-                         (if (my/tsx--jsx-wrapped-p body) (my/tsx--unwrap-jsx body) body)
-                       (if (my/tsx--jsx-wrapped-p body) body (concat "{/* " body " */}")))))))
-              (forward-line 1)))
+  ;;         ;; 2) Apply action to each involved line
+  ;;         (when action
+  ;;           (goto-char start)
+  ;;           (while (<= (point) (marker-position end-marker))
+  ;;             (let ((rng (my/tsx--line-body-range)))
+  ;;               (when rng
+  ;;                 (let* ((lb (car rng))
+  ;;                        (le (cdr rng))
+  ;;                        (body (buffer-substring-no-properties lb le)))
+  ;;                   ;; --- 修复开始 ---
+  ;;                   ;; 必须先移动光标到缩进之后 (lb)，否则 insert 会插在行首 (缩进之前)
+  ;;                   (goto-char lb)
+  ;;                   ;; --- 修复结束 ---
+  ;;                   (delete-region lb le)
+  ;;                   (insert
+  ;;                    (if (eq action 'unwrap)
+  ;;                        (if (my/tsx--jsx-wrapped-p body) (my/tsx--unwrap-jsx body) body)
+  ;;                      (if (my/tsx--jsx-wrapped-p body) body (concat "{/* " body " */}")))))))
+  ;;             (forward-line 1)))
 
-          (set-marker end-marker nil)))))
+  ;;         (set-marker end-marker nil)))))
 
-  (with-eval-after-load 'js
-    (define-key js-mode-map (kbd "C-M-;") #'my/tsx-toggle-jsx-comment-lines))
-  (with-eval-after-load 'typescript-ts-mode
-    (define-key tsx-ts-mode-map (kbd "C-M-;") #'my/tsx-toggle-jsx-comment-lines))
+  ;; (with-eval-after-load 'js
+  ;;   (define-key js-mode-map (kbd "C-M-;") #'my/tsx-toggle-jsx-comment-lines))
+  ;; (with-eval-after-load 'typescript-ts-mode
+  ;;   (define-key tsx-ts-mode-map (kbd "C-M-;") #'my/tsx-toggle-jsx-comment-lines))
 #+end_src
 ** tab-line
 #+begin_src elisp
@@ -3274,10 +3272,14 @@ These commands I use most often except consult-line:
 ** claude-code-ide
 #+begin_src elisp
   (require 'claude-code-ide)
-  (setq claude-code-ide-terminal-backend 'ghostel)
   (claude-code-ide-emacs-tools-setup)
-  (setq claude-code-ide-use-side-window nil)
-  (setq claude-code-ide-no-flicker t)
+  (setq claude-code-ide-terminal-backend 'ghostel
+        claude-code-ide-use-side-window t
+        claude-code-ide-no-flicker t
+        claude-code-ide-window-width 80
+        claude-code-ide-focus-claude-after-ediff t
+        claude-code-ide-switch-tab-on-ediff nil
+        claude-code-ide-show-claude-window-in-ediff t)
 
   (global-set-key (kbd "C-c o c") 'claude-code-ide-menu)
 #+end_src
