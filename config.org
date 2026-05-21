@@ -2704,13 +2704,6 @@ These commands I use most often except consult-line:
   (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
   (add-hook 'rust-mode-hook #'lsp)
 #+end_src
-** geiser
-#+begin_src elisp
-  (require 'geiser)
-  (require 'geiser-racket)
-  (add-hook 'scheme-mode-hook 'geiser-mode)
-  (setq geiser-default-implementation 'racket)
-#+end_src
 ** breadcrumb
 #+begin_src elisp
   (require 'breadcrumb)
@@ -3264,10 +3257,6 @@ These commands I use most often except consult-line:
   (add-hook 'after-init-hook 'marginalia-mode)
   (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup)
   (nerd-icons-completion-mode)
-#+end_src
-** kdl-mode
-#+begin_src elisp
-  (require 'kdl-mode)
 #+end_src
 ** claude-code-ide
 #+begin_src elisp

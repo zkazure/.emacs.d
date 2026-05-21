@@ -2460,3 +2460,15 @@ must recompile when updated
                      org-src-mode
                      ))
 #+end_src
+** kdl-mode
+#+begin_src elisp
+  (require 'kdl-mode)
+#+end_src
+
+** geiser
+#+begin_src elisp
+  (require 'geiser)
+  (require 'geiser-racket)
+  (add-hook 'scheme-mode-hook 'geiser-mode)
+  (setq geiser-default-implementation 'racket)
+#+end_src
