@@ -713,6 +713,7 @@ only the language set here can be babeled.
         (scheme . t)
         (sqlite . t)
         (mermaid . t)
+        (clojure . t)
         (lilypond . t)
         ))))
 
@@ -3315,6 +3316,22 @@ be able to edit in grep-mode buffer.
 #+begin_src elisp
   (require 'ghostel)
   (global-set-key (kbd "C-c c t") #'ghostel)
+#+end_src
+** clojure-mode
+#+begin_src elisp
+  (require 'clojure-mode)
+  (require 'clojure-ts-mode)
+  (setq clojure-indent-style 'always-indent
+        clojure-indent-keyword-style 'always-indent
+        clojure-enable-indent-specs nil)
+  (setq org-babel-clojure-backend 'cider)
+#+end_src
+*** cider
+#+begin_src elisp
+  (require 'parseedn)
+  (require 'parseclj)
+  (require 'sesman)
+  (require 'cider)
 #+end_src
 ** END
 

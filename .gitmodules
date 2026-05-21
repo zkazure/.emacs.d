@@ -49,12 +49,21 @@
 [submodule "cdlatex"]
 	path = lib/cdlatex
 	url = https://github.com/cdominik/cdlatex
+[submodule "cider"]
+	path = lib/cider
+	url = https://github.com/clojure-emacs/cider
 [submodule "citeproc"]
 	path = lib/citeproc
 	url = https://github.com/andras-simonyi/citeproc-el
 [submodule "claude-code-ide"]
 	path = lib/claude-code-ide
 	url = https://github.com/parsnips/claude-code-ide.el.git
+[submodule "clojure-mode"]
+	path = lib/clojure-mode
+	url = https://github.com/clojure-emacs/clojure-mode
+[submodule "clojure-ts-mode"]
+	path = lib/clojure-ts-mode
+	url = https://github.com/clojure-emacs/clojure-ts-mode
 [submodule "closql"]
 	path = lib/closql
 	url = https://github.com/magit/closql.git
@@ -274,6 +283,12 @@
 [submodule "parsebib"]
 	path = lib/parsebib
 	url = https://github.com/joostkremers/parsebib
+[submodule "parseclj"]
+	path = lib/parseclj
+	url = https://github.com/clojure-emacs/parseclj
+[submodule "parseedn"]
+	path = lib/parseedn
+	url = https://github.com/clojure-emacs/parseedn
 [submodule "pdd"]
 	path = lib/pdd
 	url = https://github.com/lorniu/pdd.el
@@ -313,6 +328,9 @@
 [submodule "s"]
 	path = lib/s
 	url = https://github.com/magnars/s.el
+[submodule "sesman"]
+	path = lib/sesman
+	url = https://github.com/vspinu/sesman
 [submodule "shell-maker"]
 	path = lib/shell-maker
 	url = https://github.com/xenodium/shell-maker
