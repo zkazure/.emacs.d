@@ -2506,3 +2506,13 @@ must recompile when updated
   (global-set-key (kbd "C-c t n") #'tab-line-switch-to-next-tab)
   (global-set-key (kbd "C-c t p") #'tab-line-switch-to-prev-tab)
 #+end_src
+** anki-helper
+#+begin_src elisp
+  (require 'anki-helper)
+  (setq anki-helper-cloze-use-emphasis 'bold)
+
+  (define-key org-mode-map (kbd "C-c n a s") 'anki-helper-entry-sync-all)
+  (define-key org-mode-map (kbd "C-c n a u") 'anki-helper-entry-update-all)
+  (define-key org-mode-map (kbd "C-c n a d") 'anki-helper-entry-delete)
+  (define-key org-mode-map (kbd "C-c n a b") 'anki-helper-entry-browse)
+#+end_src
