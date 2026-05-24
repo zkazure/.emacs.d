@@ -10,6 +10,9 @@
 [submodule "agent-shell"]
 	path = lib/agent-shell
 	url = https://github.com/xenodium/agent-shell.git
+[submodule "aggressive-indent"]
+	path = lib/aggressive-indent
+	url = https://github.com/Malabarba/aggressive-indent-mode
 [submodule "aio"]
 	path = lib/aio
 	url = https://github.com/skeeto/emacs-aio

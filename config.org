@@ -2445,6 +2445,7 @@ These commands I use most often except consult-line:
 
   (provide 'init-indent)
 #+end_src
+
 ** electric-pair-mode
 :PROPERTIES:
 :HEADER-ARGS: :tangle lisp/init-electric-pair-mode.el
@@ -3289,6 +3290,7 @@ be able to edit in grep-mode buffer.
         clojure-indent-keyword-style 'always-indent
         clojure-enable-indent-specs nil)
   (setq org-babel-clojure-backend 'cider)
+  (add-hook 'clojure-ts-mode-hook #'aggressive-indent-mode)
 #+end_src
 *** cider
 #+begin_src elisp
@@ -3301,6 +3303,10 @@ be able to edit in grep-mode buffer.
 #+begin_src elisp
   (require 'speed-type)
   (setq speed-type-randomize nil)
+#+end_src
+** aggressive-indent
+#+begin_src elisp
+  (require 'aggressive-indent)
 #+end_src
 ** END
 
