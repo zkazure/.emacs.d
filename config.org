@@ -3000,40 +3000,6 @@ These commands I use most often except consult-line:
   ;; (with-eval-after-load 'typescript-ts-mode
   ;;   (define-key tsx-ts-mode-map (kbd "C-M-;") #'my/tsx-toggle-jsx-comment-lines))
 #+end_src
-** tab-line
-#+begin_src elisp
-  ;;;; tab-line: window-local buffer tabs, grouped by project, filtered & sorted
-  (global-tab-line-mode 1)
-
-  ;; 让 tab-line 以“当前 window 的 buffer 集合”为准
-  (setq tab-line-tabs-function #'tab-line-tabs-window-buffers)
-
-  ;; 视觉减噪：隐藏 new/close 按钮（用键盘操作更一致）
-  (setq tab-line-new-button-show nil)
-  (setq tab-line-close-button-show t)
-
-  ;; tab 名字过长的截断（可按需调大）
-  (setq tab-line-tab-name-truncated-max 28)
-
-  (require 'cl-lib)
-  (require 'seq)
-  (require 'project)
-
-  (defvar kazure/tab-line-disable-modes
-    '(dired-mode
-      eat-mode)
-    "Major modes in which tab-line should be disabled.")
-
-  (defun kazure/maybe-disable-tab-line ()
-  ''  "Disable tab-line in buffers whose major mode is blacklisted."
-    (when (apply #'derived-mode-p kazure/tab-line-disable-modes)
-      (tab-line-mode -1)))
-
-  (add-hook 'after-change-major-mode-hook #'kazure/maybe-disable-tab-line)
-
-  (global-set-key (kbd "C-c t n") #'tab-line-switch-to-next-tab)
-  (global-set-key (kbd "C-c t p") #'tab-line-switch-to-prev-tab)
-#+end_src
 ** other-config
 #+begin_src elisp
   (fset 'yes-or-no-p 'y-or-n-p)
