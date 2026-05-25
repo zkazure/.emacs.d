@@ -223,6 +223,9 @@
 [submodule "markdown-mode"]
 	path = lib/markdown-mode
 	url = https://github.com/jrblevin/markdown-mode
+[submodule "matlab-mode"]
+	path = lib/matlab-mode
+	url = https://github.com/mathworks/Emacs-MATLAB-Mode
 [submodule "mcp"]
 	path = lib/mcp
 	url = https://github.com/lizqwerscott/mcp.el

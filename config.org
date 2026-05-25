@@ -3298,6 +3298,10 @@ be able to edit in grep-mode buffer.
 #+begin_src elisp
   (require 'aggressive-indent)
 #+end_src
+** matlab-mode
+#+begin_src elisp
+  (require 'matlab-mode)
+#+end_src
 ** END
 
 #+begin_src emacs-lisp
