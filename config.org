@@ -687,7 +687,7 @@ Set up the *borg* configuration.
 
   (add-to-list 'org-capture-templates
                '("j" "Journal Entry" entry (file+olp+datetree
-                                            "~/Documents/roam/journal.org")
+                                            "~/Documents/roam/Journal.org")
                  "* [%<%Y-%m-%d %a %H:%M>] %?"
                  :tree-type week
                  :empty-lines 1
