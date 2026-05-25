@@ -2495,7 +2495,7 @@ These commands I use most often except consult-line:
       (start-process "thunar" nil "thunar" dir)
       (message "open %s in Thunar" dir)))
 
-  (define-key global-map (kbd "C-c o f") 'my-open-current-dir-in-thunar)
+  (define-key global-map (kbd "C-c o F") 'my-open-current-dir-in-thunar)
 #+end_src
 
 ** open outer terminal
@@ -2508,7 +2508,7 @@ These commands I use most often except consult-line:
       (start-process "alacritty-process" nil "alacritty" "--working-directory" dir)
       (message "Opened directory: %s in Alacritty" dir)))
 
-  (global-set-key (kbd "C-c o t") 'my/open-current-dir-in-terminal)
+  (global-set-key (kbd "C-c o T") 'my/open-current-dir-in-terminal)
 #+end_src
 
 ** pixel scroll
@@ -3270,7 +3270,7 @@ be able to edit in grep-mode buffer.
 ** ghostel
 #+begin_src elisp
   (require 'ghostel)
-  (global-set-key (kbd "C-c c t") #'ghostel)
+  (global-set-key (kbd "C-c o t") #'ghostel)
 #+end_src
 ** clojure-mode
 #+begin_src elisp
@@ -3301,6 +3301,31 @@ be able to edit in grep-mode buffer.
 ** matlab-mode
 #+begin_src elisp
   (require 'matlab-mode)
+#+end_src
+** popper
+#+begin_src elisp
+  (require 'popper)
+
+  (global-set-key (kbd "C-`") #'popper-toggle)
+  (global-set-key (kbd "M-`") #'popper-cycle)
+  (global-set-key (kbd "C-M-`") #'popper-toggle-type)
+
+  (setq popper-reference-buffers
+          '("^\\*ghostel\\*$"
+            "\\*Messages\\*"
+            "Output\\*$"
+            "\\*Async Shell Command\\*"
+            help-mode
+            compilation-mode))
+  (add-to-list 'display-buffer-alist
+               '("^\\*ghostel\\*$"
+                 (display-buffer-reuse-window display-buffer-below-selected
+                                              display-buffer-at-bottom)
+                 (window-height . 0.3)
+                 (reusable-frames . visible)))
+
+  (popper-mode +1)
+  (popper-echo-mode +1)
 #+end_src
 ** END
 
