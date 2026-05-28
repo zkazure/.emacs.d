@@ -2584,20 +2584,15 @@ These commands I use most often except consult-line:
                       (_ elem)))
                   mode-line-modes)
           ))
-
   (setq-default mode-line-format
-                (list
-                 "%e" mode-line-front-space
-
-                 "["
-                 '(:eval
-                   (let ((aw-path (window-parameter (selected-window) 'ace-window-path)))
-                     (when (stringp aw-path)
-                       (propertize (substring-no-properties aw-path) 'face 'error))))
-                 "]"
-                 " "
-
-                 '(:propertize
+                '("%e" mode-line-front-space
+                  "["
+                  (ace-window-display-mode
+                   (:propertize
+                    (:eval (window-parameter (selected-window) 'ace-window-path))
+                    face error))
+                  "] "
+                  (:propertize
                    (""
                     mode-line-mule-info
                     mode-line-client
@@ -2605,30 +2600,30 @@ These commands I use most often except consult-line:
                     mode-line-remote
                     mode-line-auto-compile
                     mode-line-window-dedicated)
-                   display (min-width (6.0)))
-                 " "
+                   display (min-width 6.0))
+                  mode-line-frame-identification
+                  mode-line-buffer-identification
+                  "   "
+                  mode-line-position
+                  (project-mode-line project-mode-line-format)
 
-                 '(:propertize "%b" face (:weight bold))
-
-                 " "
-                 mode-line-position
-
-                 ;; Emacs 30+ 右对齐特性
-                 'mode-line-format-right-align
-
-                 '(:eval (when (bound-and-true-p flymake-mode)
+                  mode-line-format-right-align
+                  (:eval (when (bound-and-true-p flymake-mode)
                            (list " "
                                  flymake-mode-line-error-counter
                                  flymake-mode-line-warning-counter
                                  flymake-mode-line-note-counter
                                  " ")))
+                  (:propertize
+                   (:eval (when (stringp vc-mode)
+                            (replace-regexp-in-string "^ \\w+[:-]" "" vc-mode)))
+                   face success)
 
-                 '(vc-mode vc-mode)
-                 " "
+                  "  "
+                  mode-line-modes
+                  mode-line-misc-info
+                  mode-line-end-spaces))
 
-                 mode-line-modes
-                 mode-line-misc-info
-                 mode-line-end-spaces))
 #+end_src
 ** go-mode
 #+begin_src elisp
