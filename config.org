@@ -37,8 +37,6 @@
 
   (setq frame-inhibit-implied-resize t)
 
-  (menu-bar-mode -1)
-  (tool-bar-mode -1)
   (scroll-bar-mode -1)
   (setq inhibit-splash-screen t)
   (setq use-file-dialog nil)
@@ -307,6 +305,7 @@ Set up the *borg* configuration.
                 (when buffer-file-name (ignore-errors (recenter)))))
 
   (setq help-window-select t)
+  (setq jit-lock-defer-time 0.05)
 #+end_src
 ** Require
 
@@ -457,7 +456,7 @@ Set up the *borg* configuration.
   (add-hook 'after-init-hook #'global-display-fill-column-indicator-mode)
 
   (add-hook 'prog-mode-hook #'(lambda () (display-line-numbers-mode 1)))
-  (setq display-line-numbers-type t)
+  (setq display-line-numbers-type 'relative)
   (global-so-long-mode 1)
 
   (setq next-screen-context-lines 2)
@@ -687,7 +686,7 @@ Set up the *borg* configuration.
 
   (add-to-list 'org-capture-templates
                '("j" "Journal Entry" entry (file+olp+datetree
-                                            "~/Documents/roam/Journal.org")
+                                            "~/Documents/roam/main/journal.org")
                  "* [%<%Y-%m-%d %a %H:%M>] %?"
                  :tree-type week
                  :empty-lines 1
@@ -1284,7 +1283,7 @@ Emacs 的 snippet 设置。
   ;; (define-key global-map (kbd "C-c n j") 'org-roam-dailies-capture-today)
   (define-key org-mode-map (kbd "C-c n n") 'org-id-get-create)
   (define-key global-map (kbd "C-c n r") 'org-roam-node-random)
-  (define-key global-map (kbd "C-c n A") 'org-roam-alias-add)
+  (define-key global-map (kbd "C-c n a") 'org-roam-alias-add)
 
 
   (org-roam-db-autosync-mode 1)
@@ -2505,7 +2504,7 @@ These commands I use most often except consult-line:
     (interactive)
     (let ((dir default-directory))
       ;; Arguments for Alacritty to set the working directory
-      (start-process "alacritty-process" nil "alacritty" "--working-directory" dir)
+      (start-process "alacritty-process" nil "alacritty" "--working-directory" (expand-file-name dir))
       (message "Opened directory: %s in Alacritty" dir)))
 
   (global-set-key (kbd "C-c o T") 'my/open-current-dir-in-terminal)
@@ -2515,15 +2514,18 @@ These commands I use most often except consult-line:
 
 #+begin_src emacs-lisp
   (pixel-scroll-precision-mode t)
-  (setq scroll-preserve-screen-position 'always)
+  (setq scroll-preserve-screen-position t)
 
-  (setq scroll-margin 3
-        scroll-conservatively 100
-        hscroll-margin 5)
+  (setq scroll-preserve-screen-position t
+        ;; scroll-margin 3
+        ;; scroll-step 0
+        ;; scroll-conservatively 100
+        )
 
   (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
   (setq mouse-wheel-progressive-speed nil)
   (setq mouse-wheel-follow-mouse 't)
+  (setq auto-window-vscroll nil)
 #+end_src
 
 ** IDE
@@ -2989,6 +2991,7 @@ These commands I use most often except consult-line:
   (fset 'yes-or-no-p 'y-or-n-p)
   ;; 将 M-z 绑定为“删除直到字符前”，而不是连字符一起删
   (global-set-key (kbd "M-z") 'zap-up-to-char)
+  (global-set-key (kbd "C-z") #'repeat)   ; suspend is annoying
 
   (winner-mode 1)
   (global-set-key (kbd "C-c w") 'winner-undo)
@@ -3118,7 +3121,7 @@ These commands I use most often except consult-line:
                                   rime-predicate-after-alphabet-char-p
                                   rime-predicate-punctuation-after-ascii-p
                                   rime-predicate-punctuation-line-begin-p
-                                  rime-predicate-space-after-cc-p ; 感觉有些困扰
+                                  ;; rime-predicate-space-after-cc-p ; 感觉有些困扰
                                   rime-predicate-current-uppercase-letter-p
                                   rime-predicate-tex-math-or-command-p
                                   ))
@@ -3426,7 +3429,11 @@ be able to edit in grep-mode buffer.
         (lambda () (cons (line-end-position)
                     (line-beginning-position 2))))
   (global-hl-line-mode 1)
-  (global-display-line-numbers-mode 1)
+  (if (fboundp global-display-line-numbers-mode)
+      (progn
+        (global-display-line-numbers-mode 1)
+        (setq display-line-numbers-type 'relative)))
+
 
   ;; Basic modes
   (show-paren-mode 1)
@@ -3447,8 +3454,11 @@ be able to edit in grep-mode buffer.
   (add-hook 'minibuffer-setup-hook #'subword-mode)
 
   ;; repeat command easily
-  (repeat-mode 1)
-  (define-key undo-repeat-map (kbd "U") 'undo-redo)
+  (if (fboundp 'repeat-mode)
+      (progn
+      (repeat-mode 1)
+      (define-key undo-repeat-map (kbd "U") 'undo-redo)))
+
 
   ;; Completion
   (when (fboundp 'global-completion-preview-mode)
