@@ -1240,8 +1240,7 @@ Emacs 的 snippet 设置。
   #+begin_src emacs-lisp
     (require 'visual-regexp)
     (require 'visual-regexp-steroids)
-    ;; (setq vr/engine 'python)
-    (setq vr/engine 'emacs)
+    (setq vr/engine 'python)
     (setq vr/command-python "python3 /home/kazure/.emacs.d/lib/visual-regexp-steroids/regexp.py")
 
     (define-key global-map (kbd "C-c r") 'vr/replace)
@@ -2984,8 +2983,10 @@ These commands I use most often except consult-line:
 #+begin_src elisp
   (fset 'yes-or-no-p 'y-or-n-p)
   ;; 将 M-z 绑定为“删除直到字符前”，而不是连字符一起删
-  (global-set-key (kbd "M-z") 'zap-up-to-char)
+  (global-set-key (kbd "M-z") #'zap-up-to-char)
   (global-set-key (kbd "C-z") #'repeat)   ; suspend is annoying
+  (global-set-key (kbd "M-p") #'backward-paragraph)
+  (global-set-key (kbd "M-n") #'forward-paragraph)
 
   (winner-mode 1)
   (global-set-key (kbd "C-c w") 'winner-undo)
