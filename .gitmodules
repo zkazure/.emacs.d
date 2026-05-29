@@ -199,6 +199,9 @@
 [submodule "jinx"]
 	path = lib/jinx
 	url = https://github.com/minad/jinx
+[submodule "kirigami"]
+	path = lib/kirigami
+	url = https://github.com/jamescherti/kirigami.el.git
 [submodule "leetcode"]
 	path = lib/leetcode
 	url = https://github.com/kaiwk/leetcode.el
