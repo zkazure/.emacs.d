@@ -1227,7 +1227,9 @@ Emacs 的 snippet 设置。
   (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 
   (with-eval-after-load 'markdown-mode
-    (define-key markdown-mode-map (kbd "C-c C-e") #'markdown-do))
+    (define-key markdown-mode-map (kbd "C-c C-e") #'markdown-do)
+    (define-key markdown-mode-map (kbd "M-p") #'backward-paragraph)
+    (define-key markdown-mode-map (kbd "M-n") #'forward-paragraph))
 
   (provide 'init-markdown-mode)
 #+end_src
@@ -3458,6 +3460,8 @@ be able to edit in grep-mode buffer.
   (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
   (electric-pair-mode 1)
 
+  (global-set-key (kbd "M-p") #'backward-paragraph)
+  (global-set-key (kbd "M-n") #'forward-paragraph)
   (add-hook 'prog-mode-hook #'subword-mode)
   (add-hook 'minibuffer-setup-hook #'subword-mode)
 
