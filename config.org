@@ -2494,15 +2494,14 @@ These commands I use most often except consult-line:
 
 ** open outer terminal
 #+begin_src emacs-lisp
-  (defun my/open-current-dir-in-terminal ()
-    "Open the current directory in the Alacritty terminal."
+  (defun my/open-current-dir-in-default-terminal ()
+    "Open the current directory in the system default terminal."
     (interactive)
-    (let ((dir default-directory))
-      ;; Arguments for Alacritty to set the working directory
-      (start-process "alacritty-process" nil "alacritty" "--working-directory" (expand-file-name dir))
-      (message "Opened directory: %s in Alacritty" dir)))
+    ;; 直接调用 x-terminal-emulator，它会自动继承 Emacs 当前的 default-directory
+    (start-process "default-terminal-process" nil "x-terminal-emulator")
+    (message "Opened default terminal in: %s" default-directory))
 
-  (global-set-key (kbd "C-c o T") 'my/open-current-dir-in-terminal)
+  (global-set-key (kbd "C-c o T") 'my/open-current-dir-in-default-terminal)
 #+end_src
 
 ** pixel scroll
@@ -3158,12 +3157,6 @@ These commands I use most often except consult-line:
 
   (global-set-key (kbd "C-c o w") #'olivetti-mode)
 #+end_src
-** beacon
-#+begin_src elisp
-  (require 'beacon)
-  (beacon-mode 1)
-  ;; (add-to-list 'beacon-dont-blink-commands 'pixel-scroll-precision)
-#+end_src
 ** whole-line-or-region
 #+begin_src elisp
   (require 'whole-line-or-region)
@@ -3219,7 +3212,8 @@ These commands I use most often except consult-line:
         claude-code-ide-window-width 80
         claude-code-ide-focus-claude-after-ediff t
         claude-code-ide-switch-tab-on-ediff nil
-        claude-code-ide-show-claude-window-in-ediff t)
+        claude-code-ide-show-claude-window-in-ediff t
+        claude-code-ide-window-side 'left)
 
   (global-set-key (kbd "C-c o c") 'claude-code-ide-menu)
 #+end_src
@@ -3334,6 +3328,13 @@ be able to edit in grep-mode buffer.
   (global-set-key (kbd "M-o a") #'kirigami-toggle-fold)   ; Toggle fold at point
 
   ;; (setq-default search-invisible nil) ; 防止搜索到折叠的区域，从而自动展开
+#+end_src
+** pulsar
+#+begin_src elisp
+  (require 'pulsar)
+  (add-hook 'next-error-hook #'pulsar-pulse-line)
+  ;; (add-hook 'minibuffer-setup-hook #'pulsar-pulse-line-blue)
+  (pulsar-global-mode 1)
 #+end_src
 ** END
 

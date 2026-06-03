@@ -2516,3 +2516,9 @@ must recompile when updated
   (define-key org-mode-map (kbd "C-c n a d") 'anki-helper-entry-delete)
   (define-key org-mode-map (kbd "C-c n a b") 'anki-helper-entry-browse)
 #+end_src
+** beacon
+#+begin_src elisp
+  (require 'beacon)
+  (beacon-mode 1)
+  ;; (add-to-list 'beacon-dont-blink-commands 'pixel-scroll-precision)
+#+end_src

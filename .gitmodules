@@ -31,9 +31,6 @@
 [submodule "avy"]
 	path = lib/avy
 	url = https://github.com/abo-abo/avy
-[submodule "beacon"]
-	path = lib/beacon
-	url = https://github.com/Malabarba/beacon
 [submodule "borg"]
 	path = lib/borg
 	url = https://github.com/emacscollective/borg.git
@@ -310,6 +307,9 @@
 [submodule "projectile"]
 	path = lib/projectile
 	url = https://github.com/bbatsov/projectile
+[submodule "pulsar"]
+	path = lib/pulsar
+	url = https://github.com/protesilaos/pulsar
 [submodule "pyim"]
 	path = lib/pyim
 	url = https://github.com/tumashu/pyim
