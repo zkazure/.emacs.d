@@ -1439,6 +1439,12 @@ https://abode.karthinks.com/org-latex-preview/
   ;;                '("~" (:box (:line-width 2
   ;;                                         :color "grey75"
   ;;                                         :style released-button)))))
+
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "WAIT(w)" "|" "DONE(d)")))
+
+  (setq org-todo-keyword-faces
+        '(("WAIT" . "#9f7efe")))
 #+end_src
 ** tab-bar
 :PROPERTIES:

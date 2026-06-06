@@ -594,14 +594,7 @@ Set up the *borg* configuration.
    '(org-level-9 ((t (:height 1.05 :weight bold)))))
 #+END_SRC
 *** todos
-增加一个 *WAIT* 关键词，把 *TODO* 作为优先级更高的待办。
 #+begin_src elisp
-  (setq org-todo-keywords
-        '((sequence "TODO(t)" "WAIT(w)" "|" "DONE(d)")))
-
-  (setq org-todo-keyword-faces
-        '(("WAIT" . "#9f7efe")))
-
   (setq org-use-fast-todo-selection nil)
 #+end_src
 *** agenda
@@ -675,13 +668,13 @@ Set up the *borg* configuration.
   (setq org-capture-templates nil)
 
   (add-to-list 'org-capture-templates
-               '("i" "Inbox" entry (file "~/Documents/org/inbox.org")
+               '("i" "Inbox" entry (file "~/Documents/roam/main/inbox.org")
                  "* TODO %?"))
   (add-to-list 'org-capture-templates
-               '("p" "Project" entry (file "~/Documents/org/projects.org")
+               '("p" "Project" entry (file "~/Documents/roam/main/projects.org")
                  "* TODO %?"))
   (add-to-list 'org-capture-templates
-               '("a" "Agenda" entry (file "~/Documents/org/agenda.org")
+               '("a" "Agenda" entry (file "~/Documents/roam/main/agenda.org")
                  "* TODO %?"))
 
   (add-to-list 'org-capture-templates
@@ -713,7 +706,6 @@ only the language set here can be babeled.
         (sqlite . t)
         (mermaid . t)
         (clojure . t)
-        (lilypond . t)
         ))))
 
   (with-eval-after-load 'org
@@ -1562,8 +1554,8 @@ Emacs 的 snippet 设置。
   (require 'websocket)
 
     (setq org-roam-ui-open-on-start nil
+          org-roam-ui-sync-theme nil
           org-roam-ui-update-on-save t
-          org-roam-ui-sync-theme t
           org-roam-ui-follow t)
 
   (provide 'init-org-roam-ui)
@@ -2560,7 +2552,6 @@ These commands I use most often except consult-line:
 ** link-hint
 #+begin_src emacs-lisp
   (require 'link-hint)
-  (setq browse-url-browser-function 'browse-url-firefox)
 
   (global-set-key (kbd "C-c o l") 'link-hint-open-link)
   (global-set-key (kbd "C-c o L") 'link-hint-copy-link)
@@ -3113,7 +3104,8 @@ These commands I use most often except consult-line:
         rime-posframe-style 'vertical
         rime-show-preedit 'inline
         ;; rime-posframe-fixed-position nil
-        rime-disable-predicates '(rime-predicate-prog-in-code-p
+        rime-disable-predicates '(
+                                  ;; rime-predicate-prog-in-code-p
                                   rime-predicate-after-alphabet-char-p
                                   rime-predicate-punctuation-after-ascii-p
                                   rime-predicate-punctuation-line-begin-p
@@ -3294,6 +3286,7 @@ be able to edit in grep-mode buffer.
 ** popper
 #+begin_src elisp
   (require 'popper)
+  (require 'popper-echo)
 
   (global-set-key (kbd "C-`") #'popper-toggle)
   (global-set-key (kbd "M-`") #'popper-cycle)
@@ -3302,12 +3295,15 @@ be able to edit in grep-mode buffer.
   (setq popper-reference-buffers
           '("^\\*ghostel\\*$"
             "\\*Messages\\*"
-            "Output\\*$"
+            ("Output\\*$" . hide)
             "\\*Async Shell Command\\*"
             help-mode
             compilation-mode))
+
+  (setq popper-group-function #'popper-group-by-projectile)
+
   (add-to-list 'display-buffer-alist
-               '("^\\*ghostel\\*$"
+               '("^\\*ghostel\\*.*$"
                  (display-buffer-reuse-window display-buffer-below-selected
                                               display-buffer-at-bottom)
                  (window-height . 0.3)
