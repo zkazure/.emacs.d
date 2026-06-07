@@ -352,9 +352,6 @@
 [submodule "snippets"]
 	path = snippets
 	url = git@github.com:zkazure/snippets.git
-[submodule "speed-type"]
-	path = lib/speed-type
-	url = https://github.com/dakra/speed-type
 [submodule "spinner"]
 	path = lib/spinner
 	url = https://github.com/Malabarba/spinner.el

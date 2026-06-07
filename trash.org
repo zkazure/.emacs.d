@@ -2528,3 +2528,8 @@ must recompile when updated
   (beacon-mode 1)
   ;; (add-to-list 'beacon-dont-blink-commands 'pixel-scroll-precision)
 #+end_src
+** speed-type
+#+begin_src elisp
+  (require 'speed-type)
+  (setq speed-type-randomize nil)
+#+end_src

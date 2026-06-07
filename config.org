@@ -3270,11 +3270,6 @@ be able to edit in grep-mode buffer.
   (require 'sesman)
   (require 'cider)
 #+end_src
-** speed-type
-#+begin_src elisp
-  (require 'speed-type)
-  (setq speed-type-randomize nil)
-#+end_src
 ** aggressive-indent
 #+begin_src elisp
   (require 'aggressive-indent)
