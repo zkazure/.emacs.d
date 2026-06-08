@@ -401,29 +401,6 @@ Set up the *borg* configuration.
   (require 'envrc)
   (envrc-global-mode)
 #+end_src
-*** exec-path-from-shell
-让 Emacs 能够继承终端的环境变量。
-#+begin_src elisp
-  (require 'exec-path-from-shell)
-  (dolist
-      (var
-       '(
-         "ANTHROPIC_BASE_URL"
-         "ANTHROPIC_API_KEY"
-         "ANTHROPIC_DEFAULT_SONNET_MODEL"
-         "ANTHROPIC_DEFAULT_OPUS_MODEL"
-         ;; "SSH_AGENT_PID"
-         ;; "GPG_AGENT_INFO"
-         ;; "LANG"
-         ;; "LC_CTYPE"
-         ;; "NIX_SSL_CERT_FILE"
-         ;; "NIX_PATH"
-         ))
-    (add-to-list 'exec-path-from-shell-variables var))
-
-  (when (or (daemonp) (memq window-system '(mac ns x)))
-    (exec-path-from-shell-initialize))
-#+end_src
 *** others
 对于我设置的系统 default 内容，在用户目录下自动禁止启动会好一点。
 #+begin_src elisp
