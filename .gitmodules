@@ -277,6 +277,9 @@
 [submodule "ox-gfm"]
 	path = lib/ox-gfm
 	url = https://github.com/larstvei/ox-gfm
+[submodule "ox-hugo"]
+	path = lib/ox-hugo
+	url = https://github.com/kaushalmodi/ox-hugo
 [submodule "ox-pandoc"]
 	path = lib/ox-pandoc
 	url = https://github.com/emacsorphanage/ox-pandoc

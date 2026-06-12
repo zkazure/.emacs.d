@@ -3311,6 +3311,44 @@ be able to edit in grep-mode buffer.
   ;; (add-hook 'minibuffer-setup-hook #'pulsar-pulse-line-blue)
   (pulsar-global-mode 1)
 #+end_src
+** ox-hugo
+#+begin_src elisp
+  (require 'ox-hugo)
+
+  (defun my/org-roam-export-hugo-if-blog ()
+    "如果当前 Org 文件包含 'blog' 标签且不包含 'draft' 标签，则在保存时自动导出为 Hugo Markdown。"
+    (interactive)
+    (when (derived-mode-p 'org-mode)
+      (let ((tags (org-get-tags (point-min) t)))
+        (if (and (member "blog" tags)
+                 (not (member "draft" tags)))
+            (progn
+              (let ((org-hugo-base-dir (expand-file-name "~/Public/blog/"))
+                    (org-hugo-section "post")
+                    (org-hugo-auto-set-last-modified t))
+                (message "正在将节点导出至 Hugo...")
+                (org-hugo-export-wim-to-md)))
+          (message "导出跳过：需要有 'blog' 标签，且不能有 'draft' 标签。")))))
+
+  (defun my/org-roam-export-hugo-if-blog ()
+    "如果当前 Org 文件包含 'blog' 标签且不包含 'draft' 标签，则在保存时自动导出为 Hugo Markdown。"
+    (interactive)
+    (when (derived-mode-p 'org-mode)
+      (let* ((filetags-str (cadr (assoc "FILETAGS" (org-collect-keywords '("FILETAGS")))))
+             (tags (if filetags-str (split-string filetags-str ":" t) nil)))
+
+        (if (and (member "blog" tags)
+                 (not (member "draft" tags)))
+            (progn
+              (let ((org-hugo-base-dir (expand-file-name "~/Public/blog/"))
+                    (org-hugo-section "post")
+                    (org-hugo-auto-set-last-modified t))
+                (message "正在将节点导出至 Hugo...")
+                (org-hugo-export-wim-to-md)))
+          (message "导出跳过：文件标签未包含 'blog'，或包含了 'draft'。")))))
+
+  (define-key org-mode-map (kbd "C-c e") #'my/org-roam-export-hugo-if-blog)
+#+end_src
 ** END
 
 #+begin_src emacs-lisp
