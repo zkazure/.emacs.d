@@ -590,11 +590,12 @@ Set up the *borg* configuration.
                             ":  " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))
   (customize-set-variable 'org-agenda-current-time-string "ᐊ┈┈┈┈┈┈┈┈ now")
 
-  (setq org-agenda-files '("~/Documents/org/"))
+  ;; (setq org-agenda-files '("~/Documents/org/"))
+  (setq org-agenda-files '((expand-file-name "~/Documents/roam/main/")))
 
-  (setq org-agenda-skip-scheduled-if-done nil)
-  (setq org-agenda-skip-deadline-if-done nil)
-  (setq org-agenda-skip-timestamp-if-done nil)
+  (setq org-agenda-skip-scheduled-if-done nil
+        org-agenda-skip-deadline-if-done nil
+        org-agenda-skip-timestamp-if-done nil)
 
   ;; ??? what is this
   (setq org-agenda-start-with-log-mode t)
