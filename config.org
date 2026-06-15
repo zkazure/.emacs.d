@@ -43,7 +43,30 @@
 
   (setenv "LSP_USE_PLISTS" "true")
   (setq lsp-use-plists t)
+
 #+end_src
+
+*** no-littering
+#+begin_src elisp
+  (require 'no-littering)
+
+  ;; early-init.el
+  (startup-redirect-eln-cache
+   (expand-file-name "var/eln-cache/"
+                     user-emacs-directory))
+
+  (setq backup-directory-alist
+        `(("." .
+           ,(no-littering-expand-var-file-name
+             "backup/"))))
+
+  (setq auto-save-file-name-transforms
+        `((".*"
+           ,(no-littering-expand-var-file-name "auto-save/")
+           t)))
+#+end_src
+
+
 ** END
 #+begin_src emacs-lisp
   (provide 'early-init)
