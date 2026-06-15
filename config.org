@@ -1301,18 +1301,6 @@ Emacs 的 snippet 设置。
                       "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n* Main\n")
            :immediate-finish t
            :unnarrowed t)
-          ("r" "Reference" plain "%?"
-           :if-new
-           (file+head "reference/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n* Main\n")
-           :immediate-finish t
-           :unnarrowed t)
-          ("a" "Article" plain "%?"
-           :if-new
-           (file+head "article/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: :article:\n* Main\n")
-           :immediate-finish t
-           :unnarrowed t)
           ("c" "Coding" plain "%?"
            :if-new
            (file+head "coding/${title}.org"
@@ -1343,16 +1331,10 @@ Emacs 的 snippet 设置。
                       "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n* Main\n")
            :immediate-finish t
            :unnarrowed t)
-          ("b" "Blog" plain "%?"
+          ("M" "Misc" plain "%?"
            :if-new
-           (file+head "blog/inbox/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n* Main\n")
-           :immediate-finish t
-           :unnarrowed t)
-          ("p" "Personality" plain "%?"
-           :if-new
-           (file+head "psychology/${title}.org"
-                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: :Psych: \n* Main\n")
+           (file+head "misc/${title}.org"
+                      "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n* Main\n")
            :immediate-finish t
            :unnarrowed t)
           ))
