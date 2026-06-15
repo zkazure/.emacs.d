@@ -908,13 +908,11 @@ Emacs 的 snippet 设置。
   (require 'dirvish-icons)
   (require 'dirvish-vc)
   (require 'dirvish-quick-access)
-  (require 'dirvish-side)
   (require 'dirvish-ls)
 
 
   (dirvish-override-dired-mode)
   (define-key global-map (kbd "C-x d") 'dirvish)
-  (define-key global-map (kbd "C-c o d") 'dirvish-side)
   (define-key dirvish-mode-map (kbd "b")   'dired-up-directory)
   ;; (define-key dirvish-mode-map (kbd "?")   'dirvish-dispatch) ; [?] a helpful cheatsheet
   (define-key dirvish-mode-map (kbd "a")   'dirvish-setup-menu)        ; [a]ttributes settings:`t' toggles mtime, `f' toggles fullframe, etc.
@@ -949,10 +947,6 @@ Emacs 的 snippet 设置。
         )
   ;; (setq dirvish-mode-line-format
   ;;       '(:left (sort symlink) :right (omit yank index)))
-
-  (dirvish-side-follow-mode)
-  (setq dirvish-side-width 25
-        dirvish-side-attributes '(vc-state subtree-state nerd-icons collapse))
 
   (setopt dirvish-quick-access-entries ; It's a custom option, `setq' won't work
           '(("h" "~/"                          "Home")
@@ -3331,6 +3325,18 @@ be able to edit in grep-mode buffer.
           (message "导出跳过：文件标签未包含 'blog'，或包含了 'draft'。")))))
 
   (define-key org-mode-map (kbd "C-c e") #'my/org-roam-export-hugo-if-blog)
+#+end_src
+** sr-speedbar
+#+begin_src elisp
+  (require 'sr-speedbar)
+
+  (setq sr-speedbar-width 30
+        sr-speedbar-max-width 50
+        sr-speedbar-right-side nil
+        sr-speedbar-skip-other-window-p t
+        speedbar-show-unknown-files t)
+
+  (global-set-key (kbd "C-c o d") #'sr-speedbar-toggle)
 #+end_src
 ** END
 

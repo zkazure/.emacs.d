@@ -2557,3 +2557,12 @@ must recompile when updated
   (when (or (daemonp) (memq window-system '(mac ns x)))
     (exec-path-from-shell-initialize))
 #+end_src
+** dirvish
+#+begin_src elisp
+  (require 'dirvish-side)
+  (define-key global-map (kbd "C-c o d") 'dirvish-side)
+
+  (dirvish-side-follow-mode)
+  (setq dirvish-side-width 25
+        dirvish-side-attributes '(vc-state subtree-state nerd-icons collapse))
+#+end_src
