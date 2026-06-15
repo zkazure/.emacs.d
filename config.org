@@ -626,15 +626,19 @@ Set up the *borg* configuration.
                ((org-agenda-overriding-header "ALL TODO ITEMS")
                 (org-super-agenda-groups
                  '(
+                   (:name "Agenda"
+                          :file-path "agenda.org")
                    (:name "Projects"
                           :file-path "projects.org")
                    (:name "Planning"
                           :file-path "planning.org")
+                   (:name "Inbox"
+                          :file-path "inbox.org")
                    (:auto-category t)
                    ))
                 (org-agenda-sorting-strategy
                  '(priority-down todo-state-up category-keep))
-                (org-agenda-prefix-format "%l%t %s")
+                (org-agenda-prefix-format '((todo . "%e %i %b %l %t %s")))
                 (org-agenda-show-inherited-tags nil)
                 ))
       )))
