@@ -2018,10 +2018,6 @@ Emacs 的 snippet 设置。
   (vertico-multiform-mode)
 
   (vertico-indexed-mode)
-  (dotimes (i 10)
-    (define-key vertico-map
-                (kbd (format "M-%s" i))
-                (kbd (format "C-%s RET" i))))
 #+end_src
 
 *** consult
