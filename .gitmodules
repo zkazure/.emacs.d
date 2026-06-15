@@ -184,6 +184,9 @@
 [submodule "hydra"]
 	path = lib/hydra
 	url = https://github.com/abo-abo/hydra
+[submodule "imenu-list"]
+	path = lib/imenu-list
+	url = https://github.com/bmag/imenu-list
 [submodule "inheritenv"]
 	path = lib/inheritenv
 	url = https://github.com/purcell/inheritenv

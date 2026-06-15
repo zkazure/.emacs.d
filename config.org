@@ -3331,12 +3331,23 @@ be able to edit in grep-mode buffer.
   (require 'sr-speedbar)
 
   (setq sr-speedbar-width 30
-        sr-speedbar-max-width 50
+        sr-speedbar-max-width 90
         sr-speedbar-right-side nil
         sr-speedbar-skip-other-window-p t
         speedbar-show-unknown-files t)
 
   (global-set-key (kbd "C-c o d") #'sr-speedbar-toggle)
+#+end_src
+** imenu-list
+#+begin_src elisp
+  (require 'imenu-list)
+
+  (setq imenu-list-focus-after-activation nil
+        imenu-list-auto-resize t
+        imenu-list-size 0.16
+        imenu-list-position 'left)
+
+  (global-set-key (kbd "C-c o i") #'imenu-list-smart-toggle)
 #+end_src
 ** END
 
