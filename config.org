@@ -3350,6 +3350,16 @@ be able to edit in grep-mode buffer.
         imenu-list-position 'left)
 
   (global-set-key (kbd "C-c o i") #'imenu-list-smart-toggle)
+
+  (add-hook 'imenu-list-update-hook
+            (lambda ()
+              (when-let ((win (get-buffer-window imenu-list-buffer-name)))
+                (set-window-parameter win 'window-size-fixed 'width)
+                (window-resize
+                 win
+                 (- (min (window-width win) 35)
+                    (window-width win))
+                 t))))
 #+end_src
 ** END
 
