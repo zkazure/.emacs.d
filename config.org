@@ -3386,6 +3386,13 @@ be able to edit in grep-mode buffer.
                     (window-width win))
                  t))))
 #+end_src
+** ediff
+#+begin_src elisp
+  (setq ediff-split-window-function #'split-window-horizontally
+        ediff-keep-variants nil
+        ediff-window-setup-function #'ediff-setup-windows-plain
+        )
+#+end_src
 ** END
 
 #+begin_src emacs-lisp
