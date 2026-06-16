@@ -46,27 +46,6 @@
 
 #+end_src
 
-*** no-littering
-#+begin_src elisp
-  (require 'no-littering)
-
-  ;; early-init.el
-  (startup-redirect-eln-cache
-   (expand-file-name "var/eln-cache/"
-                     user-emacs-directory))
-
-  (setq backup-directory-alist
-        `(("." .
-           ,(no-littering-expand-var-file-name
-             "backup/"))))
-
-  (setq auto-save-file-name-transforms
-        `((".*"
-           ,(no-littering-expand-var-file-name "auto-save/")
-           t)))
-#+end_src
-
-
 ** END
 #+begin_src emacs-lisp
   (provide 'early-init)
@@ -418,6 +397,28 @@ Set up the *borg* configuration.
   (set-keyboard-coding-system 'utf-8)
   (set-language-environment   'utf-8)
 #+end_src
+*** no-littering
+#+begin_src elisp
+  (require 'no-littering)
+
+  ;; early-init.el
+  (startup-redirect-eln-cache
+   (expand-file-name "var/eln-cache/"
+                     user-emacs-directory))
+
+  (setq backup-directory-alist
+        `(("." .
+           ,(no-littering-expand-var-file-name
+             "backup/"))))
+
+  (setq auto-save-file-name-transforms
+        `((".*"
+           ,(no-littering-expand-var-file-name "auto-save/")
+           t)))
+#+end_src
+
+
+
 *** envrc
 设置基于项目文件夹地址的环境变量。
 #+begin_src elisp
@@ -2607,6 +2608,7 @@ These commands I use most often except consult-line:
 ** no backup
 #+begin_src elisp
   (setq make-backup-files nil)
+  (setq create-lockfiles nil)
 #+end_src
 ** blog
 #+begin_src elisp
