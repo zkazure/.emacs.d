@@ -3497,7 +3497,7 @@ be able to edit in grep-mode buffer.
         (lambda () (cons (line-end-position)
                     (line-beginning-position 2))))
   (global-hl-line-mode 1)
-  (if (fboundp global-display-line-numbers-mode)
+  (if (fboundp 'global-display-line-numbers-mode)
       (progn
         (global-display-line-numbers-mode 1)
         (setq display-line-numbers-type 'relative)))
