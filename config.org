@@ -600,6 +600,10 @@ Set up the *borg* configuration.
 #+begin_src elisp
   (setq org-use-fast-todo-selection nil)
 #+end_src
+*** archive
+#+begin_src elisp
+  (setq org-archive-location "~/Documents/roam/archive/%s_archive::")
+#+end_src
 *** agenda
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-c o a") '(lambda () (interactive (org-agenda nil "d"))))
@@ -1311,13 +1315,13 @@ Emacs 的 snippet 设置。
   (setq org-roam-capture-templates
         '(
           ;; ("g" "Game" plain "%?"
-          ;;  :if-new (file+head "game/%<%Y%m%d%H%M%S>-${slug}.org"
+          ;;  :if-new (file+head "game/%<%Y%m%d%H%M%S>-${title}.org"
           ;;                     "#+title: ${title}\n#+filetags:\n")`
   	    ;;  :immediate-finish t
   	    ;;  :unnarrowed t)
           ("m" "Main" plain  "%?"
            :if-new
-           (file+head "main/${slug}.org"
+           (file+head "main/${title}.org"
                       "#+TITLE: ${title}\n#+DATE: %<%Y-%m-%d %a>\n#+FILETAGS: \n* Main\n")
            :immediate-finish t
            :unnarrowed t)
