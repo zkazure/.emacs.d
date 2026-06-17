@@ -1364,7 +1364,6 @@ Emacs 的 snippet 设置。
   ;;          :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n#+filetags: :diary:draft:\n\n* Main\n"))))
 #+end_src
 
-
 *** agenda
 
 #+begin_src emacs-lisp
@@ -2610,63 +2609,6 @@ These commands I use most often except consult-line:
   (setq make-backup-files nil)
   (setq create-lockfiles nil)
 #+end_src
-** blog
-#+begin_src elisp
-  (require 'ox-publish)
-
-  (setq org-html-validation-link nil
-        org-html-head-include-scripts nil
-        org-html-head-include-default-style nil
-        org-html-head "<link rel=\"stylesheet\" href=\"https://cdn.simplecss.org/simple.min.css\" />")
-
-  (setq org-publish-project-alist
-          `(("content"
-             :base-directory "~/Documents/roam/blog/"
-             :base-extension "org"
-             :exclude: "ltximg/"
-             :auto-preamble t
-             :html-postamble nil
-             :section-numbers nil
-             :time-stamp-file nil
-             ;; :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"/style.css\" />"
-             ;; :html-preamble
-             ;; "<nav id=\"main-nav\">
-             ;;   <ul>
-             ;;     <li><a href=\"/\">Main</a></li>
-             ;;     <li><a href=\"/about.html\">About</a></li>
-             ;;     <li><a href=\"archives.html\">Articles</a></li>
-             ;;   </ul>
-             ;; </nav>"
-             ;; :html-postamble
-             ;; "<div id=\"blog-footer\">
-             ;; <hr>
-             ;; <p>
-             ;;   Content licensed under
-             ;;   <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc-sa/4.0/\" target=\"_blank\">
-             ;;     Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
-             ;;   </a>
-             ;;   <br>
-             ;;   &copy; 2025 Kazure Zheng. All Rights Reserved.
-             ;; </p>
-             ;; </div>"
-             :recursive t
-             :publishing-directory "~/Developments/blog/"
-             :with-tags t
-             :auto-sitemap t
-             :sitemap-filename "sitemap.org"
-             :sitemap-title ""
-             :sitemap-sort-files anti-chronologically
-             :publishing-function org-html-publish-to-html)
-            ("static"
-             :base-directory "~/Documents/roam/blog/"
-             :base-extension "js\\|css\\|txt\\|jpg\\|gif\\|png"
-             :exclude: "ltximg/"
-             :recursive t
-             :publishing-directory  "~/Developments/blog/"
-             :publishing-function org-publish-attachment)
-
-            ("blog" :components ("content" "static"))))
-#+end_src
 ** rust-mode
 #+begin_src elisp
   (require 'rust-mode)
@@ -3351,7 +3293,19 @@ be able to edit in grep-mode buffer.
                 (org-hugo-export-wim-to-md)))
           (message "导出跳过：文件标签未包含 'blog'，或包含了 'draft'。")))))
 
+  (defun my/blog-publish ()
+    "更新指定目录下的 blog"
+    (interactive)
+    (let* ((blog-dir (expand-file-name "~/Public/blog/"))
+           (timestamp (format-time-string "%Y-%m-%d %H:%M:%S"))
+           (git-command (format "git add --all ':!themes' && if git diff --cached --quiet; then echo '无变更，跳过'; exit 0; fi && git commit -m 'Auto-update: %s' && git push" timestamp)))
+
+      (start-process-shell-command "blog_pushing" "*blog_pushing*"
+                                   (format "cd %s && %s" (shell-quote-argument blog-dir) git-command))
+      (message "后台发布进程已启动，请查看 *blog_pushing* buffer。")))
+
   (define-key org-mode-map (kbd "C-c e") #'my/org-roam-export-hugo-if-blog)
+  (define-key org-mode-map (kbd "C-c E") #'my/blog-publish)
 #+end_src
 ** sr-speedbar
 #+begin_src elisp
@@ -3407,40 +3361,6 @@ be able to edit in grep-mode buffer.
 所有用户的 Emacs 都会在执行完 =init.el= 之后执行这个文件。
 
 #+begin_src elisp
-  ;;; init-mini.el --- Centaur Emacs minimal configurations.	-*- lexical-binding: t no-byte-compile: t -*-
-
-  ;; Copyright (C) 2018-2026 Vincent Zhang
-
-  ;; Author: Vincent Zhang <seagle0128@gmail.com>
-  ;; URL: https://github.com/seagle0128/.emacs.d
-  ;; Version: 1.2.0
-  ;; Keywords: .emacs.d centaur
-
-  ;; This file is not part of GNU Emacs.
-  ;;
-  ;; This program is free software; you can redistribute it and/or
-  ;; modify it under the terms of the GNU General Public License as
-  ;; published by the Free Software Foundation; either version 3, or
-  ;; (at your option) any later version.
-  ;;
-  ;; This program is distributed in the hope that it will be useful,
-  ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  ;; General Public License for more details.
-  ;;
-  ;; You should have received a copy of the GNU General Public License
-  ;; along with this program; see the file COPYING.  If not, write to
-  ;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth
-  ;; Floor, Boston, MA 02110-1301, USA.
-  ;;
-
-  ;;; Commentary:
-  ;;
-  ;; Minimal configurations for debugging purpose.
-  ;;
-
-  ;;; Code:
-
   ;; Load path
   ;; (push (expand-file-name "site-lisp" user-emacs-directory) load-path)
   (push (expand-file-name "lisp" user-emacs-directory) load-path)
