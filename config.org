@@ -680,18 +680,18 @@ Set up the *borg* configuration.
   (setq org-capture-templates nil)
 
   (add-to-list 'org-capture-templates
-               '("i" "Inbox" entry (file "~/Documents/roam/main/inbox.org")
+               '("i" "Inbox" entry (file "~/Documents/roam/main/Inbox.org")
                  "* TODO %?"))
   (add-to-list 'org-capture-templates
-               '("p" "Project" entry (file "~/Documents/roam/main/projects.org")
+               '("p" "Project" entry (file "~/Documents/roam/main/Projects.org")
                  "* TODO %?"))
   (add-to-list 'org-capture-templates
-               '("a" "Agenda" entry (file "~/Documents/roam/main/agenda.org")
+               '("a" "Agenda" entry (file "~/Documents/roam/main/Agenda.org")
                  "* TODO %?"))
 
   (add-to-list 'org-capture-templates
                '("j" "Journal Entry" entry (file+olp+datetree
-                                            "~/Documents/roam/main/journal.org")
+                                            "~/Documents/roam/main/Journal.org")
                  "* [%<%Y-%m-%d %a %H:%M>] %?"
                  :tree-type week
                  :empty-lines 1
@@ -3308,8 +3308,8 @@ be able to edit in grep-mode buffer.
                                    (format "cd %s && %s" (shell-quote-argument blog-dir) git-command))
       (message "后台发布进程已启动，请查看 *blog_pushing* buffer。")))
 
-  (define-key org-mode-map (kbd "C-c e") #'my/org-roam-export-hugo-if-blog)
-  (define-key org-mode-map (kbd "C-c E") #'my/blog-publish)
+  (define-key org-mode-map (kbd "C-c b e") #'my/org-roam-export-hugo-if-blog)
+  (define-key org-mode-map (kbd "C-c b p") #'my/blog-publish)
 #+end_src
 ** sr-speedbar
 #+begin_src elisp
