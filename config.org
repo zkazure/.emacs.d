@@ -1806,6 +1806,7 @@ Emacs 的 snippet 设置。
   ;;   :stream t                             ;Stream responses
   ;;   :models '(mistral:latest))          ;List of models
 
+  (global-set-key (kbd "C-c o g") #'gptel)
   ;; ;; OPTIONAL configuration
   ;; (setq
   ;;  gptel-model 'mistral:latest
@@ -3388,7 +3389,18 @@ be able to edit in grep-mode buffer.
         gnus-check-new-newsgroups nil
         gnus-read-active-file 'some)
 
-  (global-set-key (kbd "C-c o g") #'gnus-unplugged)
+  (global-set-key (kbd "C-c o G") #'gnus-unplugged)
+#+end_src
+** telega
+#+begin_src elisp
+  (require 'telega)
+  (setq telega-use-images t
+        telea-emoji-use-images t
+        telega-server-libs-prefix "/usr"
+        telega-server-command
+        (expand-file-name "~/.emacs.d/lib/telega/server/telega-server"))
+
+  (global-set-key (kbd "C-c o A") #'telega)
 #+end_src
 ** END
 
