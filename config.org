@@ -651,19 +651,21 @@ Set up the *borg* configuration.
                (org-agenda-span 6)
                (org-agenda-start-day "+1d")
                (org-agenda-start-on-weekday nil)))
-
       (alltodo ""
                ((org-agenda-overriding-header "ALL TODO ITEMS")
                 (org-super-agenda-groups
                  '(
-                   (:name "Agenda"
-                          :file-path "agenda.org")
+                   (:name "Today"
+                          :file-path "Today.org")
                    (:name "Projects"
-                          :file-path "projects.org")
+                          :file-path "Projects.org")
+                   (:name "Agenda"
+                          :file-path "Agenda.org")
                    (:name "Planning"
-                          :file-path "planning.org")
+                          :file-path "Planning.org")
+
                    (:name "Inbox"
-                          :file-path "inbox.org")
+                          :file-path "Inbox.org")
                    (:auto-category t)
                    ))
                 (org-agenda-sorting-strategy
@@ -929,6 +931,8 @@ Emacs 的 snippet 设置。
 :END:
 改善 Emacs 原生的 dired 体验。
 #+begin_src emacs-lisp
+  (setq dired-dwim-target t)
+
   (require 'dirvish)
   (add-to-list 'load-path
                (expand-file-name "lib/dirvish/extensions/" user-emacs-directory))
@@ -3031,7 +3035,7 @@ These commands I use most often except consult-line:
   (setq rime-translate-keybindings
     '("C-n" "C-p" "C-g" "shift"))
   ;; (setq rime-user-data-dir "~/.emacs.d/rime/")
-  (setq rime-user-data-dir "~/Developments/moqi-flypy-cj")
+  (setq rime-user-data-dir (expand-file-name "~/Developments/rime-data/"))
 
   (setq default-input-method "rime"
         rime-show-candidate 'posframe
