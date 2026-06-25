@@ -2623,3 +2623,10 @@ must recompile when updated
 
             ("blog" :components ("content" "static"))))
 #+end_src
+** pulsar
+#+begin_src elisp
+  (require 'pulsar)
+  (add-hook 'next-error-hook #'pulsar-pulse-line)
+  ;; (add-hook 'minibuffer-setup-hook #'pulsar-pulse-line-blue)
+  (pulsar-global-mode 1)
+#+end_src

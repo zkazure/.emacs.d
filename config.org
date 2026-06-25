@@ -3254,13 +3254,6 @@ be able to edit in grep-mode buffer.
 
   ;; (setq-default search-invisible nil) ; 防止搜索到折叠的区域，从而自动展开
 #+end_src
-** pulsar
-#+begin_src elisp
-  (require 'pulsar)
-  (add-hook 'next-error-hook #'pulsar-pulse-line)
-  ;; (add-hook 'minibuffer-setup-hook #'pulsar-pulse-line-blue)
-  (pulsar-global-mode 1)
-#+end_src
 ** ox-hugo
 #+begin_src elisp
   (require 'ox-hugo)
