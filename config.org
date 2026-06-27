@@ -448,15 +448,18 @@ Set up the *borg* configuration.
   (modify-frame-parameters nil '((inhibit-double-buffering . nil)))
 
   (customize-set-variable 'fill-column 80)
-  (add-hook 'text-mode-hook 'visual-line-mode)
+  (add-hook 'text-mode-hook (lambda () (progn
+                                    (visual-line-mode 1)
+                                    (visual-wrap-prefix-mode 1))))
 
-  (setq global-display-fill-column-indicator-mode
-        '((not help-mode
-               eat-mode)
-          t))
-  (add-hook 'after-init-hook #'global-display-fill-column-indicator-mode)
+  ;; (setq global-display-fill-column-indicator-mode
+  ;;       '((not help-mode
+  ;;              eat-mode)
+  ;;         t))
+  ;; (add-hook 'after-init-hook #'global-display-fill-column-indicator-mode)
 
-  (add-hook 'prog-mode-hook #'(lambda () (display-line-numbers-mode 1)))
+  (add-hook 'prog-mode-hook #'(lambda () (progn (display-line-numbers-mode 1)
+                                           (display-fill-column-indicator-mode 1))))
   (setq display-line-numbers-type 'relative)
   (global-so-long-mode 1)
 
