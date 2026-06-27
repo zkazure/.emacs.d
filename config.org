@@ -690,11 +690,10 @@ Set up the *borg* configuration.
   (add-to-list 'org-capture-templates
                '("a" "Agenda" entry (file "~/Documents/roam/main/Agenda.org")
                  "* TODO %?"))
-
   (add-to-list 'org-capture-templates
-               '("j" "Journal Entry" entry (file+olp+datetree
-                                            "~/Documents/roam/main/Journal.org")
-                 "* [%<%Y-%m-%d %a %H:%M>] %?"
+               '("j" "Journal" entry (file+olp+datetree
+                                      "~/Documents/roam/main/Journal.org")
+                 "* %?"
                  :tree-type week
                  :empty-lines 1
                  :jump-to-captured t))
