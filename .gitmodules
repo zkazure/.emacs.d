@@ -409,9 +409,6 @@
 [submodule "visual-regexp"]
 	path = lib/visual-regexp
 	url = https://github.com/benma/visual-regexp.el
-[submodule "visual-regexp-steroids"]
-	path = lib/visual-regexp-steroids
-	url = https://github.com/benma/visual-regexp-steroids.el
 [submodule "vundo"]
 	path = lib/vundo
 	url = https://github.com/casouri/vundo
