@@ -2495,19 +2495,20 @@ These commands I use most often except consult-line:
 ** pixel scroll
 
 #+begin_src emacs-lisp
-  (pixel-scroll-precision-mode t)
-  (setq scroll-preserve-screen-position t)
-
   (setq scroll-preserve-screen-position t
-        ;; scroll-margin 3
-        ;; scroll-step 0
-        ;; scroll-conservatively 100
+        scroll-margin 3
+        scroll-conservatively 101
+        auto-window-vscroll nil
+        fast-but-imprecise-scrolling t
         )
 
-  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
-  (setq mouse-wheel-progressive-speed nil)
-  (setq mouse-wheel-follow-mouse 't)
-  (setq auto-window-vscroll nil)
+  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil))
+        mouse-wheel-progressive-speed nil
+        mouse-wheel-follow-mouse 't)
+
+  (when (fboundp 'pixel-scroll-precision-mode)
+    (pixel-scroll-precision-mode t)
+    )
 #+end_src
 
 ** IDE
