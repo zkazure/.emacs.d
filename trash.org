@@ -2630,3 +2630,24 @@ must recompile when updated
   ;; (add-hook 'minibuffer-setup-hook #'pulsar-pulse-line-blue)
   (pulsar-global-mode 1)
 #+end_src
+** clojure-mode
+#+begin_src elisp
+  (require 'clojure-mode)
+  (require 'clojure-ts-mode)
+  (setq clojure-indent-style 'always-indent
+        clojure-indent-keyword-style 'always-indent
+        clojure-enable-indent-specs nil)
+  (setq org-babel-clojure-backend 'cider)
+  (add-hook 'clojure-ts-mode-hook #'aggressive-indent-mode)
+#+end_src
+*** cider
+#+begin_src elisp
+  (require 'parseedn)
+  (require 'parseclj)
+  (require 'sesman)
+  (require 'cider)
+#+end_src
+** aggressive-indent
+#+begin_src elisp
+  (require 'aggressive-indent)
+#+end_src

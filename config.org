@@ -726,7 +726,6 @@ only the language set here can be babeled.
         (scheme . t)
         (sqlite . t)
         (mermaid . t)
-        (clojure . t)
         ))))
 
   (with-eval-after-load 'org
@@ -3198,27 +3197,6 @@ be able to edit in grep-mode buffer.
 #+begin_src elisp
   (require 'ghostel)
   (global-set-key (kbd "C-c o t") #'ghostel)
-#+end_src
-** clojure-mode
-#+begin_src elisp
-  (require 'clojure-mode)
-  (require 'clojure-ts-mode)
-  (setq clojure-indent-style 'always-indent
-        clojure-indent-keyword-style 'always-indent
-        clojure-enable-indent-specs nil)
-  (setq org-babel-clojure-backend 'cider)
-  (add-hook 'clojure-ts-mode-hook #'aggressive-indent-mode)
-#+end_src
-*** cider
-#+begin_src elisp
-  (require 'parseedn)
-  (require 'parseclj)
-  (require 'sesman)
-  (require 'cider)
-#+end_src
-** aggressive-indent
-#+begin_src elisp
-  (require 'aggressive-indent)
 #+end_src
 ** matlab-mode
 #+begin_src elisp
