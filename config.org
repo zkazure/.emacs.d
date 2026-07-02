@@ -3407,6 +3407,23 @@ be able to edit in grep-mode buffer.
 
   (global-set-key (kbd "C-c o A") #'telega)
 #+end_src
+** notmuch
+#+begin_src elisp
+  (require 'notmuch)
+
+  (setq notmuch-saved-searches
+        '((:name "inbox" :query "tag:inbox" :key "i" :search-type tree)
+          (:name "unread" :query "tag:unread" :key "u" :search-type tree)
+          (:name "flagged" :query "tag:flagged" :key "f" :search-type tree)
+          (:name "sent" :query "tag:sent" :key "t" :search-type tree)
+          (:name "drafts" :query "tag:draft" :key "d" :search-type tree)
+          (:name "emacs-orgmode" :query "tag:lists/emacs-orgmode" :key "o" :search-type tree)
+          (:name "list" :query "tag:lists" :key "l" :search-type tree)
+          (:name "all mail" :query "*" :key "a" :search-type tree)
+          ))
+
+  (global-set-key (kbd "C-c o m") #'notmuch)
+#+end_src
 ** END
 
 #+begin_src emacs-lisp
