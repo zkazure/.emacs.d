@@ -609,7 +609,8 @@ Set up the *borg* configuration.
 #+end_src
 *** agenda
 #+begin_src emacs-lisp
-  (global-set-key (kbd "C-c o a") '(lambda () (interactive (org-agenda nil "d"))))
+  (setq org-agenda-include-diary nil)
+
   (global-set-key (kbd "C-c a") 'org-agenda)
   (setq org-agenda-span 'week
         org-agenda-window-setup 'reorganize-frame
@@ -623,7 +624,6 @@ Set up the *borg* configuration.
                             ":  " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))
   (customize-set-variable 'org-agenda-current-time-string "ᐊ┈┈┈┈┈┈┈┈ now")
 
-  ;; (setq org-agenda-files '("~/Documents/org/"))
   (setq org-agenda-files '((expand-file-name "~/Documents/roam/main/")))
 
   (setq org-agenda-skip-scheduled-if-done nil
@@ -684,22 +684,27 @@ Set up the *borg* configuration.
 
   (setq org-capture-templates nil)
 
-  (add-to-list 'org-capture-templates
-               '("i" "Inbox" entry (file "~/Documents/roam/main/Inbox.org")
-                 "* TODO %?"))
-  (add-to-list 'org-capture-templates
-               '("p" "Project" entry (file "~/Documents/roam/main/Projects.org")
-                 "* TODO %?"))
-  (add-to-list 'org-capture-templates
-               '("a" "Agenda" entry (file "~/Documents/roam/main/Agenda.org")
-                 "* TODO %?"))
-  (add-to-list 'org-capture-templates
-               '("j" "Journal" entry (file+olp+datetree
-                                      "~/Documents/roam/main/Journal.org")
-                 "* %?"
-                 :tree-type week
-                 :empty-lines 1
-                 :jump-to-captured t))
+  (defvar roam-main-dir (expand-file-name "main" (file-truename "~/Documents/roam/"))
+    "Directory for roam files in main.")
+
+  (setq org-capture-templates
+        `(
+          ("i" "Inbox"
+           entry (file ,(expand-file-name "Inbox.org" roam-main-dir))
+           "* TODO %?")
+          ("p" "Project"
+           entry (file ,(expand-file-name "Projects.org" roam-main-dir))
+           "* TODO %?")
+          ("a" "Agenda"
+           entry (file ,(expand-file-name "Agenda.org" roam-main-dir))
+           "* TODO %?")
+          ("j" "Journal"
+           entry (file+olp+datetree ,(expand-file-name "Journal.org" roam-main-dir))
+           "* %?"
+           :tree-type week
+           :empty-lines 1
+           :jump-to-captured t)
+          ))
 #+end_src
 
 *** babel
@@ -2209,7 +2214,7 @@ These commands I use most often except consult-line:
   (setq text-mode-ispell-word-completion nil)
 
   (setq corfu-auto t
-        corfu-auto-prefix 3
+        corfu-auto-prefix 2
         corfu-count 10
         corfu-cycle t
         corfu-preview-current nil
@@ -2496,7 +2501,7 @@ These commands I use most often except consult-line:
 
 #+begin_src emacs-lisp
   (setq scroll-preserve-screen-position t
-        scroll-margin 3
+        scroll-margin 2
         scroll-conservatively 101
         auto-window-vscroll nil
         fast-but-imprecise-scrolling t
