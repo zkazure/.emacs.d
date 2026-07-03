@@ -3352,28 +3352,6 @@ be able to edit in grep-mode buffer.
 
   (global-set-key (kbd "C-c o h") #'halo-mode)
 #+end_src
-** gnus
-#+begin_src elisp
-  (setq gnus-select-method
-        '(nnimap "Gmail"
-                 (nnimap-address "imap.gmail.com")
-                 (nnimap-server-port 993)
-                 (nnimap-stream ssl)
-                 (nnimap-expunge t)))
-  (setq gnus-secondary-select-methods
-        '((nntp "gwene"
-                (nntp-address "news.gwene.org"))
-          ))
-
-  (setq gnus-asynchronous t
-        gnus-use-cache t
-        nntp-connection-timeout 60
-        nnimap-record-commands t
-        gnus-check-new-newsgroups nil
-        gnus-read-active-file 'some)
-
-  (global-set-key (kbd "C-c o G") #'gnus-unplugged)
-#+end_src
 ** telega
 #+begin_src elisp
   (require 'telega)
