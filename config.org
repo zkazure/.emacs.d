@@ -659,20 +659,19 @@ Set up the *borg* configuration.
                 (org-super-agenda-groups
                  '(
                    (:name "Today"
-                          :file-path "Today.org")
+                          :file-path "/Today.org")
                    (:name "Projects"
-                          :file-path "Projects.org")
+                          :file-path "/Projects.org")
                    (:name "Agenda"
-                          :file-path "Agenda.org")
+                          :file-path "/Agenda.org")
                    (:name "Planning"
-                          :file-path "Planning.org")
-
+                          :file-path "/Planning.org")
                    (:name "Inbox"
-                          :file-path "Inbox.org")
+                          :file-path "/Inbox.org")
                    (:auto-category t)
                    ))
                 (org-agenda-sorting-strategy
-                 '(priority-down todo-state-up category-keep))
+                 '(todo-state-up category-keep))
                 (org-agenda-prefix-format '((todo . "%e %i %b %l %t %s")))
                 (org-agenda-show-inherited-tags nil)
                 ))
@@ -1722,8 +1721,13 @@ Emacs 的 snippet 设置。
 #+begin_src emacs-lisp
   (require 'treesit-fold)
 
-  (global-treesit-fold-mode 1)
-  (global-treesit-fold-indicators-mode 1)
+  (add-hook 'prog-mode-hook (lambda ()
+                              (when (and (fboundp 'treesit-parser-list)
+                                         (treesit-parser-list))
+                                (treesit-fold-mode 1)
+                                (treesit-fold-indicators-mode 1)
+                                (treesit-fold-line-comment-mode 1))))
+
   (setq treesit-fold-line-count-show t)  ; Show line count in folded regions
   ;; (setq treesit-fold-line-count-format " <%d lines> ")
   ;; (add-hook 'org-mode-hook (lambda () (setq treesit-fold-indicators-fringe 'right-fringe)))
@@ -1732,8 +1736,6 @@ Emacs 的 snippet 设置。
   (setq treesit-fold-summary-max-length 60)
   (setq treesit-fold-summary-exceeded-string "...")
   (setq treesit-fold-summary-format " <S> %s ")
-
-  (setq treesit-fold-line-comment-mode t)
 
   (provide 'init-treesit-fold)
 #+end_src
@@ -3361,7 +3363,7 @@ be able to edit in grep-mode buffer.
         telega-server-command
         (expand-file-name "~/.emacs.d/lib/telega/server/telega-server"))
 
-  (global-set-key (kbd "C-c o A") #'telega)
+  (global-set-key (kbd "C-c o a") #'telega)
 #+end_src
 ** notmuch
 #+begin_src elisp
