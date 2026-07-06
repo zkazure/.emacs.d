@@ -271,6 +271,9 @@
 [submodule "org-super-agenda"]
 	path = lib/org-super-agenda
 	url = https://github.com/alphapapa/org-super-agenda
+[submodule "org-transclusion"]
+	path = lib/org-transclusion
+	url = https://github.com/nobiot/org-transclusion
 [submodule "ox-gfm"]
 	path = lib/ox-gfm
 	url = https://github.com/larstvei/ox-gfm
