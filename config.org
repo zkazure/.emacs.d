@@ -497,7 +497,7 @@ Set up the *borg* configuration.
 
   (set-face-attribute 'variable-pitch nil
                       :family "Noto Serif"
-                      :height 160
+                      :height 120
                       :weight 'regular)
 #+end_src
 
@@ -3394,12 +3394,12 @@ be able to edit in grep-mode buffer.
 
   (add-hook 'notmuch-show-mode-hook
             (lambda ()
-              (mixed-pitch-mode 1)
               (visual-line-mode 1)
+              (face-remap-add-relative 'default
+                                       :height 1.4)
               (setq-local visual-fill-column-center-text t
-                          visual-fill-column-width 120)
+                          visual-fill-column-width 100)
               (visual-fill-column-mode 1)))
-
 #+end_src
 ** org-transclusion
 
