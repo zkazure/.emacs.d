@@ -3416,7 +3416,14 @@ be able to edit in grep-mode buffer.
   (define-key global-map (kbd "C-c t m") #'org-transclusion-transient-menu)
   (define-key global-map (kbd "C-c t t") #'org-transclusion-mode)
 #+end_src
-
+** tramp
+#+begin_src elisp
+  (setq tramp-default-method "scp"
+        vc-ignore-dir-regexp (format "\\(%s\\)\\|\\(%s\\)"
+                                     vc-ignore-dir-regexp
+                                     tramp-file-name-regexp)
+        remote-file-name-inhibit-locks t)
+#+end_src
 ** END
 
 #+begin_src emacs-lisp
