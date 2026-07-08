@@ -3430,6 +3430,65 @@ be able to edit in grep-mode buffer.
                                      tramp-file-name-regexp)
         remote-file-name-inhibit-locks t)
 #+end_src
+** unfill
+#+begin_src elisp
+  (require 'cl-lib)
+  (require 'unfill)
+
+  (defun my/semantic-fill-paragraph ()
+    "调用 unfill-paragraph 清理排版，随后在句尾标点处进行语义换行。"
+    (interactive)
+    (save-excursion
+      ;; 确保先清空多余换行符
+      (unfill-paragraph)
+
+      (forward-paragraph)
+      (let ((end (set-marker (make-marker) (point)))
+            (beg (progn (backward-paragraph) (point)))
+            ;; 关闭英文双空格限制
+            (sentence-end-double-space nil))
+        (goto-char beg)
+        (while (< (point) end)
+          (let ((prev-point (point)))
+            (forward-sentence 1)
+            (skip-chars-backward " \t")
+            (if (<= (point) prev-point)
+                (goto-char end)
+              (when (< (point) end)
+                (delete-horizontal-space)
+                (insert "\n")))))
+        (set-marker end nil))))
+
+  (defvar my/fill-paragraph-state nil
+    "The way the paragraph was filled the last time.")
+
+  (defun my/fill-paragraph-rotate ()
+    "按顺序切换段落排版方式：语义换行 -> unfill -> 传统 fill。"
+    (interactive)
+    ;; 检查是否连续按键。如果不是（比如按了方向键再回来），则重置状态。
+    (unless (eq last-command this-command)
+      (setq my/fill-paragraph-state nil))
+
+    (let (deactivate-mark)
+      (cl-case my/fill-paragraph-state
+        ;; 状态 A：刚进行过语义换行 -> 切换到合并单行
+        (semantic
+         (call-interactively 'unfill-paragraph)
+         (setq my/fill-paragraph-state 'unfill))
+
+        ;; 状态 B：刚被合并为单行 -> 切换到传统的基于列宽排版
+        (unfill
+         (call-interactively 'fill-paragraph)
+         (setq my/fill-paragraph-state 'fill))
+
+        ;; 状态 C（默认状态）：其他情况 -> 优先执行语义换行
+        (t
+         (call-interactively 'my/semantic-fill-paragraph)
+         (setq my/fill-paragraph-state 'semantic)))))
+
+  (global-set-key (kbd "M-q") #'my/fill-paragraph-rotate)
+#+end_src
+
 ** END
 
 #+begin_src emacs-lisp

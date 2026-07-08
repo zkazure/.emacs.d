@@ -391,6 +391,9 @@
 [submodule "typescript-mode"]
 	path = lib/typescript-mode
 	url = https://github.com/emacs-typescript/typescript.el
+[submodule "unfill"]
+	path = lib/unfill
+	url = https://github.com/purcell/unfill
 [submodule "vertico"]
 	path = lib/vertico
 	url = https://github.com/minad/vertico
