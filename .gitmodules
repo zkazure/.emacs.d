@@ -259,9 +259,6 @@
 [submodule "org-count-words"]
 	path = lib/org-count-words
 	url = git@github.com:zkazure/org-count-words.git
-[submodule "org-download"]
-	path = lib/org-download
-	url = https://github.com/abo-abo/org-download
 [submodule "org-fragtog"]
 	path = lib/org-fragtog
 	url = https://github.com/io12/org-fragtog
