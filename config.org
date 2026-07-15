@@ -3227,6 +3227,7 @@ be able to edit in grep-mode buffer.
                  (reusable-frames . visible)))
 
   (popper-mode +1)
+  (popper-tab-line-mode -1)
   (popper-echo-mode +1)
 #+end_src
 ** kirigami
@@ -3315,15 +3316,15 @@ be able to edit in grep-mode buffer.
 
   (global-set-key (kbd "C-c o i") #'imenu-list-smart-toggle)
 
-  (add-hook 'imenu-list-update-hook
-            (lambda ()
-              (when-let ((win (get-buffer-window imenu-list-buffer-name)))
-                (set-window-parameter win 'window-size-fixed 'width)
-                (window-resize
-                 win
-                 (- (min (window-width win) 35)
-                    (window-width win))
-                 t))))
+  ;; (add-hook 'imenu-list-update-hook
+  ;;           (lambda ()
+  ;;             (when-let ((win (get-buffer-window imenu-list-buffer-name)))
+  ;;               (set-window-parameter win 'window-size-fixed 'width)
+  ;;               (window-resize
+  ;;                win
+  ;;                (- (min (window-width win) 35)
+  ;;                   (window-width win))
+  ;;                t))))
 #+end_src
 ** ediff
 #+begin_src elisp
@@ -3592,8 +3593,6 @@ be able to edit in grep-mode buffer.
     (add-hook 'god-mode-enabled-hook  #'my/god-enter-command-state)
     (add-hook 'god-mode-disabled-hook #'my/god-leave-command-state))
 #+end_src
-
-
 ** END
 
 #+begin_src emacs-lisp
