@@ -43,6 +43,9 @@
 [submodule "cdlatex"]
 	path = lib/cdlatex
 	url = https://github.com/cdominik/cdlatex
+[submodule "change-inner"]
+	path = lib/change-inner
+	url = https://github.com/magnars/change-inner.el
 [submodule "citeproc"]
 	path = lib/citeproc
 	url = https://github.com/andras-simonyi/citeproc-el

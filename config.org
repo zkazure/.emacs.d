@@ -3612,6 +3612,26 @@ be able to edit in grep-mode buffer.
   )
 
 #+end_src
+** change-inner
+#+begin_src elisp
+  (require 'change-inner)
+  (global-set-key (kbd "C-c c i") #'change-inner)
+  (global-set-key (kbd "C-c c o") #'change-outer)
+
+  (with-eval-after-load 'god-mode
+    (define-key god-local-mode-map (kbd "c") nil)
+    (define-key god-local-mode-map (kbd "c i")
+                (lambda () (interactive)
+                  (call-interactively #'change-inner)
+                  (god-local-mode -1)
+                  ))
+    (define-key god-local-mode-map (kbd "c o")
+                (lambda () (interactive)
+                  (call-interactively #'change-outer)
+                  (god-local-mode -1)
+                  )))
+#+end_src
+
 ** END
 
 #+begin_src emacs-lisp
