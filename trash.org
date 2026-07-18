@@ -2519,3 +2519,29 @@ must recompile when updated
 
   (provide 'init-org-download)
 #+end_src
+** ai
+*** agent-shell
+#+begin_src elisp
+  (require 'shell-maker)
+  (require 'acp)
+  (require 'agent-shell)
+
+  (setq agent-shell-google-authentication
+        (agent-shell-google-make-authentication :login t))
+  (setq agent-shell-preferred-agent-config
+        (agent-shell-opencode-make-agent-config))
+
+  (setq
+   agent-shell-thought-process-expand-by-default nil
+   agent-shell-tool-use-expand-by-default nil
+   agent-shell-user-message-expand-by-default t
+   )
+
+  (global-set-key (kbd "C-c o C") #'agent-shell-opencode-start-agent)
+  (global-set-key (kbd "C-c c a") #'agent-shell-send-region)
+
+  (define-key agent-shell-mode-map (kbd "C-c <return>") #'agent-shell-submit)
+  (define-key agent-shell-mode-map (kbd "C-c C-<return>") #'agent-shell-set-session-mode)
+  (define-key agent-shell-mode-map (kbd "C-c s") #'agent-shell-send-file)
+  (define-key agent-shell-mode-map (kbd "RET") #'newline)
+#+end_src
