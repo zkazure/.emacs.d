@@ -3362,6 +3362,18 @@ be able to edit in grep-mode buffer.
 
   (global-set-key (kbd "C-c o a") #'telega)
 #+end_src
+** visual-fill-column
+#+begin_src elisp
+  (require 'visual-fill-column)
+
+  (defun vfc/view-mode (width)
+    "use visual-fill-column to enable a view mode"
+    (interactive)
+    (progn
+      (setq-local visual-fill-column-width width
+                  visual-fill-column-center-text t)
+      (visual-fill-column-mode 1)))
+#+end_src
 ** notmuch
 #+begin_src elisp
   (require 'notmuch)
