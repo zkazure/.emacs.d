@@ -1635,25 +1635,6 @@ https://abode.karthinks.com/org-latex-preview/
 #+begin_src elisp
   (setq kill-whole-line t)
 #+end_src
-** elfeed
-#+begin_src elisp
-  (require 'elfeed)
-  (require 'elfeed-org)
-
-  (elfeed-org)
-  (setq rmh-elfeed-org-files (list "~/.emacs.d/elfeed.org"))
-
-  (global-set-key (kbd "C-c o e") 'elfeed)
-
-  (add-hook 'elfeed-show-mode-hook 'olivetti-mode)
-  (add-hook 'elfeed-search-mode-hook 'olivetti-mode)
-
-  (with-eval-after-load 'god-mode
-    (add-to-list 'god-exempt-major-modes 'elfeed-search-mode)
-    (add-to-list 'god-exempt-major-modes 'elfeed-show-mode)
-  )
-
-#+end_src
 ** kindle-mate
 #+begin_src elisp
   (require 'kindle-mate)
@@ -2538,4 +2519,3 @@ must recompile when updated
 
   (provide 'init-org-download)
 #+end_src
-

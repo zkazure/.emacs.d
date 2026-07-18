@@ -3593,6 +3593,25 @@ be able to edit in grep-mode buffer.
     (add-hook 'god-mode-enabled-hook  #'my/god-enter-command-state)
     (add-hook 'god-mode-disabled-hook #'my/god-leave-command-state))
 #+end_src
+** elfeed
+#+begin_src elisp
+  (require 'elfeed)
+  (require 'elfeed-org)
+
+  (elfeed-org)
+  (setq rmh-elfeed-org-files (list "~/.emacs.d/elfeed.org"))
+
+  (global-set-key (kbd "C-c o e") 'elfeed)
+
+  (add-hook 'elfeed-show-mode-hook 'olivetti-mode)
+  (add-hook 'elfeed-search-mode-hook 'olivetti-mode)
+
+  (with-eval-after-load 'god-mode
+    (add-to-list 'god-exempt-major-modes 'elfeed-search-mode)
+    (add-to-list 'god-exempt-major-modes 'elfeed-show-mode)
+  )
+
+#+end_src
 ** END
 
 #+begin_src emacs-lisp
