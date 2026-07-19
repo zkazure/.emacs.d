@@ -1286,6 +1286,7 @@ Emacs 的 snippet 设置。
   (define-key global-map (kbd "C-c n f") 'org-roam-node-find)
   (define-key global-map (kbd "C-c n g") 'org-roam-graph)
   (define-key global-map (kbd "C-c n i") 'org-roam-node-insert)
+  (define-key global-map (kbd "C-c n t") 'org-roam-tag-add)
   ;; (define-key global-map (kbd "C-c n c") 'org-roam-capture)
   ;; (define-key global-map (kbd "C-c n d") 'org-roam-dailies-map)
   ;; (define-key global-map (kbd "C-c n j") 'org-roam-dailies-capture-today)
@@ -1345,6 +1346,10 @@ Emacs 的 snippet 设置。
            (file+head "idea/${title}.org"
                       "#+TITLE: ${title}\n#+DATE: [%<%Y-%m-%d %a>]\n#+FILETAGS: \n* Main\n")
            :immediate-finish t
+           :unnarrowed t)
+          ("r" "reference" plain "%?"
+           :target (file+head "reference/${title}.org"
+                              "#+TITLE: ${title}\n#+DATE: [%<%Y-%m-%d %a>]\n#+FILETAGS: \n")
            :unnarrowed t)
           ("R" "Reading" plain "%?"
            :if-new
@@ -3509,6 +3514,53 @@ be able to edit in grep-mode buffer.
   (with-eval-after-load 'visual-regexp
     (define-key global-map (kbd "C-c M") 'vr/mc-mark))
 #+end_src
+** elfeed
+#+begin_src elisp
+  (require 'elfeed)
+  (require 'elfeed-org)
+
+  (elfeed-org)
+  (setq rmh-elfeed-org-files (list "~/.emacs.d/elfeed.org"))
+
+  (global-set-key (kbd "C-c o e") 'elfeed)
+
+  (add-hook 'elfeed-show-mode-hook 'olivetti-mode)
+  (add-hook 'elfeed-search-mode-hook 'olivetti-mode)
+
+  (with-eval-after-load 'god-mode
+    (add-to-list 'god-exempt-major-modes 'elfeed-search-mode)
+    (add-to-list 'god-exempt-major-modes 'elfeed-show-mode)
+  )
+
+#+end_src
+** change-inner
+#+begin_src elisp
+  (require 'change-inner)
+  (global-set-key (kbd "C-c c i") #'change-inner)
+  (global-set-key (kbd "C-c c o") #'change-outer)
+
+  (with-eval-after-load 'god-mode
+    (define-key god-local-mode-map (kbd "c") nil)
+    (define-key god-local-mode-map (kbd "c i")
+                (lambda () (interactive)
+                  (call-interactively #'change-inner)
+                  (god-local-mode -1)
+                  ))
+    (define-key god-local-mode-map (kbd "c o")
+                (lambda () (interactive)
+                  (call-interactively #'change-outer)
+                  (god-local-mode -1)
+                  )))
+#+end_src
+** ebib
+#+begin_src elisp
+  (require 'ebib)
+  (global-set-key (kbd "C-c e") 'ebib)
+  (setq ebib-bibtex-dialect 'biblatex
+        ebib-preload-bib-files '("~/Documents/zotero/references.bib")
+        ebib-notes-directory "~/Documents/roam/reference/"
+        ebib-file-search-dirs '("~/Documents/zotero/"))
+#+end_src
 ** god-mode
 #+begin_src elisp
   (setq god-mode-enable-function-key-translation nil)
@@ -3526,6 +3578,9 @@ be able to edit in grep-mode buffer.
                   notmuch-tree-mode
                   notmuch-message-mode
                   ghostel-mode
+                  ebib-log-mode
+                  ebib-index-mode
+                  ebib-entry-mode
                   ;; dired-mode
                   ;; magit-mode
                   ))
@@ -3580,45 +3635,6 @@ be able to edit in grep-mode buffer.
     (add-hook 'god-mode-enabled-hook  #'my/god-enter-command-state)
     (add-hook 'god-mode-disabled-hook #'my/god-leave-command-state))
 #+end_src
-** elfeed
-#+begin_src elisp
-  (require 'elfeed)
-  (require 'elfeed-org)
-
-  (elfeed-org)
-  (setq rmh-elfeed-org-files (list "~/.emacs.d/elfeed.org"))
-
-  (global-set-key (kbd "C-c o e") 'elfeed)
-
-  (add-hook 'elfeed-show-mode-hook 'olivetti-mode)
-  (add-hook 'elfeed-search-mode-hook 'olivetti-mode)
-
-  (with-eval-after-load 'god-mode
-    (add-to-list 'god-exempt-major-modes 'elfeed-search-mode)
-    (add-to-list 'god-exempt-major-modes 'elfeed-show-mode)
-  )
-
-#+end_src
-** change-inner
-#+begin_src elisp
-  (require 'change-inner)
-  (global-set-key (kbd "C-c c i") #'change-inner)
-  (global-set-key (kbd "C-c c o") #'change-outer)
-
-  (with-eval-after-load 'god-mode
-    (define-key god-local-mode-map (kbd "c") nil)
-    (define-key god-local-mode-map (kbd "c i")
-                (lambda () (interactive)
-                  (call-interactively #'change-inner)
-                  (god-local-mode -1)
-                  ))
-    (define-key god-local-mode-map (kbd "c o")
-                (lambda () (interactive)
-                  (call-interactively #'change-outer)
-                  (god-local-mode -1)
-                  )))
-#+end_src
-
 ** END
 
 #+begin_src emacs-lisp

@@ -91,6 +91,9 @@
 [submodule "dumb-jump"]
 	path = lib/dumb-jump
 	url = https://github.com/jacktasia/dumb-jump
+[submodule "ebib"]
+	path = lib/ebib
+	url = https://github.com/joostkremers/ebib
 [submodule "edit-indirect"]
 	path = lib/edit-indirect
 	url = https://github.com/Fanael/edit-indirect
