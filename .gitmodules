@@ -43,6 +43,9 @@
 [submodule "citar"]
 	path = lib/citar
 	url = https://github.com/emacs-citar/citar
+[submodule "citar-org-roam"]
+	path = lib/citar-org-roam
+	url = https://github.com/emacs-citar/citar-org-roam
 [submodule "citeproc"]
 	path = lib/citeproc
 	url = https://github.com/andras-simonyi/citeproc-el

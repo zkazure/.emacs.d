@@ -1321,7 +1321,6 @@ Emacs 的 snippet 设置。
     (org-roam-tag-add '("draft")))
   (add-hook 'org-roam-capture-new-node-hook #'jethro/tag-new-node-as-draft)
 
-
   (setq org-roam-capture-templates
         '(
           ;; ("g" "Game" plain "%?"
@@ -1346,10 +1345,6 @@ Emacs 的 snippet 设置。
            (file+head "idea/${title}.org"
                       "#+TITLE: ${title}\n#+DATE: [%<%Y-%m-%d %a>]\n#+FILETAGS: \n* Main\n")
            :immediate-finish t
-           :unnarrowed t)
-          ("r" "reference" plain "%?"
-           :target (file+head "reference/${title}.org"
-                              "#+TITLE: ${title}\n#+DATE: [%<%Y-%m-%d %a>]\n#+FILETAGS: \n")
            :unnarrowed t)
           ("R" "Reading" plain "%?"
            :if-new
@@ -3700,6 +3695,25 @@ be able to edit in grep-mode buffer.
           citar-indicator-notes-icons
           citar-indicator-links-icons))
 #+end_src
+*** citar-org-roam
+#+begin_src elisp
+  (require 'citar-org-roam)
+
+  (citar-org-roam-mode 1)
+
+  (setq citar-org-roam-note-title-template "${author}_${year}_${title}")
+
+  (add-to-list 'org-roam-capture-templates
+               '("r" "references" plain
+                 "%?"
+                 :target
+                 (file+head "reference/${citar-citekey}.org"
+                            "#+TITLE: ${note-title}\n#+created: %U\n#+last_modified: %U\n\n")
+                 :unnarrowed t))
+
+  (setq citar-org-roam-capture-template-key "r")
+#+end_src
+
 ** END
 
 #+begin_src emacs-lisp
