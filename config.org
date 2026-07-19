@@ -3587,8 +3587,9 @@ be able to edit in grep-mode buffer.
 #+begin_src elisp
   (require 'ebib)
   (global-set-key (kbd "C-c e") 'ebib)
+  ;; citekey formula: auth.lower + year + shorttitle(2,2).lower
   (setq ebib-bibtex-dialect 'biblatex
-        ebib-preload-bib-files '("~/Documents/zotero/references.bib")
+        ebib-preload-bib-files '("~/Documents/roam/references.bib")
         ebib-notes-directory "~/Documents/roam/reference/"
         ebib-file-search-dirs '("~/Documents/zotero/"))
 #+end_src
@@ -3671,7 +3672,7 @@ be able to edit in grep-mode buffer.
   (require 'citar)
 
   ;; basic
-  (setq citar-bibliography '("~/Documents/zotero/references.bib"))
+  (setq citar-bibliography '("~/Documents/roam/references.bib"))
   (global-set-key (kbd "C-c n o") #'citar-open)
 
   ;; citar-capf
@@ -3682,7 +3683,7 @@ be able to edit in grep-mode buffer.
   (citar-embark-mode 1)
 
   ;; org-cite
-  (setq org-cite-global-bibliography '("~/Documents/zotero/references.bib")
+  (setq org-cite-global-bibliography '("~/Documents/roam/references.bib")
         org-cite-insert-processor 'citar
         org-cite-follow-processor 'citar
         org-cite-activate-processor 'citar
@@ -3737,17 +3738,46 @@ be able to edit in grep-mode buffer.
 
   (citar-org-roam-mode 1)
 
-  (setq citar-org-roam-note-title-template "${author}_${year}_${title}")
+  (setq citar-org-roam-note-title-template "${file}")
 
   (add-to-list 'org-roam-capture-templates
-               '("r" "references" plain
-                 "%?"
+               '("r" "reference" plain "%?"
                  :target
-                 (file+head "reference/${citar-citekey}.org"
-                            "#+TITLE: ${note-title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n\n")
+                 (file+head
+                  ;; 物理文件依然使用纯净的 citekey 保证安全
+                  "reference/${citar-citekey}.org"
+
+                  ;; 这里的 TITLE 我们不再用 ${note-title}，而是直接调用上面的自定义函数
+                  "#+TITLE: ${note-title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+FILETAGS:\n\n* Tasks\n* Problems\n* Methods\n\n"
+                  )
                  :unnarrowed t))
 
   (setq citar-org-roam-capture-template-key "r")
+
+  (defun kazure/org-roam-clean-citar-title ()
+    "Clean citar generated titles only."
+    (when (and (derived-mode-p 'org-mode)
+               (org-roam-file-p)
+               (org-entry-get nil "ROAM_REFS"))
+
+      (save-excursion
+        (goto-char (point-min))
+
+        (when (re-search-forward "^#\\+TITLE: \\(.+\\)$" nil t)
+
+          (let ((title (match-string 1)))
+
+            (when (string-match "\\.pdf$" title)
+
+              (replace-match
+               (concat "#+TITLE: "
+                       (file-name-base
+                        (file-name-nondirectory title))))
+
+              (org-element-cache-reset))))))
+
+  (add-hook 'org-roam-capture-new-node-hook
+            #'kazure/org-roam-clean-citar-title)
 #+end_src
 
 ** END
