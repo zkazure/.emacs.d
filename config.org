@@ -3780,6 +3780,10 @@ be able to edit in grep-mode buffer.
             #'kazure/org-roam-clean-citar-title)
 #+end_src
 
+** vundo
+#+begin_src elisp
+  (require 'vundo)
+#+end_src
 ** END
 
 #+begin_src emacs-lisp
