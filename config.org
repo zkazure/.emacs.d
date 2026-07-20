@@ -3778,7 +3778,7 @@ be able to edit in grep-mode buffer.
                        (file-name-base
                         (file-name-nondirectory title))))
 
-              (org-element-cache-reset))))))
+              (org-element-cache-reset)))))))
 
   (add-hook 'org-roam-capture-new-node-hook
             #'kazure/org-roam-clean-citar-title)
