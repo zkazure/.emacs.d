@@ -576,6 +576,7 @@ Set up the *borg* configuration.
         ;; org-ellipsis " ┑"
         org-startup-folded 'show2levels
         org-startup-indented nil
+        ;; org-indent-mode-turns-on-hiding-stars nil
         org-hide-leading-stars nil
         org-log-into-drawer t
         ;; org-indent-mode-turns-on-hiding-stars nil
@@ -3622,6 +3623,8 @@ be able to edit in grep-mode buffer.
   (global-set-key (kbd "C-'") #'god-local-mode)
   (define-key god-local-mode-map (kbd "g") #'keyboard-quit)
 
+
+  ;; surround
   (with-eval-after-load 'god-mode
     (defun my/god-mode-wrap-or-translate ()
       "当存在活跃选区时，调用原生 self-insert-command 触发包围；否则走 god-mode 默认转换。"
@@ -3639,6 +3642,7 @@ be able to edit in grep-mode buffer.
       (define-key god-local-mode-map (kbd key) #'my/god-mode-wrap-or-translate)))
 
 
+  ;; indicator
   (custom-set-faces
    '(god-mode-lighter ((t (:inherit error)))))
   (defun my-god-mode-update-cursor-type ()
@@ -3784,6 +3788,7 @@ be able to edit in grep-mode buffer.
 #+begin_src elisp
   (require 'vundo)
 #+end_src
+
 ** END
 
 #+begin_src emacs-lisp
